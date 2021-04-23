@@ -11,7 +11,7 @@
                                                 /
                                         </li>
                                         <li>
-                                                <nuxt-link to="/rubashki"
+                                                <nuxt-link to="#"
                                                         >Новости
                                                         подробно</nuxt-link
                                                 >
@@ -32,7 +32,7 @@
 
                                 <div class="news__about--first--img">
                                         <img
-                                                src="../assets/img/news about/4.png"
+                                                src="../assets/img/news about/1.png"
                                                 alt="News image"
                                         />
                                         <span>
@@ -107,74 +107,94 @@
                                 <h2>
                                         Последние новости
                                 </h2>
+                                <div class="news__box__container">
+                                        <div class="news__box">
+                                                <div class="img">
+                                                        <img
+                                                                src="../assets/img/news about/5.png"
+                                                                alt="News image"
+                                                        />
+                                                </div>
+                                                <div class="news__box--heading">
+                                                        <h4>
+                                                                Бренды
+                                                                отказываются от
+                                                                "черной пятницы"
+                                                                из-за изменения
+                                                                климата
+                                                        </h4>
+                                                </div>
+                                                <div class="news__box--p">
+                                                        <p>
+                                                                По мнению
+                                                                активистов, день
+                                                                всемирных
+                                                                распродаж
+                                                                заставляет людей
+                                                                покупать
+                                                                ненужные вещи и
+                                                                тем самым
+                                                                вредить
+                                                                природе.....
+                                                        </p>
+                                                </div>
+                                                <div class="news__box--data">
+                                                        <button
+                                                                class="news__box--btn"
+                                                        >
+                                                                Подробно
+                                                        </button>
+                                                        <span
+                                                                class="news__box--date"
+                                                        >
+                                                                09.04.2021</span
+                                                        >
+                                                </div>
+                                        </div>
 
-                                <div class="news__box">
-                                        <div class="img">
-                                                <img
-                                                        src="../assets/img/news about/1.png"
-                                                        alt="News image"
-                                                />
-                                        </div>
-                                        <div class="news__box--heading">
-                                                <h4>
-                                                        AliExpress запустил в
-                                                        России интернет-магазин
-                                                        "Лоукостер"
-                                                </h4>
-                                        </div>
-                                        <div class="news__box--p">
-                                                <p>
-                                                        Новый интернет-магазин
-                                                        будет рассчитан на
-                                                        аудиторию до 25 лет, а
-                                                        также на тех, кто хочет
-                                                        купить известные бренды
-                                                        с доставкой из
-                                                        России....
-                                                </p>
-                                        </div>
-                                        <div class="news__box--data">
-                                                <button class="news__box--btn">
-                                                        Подробно
-                                                </button>
-                                                <span class="news__box--date">
-                                                        09.04.2021</span
-                                                >
-                                        </div>
-                                </div>
-
-                                <div class="news__box">
-                                        <div class="img">
-                                                <img
-                                                        src="../assets/img/news about/4.png"
-                                                        alt="News image"
-                                                />
-                                        </div>
-                                        <div class="news__box--heading">
-                                                <h4>
-                                                        AliExpress запустил в
-                                                        России интернет-магазин
-                                                        "Лоукостер"
-                                                </h4>
-                                        </div>
-                                        <div class="news__box--p">
-                                                <p>
-                                                        Новый интернет-магазин
-                                                        будет рассчитан на
-                                                        аудиторию до 25 лет, а
-                                                        также на тех, кто хочет
-                                                        купить известные бренды
-                                                        с доставкой из
-                                                        России....
-                                                </p>
-                                        </div>
-                                        <div class="news__box--data">
-                                                <button class="news__box--btn">
-                                                        Подробно
-                                                </button>
-                                                <span class="news__box--date">
-                                                        09.04.2021</span
-                                                >
+                                        <div class="news__box">
+                                                <div class="img">
+                                                        <img
+                                                                src="../assets/img/news about/4.png"
+                                                                alt="News image"
+                                                        />
+                                                </div>
+                                                <div class="news__box--heading">
+                                                        <h4>
+                                                                AliExpress
+                                                                запустил в
+                                                                России
+                                                                интернет-магазин
+                                                                "Лоукостер"
+                                                        </h4>
+                                                </div>
+                                                <div class="news__box--p">
+                                                        <p>
+                                                                Новый
+                                                                интернет-магазин
+                                                                будет рассчитан
+                                                                на аудиторию до
+                                                                25 лет, а также
+                                                                на тех, кто
+                                                                хочет купить
+                                                                известные бренды
+                                                                с доставкой из
+                                                                России....
+                                                        </p>
+                                                </div>
+                                                <div class="news__box--data">
+                                                        <a
+                                                                href="#"
+                                                                class="news__box--btn"
+                                                        >
+                                                                Подробно
+                                                        </a>
+                                                        <span
+                                                                class="news__box--date"
+                                                        >
+                                                                09.04.2021</span
+                                                        >
+                                                </div>
                                         </div>
                                 </div>
                         </div>
@@ -214,7 +234,7 @@ export default {};
                         position: relative;
                         img {
                                 height: auto;
-                                width: 100%;
+                                max-width: 100%;
                         }
 
                         span {
@@ -251,7 +271,7 @@ export default {};
 
                         .news__about--second--first {
                                 flex: 1;
-                                align-self: stretch;
+                                // align-self: stretch;
                                 margin-right: 20px;
 
                                 img {
@@ -268,7 +288,6 @@ export default {};
                                 justify-content: space-between;
 
                                 .img--first {
-                                        margin-bottom: 20px;
                                         img {
                                                 max-width: 100%;
                                                 object-fit: cover;
@@ -287,33 +306,277 @@ export default {};
 
         .news__up__to__date {
                 flex: 1;
+                margin-top: 100px;
 
                 h2 {
+                        margin-bottom: 20px;
+
+                        font-family: Poppins, Roboto, sans-serif;
+                        font-weight: 700;
+                        font-size: 32px;
+                        line-height: 130%;
+                        /* identical to box height, or 42px */
+
+                        color: #f7931e;
                 }
 
                 .news__box {
+                        margin-bottom: 20px;
                         .img {
                                 img {
                                         width: 100%;
-                                        height: auto;
+                                        height: 300px;
+                                        object-fit: cover;
                                 }
+
+                                margin-bottom: 10px;
                         }
 
                         .news__box--heading {
                                 h4 {
+                                        font-family: Roboto, sans-serif;
+                                        font-weight: 700;
+                                        font-size: 18px;
+                                        line-height: 130%;
+                                        /* or 23px */
+
+                                        color: #000000;
                                 }
                         }
 
                         .news__box--p {
                                 p {
+                                        font-family: Roboto;
+                                        font-size: 14px;
+                                        line-height: 130%;
+                                        /* or 18px */
+
+                                        color: #666666;
                                 }
                         }
 
                         .news__box--data {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: baseline;
+
                                 .news__box--btn {
+                                        transition: all 0.2s;
+                                        @include hover__active--animation;
+
+                                        font-family: Roboto;
+                                        font-size: 14px;
+                                        line-height: 24px;
+                                        padding: 10px 20px;
+                                        /* identical to box height, or 171% */
+
+                                        color: #fcf6f6;
+
+                                        background: #f7931e;
+                                        border-radius: 5px;
+                                        box-shadow: 0px 2px 10px
+                                                rgba(0, 0, 0, 0.25);
+                                        border: none;
                                 }
 
                                 .news__box--date {
+                                        font-family: Poppins;
+                                        font-size: 14px;
+                                        line-height: 24px;
+                                        /* identical to box height, or 171% */
+
+                                        /* moviy */
+
+                                        color: #219ebc;
+                                }
+                        }
+                }
+        }
+}
+
+@media only screen and (max-width: 1200px) {
+        .news__section {
+                flex-direction: column;
+
+                .news__about__box {
+                        margin-right: 0;
+                        .news__about--first--img {
+                                img {
+                                        width: 100%;
+                                }
+                        }
+
+                        .news__about--second {
+                                .news__about--second--second {
+                                        .img--first {
+                                                margin-bottom: 20px;
+
+                                                img {
+                                                        width: 100%;
+                                                }
+                                        }
+
+                                        .img--second {
+                                                img {
+                                                        width: 100%;
+                                                }
+                                        }
+                                }
+                        }
+                }
+
+                .news__up__to__date {
+                        margin-top: 60px;
+
+                        .news__box__container {
+                                display: flex;
+                                justify-content: space-between;
+                                .news__box {
+                                        flex-basis: 49%;
+                                }
+                        }
+                }
+        }
+}
+
+@media only screen and (max-width: 770px) {
+        .news__section {
+                .news__about__box {
+                        .news__about--heading {
+                                h2 {
+                                        height: auto;
+                                        margin-bottom: 15px;
+                                }
+                        }
+
+                        .news__about--first--img {
+                                span {
+                                        top: 30px;
+                                        left: 30px;
+                                }
+                        }
+
+                        .news__about--txt {
+                                p {
+                                        font-size: 13px;
+                                }
+                        }
+
+                        .news__about--second {
+                                .news__about--second--first {
+                                        img {
+                                                height: 400px;
+                                        }
+                                }
+                        }
+                }
+
+                .news__up__to__date {
+                        h2 {
+                                font-size: 30px;
+                                margin-bottom: 15px;
+                        }
+
+                        .news__box {
+                                margin-bottom: 30px;
+                        }
+                }
+        }
+}
+
+@media only screen and (max-width: 660px) {
+        .news__section {
+                .news__about__box {
+                        .news__about--second {
+                                .news__about--second--first {
+                                        img {
+                                                height: 300px;
+                                        }
+                                }
+                        }
+                }
+
+                .news__up__to__date {
+                        h2 {
+                                font-size: 30px;
+                                margin-bottom: 15px;
+                        }
+                        .news__box__container {
+                                display: inline-block;
+                                .news__box {
+                                        margin-bottom: 30px;
+                                }
+                        }
+                }
+        }
+}
+
+@media only screen and (max-width: 550px) {
+        .news__section {
+                .news__about__box {
+                        .news__about--heading {
+                                h2 {
+                                        font-size: 20px;
+                                        margin-bottom: 20px;
+                                }
+                        }
+
+                        .news__about--first--img {
+                                span {
+                                        top: 16px;
+                                        left: 16px;
+
+                                        padding: 3px;
+                                        border-radius: 1px;
+
+                                        font-size: 6px;
+                                        line-height: 1;
+                                }
+                        }
+
+                        .news__about--second {
+                                flex-direction: column;
+
+                                .news__about--second--first {
+                                        margin-right: 0;
+                                        margin-bottom: 20px;
+
+                                        img {
+                                                height: 400px;
+                                        }
+                                }
+                        }
+                }
+
+                .news__up__to__date {
+                        h2 {
+                                font-size: 28px;
+                        }
+
+                        .news__box {
+                                .img {
+                                        img {
+                                                height: 262px;
+                                        }
+                                }
+
+                                .news__box--heading {
+                                        h4 {
+                                                font-size: 16px;
+                                        }
+                                }
+
+                                .news__box--p {
+                                        p {
+                                                font-size: 12px;
+                                        }
+                                }
+
+                                .news__box--data {
+                                        .news__box--btn {
+                                                font-size: 12px;
+                                                padding: 7px 16px;
+                                        }
                                 }
                         }
                 }
