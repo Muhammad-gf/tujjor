@@ -281,7 +281,6 @@ export default {};
                                                 .video__about--data__box {
                                                         display: inline-block;
                                                         height: 50px;
-                                                        overflow: hidden;
 
                                                         display: flex;
                                                         align-items: baseline;
@@ -355,7 +354,7 @@ export default {};
                                 align-items: flex-start;
 
                                 &:not(:last-child) {
-                                        margin-bottom: 5px;
+                                        margin-bottom: 20px;
                                 }
 
                                 img {
@@ -368,7 +367,6 @@ export default {};
 
                                 .video__about--description {
                                         height: 245px;
-                                        overflow: hidden;
 
                                         display: flex;
                                         flex-direction: column;
@@ -400,7 +398,6 @@ export default {};
                                         .video__about--data__box {
                                                 display: inline-block;
                                                 height: 50px;
-                                                overflow: hidden;
 
                                                 display: flex;
                                                 align-items: baseline;

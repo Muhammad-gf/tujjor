@@ -59,7 +59,10 @@
 
                 <section class="catalog__container container">
                         <div class="catalog__filtraiton__box">
-                                <form action="#" class="filtraiton__form__box">
+                                <form
+                                        v-on:submit.prevent
+                                        class="filtraiton__form__box"
+                                >
                                         <h5 class="filtraiton__header">
                                                 Диапазон цена
                                         </h5>
@@ -602,7 +605,7 @@ export default {
                 .catalog__page__filtr__box {
                         justify-content: flex-start;
                         position: absolute;
-                        top: 525px;
+                        top: 540px;
                 }
         }
 }
