@@ -3,7 +3,7 @@
                 <div class="container">
                         <div class=" title-index">
                                 <ul>
-                                        <li>
+                                        <li class="done">
                                                 <nuxt-link to="/about_us"
                                                         >About us
                                                 </nuxt-link>
@@ -55,7 +55,7 @@
                                                 </nuxt-link>
                                         </li>
 
-                                        <li>
+                                        <li class="done">
                                                 <nuxt-link
                                                         to="/news_description"
                                                 >

@@ -321,6 +321,10 @@ export default {};
                 }
 
                 .news__box {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        align-items: baseline;
                         margin-bottom: 20px;
                         .img {
                                 img {
@@ -356,11 +360,13 @@ export default {};
                         }
 
                         .news__box--data {
+                                width: 100%;
                                 display: flex;
                                 justify-content: space-between;
                                 align-items: baseline;
 
                                 .news__box--btn {
+                                        display: inline-block;
                                         transition: all 0.2s;
                                         @include hover__active--animation;
 
@@ -380,6 +386,7 @@ export default {};
                                 }
 
                                 .news__box--date {
+                                        display: inline-block;
                                         font-family: Poppins;
                                         font-size: 14px;
                                         line-height: 24px;
@@ -433,6 +440,9 @@ export default {};
                                 justify-content: space-between;
                                 .news__box {
                                         flex-basis: 49%;
+                                        .img {
+                                                width: 100%;
+                                        }
                                 }
                         }
                 }
