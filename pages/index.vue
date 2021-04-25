@@ -15,23 +15,9 @@
                                                 </nuxt-link>
                                         </li>
 
-                                        <li class="done">
-                                                <nuxt-link to="/basket">
-                                                        Basket
-                                                </nuxt-link>
-                                        </li>
-
                                         <li>
                                                 <nuxt-link to="/catalog_page">
                                                         Catalog page
-                                                </nuxt-link>
-                                        </li>
-
-                                        <li class="done">
-                                                <nuxt-link
-                                                        to="/checkout__order"
-                                                >
-                                                        Checkout order
                                                 </nuxt-link>
                                         </li>
 
@@ -40,6 +26,26 @@
                                                         to="/magazine__description"
                                                 >
                                                         Magazine description
+                                                </nuxt-link>
+                                        </li>
+
+                                        <li>
+                                                <nuxt-link to="/Product_show">
+                                                        Product show
+                                                </nuxt-link>
+                                        </li>
+
+                                        <li class="done">
+                                                <nuxt-link to="/basket">
+                                                        Basket
+                                                </nuxt-link>
+                                        </li>
+
+                                        <li class="done">
+                                                <nuxt-link
+                                                        to="/checkout__order"
+                                                >
+                                                        Checkout order
                                                 </nuxt-link>
                                         </li>
 
@@ -57,15 +63,9 @@
                                                 </nuxt-link>
                                         </li>
 
-                                        <li>
-                                                <nuxt-link to="/news"
+                                        <li class="done">
+                                                <nuxt-link to="/news__page"
                                                         >News
-                                                </nuxt-link>
-                                        </li>
-
-                                        <li>
-                                                <nuxt-link to="/Product_show">
-                                                        Product show
                                                 </nuxt-link>
                                         </li>
                                 </ul>
@@ -94,6 +94,17 @@ export default {
 div.title-index {
         padding: 40px 0 0;
         ul {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: space-between;
+                align-content: center;
+
+                &::after {
+                        content: "";
+                        padding: 10px;
+                        flex: 30%;
+                }
+
                 .done {
                         background-color: #ddd;
                 }
@@ -102,7 +113,7 @@ div.title-index {
                         display: inline-block;
                         font-weight: normal;
                         font-size: 15px;
-                        line-height: 18px;
+                        line-height: 1.3;
 
                         color: #000000;
 
@@ -120,6 +131,30 @@ div.title-index {
                                 &:hover {
                                         color: $gc;
                                 }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 680px) {
+        div.title-index {
+                ul {
+                        li {
+                                font-size: 10px;
+                                padding: 8px 12px;
+                                margin: 5px;
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 380px) {
+        div.title-index {
+                ul {
+                        li {
+                                font-size: 8px;
+                                padding: 5px 10px;
+                                margin: 4px;
                         }
                 }
         }

@@ -11,38 +11,26 @@
                                 <div class=" news__box--item">
                                         <img
                                                 class="news__box--item--img"
-                                                src="../assets/img/news/new-1.png"
+                                                src="../assets/img/news/news--1.png"
                                                 alt="News"
                                         />
                                         <div class="news__box--description">
                                                 <span
                                                         class="news__box--description--header"
-                                                        >O'zbekiston Yoshlari
-                                                        Forumi 2020O'zbekiston
-                                                        Yoshlari Forumi 2020
-                                                        O'zbekiston Yoshlari
-                                                        Forumi 2020 O'zbekiston
-                                                        Yoshlari Forumi 2020
-                                                        Forumi 2020 O'zbekiston
-                                                        Yoshlari Forumi 2020
+                                                >
+                                                        Ретейлеры предупредили о
+                                                        росте цен на одежду к
+                                                        лету
                                                 </span>
                                                 <div
                                                         class="news__box--description--p"
                                                 >
-                                                        Joriy yil 25 dekabr kuni
-                                                        Toshkent shahrida
-                                                        O'zbekiston yoshlari
-                                                        forumi bo'lib o'tdi.
-                                                        Tadbirda prezident
-                                                        Shavkat Mirziyoyev ham
-                                                        ishtriok etdi. Joriy yil
-                                                        25 dekabr kuni Toshkent
-                                                        shahrida O'zbekiston
-                                                        yoshlari forumi bo'lib
-                                                        o'tdi. Tadbirda
-                                                        prezident Shavkat
-                                                        Mirziyoyev ham ishtriok
-                                                        etdi.
+                                                        Это связано с ростом
+                                                        стоимости материалов, в
+                                                        том числе хлопка,
+                                                        который с начала этого
+                                                        года подорожал на
+                                                        30–35%.
                                                 </div>
                                         </div>
                                         <div class="data__box">
@@ -59,38 +47,27 @@
                                 <div class=" news__box--item">
                                         <img
                                                 class="news__box--item--img"
-                                                src="../assets/img/news/new-1.png"
+                                                src="../assets/img/news/news--2.png"
                                                 alt="News"
                                         />
                                         <div class="news__box--description">
                                                 <span
                                                         class="news__box--description--header"
-                                                        >O'zbekiston Yoshlari
-                                                        Forumi 2020O'zbekiston
-                                                        Yoshlari Forumi 2020
-                                                        O'zbekiston Yoshlari
-                                                        Forumi 2020 O'zbekiston
-                                                        Yoshlari Forumi 2020
-                                                        Forumi 2020 O'zbekiston
-                                                        Yoshlari Forumi 2020
+                                                >
+                                                        AliExpress сравнил число
+                                                        становящихся счастливее
+                                                        от покупки сумок и книг
                                                 </span>
                                                 <div
                                                         class="news__box--description--p"
                                                 >
-                                                        Joriy yil 25 dekabr kuni
-                                                        Toshkent shahrida
-                                                        O'zbekiston yoshlari
-                                                        forumi bo'lib o'tdi.
-                                                        Tadbirda prezident
-                                                        Shavkat Mirziyoyev ham
-                                                        ishtriok etdi. Joriy yil
-                                                        25 dekabr kuni Toshkent
-                                                        shahrida O'zbekiston
-                                                        yoshlari forumi bo'lib
-                                                        o'tdi. Tadbirda
-                                                        prezident Shavkat
-                                                        Mirziyoyev ham ishtriok
-                                                        etdi.
+                                                        Покупка сумок и одежды
+                                                        делает счастливыми
+                                                        больше россиян, чем
+                                                        покупка книг. Это
+                                                        показал опрос
+                                                        «AliExpress Россия»,
+                                                        ....
                                                 </div>
                                         </div>
                                         <div class="data__box">
@@ -108,38 +85,26 @@
                                 <div class=" news__box--item">
                                         <img
                                                 class="news__box--item--img"
-                                                src="../assets/img/news/new-1.png"
+                                                src="../assets/img/news/news--3.png"
                                                 alt="News"
                                         />
                                         <div class="news__box--description">
                                                 <span
                                                         class="news__box--description--header"
-                                                        >O'zbekiston Yoshlari
-                                                        Forumi 2020O'zbekiston
-                                                        Yoshlari Forumi 2020
-                                                        O'zbekiston Yoshlari
-                                                        Forumi 2020 O'zbekiston
-                                                        Yoshlari Forumi 2020
-                                                        Forumi 2020 O'zbekiston
-                                                        Yoshlari Forumi 2020
+                                                >
+                                                        Прибыль владельца Uniqlo
+                                                        выросла на 23% из-за
+                                                        продаж домашней одежды
                                                 </span>
                                                 <div
                                                         class="news__box--description--p"
                                                 >
-                                                        Joriy yil 25 dekabr kuni
-                                                        Toshkent shahrida
-                                                        O'zbekiston yoshlari
-                                                        forumi bo'lib o'tdi.
-                                                        Tadbirda prezident
-                                                        Shavkat Mirziyoyev ham
-                                                        ishtriok etdi. Joriy yil
-                                                        25 dekabr kuni Toshkent
-                                                        shahrida O'zbekiston
-                                                        yoshlari forumi bo'lib
-                                                        o'tdi. Tadbirda
-                                                        prezident Shavkat
-                                                        Mirziyoyev ham ishtriok
-                                                        etdi.
+                                                        Операционная прибыль
+                                                        компании Fast Retailing,
+                                                        владельца японской сети
+                                                        одежды Uniqlo, превысила
+                                                        уровень прибыли, который
+                                                        компания ....
                                                 </div>
                                         </div>
                                         <div class="data__box">
