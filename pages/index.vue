@@ -15,7 +15,7 @@
                                                 </nuxt-link>
                                         </li>
 
-                                        <li>
+                                        <li class="done">
                                                 <nuxt-link to="/basket">
                                                         Basket
                                                 </nuxt-link>
@@ -27,7 +27,7 @@
                                                 </nuxt-link>
                                         </li>
 
-                                        <li>
+                                        <li class="done">
                                                 <nuxt-link
                                                         to="/checkout__order"
                                                 >
@@ -43,7 +43,7 @@
                                                 </nuxt-link>
                                         </li>
 
-                                        <li>
+                                        <li class="done">
                                                 <nuxt-link to="/my__orders">
                                                         My orders
                                                 </nuxt-link>
@@ -94,6 +94,10 @@ export default {
 div.title-index {
         padding: 40px 0 0;
         ul {
+                .done {
+                        background-color: #ddd;
+                }
+
                 li {
                         display: inline-block;
                         font-weight: normal;

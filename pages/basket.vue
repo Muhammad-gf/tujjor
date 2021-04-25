@@ -255,11 +255,6 @@ export default {};
                 border-radius: 5px;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
-                &:last-child {
-                        margin-bottom: 46px;
-                        border-bottom: 1px solid #dddddd;
-                }
-
                 font-family: Roboto, sans-serif;
 
                 display: flex;
@@ -284,6 +279,8 @@ export default {};
                                         font-size: 18px;
                                         line-height: 100%;
                                         /* or 18px */
+                                        height: 1em;
+                                        overflow: hidden;
 
                                         text-transform: uppercase;
 
@@ -296,6 +293,8 @@ export default {};
                                         font-size: 14px;
                                         line-height: 100%;
                                         /* or 14px */
+                                        height: 2em;
+                                        overflow: hidden;
 
                                         color: #000000;
 
@@ -305,10 +304,12 @@ export default {};
                                 .p-second {
                                         font-family: Roboto, sans-serif;
                                         font-size: 16px;
-                                        line-height: 100%;
-                                        /* or 16px */
                                         font-weight: 500;
                                         color: #000000;
+                                        line-height: 100%;
+                                        /* or 16px */
+                                        height: 1em;
+                                        overflow: hidden;
 
                                         display: flex;
                                         align-items: center;
@@ -473,9 +474,10 @@ export default {};
         .basket__price {
                 display: flex;
                 justify-content: space-between;
-                margin: 80px 40px;
 
-                padding-bottom: 20px;
+                margin: 35px 0 80px;
+                padding: 35px 0 0;
+                border-top: 1px solid #dddddd;
 
                 .basket__price--total {
                         span {
@@ -548,13 +550,41 @@ export default {};
 @media screen and (max-width: 920px) {
         .basket__container {
                 .basket__item__box {
+                        padding: 14px 18px;
                         .basket__item--header {
                                 margin-right: 15px;
-                                flex-basis: 300px;
+                                flex-basis: 270px;
+
+                                img {
+                                        margin-right: 14px;
+                                }
+
+                                .basket__item__description {
+                                        max-width: 160px;
+                                        h3 {
+                                                font-size: 16px;
+                                        }
+
+                                        .p-first {
+                                                font-size: 12px;
+                                                height: 2em;
+                                                overflow: hidden;
+                                                margin-bottom: 30px;
+                                        }
+
+                                        .p-second {
+                                                margin-bottom: 0;
+                                                font-size: 16px;
+                                                span {
+                                                        font-size: 14px;
+                                                }
+                                        }
+                                }
                         }
                         .basket__item--secondary {
                                 .basket__item--btn {
                                         height: 35px;
+                                        margin-bottom: 20px;
                                         span {
                                                 font-size: 14px;
                                         }
@@ -578,86 +608,29 @@ export default {};
                                                 }
                                         }
                                 }
-                        }
-                }
-        }
-}
 
-@media screen and (max-width: 677px) {
-        .basket__container {
-                .basket__item__box {
-                        flex-direction: column;
-                        .basket__item--header {
-                                flex-basis: auto;
-                                margin-right: 0;
-                                margin-bottom: 30px;
-                        }
-                }
-        }
-}
-
-@media screen and (max-width: 400px) {
-        .basket__container {
-                .basket__heading {
-                        padding-right: 15px;
-                        padding-left: 15px;
-                        margin-bottom: 30px;
-                        h2 {
-                                font-size: 32px;
-                                line-height: 1.3;
-                        }
-                }
-
-                .header {
-                        padding-left: 0;
-                        font-size: 24px;
-                }
-
-                .basket__item__box {
-                        flex-direction: column;
-                        padding: 13px 17px 18px;
-                        margin: 20px 0 0;
-                        .basket__item--header {
-                                flex-basis: auto;
-                                margin-right: 0;
-                                margin-bottom: 25px;
-
-                                .basket__item__description {
-                                        h3 {
-                                                font-size: 16px;
-                                        }
-
-                                        .p-first {
-                                                margin-bottom: 27px;
-                                        }
-                                        .p-second {
-                                                font-size: 14px;
-                                        }
-                                }
-                        }
-
-                        .basket__item--secondary {
-                                .basket__item--number {
-                                        margin-bottom: 20px;
-                                        span,
-                                        span.number {
-                                                font-size: 14px;
-                                        }
-                                }
                                 .basket__item--price {
-                                        margin-bottom: 0;
+                                        margin-bottom: 20px;
                                         span {
-                                                font-size: 18px;
+                                                font-size: 20px;
                                         }
                                 }
-                                .basket__item--color {
-                                        span {
-                                                font-size: 14px;
-                                        }
 
+                                .basket__item--color {
                                         img {
                                                 width: 40px;
                                                 height: 40px;
+                                        }
+
+                                        span {
+                                                font-size: 14px;
+                                        }
+                                }
+
+                                .backet__item--activity {
+                                        .item__btn {
+                                                padding: 12px 14px;
+                                                font-size: 14px;
                                         }
                                 }
                         }
@@ -665,17 +638,106 @@ export default {};
 
                 .basket__price {
                         .basket__price--total {
-                                flex-basis: 100%;
+                                flex-basis: auto;
                                 display: flex;
                                 justify-content: space-between;
                                 align-items: center;
 
                                 span {
-                                        font-size: 16px;
+                                        font-size: 14px;
                                 }
 
                                 .all__price {
                                         font-size: 28px;
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 700px) {
+        .basket__container {
+                .basket__price {
+                        flex-direction: column;
+
+                        .basket__price--total {
+                                flex-basis: 100%;
+                        }
+                        .backet__price--activity {
+                                display: flex;
+                                justify-content: space-between;
+                                .activity__btn {
+                                        display: inline-block;
+                                        margin: 20px 0 0;
+
+                                        &:not(:last-child) {
+                                                margin-right: 0;
+                                        }
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 560px) {
+        .basket__container {
+                .basket__heading {
+                        margin-bottom: 5px;
+                        h2 {
+                                font-size: 32px;
+                                line-height: 1;
+                                height: 2em;
+                        }
+                }
+
+                .basket__item__box {
+                        flex-direction: column;
+                        margin: 20px 0 0;
+                        padding: 14px 20px;
+                        .basket__item--header {
+                                flex-basis: auto;
+                                margin-right: 0;
+                                margin-bottom: 20px;
+
+                                img {
+                                        width: 95px;
+                                        height: 95px;
+                                }
+
+                                .basket__item__description {
+                                        max-width: 55%;
+                                        .p-first {
+                                                font-size: 14px;
+                                                margin-bottom: 25px;
+                                        }
+                                }
+                        }
+
+                        .basket__item--secondary {
+                                align-content: center;
+
+                                .basket__item--btn {
+                                        flex-basis: 100%;
+                                        margin-left: auto;
+                                        margin-right: auto;
+                                }
+
+                                .backet__item--activity {
+                                        order: 3;
+                                        margin: 10px 0 0;
+                                        flex-basis: 100%;
+                                        display: flex;
+                                        justify-content: space-between;
+                                }
+                                .basket__item--price {
+                                        order: 2;
+                                        margin-bottom: 20px;
+                                        flex-basis: auto;
+                                }
+                                .basket__item--color {
+                                        order: 1;
+                                        flex-basis: auto;
+                                        margin-bottom: 20px;
                                 }
                         }
                 }

@@ -12,7 +12,7 @@
 
                                         <li>
                                                 <nuxt-link to="#"
-                                                        >Мои закази
+                                                        >Оформить заказ
                                                 </nuxt-link>
                                         </li>
                                 </ul>
@@ -24,7 +24,7 @@
                                 <h2>Оформить заказ</h2>
                         </div>
 
-                        <form class="checkout__box">
+                        <form v-on:submit.prevent class="checkout__box">
                                 <div class="person__home">
                                         <h4>Укажите ваши данные</h4>
 
