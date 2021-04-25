@@ -24,39 +24,89 @@
                                 <h2>Оформить заказ</h2>
                         </div>
 
-                        <section class="checkout__box">
+                        <form class="checkout__box">
                                 <div class="person__home">
                                         <h4>Укажите ваши данные</h4>
 
                                         <div class="person__home--description">
                                                 <span>Город</span>
-                                                <button>
-                                                        Ваш Город
-                                                        <img
-                                                                src="../assets/img/checkout__order/vector.png"
-                                                                alt="Vector"
-                                                        />
-                                                </button>
+                                                <select name="city" id="city">
+                                                        <option
+                                                                value=""
+                                                                disabled
+                                                                selected
+                                                                >Ваш
+                                                                Город</option
+                                                        >
+                                                        <option value="Tashkent"
+                                                                >Tashkent</option
+                                                        >
+                                                        <option value="Namangan"
+                                                                >Namangan</option
+                                                        >
+                                                        <option value="Farg'ona"
+                                                                >Farg'ona</option
+                                                        >
+                                                        <option
+                                                                value="Samarqand"
+                                                                >Samarqand</option
+                                                        >
+                                                </select>
                                         </div>
 
                                         <div class="person__home--description">
                                                 <span>Район</span>
-                                                <button>
-                                                        Ваш Район<img
-                                                                src="../assets/img/checkout__order/vector.png"
-                                                                alt="Vector"
-                                                        />
-                                                </button>
+
+                                                <select
+                                                        name="village"
+                                                        id="village"
+                                                >
+                                                        <option
+                                                                value=""
+                                                                disabled
+                                                                selected
+                                                                >Ваш
+                                                                Район</option
+                                                        >
+                                                        <option value="Bekobod"
+                                                                >Bekobod</option
+                                                        >
+                                                        <option value="Chinoz"
+                                                                >Chinoz</option
+                                                        >
+                                                        <option
+                                                                value="Shayxantaxur"
+                                                                >Shayxantaxur</option
+                                                        >
+                                                        <option
+                                                                value="Yakkasaroy"
+                                                                >Yakkasaroy</option
+                                                        >
+                                                        <option
+                                                                value="Yunusobod"
+                                                                >Yunusobod</option
+                                                        >
+                                                </select>
                                         </div>
 
                                         <div class="person__home--description">
                                                 <span>Адрес</span>
-                                                <button>Введите адрес</button>
+                                                <input
+                                                        type="text"
+                                                        placeholder="Введите адрес"
+                                                        id="Adress"
+                                                        name="Adress"
+                                                />
                                         </div>
 
                                         <div class="person__home--description">
                                                 <span>Номер</span>
-                                                <button>Ваш номер</button>
+                                                <input
+                                                        type="number"
+                                                        placeholder="Ваш номер"
+                                                        id="Number"
+                                                        name="Number"
+                                                />
                                         </div>
                                 </div>
 
@@ -92,11 +142,13 @@
                                                 >
                                         </div>
 
-                                        <a href="#" class="checkout__you__order"
-                                                >Заказать
-                                        </a>
+                                        <input
+                                                type="submit"
+                                                class="checkout__you__order submit"
+                                                value="Заказать"
+                                        />
                                 </div>
-                        </section>
+                        </form>
 
                         <section class="checkout__order__section">
                                 <h2 class="header">Radius Заказ №23</h2>
@@ -338,7 +390,8 @@ export default {};
                                         color: #000000;
                                 }
 
-                                button {
+                                input,
+                                select {
                                         // border: ;
                                         border: 1.16px solid #f7931e;
                                         outline: none;
@@ -360,13 +413,27 @@ export default {};
                                         display: flex;
                                         justify-content: space-between;
                                         align-items: center;
+                                }
 
-                                        &:hover {
-                                                color: rgba(102, 102, 102, 0.7);
-                                                img {
-                                                        opacity: 0.7;
-                                                }
-                                        }
+                                input::-webkit-outer-spin-button,
+                                input::-webkit-inner-spin-button {
+                                        -webkit-appearance: none;
+                                        margin: 0;
+                                }
+
+                                /* Firefox */
+                                input[type="number"] {
+                                        -moz-appearance: textfield;
+                                }
+
+                                select {
+                                        -webkit-appearance: none;
+                                        -moz-appearance: none;
+                                        appearance: none;
+
+                                        background-image: url("../assets/img/checkout__order/vector.png");
+                                        background-repeat: no-repeat;
+                                        background-position: 97% 50%;
                                 }
                         }
                 }
@@ -463,8 +530,10 @@ export default {};
                                 }
                         }
 
-                        a {
+                        .checkout__you__order {
                                 flex-basis: 100%;
+                                outline: none;
+                                border: none;
 
                                 background: #f7931e;
                                 /* asosiy */
@@ -507,12 +576,12 @@ export default {};
                         margin: 20px 15px 0;
                         padding: 20px;
                         background: #ffffff;
-                        bcheckout__order-radius: 5px;
+                        border-radius: 5px;
                         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
                         &:last-child {
                                 margin-bottom: 70px;
-                                bcheckout__order-bottom: 1px solid #dddddd;
+                                border-bottom: 1px solid #dddddd;
                         }
 
                         font-family: Roboto, sans-serif;
@@ -528,7 +597,7 @@ export default {};
                                 img {
                                         margin-right: 18px;
                                         max-height: 100%;
-                                        bcheckout__order-radius: 3px;
+                                        border-radius: 3px;
                                 }
 
                                 .checkout__order__item__description {
@@ -649,7 +718,7 @@ export default {};
                                         }
 
                                         img {
-                                                bcheckout__order-radius: 3px;
+                                                border-radius: 3px;
                                                 width: 50px;
                                                 height: 50px;
                                         }
@@ -661,8 +730,9 @@ export default {};
                         display: flex;
                         justify-content: space-between;
 
-                        margin-top: 40px;
-
+                        margin-top: 30px;
+                        padding-top: 30px;
+                        border-top: 1px solid #dddddd;
                         .checkout__order__price--total {
                                 span {
                                         font-family: Roboto, sans-serif;
@@ -676,6 +746,210 @@ export default {};
                                         margin-left: 10px;
                                         font-weight: 900;
                                         color: #f7931e;
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 1200px) {
+        .checkout__order__container {
+                .checkout__order__section {
+                        .checkout__order__item__box {
+                                .checkout__order__item--secondary {
+                                        .checkout__order__item--price {
+                                                flex-basis: 70%;
+                                        }
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 1045px) {
+        .checkout__order__container {
+                .checkout__order__section {
+                        .checkout__order__item__box {
+                                .checkout__order__item--header {
+                                        flex-basis: 300px;
+                                }
+                                .checkout__order__item--secondary {
+                                        align-items: baseline;
+                                        .checkout__order__item--number {
+                                                flex-basis: 100%;
+                                        }
+                                        .checkout__order__item--price {
+                                                flex-basis: auto;
+                                                order: 1;
+                                        }
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 873px) {
+        .checkout__order__container {
+                .checkout__box {
+                        flex-direction: column;
+                        align-items: center;
+
+                        .person__home {
+                                margin-right: 0;
+                                margin-bottom: 20px;
+                        }
+
+                        .person__checkout {
+                                width: 387px;
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 777px) {
+        .checkout__order__container {
+                .checkout__order__section {
+                        .checkout__order__item__box {
+                                .checkout__order__item--header {
+                                        margin-right: 15px;
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 677px) {
+        .checkout__order__container {
+                .checkout__order__section {
+                        .checkout__order__item__box {
+                                flex-direction: column;
+                                .checkout__order__item--header {
+                                        flex-basis: auto;
+                                        margin-right: 0;
+                                        margin-bottom: 30px;
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 544px) {
+        .checkout__order__container {
+                .checkout__box {
+                        .person__home {
+                                width: 100%;
+                                flex-direction: column;
+                        }
+
+                        .person__checkout {
+                                width: 100%;
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 400px) {
+        .checkout__order__container {
+                padding-right: 0;
+                padding-left: 0;
+
+                .checkout__order__heading {
+                        padding-right: 15px;
+                        padding-left: 15px;
+                        margin-bottom: 30px;
+                        h2 {
+                                font-size: 32px;
+                                line-height: 1.3;
+                        }
+                }
+
+                .checkout__box {
+                        .person__home {
+                                padding: 30px 27px;
+                                margin-bottom: 50px;
+                                h4 {
+                                        margin-bottom: 30px;
+                                }
+                        }
+
+                        .person__checkout {
+                                padding: 30px 27px;
+                                margin-bottom: 10px;
+                        }
+                }
+
+                .checkout__order__section {
+                        padding-right: 15px;
+                        padding-left: 15px;
+                        .header {
+                                padding-left: 0;
+                                font-size: 24px;
+                        }
+
+                        .checkout__order__item__box {
+                                flex-direction: column;
+                                padding: 13px 17px 18px;
+                                margin: 20px 0 0;
+                                .checkout__order__item--header {
+                                        flex-basis: auto;
+                                        margin-right: 0;
+                                        margin-bottom: 25px;
+
+                                        .checkout__order__item__description {
+                                                h3 {
+                                                        font-size: 16px;
+                                                }
+
+                                                .p-first {
+                                                        margin-bottom: 27px;
+                                                }
+                                                .p-second {
+                                                        font-size: 14px;
+                                                }
+                                        }
+                                }
+
+                                .checkout__order__item--secondary {
+                                        .checkout__order__item--number {
+                                                margin-bottom: 20px;
+                                                span,
+                                                span.number {
+                                                        font-size: 14px;
+                                                }
+                                        }
+                                        .checkout__order__item--price {
+                                                margin-bottom: 0;
+                                                span {
+                                                        font-size: 18px;
+                                                }
+                                        }
+                                        .checkout__order__item--color {
+                                                span {
+                                                        font-size: 14px;
+                                                }
+
+                                                img {
+                                                        width: 40px;
+                                                        height: 40px;
+                                                }
+                                        }
+                                }
+                        }
+
+                        .checkout__order__price {
+                                .checkout__order__price--total {
+                                        flex-basis: 100%;
+                                        display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+
+                                        span {
+                                                font-size: 16px;
+                                        }
+
+                                        .all__price {
+                                                font-size: 28px;
+                                        }
                                 }
                         }
                 }

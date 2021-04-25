@@ -51,7 +51,7 @@
 
                                         <li>
                                                 <nuxt-link
-                                                        to="/news__description"
+                                                        to="/news_description"
                                                 >
                                                         News full
                                                 </nuxt-link>

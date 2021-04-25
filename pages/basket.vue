@@ -526,4 +526,159 @@ export default {};
                 }
         }
 }
+
+@media screen and (max-width: 1200px) {
+        .basket__container {
+                .basket__item__box {
+                        .basket__item--header {
+                                margin-right: 50px;
+                        }
+                        .basket__item--secondary {
+                                .basket__item--btn {
+                                        flex-basis: 50%;
+                                }
+                                .basket__item--price {
+                                        flex-basis: 40%;
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 920px) {
+        .basket__container {
+                .basket__item__box {
+                        .basket__item--header {
+                                margin-right: 15px;
+                                flex-basis: 300px;
+                        }
+                        .basket__item--secondary {
+                                .basket__item--btn {
+                                        height: 35px;
+                                        span {
+                                                font-size: 14px;
+                                        }
+                                        .btn__box {
+                                                height: 35px;
+                                                width: 130px;
+                                                font-size: 14px;
+
+                                                span {
+                                                        font-size: 14px;
+                                                        font-weight: 700;
+                                                }
+
+                                                a {
+                                                        padding: 1px 10px;
+                                                        font-size: 24px;
+                                                }
+
+                                                .btn--secondary {
+                                                        padding-top: 9px;
+                                                }
+                                        }
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 677px) {
+        .basket__container {
+                .basket__item__box {
+                        flex-direction: column;
+                        .basket__item--header {
+                                flex-basis: auto;
+                                margin-right: 0;
+                                margin-bottom: 30px;
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 400px) {
+        .basket__container {
+                .basket__heading {
+                        padding-right: 15px;
+                        padding-left: 15px;
+                        margin-bottom: 30px;
+                        h2 {
+                                font-size: 32px;
+                                line-height: 1.3;
+                        }
+                }
+
+                .header {
+                        padding-left: 0;
+                        font-size: 24px;
+                }
+
+                .basket__item__box {
+                        flex-direction: column;
+                        padding: 13px 17px 18px;
+                        margin: 20px 0 0;
+                        .basket__item--header {
+                                flex-basis: auto;
+                                margin-right: 0;
+                                margin-bottom: 25px;
+
+                                .basket__item__description {
+                                        h3 {
+                                                font-size: 16px;
+                                        }
+
+                                        .p-first {
+                                                margin-bottom: 27px;
+                                        }
+                                        .p-second {
+                                                font-size: 14px;
+                                        }
+                                }
+                        }
+
+                        .basket__item--secondary {
+                                .basket__item--number {
+                                        margin-bottom: 20px;
+                                        span,
+                                        span.number {
+                                                font-size: 14px;
+                                        }
+                                }
+                                .basket__item--price {
+                                        margin-bottom: 0;
+                                        span {
+                                                font-size: 18px;
+                                        }
+                                }
+                                .basket__item--color {
+                                        span {
+                                                font-size: 14px;
+                                        }
+
+                                        img {
+                                                width: 40px;
+                                                height: 40px;
+                                        }
+                                }
+                        }
+                }
+
+                .basket__price {
+                        .basket__price--total {
+                                flex-basis: 100%;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+
+                                span {
+                                        font-size: 16px;
+                                }
+
+                                .all__price {
+                                        font-size: 28px;
+                                }
+                        }
+                }
+        }
+}
 </style>

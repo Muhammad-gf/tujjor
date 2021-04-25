@@ -24,7 +24,7 @@
                                 <h2>Мои закази</h2>
                         </div>
 
-                        <section class="order__section">
+                        <section class="order__section container">
                                 <h2 class="header">Заказ №23</h2>
                                 <div class="order__item__box">
                                         <div class="order__item--header">
@@ -176,7 +176,7 @@
                                 </div>
                         </section>
 
-                        <section class="order__section">
+                        <section class="order__section container">
                                 <h2 class="header">Заказ №32</h2>
                                 <div class="order__item__box">
                                         <div class="order__item--header">
@@ -328,7 +328,7 @@
                                 </div>
                         </section>
 
-                        <section class="order__section">
+                        <section class="order__section container">
                                 <h2 class="header">Заказ №45</h2>
                                 <div class="order__item__box">
                                         <div class="order__item--header">
@@ -501,7 +501,8 @@ export default {};
         }
 
         .order__section {
-                padding: 30px 0;
+                max-width: 100%;
+                padding: 30px 1px;
 
                 .header {
                         padding-left: 20px;
@@ -673,8 +674,9 @@ export default {};
                         display: flex;
                         justify-content: space-between;
 
-                        margin-top: 40px;
-
+                        margin-top: 30px;
+                        padding-top: 30px;
+                        border-top: 1px solid #dddddd;
                         .order__price--total {
                                 span {
                                         font-family: Roboto, sans-serif;
@@ -688,6 +690,155 @@ export default {};
                                         margin-left: 10px;
                                         font-weight: 900;
                                         color: #f7931e;
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 1200px) {
+        .order__container {
+                .order__section {
+                        .order__item__box {
+                                .order__item--secondary {
+                                        .order__item--price {
+                                                flex-basis: 70%;
+                                        }
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 1045px) {
+        .order__container {
+                .order__section {
+                        .order__item__box {
+                                .order__item--header {
+                                        flex-basis: 300px;
+                                }
+                                .order__item--secondary {
+                                        align-items: baseline;
+                                        .order__item--number {
+                                                flex-basis: 100%;
+                                        }
+                                        .order__item--price {
+                                                flex-basis: auto;
+                                                order: 1;
+                                        }
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 777px) {
+        .order__container {
+                .order__section {
+                        .order__item__box {
+                                .order__item--header {
+                                        margin-right: 15px;
+                                }
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 677px) {
+        .order__container {
+                .order__section {
+                        .order__item__box {
+                                flex-direction: column;
+                                .order__item--header {
+                                        flex-basis: auto;
+                                        margin-right: 0;
+                                        margin-bottom: 30px;
+                                }
+                              
+                        }
+                }
+        }
+}
+
+@media screen and (max-width: 400px) {
+        .order__container {
+                .order__heading {
+                        margin-bottom: 10px;
+                        h2 {
+                                font-size: 32px;
+                                line-height: 1.3;
+                        }
+                }
+                .order__section {
+                        .header {
+                                padding-left: 0;
+                                font-size: 24px;
+                        }
+
+                        .order__item__box {
+                                flex-direction: column;
+                                padding: 13px 17px 18px;
+                                margin: 20px 0 0;
+                                .order__item--header {
+                                        flex-basis: auto;
+                                        margin-right: 0;
+                                        margin-bottom: 25px;
+
+                                        .order__item__description {
+                                                h3 {
+                                                        font-size: 16px;
+                                                }
+
+                                                .p-first {
+                                                        margin-bottom: 27px;
+                                                }
+                                                .p-second {
+                                                        font-size: 14px;
+                                                }
+                                        }
+                                }
+
+                                .order__item--secondary {
+                                        .order__item--number {
+                                                margin-bottom: 20px;
+                                                span,
+                                                span.number {
+                                                        font-size: 14px;
+                                                }
+                                        }
+                                        .order__item--price {
+                                                margin-bottom: 0;
+                                                span {
+                                                        font-size: 18px;
+                                                }
+                                        }
+                                        .order__item--color {
+                                                span {
+                                                        font-size: 14px;
+                                                }
+
+                                                img {
+                                                        width: 40px;
+                                                        height: 40px;
+                                                }
+                                        }
+                                }
+                        }
+
+                        .order__price {
+                                .order__price--total {
+                                        flex-basis: 100%;
+                                        display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+
+                                        span {
+                                                font-size: 16px;
+                                        }
+
+                                        .all__price {
+                                                font-size: 28px;
+                                        }
                                 }
                         }
                 }
