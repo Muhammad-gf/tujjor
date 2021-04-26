@@ -6,72 +6,149 @@
                                         Бренды
                                 </div>
                         </section>
+                        <!-- <div class="brands__box"> -->
+                        <VueSlickCarousel
+                                class="brands__box"
+                                v-bind="slickOptions"
+                        >
+                                <div class="img">
+                                        <img
+                                                src="../assets/img/brands/lg.png"
+                                                alt="Brand"
+                                        />
+                                </div>
 
-                        <div class="brands__box">
-                                <img
-                                        src="../assets/img/brands/lg.png"
-                                        alt="Brand"
-                                />
-                                <img
-                                        src="../assets/img/brands/nike.png"
-                                        alt="Brand"
-                                />
-                                <img
-                                        src="../assets/img/brands/vector.png"
-                                        alt="Brand"
-                                />
-                                <img
-                                        src="../assets/img/brands/penti.png"
-                                        alt="Brand"
-                                />
-                                <img
-                                        src="../assets/img/brands/xiaomi.png"
-                                        alt="Brand"
-                                />
-                                <img
-                                        src="../assets/img/brands/lg.png"
-                                        alt="Brand"
-                                />
-                                <img
-                                        src="../assets/img/brands/zara.png"
-                                        alt="Brand"
-                                />
-                                <img
-                                        src="../assets/img/brands/xiaomi.png"
-                                        alt="Brand"
-                                />
-                                <img
-                                        src="../assets/img/brands/vector.png"
-                                        alt="Brand"
-                                />
-                                <img
-                                        src="../assets/img/brands/zara.png"
-                                        alt="Brand"
-                                />
-                        </div>
+                                <div class="img">
+                                        <img
+                                                src="../assets/img/brands/nike.png"
+                                                alt="Brand"
+                                        />
+                                </div>
+
+                                <div class="img">
+                                        <img
+                                                src="../assets/img/brands/vector.png"
+                                                alt="Brand"
+                                        />
+                                </div>
+
+                                <div class="img">
+                                        <img
+                                                src="../assets/img/brands/penti.png"
+                                                alt="Brand"
+                                        />
+                                </div>
+
+                                <div class="img">
+                                        <img
+                                                src="../assets/img/brands/xiaomi.png"
+                                                alt="Brand"
+                                        />
+                                </div>
+
+                                <div class="img">
+                                        <img
+                                                src="../assets/img/brands/lg.png"
+                                                alt="Brand"
+                                        />
+                                </div>
+
+                                <div class="img">
+                                        <img
+                                                src="../assets/img/brands/zara.png"
+                                                alt="Brand"
+                                        />
+                                </div>
+
+                                <div class="img">
+                                        <img
+                                                src="../assets/img/brands/vector.png"
+                                                alt="Brand"
+                                        />
+                                </div>
+
+                                <div class="img">
+                                        <img
+                                                src="../assets/img/brands/zara.png"
+                                                alt="Brand"
+                                        />
+                                </div>
+                        </VueSlickCarousel>
+                        <!-- </div> -->
                 </div>
         </section>
 </template>
 
 <script>
-export default {};
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+// optional style for arrows & dots
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+
+export default {
+        data() {
+                return {
+                        slickOptions: {
+                                focusOnSelect: true,
+                                slidesToScroll: 7,
+                                touchThreshold: 5,
+                                infinite: true,
+                                speed: 500,
+                                slidesToShow: 7,
+                                responsive: [
+                                        {
+                                                breakpoint: 1135,
+                                                settings: {
+                                                        slidesToShow: 6,
+                                                        slidesToScroll: 6
+                                                }
+                                        },
+
+                                        {
+                                                breakpoint: 1000,
+                                                settings: {
+                                                        slidesToShow: 5,
+                                                        slidesToScroll: 5
+                                                }
+                                        },
+
+                                        {
+                                                breakpoint: 780,
+                                                settings: {
+                                                        slidesToShow: 4,
+                                                        slidesToScroll: 4
+                                                }
+                                        }
+                                ]
+                        }
+                };
+        },
+        name: "MyComponent",
+        components: { VueSlickCarousel }
+};
 </script>
 
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
-</style>
 <style lang="scss">
 .brands {
         &__box {
                 width: 100%;
                 height: 95px;
-
                 overflow: hidden;
-                display: flex;
+                display: flex !important;
                 align-items: center;
 
-                img {
-                        margin: 0 60px;
+                .img {
+                        height: 95px;
+                        display: flex !important;
+                        justify-content: center;
+                        align-items: center;
+                        width: auto;
+                        margin: 0 auto;
+
+                        img {
+                                max-height: 80%;
+                                max-width: 80%;
+                        }
                 }
         }
 }
@@ -83,15 +160,34 @@ export default {};
                 }
                 &__box {
                         width: 100%;
-                        height: 53px;
+                        height: 80px;
 
-                        overflow: hidden;
-                        display: flex;
-                        align-items: center;
+                        .img {
+                                height: 80px;
+                        }
+                }
+        }
+}
 
-                        img {
-                                transform: scale(0.8);
-                                margin: 0 15px;
+@media only screen and (max-width: 600px) {
+        .brands {
+                &__box {
+                        height: 55px;
+
+                        .img {
+                                height: 55px;
+                        }
+                }
+        }
+}
+
+@media only screen and (max-width: 600px) {
+        .brands {
+                &__box {
+                        height: 30px;
+
+                        .img {
+                                height: 30px;
                         }
                 }
         }
