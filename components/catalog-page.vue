@@ -211,7 +211,7 @@
                                                 <div class="popular__items">
                                                         <img
                                                                 class="popular__items__img"
-                                                                src="../assets/img/Popular/boy-1.png"
+                                                                src="../assets/img/catalog_page/1.png"
                                                                 alt="Popular item photo"
                                                                 type="photo/png"
                                                         />
@@ -244,7 +244,7 @@
                                                 <div class="popular__items">
                                                         <img
                                                                 class="popular__items__img"
-                                                                src="../assets/img/Popular/boy-2.png"
+                                                                src="../assets/img/catalog_page/2.png"
                                                                 alt="Popular item photo"
                                                                 type="photo/png"
                                                         />
@@ -258,40 +258,10 @@
                                                                 <h4
                                                                         class="popular__items__desription--categorie"
                                                                 >
-                                                                        Мужская
-                                                                        кожаная
-                                                                        куртка
-                                                                </h4>
-                                                                <span
-                                                                        class="popular__items__desription--price"
-                                                                        >1 080
-                                                                        000
-                                                                        сум</span
-                                                                >
-                                                        </div>
-                                                </div>
-
-                                                <div class="popular__items">
-                                                        <img
-                                                                class="popular__items__img"
-                                                                src="../assets/img/Popular/item-1.png"
-                                                                alt="Popular item photo"
-                                                                type="photo/png"
-                                                        />
-                                                        <div
-                                                                class="popular__items__desription"
-                                                        >
-                                                                <span
-                                                                        class="popular__items__desription--name"
-                                                                        >Кроссовки</span
-                                                                >
-                                                                <h4
-                                                                        class="popular__items__desription--categorie"
-                                                                >
                                                                         для
                                                                         фанатов
                                                                         футбола
-                                                                        Ювентуса
+                                                                        Ювентус
                                                                 </h4>
                                                                 <span
                                                                         class="popular__items__desription--price"
@@ -305,7 +275,7 @@
                                                 <div class="popular__items">
                                                         <img
                                                                 class="popular__items__img"
-                                                                src="../assets/img/Popular/boy-3.png"
+                                                                src="../assets/img/catalog_page/3.png"
                                                                 alt="Popular item photo"
                                                                 type="photo/png"
                                                         />
@@ -314,7 +284,39 @@
                                                         >
                                                                 <span
                                                                         class="popular__items__desription--name"
-                                                                        >Рубашки</span
+                                                                        >Футболки</span
+                                                                >
+                                                                <h4
+                                                                        class="popular__items__desription--categorie"
+                                                                >
+                                                                        Новая
+                                                                        весенняя
+                                                                        коллекция
+                                                                        для
+                                                                        женщин
+                                                                </h4>
+                                                                <span
+                                                                        class="popular__items__desription--price"
+                                                                        >1 280
+                                                                        000
+                                                                        сум</span
+                                                                >
+                                                        </div>
+                                                </div>
+
+                                                <div class="popular__items">
+                                                        <img
+                                                                class="popular__items__img"
+                                                                src="../assets/img/catalog_page/4.png"
+                                                                alt="Popular item photo"
+                                                                type="photo/png"
+                                                        />
+                                                        <div
+                                                                class="popular__items__desription"
+                                                        >
+                                                                <span
+                                                                        class="popular__items__desription--name"
+                                                                        >Футболки</span
                                                                 >
                                                                 <h4
                                                                         class="popular__items__desription--categorie"
@@ -335,7 +337,7 @@
                                                 <div class="popular__items">
                                                         <img
                                                                 class="popular__items__img"
-                                                                src="../assets/img/Popular/woman-1.png"
+                                                                src="../assets/img/catalog_page/1.png"
                                                                 alt="Popular item photo"
                                                                 type="photo/png"
                                                         />
@@ -344,27 +346,115 @@
                                                         >
                                                                 <span
                                                                         class="popular__items__desription--name"
-                                                                        >Одежда</span
+                                                                        >Футболки</span
+                                                                >
+                                                                <h4
+                                                                        class="popular__items__desription--categorie"
+                                                                >
+                                                                        Детская
+                                                                        одежда
+                                                                </h4>
+                                                                <span
+                                                                        class="popular__items__desription--price popular__items__desription--old--price hidden"
+                                                                        >580 000
+                                                                        сум</span
+                                                                >
+                                                                <span
+                                                                        class="popular__items__desription--price"
+                                                                        >480 000
+                                                                        сум</span
+                                                                >
+                                                        </div>
+                                                </div>
+
+                                                <div class="popular__items">
+                                                        <img
+                                                                class="popular__items__img"
+                                                                src="../assets/img/catalog_page/2.png"
+                                                                alt="Popular item photo"
+                                                                type="photo/png"
+                                                        />
+                                                        <div
+                                                                class="popular__items__desription"
+                                                        >
+                                                                <span
+                                                                        class="popular__items__desription--name"
+                                                                        >Футболки</span
+                                                                >
+                                                                <h4
+                                                                        class="popular__items__desription--categorie"
+                                                                >
+                                                                        для
+                                                                        фанатов
+                                                                        футбола
+                                                                        Ювентус
+                                                                </h4>
+                                                                <span
+                                                                        class="popular__items__desription--price"
+                                                                        >1 280
+                                                                        000
+                                                                        сум</span
+                                                                >
+                                                        </div>
+                                                </div>
+
+                                                <div class="popular__items">
+                                                        <img
+                                                                class="popular__items__img"
+                                                                src="../assets/img/catalog_page/3.png"
+                                                                alt="Popular item photo"
+                                                                type="photo/png"
+                                                        />
+                                                        <div
+                                                                class="popular__items__desription"
+                                                        >
+                                                                <span
+                                                                        class="popular__items__desription--name"
+                                                                        >Футболки</span
                                                                 >
                                                                 <h4
                                                                         class="popular__items__desription--categorie"
                                                                 >
                                                                         Новая
-                                                                        весенная
+                                                                        весенняя
                                                                         коллекция
                                                                         для
                                                                         женщин
                                                                 </h4>
                                                                 <span
-                                                                        class="popular__items__desription--price popular__items__desription--old--price"
-                                                                        >1 480
-                                                                        000
-                                                                        сум</span
-                                                                >
-                                                                <span
                                                                         class="popular__items__desription--price"
                                                                         >1 280
                                                                         000
+                                                                        сум</span
+                                                                >
+                                                        </div>
+                                                </div>
+
+                                                <div class="popular__items">
+                                                        <img
+                                                                class="popular__items__img"
+                                                                src="../assets/img/catalog_page/4.png"
+                                                                alt="Popular item photo"
+                                                                type="photo/png"
+                                                        />
+                                                        <div
+                                                                class="popular__items__desription"
+                                                        >
+                                                                <span
+                                                                        class="popular__items__desription--name"
+                                                                        >Футболки</span
+                                                                >
+                                                                <h4
+                                                                        class="popular__items__desription--categorie"
+                                                                >
+                                                                        весенная
+                                                                        рубашка
+                                                                        для
+                                                                        мужчин
+                                                                </h4>
+                                                                <span
+                                                                        class="popular__items__desription--price"
+                                                                        >474 000
                                                                         сум</span
                                                                 >
                                                         </div>
@@ -376,7 +466,7 @@
                                         >
                                 </section>
 
-                                <div class="catalog__page__btn--box">
+                                <!-- <div class="catalog__page__btn--box">
                                         <a
                                                 href="#"
                                                 class="catalog__page--btn catalog__page--btn--active"
@@ -403,7 +493,7 @@
                                         <a href="#" class="catalog__page--btn"
                                                 >></a
                                         >
-                                </div>
+                                </div> -->
                         </div>
                 </section>
         </div>
@@ -504,6 +594,8 @@ export default {
         }
 
         .catalog__page__about {
+                margin-bottom: 40px;
+
                 .popular__container {
                         margin: 0;
                         padding: 0;

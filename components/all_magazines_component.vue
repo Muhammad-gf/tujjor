@@ -34,6 +34,7 @@
                                                 alt="Vector"
                                         />
                                 </button>
+
                                 <div class="popular__dropdown__content">
                                         <a
                                                 href="#"
@@ -107,7 +108,7 @@
                                 <div class="magazine__item--logo__box">
                                         <div class="magazine__item--logo">
                                                 <img
-                                                        src="../assets/img/magazines/logo.png"
+                                                        src="../assets/img/magazines/2/logo.png"
                                                         alt="Magazine logo"
                                                 />
                                         </div>
@@ -115,20 +116,21 @@
                                                 <img
                                                         src="../assets/img/magazines/star.png"
                                                         alt="Star img"
-                                                /><span>4</span>
+                                                />
+                                                <span>
+                                                        4
+                                                </span>
                                         </div>
                                 </div>
                                 <div class="magazine__item--description">
-                                        <span
-                                                >Товары из категории Акции и
-                                                скидки Товары из
-                                                категории....</span
-                                        >
+                                        <span>
+                                                Лучшие техники для вас
+                                        </span>
                                 </div>
                                 <div class="magazine__item__img__box">
                                         <div class="magazine__item__img--first">
                                                 <img
-                                                        src="../assets/img/magazines/img-first.png"
+                                                        src="../assets/img/magazines/2/1.png"
                                                         alt="Item img"
                                                 />
                                         </div>
@@ -139,7 +141,7 @@
                                                         class="magazine__item__img--second--first"
                                                 >
                                                         <img
-                                                                src="../assets/img/magazines/img-second.png"
+                                                                src="../assets/img/magazines/2/2.png"
                                                                 alt="Item img"
                                                         />
                                                 </div>
@@ -148,7 +150,7 @@
                                                         class="magazine__item__img--second--second"
                                                 >
                                                         <img
-                                                                src="../assets/img/magazines/img-second-2.png"
+                                                                src="../assets/img/magazines/2/3.png"
                                                                 alt="Item img"
                                                         />
                                                 </div>
@@ -160,7 +162,7 @@
                                 <div class="magazine__item--logo__box">
                                         <div class="magazine__item--logo">
                                                 <img
-                                                        src="../assets/img/magazines/logo.png"
+                                                        src="../assets/img/magazines/3/logo.png"
                                                         alt="Magazine logo"
                                                 />
                                         </div>
@@ -172,16 +174,15 @@
                                         </div>
                                 </div>
                                 <div class="magazine__item--description">
-                                        <span
-                                                >Товары из категории Акции и
-                                                скидки Товары из
-                                                категории....</span
-                                        >
+                                        <span>
+                                                Товары из категории Акции и
+                                                скидки Товары из категории....
+                                        </span>
                                 </div>
                                 <div class="magazine__item__img__box">
                                         <div class="magazine__item__img--first">
                                                 <img
-                                                        src="../assets/img/magazines/img-first.png"
+                                                        src="../assets/img/magazines/3/1.png"
                                                         alt="Item img"
                                                 />
                                         </div>
@@ -192,7 +193,7 @@
                                                         class="magazine__item__img--second--first"
                                                 >
                                                         <img
-                                                                src="../assets/img/magazines/img-second.png"
+                                                                src="../assets/img/magazines/3/2.png"
                                                                 alt="Item img"
                                                         />
                                                 </div>
@@ -201,7 +202,320 @@
                                                         class="magazine__item__img--second--second"
                                                 >
                                                         <img
-                                                                src="../assets/img/magazines/img-second-2.png"
+                                                                src="../assets/img/magazines/3/3.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="magazine__item__box">
+                                <div class="magazine__item--logo__box">
+                                        <div class="magazine__item--logo">
+                                                <img
+                                                        src="../assets/img/magazines/4/logo.png"
+                                                        alt="Magazine logo"
+                                                />
+                                        </div>
+                                        <div class="magazine__item--rating">
+                                                <img
+                                                        src="../assets/img/magazines/star.png"
+                                                        alt="Star img"
+                                                /><span>4</span>
+                                        </div>
+                                </div>
+                                <div class="magazine__item--description">
+                                        <span>
+                                                Отличная одежда на ваш вкус
+                                        </span>
+                                </div>
+                                <div class="magazine__item__img__box">
+                                        <div class="magazine__item__img--first">
+                                                <img
+                                                        src="../assets/img/magazines/3/1.png"
+                                                        alt="Item img"
+                                                />
+                                        </div>
+                                        <div
+                                                class="magazine__item__img--second"
+                                        >
+                                                <div
+                                                        class="magazine__item__img--second--first"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/4/2.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+
+                                                <div
+                                                        class="magazine__item__img--second--second"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/4/3.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="magazine__item__box">
+                                <div class="magazine__item--logo__box">
+                                        <div class="magazine__item--logo">
+                                                <img
+                                                        src="../assets/img/magazines/5/logo.png"
+                                                        alt="Magazine logo"
+                                                />
+                                        </div>
+                                        <div class="magazine__item--rating">
+                                                <img
+                                                        src="../assets/img/magazines/star.png"
+                                                        alt="Star img"
+                                                /><span>4</span>
+                                        </div>
+                                </div>
+                                <div class="magazine__item--description">
+                                        <span>
+                                                Качественная и доступная обувь
+                                                все возможные товары только для
+                                                вас
+                                        </span>
+                                </div>
+                                <div class="magazine__item__img__box">
+                                        <div class="magazine__item__img--first">
+                                                <img
+                                                        src="../assets/img/magazines/5/1.png"
+                                                        alt="Item img"
+                                                />
+                                        </div>
+                                        <div
+                                                class="magazine__item__img--second"
+                                        >
+                                                <div
+                                                        class="magazine__item__img--second--first"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/5/2.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+
+                                                <div
+                                                        class="magazine__item__img--second--second"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/5/3.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="magazine__item__box">
+                                <div class="magazine__item--logo__box">
+                                        <div class="magazine__item--logo">
+                                                <img
+                                                        src="../assets/img/magazines/6/logo.png"
+                                                        alt="Magazine logo"
+                                                />
+                                        </div>
+                                        <div class="magazine__item--rating">
+                                                <img
+                                                        src="../assets/img/magazines/star.png"
+                                                        alt="Star img"
+                                                /><span>4</span>
+                                        </div>
+                                </div>
+                                <div class="magazine__item--description">
+                                        <span>
+                                                Товары из категории Акции и
+                                                скидки Товары из категории....
+                                        </span>
+                                </div>
+                                <div class="magazine__item__img__box">
+                                        <div class="magazine__item__img--first">
+                                                <img
+                                                        src="../assets/img/magazines/6/1.png"
+                                                        alt="Item img"
+                                                />
+                                        </div>
+                                        <div
+                                                class="magazine__item__img--second"
+                                        >
+                                                <div
+                                                        class="magazine__item__img--second--first"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/6/2.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+
+                                                <div
+                                                        class="magazine__item__img--second--second"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/6/3.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="magazine__item__box">
+                                <div class="magazine__item--logo__box">
+                                        <div class="magazine__item--logo">
+                                                <img
+                                                        src="../assets/img/magazines/7/logo.png"
+                                                        alt="Magazine logo"
+                                                />
+                                        </div>
+                                        <div class="magazine__item--rating">
+                                                <img
+                                                        src="../assets/img/magazines/star.png"
+                                                        alt="Star img"
+                                                /><span>4</span>
+                                        </div>
+                                </div>
+                                <div class="magazine__item--description">
+                                        <span>
+                                                Товары из категории Акции и
+                                                скидки Товары из категории....
+                                        </span>
+                                </div>
+                                <div class="magazine__item__img__box">
+                                        <div class="magazine__item__img--first">
+                                                <img
+                                                        src="../assets/img/magazines/7/1.png"
+                                                        alt="Item img"
+                                                />
+                                        </div>
+                                        <div
+                                                class="magazine__item__img--second"
+                                        >
+                                                <div
+                                                        class="magazine__item__img--second--first"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/7/2.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+
+                                                <div
+                                                        class="magazine__item__img--second--second"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/7/3.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="magazine__item__box">
+                                <div class="magazine__item--logo__box">
+                                        <div class="magazine__item--logo">
+                                                <img
+                                                        src="../assets/img/magazines/8/logo.png"
+                                                        alt="Magazine logo"
+                                                />
+                                        </div>
+                                        <div class="magazine__item--rating">
+                                                <img
+                                                        src="../assets/img/magazines/star.png"
+                                                        alt="Star img"
+                                                /><span>4</span>
+                                        </div>
+                                </div>
+                                <div class="magazine__item--description">
+                                        <span>
+                                                У нас самые дорогие и лучшие
+                                                автомобили
+                                        </span>
+                                </div>
+                                <div class="magazine__item__img__box">
+                                        <div class="magazine__item__img--first">
+                                                <img
+                                                        src="../assets/img/magazines/8/1.png"
+                                                        alt="Item img"
+                                                />
+                                        </div>
+                                        <div
+                                                class="magazine__item__img--second"
+                                        >
+                                                <div
+                                                        class="magazine__item__img--second--first"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/8/2.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+
+                                                <div
+                                                        class="magazine__item__img--second--second"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/8/3.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="magazine__item__box">
+                                <div class="magazine__item--logo__box">
+                                        <div class="magazine__item--logo">
+                                                <img
+                                                        src="../assets/img/magazines/9/logo.png"
+                                                        alt="Magazine logo"
+                                                />
+                                        </div>
+                                        <div class="magazine__item--rating">
+                                                <img
+                                                        src="../assets/img/magazines/star.png"
+                                                        alt="Star img"
+                                                /><span>4</span>
+                                        </div>
+                                </div>
+                                <div class="magazine__item--description">
+                                        <span>
+                                                Если вас интересует одежда в
+                                                классическом стиле, добро
+                                                пожаловать в наш магазин.
+                                        </span>
+                                </div>
+                                <div class="magazine__item__img__box">
+                                        <div class="magazine__item__img--first">
+                                                <img
+                                                        src="../assets/img/magazines/9/1.png"
+                                                        alt="Item img"
+                                                />
+                                        </div>
+                                        <div
+                                                class="magazine__item__img--second"
+                                        >
+                                                <div
+                                                        class="magazine__item__img--second--first"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/9/2.png"
+                                                                alt="Item img"
+                                                        />
+                                                </div>
+
+                                                <div
+                                                        class="magazine__item__img--second--second"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/9/3.png"
                                                                 alt="Item img"
                                                         />
                                                 </div>
@@ -220,6 +534,7 @@ export default {};
         .magazin__container {
                 margin-top: 0;
                 display: flex;
+
                 justify-content: space-between;
                 align-items: baseline;
                 .popular__dropdown__box {
@@ -268,8 +583,8 @@ export default {};
                                         padding: 5px;
                                         text-decoration: none;
 
-                                        &:active,
-                                        &:hover {
+                                        &:hover,
+                                        &:active {
                                                 font-weight: 500;
                                         }
                                 }
@@ -286,6 +601,7 @@ export default {};
                 margin-bottom: 80px;
                 display: flex;
                 justify-content: space-between;
+                flex-wrap: wrap;
                 align-items: stretch;
 
                 .magazine__item__box {
@@ -293,6 +609,7 @@ export default {};
                         background-color: #f1efed;
                         border-radius: 5px;
                         padding: 15px 15px 10px;
+                        margin-bottom: 40px;
 
                         display: flex;
                         flex-direction: column;

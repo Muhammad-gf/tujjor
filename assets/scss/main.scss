@@ -136,6 +136,31 @@ $gc: f7931e;
                                 justify-content: flex-start;
                                 position: relative;
 
+                                .name__rating {
+                                        margin-top: 2px;
+                                        display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+                                        padding-right: 10px;
+
+                                        .magazine__item--rating {
+                                                display: flex;
+                                                align-items: center;
+
+                                                img {
+                                                        width: 12px;
+                                                        height: 12px;
+                                                        margin-right: 2px;
+                                                }
+
+                                                span {
+                                                        color: #666666;
+                                                        opacity: 0.7;
+                                                        font-size: 10px;
+                                                }
+                                        }
+                                }
+
                                 &--name {
                                         margin-top: 5px;
                                         font-family: Roboto;
@@ -255,13 +280,14 @@ $gc: f7931e;
                                 padding: 5px;
                                 text-decoration: none;
 
-                                &:active,
-                                &:hover {
+                                &:hover,
+                                &:active {
                                         font-weight: 500;
                                 }
                         }
 
-                        &:hover {
+                        &:hover,
+                        &:active {
                                 visibility: visible;
                                 opacity: 1;
                         }

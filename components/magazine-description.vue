@@ -506,10 +506,14 @@ export default {
                         flex-direction: column;
                         justify-content: flex-end;
                         align-items: flex-start;
-                        background-color: gray;
+
                         padding: 30px;
                         border-radius: 5px;
                         overflow: hidden;
+
+                        background-image: url("../assets/img/magazine description/bg-2.jpg");
+                        background-repeat: no-repeat;
+                        background-size: cover;
 
                         .magazine__description__img--box {
                                 padding-top: 10px;

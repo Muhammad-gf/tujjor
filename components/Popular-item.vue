@@ -10,10 +10,21 @@
                                         type="photo/png"
                                 />
                                 <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Футболки</span
-                                        >
+                                        <div class="name__rating">
+                                                <span
+                                                        class="popular__items__desription--name"
+                                                        >Футболки</span
+                                                >
+
+                                                <div
+                                                        class="magazine__item--rating"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/star.png"
+                                                                alt="Star img"
+                                                        /><span>4</span>
+                                                </div>
+                                        </div>
                                         <h4
                                                 class="popular__items__desription--categorie"
                                         >
@@ -38,10 +49,22 @@
                                         type="photo/png"
                                 />
                                 <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Футболки</span
-                                        >
+                                        <div class="name__rating">
+                                                <span
+                                                        class="popular__items__desription--name"
+                                                        >Футболки</span
+                                                >
+
+                                                <div
+                                                        class="magazine__item--rating"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/star.png"
+                                                                alt="Star img"
+                                                        /><span>3.5</span>
+                                                </div>
+                                        </div>
+
                                         <h4
                                                 class="popular__items__desription--categorie"
                                         >
@@ -62,10 +85,22 @@
                                         type="photo/png"
                                 />
                                 <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Кроссовки</span
-                                        >
+                                        <div class="name__rating">
+                                                <span
+                                                        class="popular__items__desription--name"
+                                                        >Кроссовки</span
+                                                >
+
+                                                <div
+                                                        class="magazine__item--rating"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/star.png"
+                                                                alt="Star img"
+                                                        /><span>4.5</span>
+                                                </div>
+                                        </div>
+
                                         <h4
                                                 class="popular__items__desription--categorie"
                                         >

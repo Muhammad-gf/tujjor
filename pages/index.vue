@@ -9,19 +9,19 @@
                                                 </nuxt-link>
                                         </li>
 
-                                        <li>
+                                        <li class="done">
                                                 <nuxt-link to="/all_magazines">
                                                         All magazines
                                                 </nuxt-link>
                                         </li>
 
-                                        <li>
+                                        <li class="done">
                                                 <nuxt-link to="/catalog_page">
                                                         Catalog page
                                                 </nuxt-link>
                                         </li>
 
-                                        <li>
+                                        <li class="done">
                                                 <nuxt-link
                                                         to="/magazine__description"
                                                 >
