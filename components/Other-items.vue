@@ -162,7 +162,7 @@
                         <div class="popular__items">
                                 <img
                                         class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
+                                        src="../assets/img/other/6.png"
                                         alt="Popular item photo"
                                         type="photo/png"
                                 />
@@ -191,7 +191,7 @@
                         <div class="popular__items">
                                 <img
                                         class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
+                                        src="../assets/img/other/7.png"
                                         alt="Popular item photo"
                                         type="photo/png"
                                 />
@@ -220,7 +220,7 @@
                         <div class="popular__items">
                                 <img
                                         class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
+                                        src="../assets/img/other/8.png"
                                         alt="Popular item photo"
                                         type="photo/png"
                                 />
@@ -249,7 +249,7 @@
                         <div class="popular__items">
                                 <img
                                         class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
+                                        src="../assets/img/other/9.png"
                                         alt="Popular item photo"
                                         type="photo/png"
                                 />
@@ -278,7 +278,7 @@
                         <div class="popular__items">
                                 <img
                                         class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
+                                        src="../assets/img/other/10.png"
                                         alt="Popular item photo"
                                         type="photo/png"
                                 />
@@ -307,7 +307,7 @@
                         <div class="popular__items">
                                 <img
                                         class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
+                                        src="../assets/img/other/11.png"
                                         alt="Popular item photo"
                                         type="photo/png"
                                 />
@@ -336,7 +336,7 @@
                         <div class="popular__items">
                                 <img
                                         class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
+                                        src="../assets/img/other/12.png"
                                         alt="Popular item photo"
                                         type="photo/png"
                                 />
@@ -365,7 +365,7 @@
                         <div class="popular__items">
                                 <img
                                         class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
+                                        src="../assets/img/other/13.png"
                                         alt="Popular item photo"
                                         type="photo/png"
                                 />
@@ -394,7 +394,7 @@
                         <div class="popular__items">
                                 <img
                                         class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
+                                        src="../assets/img/other/14.png"
                                         alt="Popular item photo"
                                         type="photo/png"
                                 />
@@ -423,152 +423,7 @@
                         <div class="popular__items">
                                 <img
                                         class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
-                                        alt="Popular item photo"
-                                        type="photo/png"
-                                />
-                                <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Одежда</span
-                                        >
-                                        <h4
-                                                class="popular__items__desription--categorie"
-                                        >
-                                                Новая весенная коллекция для
-                                                женщин
-                                        </h4>
-                                        <span
-                                                class="popular__items__desription--price popular__items__desription--old--price"
-                                                >1 480 000 сум</span
-                                        >
-                                        <span
-                                                class="popular__items__desription--price"
-                                                >1 280 000 сум</span
-                                        >
-                                </div>
-                        </div>
-
-                        <div class="popular__items">
-                                <img
-                                        class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
-                                        alt="Popular item photo"
-                                        type="photo/png"
-                                />
-                                <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Одежда</span
-                                        >
-                                        <h4
-                                                class="popular__items__desription--categorie"
-                                        >
-                                                Новая весенная коллекция для
-                                                женщин
-                                        </h4>
-                                        <span
-                                                class="popular__items__desription--price popular__items__desription--old--price"
-                                                >1 480 000 сум</span
-                                        >
-                                        <span
-                                                class="popular__items__desription--price"
-                                                >1 280 000 сум</span
-                                        >
-                                </div>
-                        </div>
-
-                        <div class="popular__items">
-                                <img
-                                        class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
-                                        alt="Popular item photo"
-                                        type="photo/png"
-                                />
-                                <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Одежда</span
-                                        >
-                                        <h4
-                                                class="popular__items__desription--categorie"
-                                        >
-                                                Новая весенная коллекция для
-                                                женщин
-                                        </h4>
-                                        <span
-                                                class="popular__items__desription--price popular__items__desription--old--price"
-                                                >1 480 000 сум</span
-                                        >
-                                        <span
-                                                class="popular__items__desription--price"
-                                                >1 280 000 сум</span
-                                        >
-                                </div>
-                        </div>
-
-                        <div class="popular__items">
-                                <img
-                                        class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
-                                        alt="Popular item photo"
-                                        type="photo/png"
-                                />
-                                <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Одежда</span
-                                        >
-                                        <h4
-                                                class="popular__items__desription--categorie"
-                                        >
-                                                Новая весенная коллекция для
-                                                женщин
-                                        </h4>
-                                        <span
-                                                class="popular__items__desription--price popular__items__desription--old--price"
-                                                >1 480 000 сум</span
-                                        >
-                                        <span
-                                                class="popular__items__desription--price"
-                                                >1 280 000 сум</span
-                                        >
-                                </div>
-                        </div>
-
-                        <div class="popular__items">
-                                <img
-                                        class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
-                                        alt="Popular item photo"
-                                        type="photo/png"
-                                />
-                                <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Одежда</span
-                                        >
-                                        <h4
-                                                class="popular__items__desription--categorie"
-                                        >
-                                                Новая весенная коллекция для
-                                                женщин
-                                        </h4>
-                                        <span
-                                                class="popular__items__desription--price popular__items__desription--old--price"
-                                                >1 480 000 сум</span
-                                        >
-                                        <span
-                                                class="popular__items__desription--price"
-                                                >1 280 000 сум</span
-                                        >
-                                </div>
-                        </div>
-
-                        <div class="popular__items">
-                                <img
-                                        class="popular__items__img"
-                                        src="../assets/img/Popular/woman-1.png"
+                                        src="../assets/img/other/15.png"
                                         alt="Popular item photo"
                                         type="photo/png"
                                 />

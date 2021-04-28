@@ -10,10 +10,22 @@
                                         type="photo/png"
                                 />
                                 <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Футболки</span
-                                        >
+                                        <div class="name__rating">
+                                                <span
+                                                        class="popular__items__desription--name"
+                                                        >Футболки</span
+                                                >
+
+                                                <div
+                                                        class="magazine__item--rating"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/star.png"
+                                                                alt="Star img"
+                                                        /><span>4</span>
+                                                </div>
+                                        </div>
+
                                         <h4
                                                 class="popular__items__desription--categorie"
                                         >
@@ -21,7 +33,7 @@
                                         </h4>
                                         <span
                                                 class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                                >580 000 сум</span
+                                                >630 000 сум</span
                                         >
                                         <span
                                                 class="popular__items__desription--price"
@@ -38,15 +50,31 @@
                                         type="photo/png"
                                 />
                                 <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Футболки</span
-                                        >
+                                        <div class="name__rating">
+                                                <span
+                                                        class="popular__items__desription--name"
+                                                        >Футболки</span
+                                                >
+
+                                                <div
+                                                        class="magazine__item--rating"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/star.png"
+                                                                alt="Star img"
+                                                        /><span>3.5</span>
+                                                </div>
+                                        </div>
+
                                         <h4
                                                 class="popular__items__desription--categorie"
                                         >
                                                 Мужская кожаная куртка
                                         </h4>
+                                        <span
+                                                class="popular__items__desription--price popular__items__desription--old--price hidden"
+                                                >1 580 000 сум</span
+                                        >
                                         <span
                                                 class="popular__items__desription--price"
                                                 >1 080 000 сум</span
@@ -62,15 +90,31 @@
                                         type="photo/png"
                                 />
                                 <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Кроссовки</span
-                                        >
+                                        <div class="name__rating">
+                                                <span
+                                                        class="popular__items__desription--name"
+                                                        >Кроссовки</span
+                                                >
+
+                                                <div
+                                                        class="magazine__item--rating"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/star.png"
+                                                                alt="Star img"
+                                                        /><span>4.5</span>
+                                                </div>
+                                        </div>
+
                                         <h4
                                                 class="popular__items__desription--categorie"
                                         >
                                                 для фанатов футбола Ювентуса
                                         </h4>
+                                        <span
+                                                class="popular__items__desription--price popular__items__desription--old--price hidden"
+                                                >1 399 000 сум</span
+                                        >
                                         <span
                                                 class="popular__items__desription--price"
                                                 >1 280 000 сум</span
@@ -86,15 +130,31 @@
                                         type="photo/png"
                                 />
                                 <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Рубашки</span
-                                        >
+                                        <div class="name__rating">
+                                                <span
+                                                        class="popular__items__desription--name"
+                                                        >Рубашки</span
+                                                >
+
+                                                <div
+                                                        class="magazine__item--rating"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/star.png"
+                                                                alt="Star img"
+                                                        /><span>4.9</span>
+                                                </div>
+                                        </div>
+
                                         <h4
                                                 class="popular__items__desription--categorie"
                                         >
                                                 весенная рубашка для мужчин
                                         </h4>
+                                        <span
+                                                class="popular__items__desription--price popular__items__desription--old--price hidden"
+                                                >532 000 сум</span
+                                        >
                                         <span
                                                 class="popular__items__desription--price"
                                                 >474 000 сум</span
@@ -110,10 +170,22 @@
                                         type="photo/png"
                                 />
                                 <div class="popular__items__desription">
-                                        <span
-                                                class="popular__items__desription--name"
-                                                >Одежда</span
-                                        >
+                                        <div class="name__rating">
+                                                <span
+                                                        class="popular__items__desription--name"
+                                                        >Одежда</span
+                                                >
+
+                                                <div
+                                                        class="magazine__item--rating"
+                                                >
+                                                        <img
+                                                                src="../assets/img/magazines/star.png"
+                                                                alt="Star img"
+                                                        /><span>3.6</span>
+                                                </div>
+                                        </div>
+
                                         <h4
                                                 class="popular__items__desription--categorie"
                                         >
@@ -122,7 +194,7 @@
                                         </h4>
                                         <span
                                                 class="popular__items__desription--price popular__items__desription--old--price"
-                                                >1 480 000 сум</span
+                                                >1 619 000 сум</span
                                         >
                                         <span
                                                 class="popular__items__desription--price"
