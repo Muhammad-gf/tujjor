@@ -369,6 +369,7 @@ export default {};
                                         display: inline-block;
                                         transition: all 0.2s;
                                         @include hover__active--animation;
+                                        @include button__bg--color;
 
                                         font-family: Roboto;
                                         font-size: 14px;

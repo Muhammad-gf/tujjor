@@ -1,12 +1,12 @@
 <template>
-        <div>
-                <div class="header_back"></div>
-                <Header />
+    <div>
+        <div class="header_back"></div>
+        <Header />
 
-                <Nuxt />
+        <Nuxt />
 
-                <Footer />
-        </div>
+        <Footer />
+    </div>
 </template>
 
 <script>
@@ -20,33 +20,32 @@ export default {};
 </style>
 <style lang="scss">
 div.header_back {
-        height: 141px;
+    height: 141px;
 
-        & {
-                @media only screen and (max-width: 768px) {
-                        height: 127px;
-                }
-
-                @media only screen and (max-width: 560px) {
-                        height: 163px;
-                }
-
-                @media only screen and (max-width: 320px) {
-                        height: 173px;
-                }
+    & {
+        @media only screen and (max-width: 768px) {
+            height: 127px;
         }
+
+        @media only screen and (max-width: 560px) {
+            height: 163px;
+        }
+
+        @media only screen and (max-width: 320px) {
+            height: 173px;
+        }
+    }
 }
 * {
-        margin: 0;
-        padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-                sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 .container {
-        max-width: 1200px;
+    max-width: 1200px;
 }
 a:hover {
-        text-decoration: none;
+    text-decoration: none;
 }
 </style>

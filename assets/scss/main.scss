@@ -65,6 +65,15 @@ $gc: f7931e;
 ////////////////////////////////////////////////////////////
 // FOR ITEMS STYLE
 
+@mixin button__bg--color {
+        &:hover,
+        &:active {
+                background-color: #ffffff;
+                color: #f7931e;
+                border: 1px solid #f7931e;
+        }
+}
+
 @mixin hover__active--animation {
         &:hover {
                 transform: translateY(-3px) scale(1.05);
@@ -231,6 +240,7 @@ $gc: f7931e;
                         cursor: pointer;
                 }
 
+                @include button__bg--color;
                 @include hover__active--animation;
         }
 

@@ -1,6 +1,6 @@
 <template>
     <header class="header">
-        <div class="header-top">
+        <div class="header-top" id="header-top">
             <div class="container d-flex justify-content-between w-100">
                 <div class="header-top-left">
                     <span class="logo-site">
@@ -403,11 +403,13 @@ header.header {
     z-index: 15;
 
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+
     div.header-top {
         background-color: #f7931f;
         display: flex;
         height: 60px;
         justify-content: space-between;
+
         div.header-top-left {
             display: flex;
             align-items: center;

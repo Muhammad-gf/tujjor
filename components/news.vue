@@ -205,6 +205,7 @@ export default {};
                                         cursor: pointer;
                                 }
 
+                                @include button__bg--color;
                                 @include hover__active--animation;
                         }
 

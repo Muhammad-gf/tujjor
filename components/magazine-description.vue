@@ -432,7 +432,7 @@
                                         >
                                 </section>
 
-                                <div class="catalog__page__btn--box">
+                                <!-- <div class="catalog__page__btn--box">
                                         <a
                                                 href="#"
                                                 class="catalog__page--btn catalog__page--btn--active"
@@ -459,7 +459,7 @@
                                         <a href="#" class="catalog__page--btn"
                                                 >></a
                                         >
-                                </div>
+                                </div> -->
                         </div>
                 </section>
         </section>

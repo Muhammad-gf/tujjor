@@ -1,7 +1,7 @@
 <template>
-        <div>
-                <catalog-page />
-        </div>
+    <div>
+        <catalog-page />
+    </div>
 </template>
 
 <script>
