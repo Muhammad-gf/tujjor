@@ -29,65 +29,6 @@
                                 <img src="@/assets/img/p5.png" alt="" />
                             </div>
                         </div> -->
-
-                        <VueSlickCarousel
-                            ref="c1"
-                            :asNavFor="$refs.c2"
-                            :focusOnSelect="true"
-                        >
-                            <div class="__item">
-                                <img src="@/assets/img/p1.png" alt="" />
-                            </div>
-                            <div class="__item">
-                                <img src="@/assets/img/p2.png" alt="" />
-                            </div>
-                            <div class="__item">
-                                <img src="@/assets/img/p2.png" alt="" />
-                            </div>
-                            <div class="__item">
-                                <img src="@/assets/img/p2.png" alt="" />
-                            </div>
-                            <div class="__item">
-                                <img src="@/assets/img/p2.png" alt="" />
-                            </div>
-                            <div class="__item">
-                                <img src="@/assets/img/p3.png" alt="" />
-                            </div>
-                            <div class="__item">
-                                <img src="@/assets/img/p4.png" alt="" />
-                            </div>
-                        </VueSlickCarousel>
-
-                        <div class="bottom-img">
-                            <VueSlickCarousel
-                                ref="c2"
-                                :asNavFor="$refs.c1"
-                                :slidesToShow="4"
-                                :focusOnSelect="true"
-                            >
-                                <div class="__item">
-                                    <img src="@/assets/img/p1.png" alt="" />
-                                </div>
-                                <div class="__item">
-                                    <img src="@/assets/img/p2.png" alt="" />
-                                </div>
-                                <div class="__item">
-                                    <img src="@/assets/img/p2.png" alt="" />
-                                </div>
-                                <div class="__item">
-                                    <img src="@/assets/img/p2.png" alt="" />
-                                </div>
-                                <div class="__item">
-                                    <img src="@/assets/img/p2.png" alt="" />
-                                </div>
-                                <div class="__item">
-                                    <img src="@/assets/img/p3.png" alt="" />
-                                </div>
-                                <div class="__item">
-                                    <img src="@/assets/img/p4.png" alt="" />
-                                </div>
-                            </VueSlickCarousel>
-                        </div>
                     </div>
                 </div>
 
@@ -144,6 +85,7 @@
                                     id="xxlarge"
                                     name="product__size"
                                     value="XXL-44"
+                                    checked
                                 />
                                 <label for="xxlarge">XXL-44</label>
                             </div>
@@ -209,14 +151,38 @@
                                 <Span>100% хлопок</Span>
                             </div>
 
-                            <div class="product__info--txt col-md-6 col-sm-6">
+                            <div class="product__info--txt col-md-6 col-sm-6 ">
                                 Рейтинг:
-                                <Span>100% хлопок</Span>
+                                <Span>
+                                    <star-rating
+                                        class="star__rating "
+                                        :increment="0.5"
+                                        inactive-color="#219EBC"
+                                        :star-size="12"
+                                        :show-rating="false"
+                                        :rating="4.5"
+                                    >
+                                    </star-rating>
+                                </Span>
                             </div>
 
                             <div class="product__info--txt col-md-6 col-sm-6">
                                 В избранное:
-                                <Span>100% хлопок</Span>
+                                <Span>
+                                    <svg
+                                        class="favorite__icon"
+                                        width="18"
+                                        height="16"
+                                        viewBox="0 0 14 13"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M13.1719 2.47814C12.9624 1.99319 12.6604 1.55374 12.2828 1.18439C11.9049 0.813927 11.4593 0.519528 10.9703 0.317199C10.4632 0.106563 9.91939 -0.00125279 9.37031 1.09826e-05C8.6 1.09826e-05 7.84844 0.210948 7.19531 0.609386C7.03906 0.704698 6.89062 0.809386 6.75 0.923449C6.60938 0.809386 6.46094 0.704698 6.30469 0.609386C5.65156 0.210948 4.9 1.09826e-05 4.12969 1.09826e-05C3.575 1.09826e-05 3.0375 0.106261 2.52969 0.317199C2.03906 0.520324 1.59687 0.812511 1.21719 1.18439C0.839057 1.55333 0.536997 1.99288 0.328125 2.47814C0.110938 2.98282 0 3.51876 0 4.07032C0 4.59064 0.10625 5.13282 0.317188 5.68439C0.49375 6.14532 0.746875 6.62345 1.07031 7.10626C1.58281 7.87032 2.2875 8.6672 3.1625 9.47501C4.6125 10.8141 6.04844 11.7391 6.10938 11.7766L6.47969 12.0141C6.64375 12.1188 6.85469 12.1188 7.01875 12.0141L7.38906 11.7766C7.45 11.7375 8.88437 10.8141 10.3359 9.47501C11.2109 8.6672 11.9156 7.87032 12.4281 7.10626C12.7516 6.62345 13.0062 6.14532 13.1812 5.68439C13.3922 5.13282 13.4984 4.59064 13.4984 4.07032C13.5 3.51876 13.3891 2.98282 13.1719 2.47814Z"
+                                            fill="#F7931E"
+                                        />
+                                    </svg>
+                                </Span>
                             </div>
                         </div>
 
@@ -291,11 +257,12 @@
 
                             <star-rating
                                 class="star__rating"
+                                :read-only="true"
                                 :increment="0.5"
+                                :rating="4.5"
+                                :show-rating="false"
                                 inactive-color="#219EBC"
                                 :star-size="18"
-                                :show-rating="false"
-                                :rating="4.5"
                             ></star-rating>
                         </div>
                         <div class="client__review__txt col-sm-12">
@@ -342,11 +309,12 @@
 
                             <star-rating
                                 class="star__rating"
+                                :read-only="true"
                                 :increment="0.5"
+                                :rating="3.5"
+                                :show-rating="false"
                                 inactive-color="#219EBC"
                                 :star-size="18"
-                                :show-rating="false"
-                                :rating="5"
                             ></star-rating>
                         </div>
                         <div class="client__review__txt col-sm-12">
@@ -393,11 +361,12 @@
 
                             <star-rating
                                 class="star__rating"
+                                :read-only="true"
                                 :increment="0.5"
+                                :rating="4"
+                                :show-rating="false"
                                 inactive-color="#219EBC"
                                 :star-size="18"
-                                :show-rating="false"
-                                :rating="4"
                             ></star-rating>
                         </div>
                         <div class="client__review__txt col-sm-12">
@@ -469,6 +438,482 @@
                 </div>
             </div>
         </div>
+
+        <section class="container popular__container">
+            <div class="popular__heading">В магазине</div>
+            <div class="popular__item-box">
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/other/6.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name"
+                                >Футболки</span
+                            >
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            Детская одежда
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                            >580 000 сум</span
+                        >
+                        <span class="popular__items__desription--price"
+                            >480 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/other/7.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name"
+                                >Футболки</span
+                            >
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            Мужская кожаная куртка
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                            >1 580 000 сум</span
+                        >
+                        <span class="popular__items__desription--price"
+                            >1 080 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/other/8.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name">
+                                Кросовки
+                            </span>
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            для фанатов футбола Ювентус
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                        ></span>
+                        <span class="popular__items__desription--price"
+                            >1 280 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/other/9.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name"
+                                >Футболки</span
+                            >
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            Женская Футболка
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                            >350 000 сум</span
+                        >
+                        <span class="popular__items__desription--price"
+                            >200 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/other/10.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name">
+                                Одежда
+                            </span>
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            Новая весенняя коллекция для женщин
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                        ></span>
+                        <span class="popular__items__desription--price"
+                            >1 280 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/other/11.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name"
+                                >Футболки</span
+                            >
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            Мужская кожаная куртка
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                            >1 580 000 сум</span
+                        >
+                        <span class="popular__items__desription--price"
+                            >1 080 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/other/12.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name"
+                                >Футболки</span
+                            >
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            Мужская кожаная куртка
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                            >1 580 000 сум</span
+                        >
+                        <span class="popular__items__desription--price"
+                            >1 080 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/other/13.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name"
+                                >Футболки</span
+                            >
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            для фанатов футбола Ювентус
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                        ></span>
+                        <span class="popular__items__desription--price"
+                            >1 280 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/other/14.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name"
+                                >Рубашки</span
+                            >
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            весенняя рубашка для мужчин
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                        ></span>
+                        <span class="popular__items__desription--price"
+                            >474 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/other/15.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name">
+                                Одежда
+                            </span>
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            Новая весенняя коллекция для женщин
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                        ></span>
+                        <span class="popular__items__desription--price"
+                            >1 280 000 сум</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container popular__container">
+            <div class="popular__heading">Похожи товари</div>
+            <div class="popular__item-box">
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/Other/1.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name"
+                                >Футболки</span
+                            >
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            Детская одежда
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                            >580 000 сум</span
+                        >
+                        <span class="popular__items__desription--price"
+                            >480 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/Popular/boy-1.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name"
+                                >Футболки</span
+                            >
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>4</span>
+                            </div>
+                        </div>
+                        <h4 class="popular__items__desription--categorie">
+                            Детская одежда
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                            >580 000 сум</span
+                        >
+                        <span class="popular__items__desription--price"
+                            >480 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/catalog_page/2.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <div class="name__rating">
+                            <span class="popular__items__desription--name"
+                                >Футболки</span
+                            >
+
+                            <div class="magazine__item--rating">
+                                <img
+                                    src="../assets/img/magazines/star.png"
+                                    alt="Star img"
+                                /><span>3.5</span>
+                            </div>
+                        </div>
+
+                        <h4 class="popular__items__desription--categorie">
+                            Мужская кожаная куртка
+                        </h4>
+                        <span class="popular__items__desription--price"
+                            >1 080 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/Popular/woman-1.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <span class="popular__items__desription--name"
+                            >Одежда</span
+                        >
+                        <h4 class="popular__items__desription--categorie">
+                            Новая весенная коллекция для женщин
+                        </h4>
+                        <span
+                            class="popular__items__desription--price popular__items__desription--old--price"
+                            >1 480 000 сум</span
+                        >
+                        <span class="popular__items__desription--price"
+                            >1 280 000 сум</span
+                        >
+                    </div>
+                </div>
+
+                <div class="popular__items">
+                    <img
+                        class="popular__items__img"
+                        src="../assets/img/Popular/boy-3.png"
+                        alt="Popular item photo"
+                        type="photo/png"
+                    />
+                    <div class="popular__items__desription">
+                        <span class="popular__items__desription--name"
+                            >Рубашки</span
+                        >
+                        <h4 class="popular__items__desription--categorie">
+                            весенная рубашка для мужчин
+                        </h4>
+                        <span class="popular__items__desription--price"
+                            >474 000 сум</span
+                        >
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="popular__btn">Показать ещё</a>
+        </section>
     </div>
 </template>
 
@@ -773,6 +1218,17 @@ export default {
             /* or 18px */
             color: #666666;
         }
+
+        .star__rating,
+        .favorite__icon {
+            padding-left: 4px;
+            transform: translateY(-2px);
+            display: inline-block;
+        }
+
+        .favorite__icon {
+            transform: translateY(-1px);
+        }
     }
 
     .product__info--description {
@@ -914,8 +1370,6 @@ export default {
 }
 
 .customer__review__container {
-    background-color: blueviolet;
-
     .customer__review__box {
         margin: 0;
         padding: 30px;
@@ -1012,9 +1466,9 @@ export default {
         }
 
         // CLEAR PADDING RIGHT
-        .price__col {
-            padding-right: 0;
-        }
+        // .price__col {
+        //     padding-right: 0;
+        // }
 
         .product-count {
             h3 {
@@ -1126,6 +1580,9 @@ export default {
     .customer__review__container {
         .customer__review__box {
             border-radius: 0;
+            margin-left: 0;
+            margin-right: 0;
+            max-width: 375px;
         }
     }
 }
