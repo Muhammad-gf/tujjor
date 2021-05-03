@@ -24,6 +24,38 @@
 
                 <div class="col-md-5 col-sm-5">
                     <div class="image-product">
+                        <VueSlickCarousel
+                            class="product__img__box"
+                            v-bind="productSlickOptions"
+                        >
+                            <div class="img">
+                                <img
+                                    src="../assets/img/product show/exp-2.png"
+                                    alt="Brand"
+                                />
+                            </div>
+
+                            <div class="img">
+                                <img
+                                    src="../assets/img/product show/exp-3.png"
+                                    alt="Brand"
+                                />
+                            </div>
+
+                            <div class="img">
+                                <img
+                                    src="../assets/img/order/1.png"
+                                    alt="Brand"
+                                />
+                            </div>
+
+                            <div class="img">
+                                <img
+                                    src="../assets/img/other/12.png"
+                                    alt="Brand"
+                                />
+                            </div>
+                        </VueSlickCarousel>
                         <!-- <div class="top-img">
                             <div class="img-view">
                                 <img src="@/assets/img/p5.png" alt="" />
@@ -924,7 +956,16 @@ export default {
             rating: "No Rating Selected",
             currentRating: "No Rating",
             currentSelectedRating: "No Current Rating",
-            boundRating: 3
+            boundRating: 3,
+
+            productSlickOptions: {
+                focusOnSelect: true,
+                slidesToScroll: 1,
+                touchThreshold: 1,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1
+            }
         };
     },
     methods: {
@@ -946,6 +987,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.image-product {
+    .product__img__box {
+        width: 100%;
+        height: 457px;
+        overflow: hidden;
+
+        .img {
+            width: 100%;
+            height: 457px;
+
+            img {
+                width: 100%;
+                height: 457px;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
 .slick-slider {
     margin: 0 -5px;
 }
