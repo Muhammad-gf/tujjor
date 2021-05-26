@@ -1,6 +1,114 @@
 <template>
     <header class="header">
-        <div class="header-bottom">
+        <div class="header-top" id="header-top">
+            <div class="container d-flex justify-content-between w-100">
+                <div class="header-top-left">
+                    <span class="logo-site">
+                        <span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="19"
+                                height="28"
+                                viewBox="0 0 19 28"
+                                fill="none"
+                            >
+                                <path
+                                    d="M19 9.8C19 8.51305 18.7543 7.23869 18.2769 6.0497C17.7994 4.86071 17.0997 3.78037 16.2175 2.87035C15.3354 1.96034 14.2881 1.23848 13.1355 0.745981C11.9829 0.253484 10.7476 0 9.5 0C8.25244 0 7.0171 0.253484 5.86451 0.745981C4.71191 1.23848 3.66464 1.96034 2.78249 2.87035C1.90033 3.78037 1.20056 4.86071 0.723144 6.0497C0.245725 7.23869 -1.85901e-08 8.51305 0 9.8C0 11.7418 0.556429 13.5478 1.49964 15.071H1.48879C4.69164 20.244 9.5 28 9.5 28L17.5112 15.071H17.5017C18.4794 13.4979 18.9994 11.6686 19 9.8ZM9.5 14C8.42019 14 7.38461 13.5575 6.62106 12.7698C5.85752 11.9822 5.42857 10.9139 5.42857 9.8C5.42857 8.68609 5.85752 7.6178 6.62106 6.83015C7.38461 6.0425 8.42019 5.6 9.5 5.6C10.5798 5.6 11.6154 6.0425 12.3789 6.83015C13.1425 7.6178 13.5714 8.68609 13.5714 9.8C13.5714 10.9139 13.1425 11.9822 12.3789 12.7698C11.6154 13.5575 10.5798 14 9.5 14Z"
+                                    fill="white"
+                                />
+                            </svg>
+                        </span>
+                        <div>
+                            <h6 class="__adress">
+                                г Ташкент, р Чиланзар, Гавхар 52
+                            </h6>
+                        </div>
+                    </span>
+                </div>
+
+                <div class="header-top-right">
+                    <div class="email">
+                        <span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="14"
+                                viewBox="0 0 18 14"
+                                fill="none"
+                            >
+                                <path
+                                    d="M17.659 4.61317C17.7961 4.50039 18 4.6059 18 4.78417V12.2242C18 13.1883 17.2441 13.9705 16.3125 13.9705H1.6875C0.755859 13.9705 0 13.1883 0 12.2242V4.78781C0 4.6059 0.200391 4.50403 0.341016 4.61681C1.12852 5.24985 2.17266 6.05388 5.75859 8.74975C6.50039 9.31003 7.75195 10.4888 9 10.4815C10.2551 10.4924 11.5312 9.2882 12.2449 8.74975C15.8309 6.05388 16.8715 5.24621 17.659 4.61317ZM9 9.31366C9.81563 9.32822 10.9898 8.25132 11.5805 7.80747C16.2457 4.30393 16.6008 3.99833 17.6766 3.12517C17.8805 2.96145 18 2.70678 18 2.43756V1.74631C18 0.782202 17.2441 0 16.3125 0H1.6875C0.755859 0 0 0.782202 0 1.74631V2.43756C0 2.70678 0.119531 2.95782 0.323437 3.12517C1.39922 3.99469 1.7543 4.30393 6.41953 7.80747C7.01016 8.25132 8.18437 9.32822 9 9.31366Z"
+                                    fill="white"
+                                />
+                            </svg>
+                        </span>
+                        <h6>info@tujjor.uz</h6>
+                    </div>
+
+                    <div class="phone__lang__box">
+                        <div class="phone">
+                            <span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18"
+                                    height="19"
+                                    viewBox="0 0 18 19"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M12.0008 13.6791L13.5507 12.1318C13.7595 11.926 14.0236 11.7851 14.3111 11.7262C14.5985 11.6674 14.8968 11.6931 15.1699 11.8002L17.0589 12.5532C17.3349 12.665 17.5715 12.8559 17.739 13.1017C17.9065 13.3476 17.9973 13.6374 18 13.9347V17.3886C17.9984 17.5908 17.9558 17.7907 17.8748 17.976C17.7938 18.1614 17.6761 18.3285 17.5287 18.4673C17.3813 18.606 17.2073 18.7136 17.0171 18.7834C16.827 18.8533 16.6247 18.884 16.4223 18.8737C3.18528 18.0517 0.514341 6.86119 0.00921507 2.5784C-0.0142332 2.36808 0.00719085 2.15519 0.0720778 1.95374C0.136965 1.75228 0.243844 1.56682 0.385684 1.40956C0.527524 1.25231 0.701111 1.12681 0.895024 1.04133C1.08894 0.955855 1.29878 0.912334 1.51075 0.913633H4.85289C5.15113 0.914514 5.44228 1.00445 5.6889 1.17186C5.93552 1.33928 6.12634 1.57653 6.23679 1.85309L6.99102 3.7389C7.10191 4.01042 7.1302 4.30854 7.07236 4.59602C7.01452 4.8835 6.87312 5.14759 6.66581 5.35531L5.11583 6.90264C5.11583 6.90264 6.00845 12.9331 12.0008 13.6791Z"
+                                        fill="white"
+                                    />
+                                </svg>
+                            </span>
+                            <h6>
+                                +998 (90) 123 45 67
+                            </h6>
+                        </div>
+                        <div class="dropdown-language__top">
+                            <button type="button">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="43"
+                                    height="28"
+                                    viewBox="0 0 43 28"
+                                    fill="none"
+                                >
+                                    <rect
+                                        x="0.37793"
+                                        width="42"
+                                        height="28"
+                                        fill="url(#pattern1)"
+                                    />
+                                    <defs>
+                                        <pattern
+                                            id="pattern1"
+                                            patternContentUnits="objectBoundingBox"
+                                            width="1"
+                                            height="1"
+                                        >
+                                            <use
+                                                xlink:href="#image1"
+                                                transform="translate(0 -0.00025) scale(0.001 0.0015)"
+                                            />
+                                        </pattern>
+                                        <image
+                                            id="image1"
+                                            width="1000"
+                                            height="667"
+                                            xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wCEAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSgBBwcHCggKEwoKEygaFhooKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKP/CABEIApsD6AMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAABggF/9oACAEBAAAAANUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAGLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADqgAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/xAAXAQEBAQEAAAAAAAAAAAAAAAAABwQF/9oACAECEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABoAAAAAAAAAAKCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcgAAAAAAAAAAkoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/8QAGAEBAAMBAAAAAAAAAAAAAAAAAAMFBgf/2gAIAQMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAABmgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC8AAAAAAAAAAO4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//xAAWEAEBAQAAAAAAAAAAAAAAAAAVF7D/2gAIAQEAAQIA1L65XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5qXiCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCa1n/8QAHBAAAQQDAQAAAAAAAAAAAAAAAwAGU1aTodKw/9oACAEBAAM/APUvYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYic+pgaUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe/Wt//EABYRAQEBAAAAAAAAAAAAAAAAABQVkP/aAAgBAgEBAgDTMhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCaZ3r169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr17XL/xAAdEQABAwUBAAAAAAAAAAAAAAABAAMFUlORodGQ/9oACAECAQM/APTN+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dg+mkfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvnrn//xAAWEQEBAQAAAAAAAAAAAAAAAAATFpD/2gAIAQMBAQIA0zZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm0zmpqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqa1y/8QAHREAAQMFAQAAAAAAAAAAAAAAAQADBVJTkaHRkP/aAAgBAwEDPwD0zbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZ9NJSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXfXP/9k="
+                                        />
+                                    </defs>
+                                </svg>
+                                <b>ру</b>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom ">
             <div class="container d-flex justify-content-between w-100 ">
                 <div class="header-bottom-right">
                     <div class="logo-tujjor">
@@ -297,9 +405,7 @@
 </template>
 
 <script>
-export default {
-    methods: {}
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>

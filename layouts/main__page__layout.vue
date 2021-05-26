@@ -1,8 +1,10 @@
 <template>
     <div>
-        <div class="header__back"></div>
-        <Header />
+        <div class="header_back"></div>
+        <Header-main-page />
+
         <Nuxt />
+
         <Footer />
     </div>
 </template>
@@ -17,12 +19,12 @@ export default {};
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap");
 </style>
 <style lang="scss">
-div.header__back {
-    height: 81px;
+div.header_back {
+    height: 141px;
 
     & {
         @media only screen and (max-width: 768px) {
-            height: 67px;
+            height: 127px;
         }
     }
 }

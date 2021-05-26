@@ -22,11 +22,48 @@
                     <h2>POLO Рубашка</h2>
                 </div>
 
-                <div class="col-md-5 col-sm-5">
-                    <div class="image-product">
+                <div class="col-md-12 col-sm-12 m-b--4 ">
+                    <div class="row image__product">
                         <VueSlickCarousel
-                            class="product__img__box"
+                            class="product__img__box col-sm-4"
                             v-bind="productSlickOptions"
+                            ref="c1"
+                            :asNavFor="c2"
+                        >
+                            <div class="img">
+                                <img
+                                    src="../assets/img/product show/exp-2.png"
+                                    alt="Brand"
+                                />
+                            </div>
+
+                            <div class="img">
+                                <img
+                                    src="../assets/img/product show/exp-3.png"
+                                    alt="Brand"
+                                />
+                            </div>
+
+                            <div class="img">
+                                <img
+                                    src="../assets/img/order/1.png"
+                                    alt="Brand"
+                                />
+                            </div>
+
+                            <div class="img">
+                                <img
+                                    src="../assets/img/other/12.png"
+                                    alt="Brand"
+                                />
+                            </div>
+                        </VueSlickCarousel>
+
+                        <VueSlickCarousel
+                            class="product__img__selected col-sm-8 "
+                            v-bind="productSlickSelectedOptions"
+                            ref="c2"
+                            :asNavFor="c1"
                         >
                             <div class="img">
                                 <img
@@ -951,6 +988,8 @@
 
 <script>
 export default {
+    layout: "product__show__layout",
+
     data() {
         return {
             rating: "No Rating Selected",
@@ -965,8 +1004,25 @@ export default {
                 infinite: true,
                 speed: 500,
                 slidesToShow: 1
-            }
+            },
+
+            productSlickSelectedOptions: {
+                focusOnSelect: true,
+                slidesToScroll: 1,
+                touchThreshold: 1,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1
+            },
+
+            c1: undefined,
+            c2: undefined
         };
+    },
+
+    mounted() {
+        this.c1 = this.$refs.c1;
+        this.c2 = this.$refs.c2;
     },
     methods: {
         setRating: function(rating) {
@@ -987,7 +1043,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.image-product {
+.image__product {
+    margin-bottom: 20px;
     .product__img__box {
         width: 100%;
         height: 457px;
@@ -1015,6 +1072,7 @@ export default {
     width: 20px;
     height: 20px;
 }
+
 .product-info {
     .select__image {
         display: flex;
@@ -1153,6 +1211,7 @@ export default {
     line-height: 56px;
     color: #f7931f;
 }
+
 .image-product {
     display: flex;
     justify-content: space-between;
@@ -1197,6 +1256,7 @@ export default {
         }
     }
 }
+
 .title-box {
     padding: 40px 0px;
     ul {

@@ -3,6 +3,9 @@
         <div class="header__back"></div>
         <Header />
         <Nuxt />
+        <div class="navbar__bottom">
+            <h1>Something</h1>
+        </div>
         <Footer />
     </div>
 </template>
@@ -17,15 +20,6 @@ export default {};
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap");
 </style>
 <style lang="scss">
-div.header__back {
-    height: 81px;
-
-    & {
-        @media only screen and (max-width: 768px) {
-            height: 67px;
-        }
-    }
-}
 * {
     margin: 0;
     padding: 0;
@@ -37,5 +31,25 @@ div.header__back {
 }
 a:hover {
     text-decoration: none;
+}
+
+div.header__back {
+    height: 81px;
+
+    & {
+        @media only screen and (max-width: 768px) {
+            height: 67px;
+        }
+    }
+}
+
+.navbar__bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    height: 40px;
+    //     width: %;
+    background-color: #fcf6f6;
 }
 </style>
