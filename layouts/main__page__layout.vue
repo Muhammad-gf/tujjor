@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="layout">
         <div class="header_back"></div>
         <Header-main-page />
 
@@ -19,6 +19,9 @@ export default {};
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap");
 </style>
 <style lang="scss">
+.layout {
+    overflow: hidden;
+}
 div.header_back {
     height: 141px;
 
@@ -28,7 +31,9 @@ div.header_back {
         }
     }
 }
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,

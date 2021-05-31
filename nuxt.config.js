@@ -80,7 +80,9 @@ export default {
         scss: ["@/assets/scss/*.scss"]
     },
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
-    axios: {},
+    axios: {
+        baseURL: ""
+    },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {

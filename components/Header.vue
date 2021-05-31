@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <div class="header-bottom">
-            <div class="container d-flex justify-content-between w-100 ">
+            <div class="container d-flex justify-content-between">
                 <div class="header-bottom-right">
                     <div class="logo-tujjor">
                         <nuxt-link to="/">
@@ -304,7 +304,7 @@ export default {
 
 <style lang="scss" scoped>
 header.header {
-    width: 100%;
+    width: 100vw;
     position: fixed;
     top: 0;
     left: 0;
@@ -360,6 +360,7 @@ header.header {
     div.header-bottom {
         padding: 10px 0px;
         background: #fcf6f6;
+
         div.header-bottom-right {
             width: 100%;
 
