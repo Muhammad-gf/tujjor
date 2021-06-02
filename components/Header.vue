@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="dropdown-category">
-                        <button type="button">
+                        <button type="button" @click="doVisibleCategory">
                             <span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -286,10 +286,148 @@
                             aria-controls="navbarToggleExternalContent"
                             aria-expanded="false"
                             aria-label="Toggle navigation"
+                            @click="doVisibleCategory"
                         >
                             <span class="navbar-toggler-icon"> </span>
                         </button>
                     </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-dropdown" v-show="visibleCategory">
+            <div class="container d-flex w-100 ">
+                <div class="category-dropdown__main">
+                    <span class="category-dropdown__main--txt">
+                        <!-- {{ category.name.uz }} - {{ category._id }} -->
+                    </span>
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <!--   <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Наращивание волос и парики</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Наращивание волос и парики</span
+                    >
+
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Наращивание волос и парики</span
+                    >
+
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Бытовая техника</span
+                    >
+                    <span class="category-dropdown__main--txt"
+                        >Наращивание волос и парики</span
+                    > -->
+                </div>
+                <div class="category-dropdown__children d-flex flex-column">
+                    <span
+                        class="category-dropdown__children--txt main-children"
+                    >
+                        <!-- {{ children.name.uz }} - {{ children._id }} -->
+                    </span>
+                    <span class="category-dropdown__children--txt ">
+                        <!-- {{ child.name.uz }} - {{ child._id }} -->
+                    </span>
+
+                    <!-- <span class="category-dropdown__children--txt ">
+                        Обувь
+                    </span>
+                    <span class="category-dropdown__children--txt ">
+                        Аксессуары
+                    </span>
+                    <span class="category-dropdown__children--txt ">
+                        Нижнее белье
+                    </span>
+                    <span class="category-dropdown__children--txt ">
+                        Чулки, носки, колготки
+                    </span>
+                    <span class="category-dropdown__children--txt ">
+                        Домашняя одежда
+                    </span>
+                    <span class="category-dropdown__children--txt ">
+                        Одежда для беременных
+                    </span>
+                    <span class="category-dropdown__children--txt ">
+                        Купальники и пляжная одежда
+                    </span> -->
                 </div>
             </div>
         </div>
@@ -298,7 +436,40 @@
 
 <script>
 export default {
-    methods: {}
+    data() {
+        return {
+            visibleCategory: false,
+            categoryArray: []
+        };
+    },
+    methods: {
+        doVisibleCategory() {
+            this.visibleCategory = !this.visibleCategory;
+            console.log(1, this.visibleCategory);
+        },
+
+        categoryRecurcy(item) {
+            let arrayList = [];
+            if (item.children) {
+                for (let i = 0; i < item.children.length; i++) {
+                    arrayList.push(item.children[i].name.uz);
+                }
+                this.categoryRecurcy(item.children);
+            }
+            console.log(arrayList);
+            return arrayList;
+        }
+    },
+
+    computed: {},
+
+    async mounted() {
+        const ip = await this.$axios.$get(
+            "http://cdn.tujjor.org/api/category/all"
+        );
+        this.categoryArray = ip.data;
+        console.log(this.categoryArray);
+    }
 };
 </script>
 
@@ -483,6 +654,81 @@ header.header {
     }
 }
 
+.category-dropdown {
+    background-color: black;
+    color: white;
+    height: 500px !important;
+
+    .container {
+        padding: 0;
+    }
+
+    .category-dropdown__main {
+        flex-shrink: 0;
+        width: 248px;
+        height: 500px;
+        padding: 5px 0;
+        background: #fce3a4;
+        overflow-y: scroll;
+
+        .category-dropdown__main--txt {
+            font-family: Roboto, sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 100%;
+            /* identical to box height, or 14px */
+            padding: 10px 15px;
+            color: #666666;
+            display: block;
+        }
+
+        .category-dropdown__main--txt:hover {
+            color: #fb8500;
+            background-color: white;
+            font-weight: 500;
+        }
+
+        .category-dropdown__main--txt,
+        .category-dropdown__main--txt:hover {
+            cursor: pointer;
+        }
+    }
+
+    .category-dropdown__children {
+        width: 960px;
+        height: 500px;
+        background-color: white;
+
+        padding: 5px 0;
+        overflow-x: scroll;
+
+        .category-dropdown__children--txt {
+            display: inline-block;
+            width: 230px;
+            padding: 10px 15px;
+            font-family: Roboto, sans-serif;
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 100%;
+            /* identical to box height, or 14px */
+            color: #666666;
+        }
+
+        .main-children {
+            font-weight: 500;
+            color: black;
+        }
+
+        .category-dropdown__children--txt,
+        .category-dropdown__children--txt:hover {
+            cursor: pointer;
+        }
+        .category-dropdown__children--txt:hover {
+            opacity: 0.7;
+        }
+    }
+}
+
 @media only screen and (max-width: 1200px) and (min-width: 765px) {
     header.header {
         div.header-bottom {
@@ -617,6 +863,32 @@ header.header {
                 .header__navbar {
                     display: inline-block;
                 }
+            }
+        }
+    }
+
+    .category-dropdown {
+        height: 100vh !important;
+
+        .category-dropdown__main {
+            width: 180px;
+            height: 100vh;
+            padding: 3px 0;
+
+            .category-dropdown__main--txt {
+                font-size: 13px;
+                padding: 8px 12px;
+            }
+        }
+
+        .category-dropdown__children {
+            height: 100vh;
+            padding: 3px 0;
+
+            .category-dropdown__children--txt {
+                width: 200px;
+                padding: 8px 12px;
+                font-size: 13px;
             }
         }
     }

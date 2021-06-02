@@ -1,115 +1,173 @@
 <template>
-        <section>
-                <div class="container">
-                        <div class="title-box">
-                                <ul>
-                                        <li>
-                                                <nuxt-link to="/"
-                                                        >Главная страница
-                                                </nuxt-link>
-                                                /
-                                        </li>
+    <section>
+        <div class="container">
+            <div class="title-box title__about__us">
+                <ul>
+                    <li>
+                        <nuxt-link to="/">Главная страница </nuxt-link>
+                        /
+                    </li>
 
-                                        <li>
-                                                <nuxt-link to="#"
-                                                        >О нас
-                                                </nuxt-link>
-                                        </li>
-                                </ul>
-                        </div>
-                </div>
-                <section
-                        class="container popular__container about__section"
-                        id="about__section"
+                    <li>
+                        <nuxt-link to="#">О нас </nuxt-link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <section
+            class="container popular__container about__section"
+            id="about__section"
+        >
+            <div class="popular__heading about__heading" id="about__head">
+                О нас
+            </div>
+            <div
+                class="about__us__box"
+                v-for="aboutUsItem in aboutUsArray"
+                :key="aboutUsItem._id"
+            >
+                <h1 class="about__us--title">
+                    {{ aboutUsItem.title.uz }}
+                    <!-- Друзья, наш сайт был специально создан для розничной и
+                    оптовой продажи интерьерного освещения на территории России.
+                    Мы сотрудничаем с ведущими производителями светотехнического
+                    оборудования, которые зарекомендовали себя на мировом рынке.
+                    Поэтому не стоит сомневаться в надёжном качестве продукции,
+                    представленной на страницах сайта.
+                    <br /><br />Интернет-магазин - это полноценный online-shop.
+                    <br /><br />Мы работаем без выходных, 24 часа в сутки и
+                    непрерывно расширяем и обновляем ассортимент товаров, чтобы
+                    каждый покупатель мог подобрать светотехнику,
+                    соответствующую его нуждам и желаниям. Наш магазин работает
+                    с большим количеством производителей, что позволяет найти
+                    светильник на самый утонченный . -->
+                </h1>
+                <!-- <img
+                    src="../assets/img/about us/about.jpg"
+                    alt="Photo about us"
+                    class="about__us--img"
+                /> -->
+
+                <div
+                    class="about__us--text"
+                    v-html="aboutUsItem.description.uz"
                 >
-                        <div
-                                class="popular__heading about__heading"
-                                id="about__head"
-                        >
-                                О нас
-                        </div>
-                        <div class="about__us__box">
-                                <span class="about__us--text">
-                                        Друзья, наш сайт был специально создан
-                                        для розничной и оптовой продажи
-                                        интерьерного освещения на территории
-                                        России. Мы сотрудничаем с ведущими
-                                        производителями светотехнического
-                                        оборудования, которые зарекомендовали
-                                        себя на мировом рынке. Поэтому не стоит
-                                        сомневаться в надёжном качестве
-                                        продукции, представленной на страницах
-                                        сайта. <br /><br />Интернет-магазин -
-                                        это полноценный online-shop.
-                                        <br /><br />Мы работаем без выходных, 24
-                                        часа в сутки и непрерывно расширяем и
-                                        обновляем ассортимент товаров, чтобы
-                                        каждый покупатель мог подобрать
-                                        светотехнику, соответствующую его нуждам
-                                        и желаниям. Наш магазин работает с
-                                        большим количеством производителей, что
-                                        позволяет найти светильник на самый
-                                        утонченный .
-                                </span>
-                                <img
-                                        src="../assets/img/about us/about.jpg"
-                                        alt="Photo about us"
-                                        class="about__us--img"
-                                />
-
-                                <span class="about__us--text">
-                                        Интернет-магазин «Ваша Лампа» - это
-                                        полноценный online-shop. Мы работаем без
-                                        выходных, 24 часа в сутки и непрерывно
-                                        расширяем и обновляем ассортимент
-                                        товаров, чтобы каждый покупатель мог
-                                        подобрать светотехнику, соответствующую
-                                        его нуждам и желаниям.
-                                        <br /><br />Друзья, наш сайт был
-                                        специально создан для розничной и
-                                        оптовой продажи интерьерного освещения
-                                        на территории России. Мы сотрудничаем с
-                                        ведущими производителями
-                                        светотехнического оборудования, которые
-                                        зарекомендовали себя на мировом рынке.
-                                        Поэтому не стоит сомневаться в надёжном
-                                        качестве продукции, представленной на
-                                        страницах сайта. Интернет-магазин это
-                                        полноценный online-shop. Мы работаем без
-                                        выходных, 24 часа в сутки и непрерывно
-                                        расширяем и обновляем ассортимент
-                                        товаров, чтобы каждый покупатель мог
-                                        подобрать светотехнику, соответствующую
-                                        его нуждам и желаниям.
-                                </span>
-                        </div>
-                </section>
+                    <!-- Интернет-магазин «Ваша Лампа» - это полноценный online-shop.
+                    Мы работаем без выходных, 24 часа в сутки и непрерывно
+                    расширяем и обновляем ассортимент товаров, чтобы каждый
+                    покупатель мог подобрать светотехнику, соответствующую его
+                    нуждам и желаниям.
+                    <br /><br />Друзья, наш сайт был специально создан для
+                    розничной и оптовой продажи интерьерного освещения на
+                    территории России. Мы сотрудничаем с ведущими
+                    производителями светотехнического оборудования, которые
+                    зарекомендовали себя на мировом рынке. Поэтому не стоит
+                    сомневаться в надёжном качестве продукции, представленной на
+                    страницах сайта. Интернет-магазин это полноценный
+                    online-shop. Мы работаем без выходных, 24 часа в сутки и
+                    непрерывно расширяем и обновляем ассортимент товаров, чтобы
+                    каждый покупатель мог подобрать светотехнику,
+                    соответствующую его нуждам и желаниям. -->
+                </div>
+            </div>
         </section>
+    </section>
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            aboutUsArray: []
+        };
+    },
+    methods: {},
+
+    computed: {},
+
+    async mounted() {
+        const ip = await this.$axios.$get("http://cdn.tujjor.org/api/info/all");
+        this.aboutUsArray = ip.data;
+        console.log(this.aboutUsArray);
+    }
+};
 </script>
 
 <style lang="scss">
+.container {
+    .title__about__us {
+        padding: 20px 0;
+        ul {
+            margin-bottom: 0;
+        }
+    }
+}
 #about__section {
-        margin-top: 0;
-        padding-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+    #about__head {
+        margin: 0 0;
+        font-size: 48px;
+    }
+    .about__us__box {
+        margin: 30px 0;
+
+        h1 {
+            font-size: 30px;
+        }
+
+        .about__us--text {
+            display: block;
+            margin: 20px 0;
+            font-size: 16px;
+            line-height: 1.3;
+            color: #000;
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .image {
+                img {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .container {
+        .title__about__us {
+            padding: 20px 0;
+            ul {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    #about__section {
         #about__head {
-                margin: 0 0;
+            font-size: 36px;
         }
         .about__us__box {
-                .about__us--text {
-                        display: inline-block;
-                        margin: 40px 0;
-                        font-size: 16px;
-                        line-height: 1.3;
-                        color: #000;
+            margin: 20px 0;
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .about__us--text {
+                margin: 0;
+
+                h1 {
+                    font-size: 20px;
                 }
-                .about__us--img {
-                        width: 100%;
-                        height: auto;
-                }
+            }
         }
+    }
 }
 </style>

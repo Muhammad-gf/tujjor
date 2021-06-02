@@ -11,6 +11,10 @@
                     </li>
 
                     <li class="done">
+                        <nuxt-link to="/faq">FAQ</nuxt-link>
+                    </li>
+
+                    <li class="done">
                         <nuxt-link to="/all_magazines">
                             All magazines
                         </nuxt-link>

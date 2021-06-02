@@ -513,7 +513,7 @@ export default {
     },
 
     async mounted() {
-        const ip = await this.$axios.$get("http://localhost:3000/users/");
+        const ip = await this.$axios.$get("http://cdn.tujjor.org/api/shop/all");
         this.magazinesData = ip;
         this.visibleMagazinies = !this.visibleMagazinies;
         console.log(this.magazinesData);
