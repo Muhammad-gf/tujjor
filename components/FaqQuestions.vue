@@ -112,7 +112,7 @@ export default {
         transform: translateX(-150%);
         opacity: 0;
         visibility: hidden;
-        transition: visibility 0.5s linear, opacity 0.5s linear, transform 1.7s;
+        transition: visibility 0.5s linear, opacity 0.5s linear, transform 1s;
 
         &--active {
             position: relative;

@@ -74,14 +74,46 @@ export default {
         "bootstrap-vue/nuxt",
         // https://go.nuxtjs.dev/axios
         "@nuxtjs/style-resources",
-        "@nuxtjs/axios"
+        "@nuxtjs/axios",
+        "@nuxtjs/auth-next"
     ],
+
+    router: {
+        middleware: ["auth"]
+    },
+
+    auth: {
+        redirect: {
+            login: "/auth/login",
+            logout: "/auth/login",
+            callback: "/auth/login",
+            home: "/"
+        },
+        strategies: {
+            local: {
+                token: {
+                    property: "token",
+                    // required: true,
+                    // type: 'Bearer'
+                    name: "token"
+                },
+                user: {
+                    property: "data"
+                    // autoFetch: true
+                },
+                endpoints: {
+                    login: { url: "/user/login", method: "post" },
+                    user: { url: "/user/me", method: "get" }
+                }
+            }
+        }
+    },
     styleResources: {
         scss: ["@/assets/scss/*.scss"]
     },
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
-        baseURL: ""
+        baseURL: "http://cdn.tujjor.org/api"
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build

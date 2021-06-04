@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div class="container">
+        <base-loading v-if="!isGet"></base-loading>
+        <div v-else class="container">
             <div class="title-box">
                 <ul>
                     <li>
@@ -242,19 +243,40 @@
 </template>
 
 <script>
+import BaseLoading from "../components/UI/BaseLoading.vue";
+
 export default {
+    components: { BaseLoading },
     data() {
         return {
             newsArray: [],
             newsImage: [],
-            newsVideo: []
+            newsVideo: [],
+            isGet: false
         };
     },
 
     methods: {},
 
     async mounted() {
-        const ip = await this.$axios.$get("http://cdn.tujjor.org/api/news/all");
+        this.isGet = false;
+        const ip = await this.$axios
+            .$get("http://cdn.tujjor.org/api/news/all")
+            .then(response => {
+                if (response.success) {
+                    console.log(response);
+                    this.isGet = true;
+                    return response;
+                } else {
+                    throw new Error("Could not save data!");
+                }
+            })
+            .catch(error => {
+                // handle error
+                console.log(error);
+                this.error = error.message;
+            });
+        this.a;
         this.newsArray = ip.data;
         for (let i = 0; i < this.newsArray.length; i++) {
             if (this.newsArray[i].type === "video") {
