@@ -177,6 +177,7 @@
 
 <script>
 import BaseLoading from "../components/UI/BaseLoading.vue";
+
 export default {
     components: { BaseLoading },
     data() {
@@ -191,7 +192,7 @@ export default {
     async mounted() {
         this.isGet = false;
         const ip = await this.$axios
-            .$get("http://cdn.tujjor.org/api/help/all")
+            .$get("/help/all")
             .then(response => {
                 if (response.success) {
                     console.log(response);
@@ -252,6 +253,7 @@ export default {
                 color: #c4c4c4;
                 font-style: italic;
             }
+
             border: none;
             border-radius: 3px;
 

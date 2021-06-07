@@ -27,9 +27,7 @@
                 'faq__question--description--active': isVisible
             }"
         >
-            <span>
-                {{ faqDescription }}
-            </span>
+            <span v-html="faqDescription"> </span>
         </div>
     </div>
 </template>
@@ -130,6 +128,16 @@ export default {
             /* or 21px */
 
             color: #666666;
+
+            ::v-deep h1,
+            ::v-deep p {
+                font-family: Roboto, sans-serif;
+                font-size: 16px;
+                line-height: 130%;
+                /* or 21px */
+
+                color: #666666;
+            }
         }
     }
 }
@@ -164,6 +172,11 @@ export default {
             // TEXT FORMATING
             span {
                 font-size: 14px;
+
+                ::v-deep h1,
+                ::v-deep p {
+                    font-size: 14px;
+                }
             }
         }
     }

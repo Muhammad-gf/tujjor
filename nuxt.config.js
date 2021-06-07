@@ -5,6 +5,7 @@ export default {
         htmlAttrs: {
             lang: "en"
         },
+
         meta: [
             { charset: "utf-8" },
             {
@@ -13,6 +14,7 @@ export default {
             },
             { hid: "description", name: "description", content: "" }
         ],
+
         link: [
             {
                 rel: "icon",
