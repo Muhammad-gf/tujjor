@@ -13,131 +13,87 @@
                 </ul>
             </div>
         </div>
-
-        <main class="news__section container">
+        <main class="news__section container" v-if="news != null">
             <div class="news__about__box">
                 <div class="news__about--heading">
                     <h2>
-                        Российская компания Wildberries планирует выход на рынок
-                        Узбекистана
+                        {{ news.title.uz }}
                     </h2>
                 </div>
 
                 <div class="news__about--first--img">
                     <img
-                        src="../assets/img/news about/1.png"
+                        :src="$store.state.uploads + news.file"
                         alt="News image"
                     />
                     <span>
                         08.02.2021
                     </span>
                 </div>
-                <div class="news__about--txt">
-                    <p>
-                        Стороны обсудили возможное сотрудничество в сфере
-                        экспортных интернет-продаж текстильной и
-                        швейно-трикотажной промышленности с производителями
-                        Узбекистана. ТАШКЕНТ, 5 мар - Sputnik. Российская
-                        компания Wildberries рассматривает рынок Узбекистана как
-                        очень перспективный, сообщает Ассоциация "Узтекстиль".
-                        <br />
-                        <br />На днях в Ассоциации прошла встреча руководства с
-                        представителями российского онлайн-ритейлера
-                        Wildberries, где узбекская компания была ознакомлена с
-                        действующей бизнес-моделью, со спецификой
-                        интернет-торговлиВ частности, стороны обсудили возможное
-                        сотрудничество в сфере экспортных интернет-продаж
-                        текстильной и швейно-трикотажной промышленности с
-                        производителями Узбекистана. <br />
-                        <br />
-                        Wilbderries выразили повышенную заинтересованность входа
-                        на рынок электронной коммерции Узбекистана, а также
-                        проработали вопрос входа на рынок с инвестированием
-                        своих средств в экономику страны", - говорится в
-                        сообщении.
-                    </p>
-                </div>
-                <div class="news__about--second">
+                <div
+                    class="news__about--txt"
+                    v-html="news.description.uz"
+                ></div>
+                <!-- <div class="news__about--second">
                     <div class="news__about--second--first">
                         <img
-                            src="../assets/img/news about/1.png"
+                            src="../../assets/img/news about/1.png"
                             alt="News image"
                         />
                     </div>
                     <div class="news__about--second--second">
                         <div class="img--first">
                             <img
-                                src="../assets/img/news about/2.png"
+                                src="../../assets/img/news about/2.png"
                                 alt="News image"
                             />
                         </div>
                         <div class="img--second">
                             <img
-                                src="../assets/img/news about/3.png"
+                                src="../../assets/img/news about/3.png"
                                 alt="News image"
                             />
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
-            <div class="news__up__to__date">
+            <div class="news__up__to__date" v-if="newsAll != null">
                 <h2>
                     Последние новости
                 </h2>
                 <div class="news__box__container">
-                    <div class="news__box">
+                    <div
+                        class="news__box"
+                        v-for="(item, index) in 2"
+                        :key="index"
+                    >
                         <div class="img">
                             <img
-                                src="../assets/img/news about/5.png"
+                                :src="
+                                    $store.state.uploads + newsAll[index].file
+                                "
                                 alt="News image"
                             />
                         </div>
                         <div class="news__box--heading">
                             <h4>
-                                Бренды отказываются от "черной пятницы" из-за
-                                изменения климата
+                                {{ newsAll[index].title.uz }}
                             </h4>
                         </div>
-                        <div class="news__box--p">
-                            <p>
-                                По мнению активистов, день всемирных распродаж
-                                заставляет людей покупать ненужные вещи и тем
-                                самым вредить природе.....
-                            </p>
-                        </div>
+                        <div
+                            class="news__box--p"
+                            v-html="newsAll[index].description.uz"
+                        ></div>
                         <div class="news__box--data">
-                            <button class="news__box--btn">
+                            <nuxt-link
+                                :to="{
+                                    name: 'news_full-id',
+                                    params: { id: newsAll[index].slug }
+                                }"
+                                class="news__box--btn"
+                            >
                                 Подробно
-                            </button>
-                            <span class="news__box--date"> 09.04.2021</span>
-                        </div>
-                    </div>
-
-                    <div class="news__box">
-                        <div class="img">
-                            <img
-                                src="../assets/img/news about/4.png"
-                                alt="News image"
-                            />
-                        </div>
-                        <div class="news__box--heading">
-                            <h4>
-                                AliExpress запустил в России интернет-магазин
-                                "Лоукостер"
-                            </h4>
-                        </div>
-                        <div class="news__box--p">
-                            <p>
-                                Новый интернет-магазин будет рассчитан на
-                                аудиторию до 25 лет, а также на тех, кто хочет
-                                купить известные бренды с доставкой из
-                                России....
-                            </p>
-                        </div>
-                        <div class="news__box--data">
-                            <a href="#" class="news__box--btn">
-                                Подробно
-                            </a>
+                            </nuxt-link>
                             <span class="news__box--date"> 09.04.2021</span>
                         </div>
                     </div>
@@ -148,7 +104,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            news: null,
+            newsAll: null
+        };
+    },
+    async mounted() {
+        let n = await this.$axios.get("/news/" + this.$route.params.id);
+
+        console.log("one", n);
+
+        this.news = n.data.data;
+
+        let all = await this.$axios.get("/news/all");
+
+        this.newsAll = all.data.data;
+    }
+};
 </script>
 
 <style lang="scss">

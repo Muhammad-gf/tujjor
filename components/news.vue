@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div class="news">
+        <div class="news" v-if="news != null">
             <section class="container popular__container  ">
                 <div class="popular__heading">
                     Новости
@@ -8,73 +8,34 @@
             </section>
 
             <div class="news__box container">
-                <div class=" news__box--item">
+                <div
+                    v-for="(item, index) in 3"
+                    :key="index"
+                    class=" news__box--item"
+                >
                     <img
                         class="news__box--item--img"
-                        src="../assets/img/news/news--1.png"
+                        :src="$store.state.uploads + news[index].file"
                         alt="News"
                     />
                     <div class="news__box--description">
                         <span class="news__box--description--header">
-                            Ретейлеры предупредили о росте цен на одежду к лету
+                            {{ news[index].title.uz }}
                         </span>
-                        <div class="news__box--description--p">
-                            Это связано с ростом стоимости материалов, в том
-                            числе хлопка, который с начала этого года подорожал
-                            на 30–35%.
-                        </div>
+                        <div
+                            class="news__box--description--p"
+                            v-html="news[index].description.uz"
+                        ></div>
                     </div>
                     <div class="data__box">
-                        <a href="#" class="data__box--btn">Подробно</a>
-                        <p class="data__box--date">
-                            24.04.2021
-                        </p>
-                    </div>
-                </div>
-                <div class=" news__box--item">
-                    <img
-                        class="news__box--item--img"
-                        src="../assets/img/news/news--2.png"
-                        alt="News"
-                    />
-                    <div class="news__box--description">
-                        <span class="news__box--description--header">
-                            AliExpress сравнил число становящихся счастливее от
-                            покупки сумок и книг
-                        </span>
-                        <div class="news__box--description--p">
-                            Покупка сумок и одежды делает счастливыми больше
-                            россиян, чем покупка книг. Это показал опрос
-                            «AliExpress Россия», ....
-                        </div>
-                    </div>
-                    <div class="data__box">
-                        <a href="#" class="data__box--btn">Подробно</a>
-                        <p class="data__box--date">
-                            24.04.2021
-                        </p>
-                    </div>
-                </div>
-
-                <div class=" news__box--item">
-                    <img
-                        class="news__box--item--img"
-                        src="../assets/img/news/news--3.png"
-                        alt="News"
-                    />
-                    <div class="news__box--description">
-                        <span class="news__box--description--header">
-                            Прибыль владельца Uniqlo выросла на 23% из-за продаж
-                            домашней одежды
-                        </span>
-                        <div class="news__box--description--p">
-                            Операционная прибыль компании Fast Retailing,
-                            владельца японской сети одежды Uniqlo, превысила
-                            уровень прибыли, который компания ....
-                        </div>
-                    </div>
-                    <div class="data__box">
-                        <a href="#" class="data__box--btn">Подробно</a>
+                        <nuxt-link
+                            :to="{
+                                name: 'news_full-id',
+                                params: { id: news[index].slug }
+                            }"
+                            class="data__box--btn"
+                            >Подробно</nuxt-link
+                        >
                         <p class="data__box--date">
                             24.04.2021
                         </p>
@@ -88,7 +49,17 @@
 <script>
 import BaseLoading from "./UI/BaseLoading.vue";
 export default {
-    components: { BaseLoading }
+    components: { BaseLoading },
+    data() {
+        return {
+            news: null
+        };
+    },
+    async mounted() {
+        let n = await this.$axios.$get("/news/all");
+        console.log("news-->", n.data);
+        this.news = n.data;
+    }
 };
 </script>
 
