@@ -27,35 +27,13 @@
                         alt="News image"
                     />
                     <span>
-                        08.02.2021
+                        {{ getDate(news.createdAt) }}
                     </span>
                 </div>
                 <div
                     class="news__about--txt"
                     v-html="news.description.uz"
                 ></div>
-                <!-- <div class="news__about--second">
-                    <div class="news__about--second--first">
-                        <img
-                            src="../../assets/img/news about/1.png"
-                            alt="News image"
-                        />
-                    </div>
-                    <div class="news__about--second--second">
-                        <div class="img--first">
-                            <img
-                                src="../../assets/img/news about/2.png"
-                                alt="News image"
-                            />
-                        </div>
-                        <div class="img--second">
-                            <img
-                                src="../../assets/img/news about/3.png"
-                                alt="News image"
-                            />
-                        </div>
-                    </div>
-                </div> -->
             </div>
             <div class="news__up__to__date" v-if="newsAll != null">
                 <h2>
@@ -94,7 +72,9 @@
                             >
                                 Подробно
                             </nuxt-link>
-                            <span class="news__box--date"> 09.04.2021</span>
+                            <span class="news__box--date">
+                                {{ getDate(newsAll[index].createdAt) }}</span
+                            >
                         </div>
                     </div>
                 </div>
@@ -111,6 +91,20 @@ export default {
             newsAll: null
         };
     },
+    methods: {
+        getDate(time) {
+            const date = new Date(time);
+            const day =
+                date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            const month =
+                date.getMonth() + 1 < 10
+                    ? "0" + (date.getMonth() + 1)
+                    : date.getMonth() + 1;
+            const year = date.getFullYear();
+            return day + "." + month + "." + year;
+        }
+    },
+
     async mounted() {
         let n = await this.$axios.get("/news/" + this.$route.params.id);
 
@@ -119,7 +113,7 @@ export default {
         this.news = n.data.data;
 
         let all = await this.$axios.get("/news/all");
-
+        console.log("all", all);
         this.newsAll = all.data.data;
     }
 };
@@ -245,13 +239,19 @@ export default {
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 20px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+            padding: 10px;
+
+            &::after {
+                padding: 0;
+            }
             .img {
                 img {
                     width: 100%;
                     height: 300px;
                     object-fit: cover;
                 }
-
+                margin: -10px;
                 margin-bottom: 10px;
             }
 

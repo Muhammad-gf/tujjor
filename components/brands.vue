@@ -9,7 +9,7 @@
             <!-- <div class="brands__box"> -->
 
             <slick v-if="brand.length > 0" :options="slickOptions">
-                <div class="img" v-for="item in brand" :key="item._id">
+                <div class="img__box" v-for="item in brand" :key="item._id">
                     <img :src="$store.state.uploads + item.image" alt="Brand" />
                 </div>
             </slick>
@@ -30,9 +30,25 @@ export default {
             brand: [],
             slickOptions: {
                 arows: false,
-                slidesToShow: 9,
+                slidesToShow: 7,
                 autoplay: true,
-                autoplaySpeed: 500
+                autoplaySpeed: 500,
+
+                responsive: [
+                    {
+                        breakpoint: 1000,
+                        settings: {
+                            slidesToShow: 5
+                        }
+                    },
+
+                    {
+                        breakpoint: 764,
+                        settings: {
+                            slidesToShow: 4
+                        }
+                    }
+                ]
             }
         };
     },
@@ -52,15 +68,18 @@ export default {
 
 <style lang="scss">
 .brands {
-    .img {
+    .img__box {
         display: flex !important;
         justify-content: center;
         align-items: center;
         width: auto;
+        height: 114px;
         margin: 0 auto;
 
         img {
-            max-width: 80%;
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
         }
     }
 }
@@ -70,37 +89,25 @@ export default {
         .popular__heading {
             margin-bottom: 0;
         }
-        &__box {
-            width: 100%;
+
+        .img__box {
             height: 80px;
-
-            .img {
-                height: 80px;
-            }
         }
     }
 }
 
 @media only screen and (max-width: 600px) {
     .brands {
-        &__box {
-            height: 55px;
-
-            .img {
-                height: 55px;
-            }
+        .img__box {
+            height: 50px;
         }
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 400px) {
     .brands {
-        &__box {
-            height: 30px;
-
-            .img {
-                height: 30px;
-            }
+        .img__box {
+            height: 40px;
         }
     }
 }

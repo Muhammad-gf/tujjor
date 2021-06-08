@@ -79,7 +79,7 @@
                             <nuxt-link to="/news__page">Новости</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link to="/">FAQ</nuxt-link>
+                            <nuxt-link to="/faq">FAQ</nuxt-link>
                         </li>
                         <li>
                             <nuxt-link to="/">Личный кабинет</nuxt-link>
@@ -325,6 +325,27 @@ footer {
         }
         div.footer__item {
             width: 20%;
+
+            &--4 {
+                ul {
+                    li {
+                        a {
+                            svg:hover {
+                                cursor: pointer;
+                                path {
+                                    fill: #f7931f;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &--3 {
+                svg {
+                    cursor: pointer;
+                }
+            }
         }
     }
     div.footer-bottom {

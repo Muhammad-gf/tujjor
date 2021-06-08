@@ -1,7 +1,8 @@
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
-        title: "tujjor",
+        title:
+            "Интернет-платформа  Tujjor —  низкие цены и широкий ассортимент! | Tujjor",
         htmlAttrs: {
             lang: "en"
         },
@@ -12,7 +13,18 @@ export default {
                 name: "viewport",
                 content: "width=device-width, initial-scale=1"
             },
-            { hid: "description", name: "description", content: "" }
+            {
+                hid: "description",
+                name: "description",
+                content:
+                    "Интернет-платформа  Tujjor —  низкие цены и широкий ассортимент! | Tujjor. "
+            },
+
+            {
+                name: "keywords",
+                content:
+                    "интернет магазин, узбекистан, ташкент, рассрочка, скидка, Книги, телефоны и гаджеты, компьютеры  и  оргтехника, для геймеров, кондиционеры, бытовая техника, телевизоры, видео и аудио, посуда, мебель, техника для красоты и здоровья, техника для кухни, для дома и офиса, инструменты и автотовары, игрушки, подарки и аксессуары, рамазан, одежда, обувь и аксессуары"
+            }
         ],
 
         link: [
@@ -81,13 +93,13 @@ export default {
     ],
 
     router: {
-        middleware: ["auth"]
+        // middleware: ["auth"]
     },
 
     auth: {
         redirect: {
             login: "/auth/login",
-            logout: "/auth/login",
+            logout: "/",
             callback: "/auth/login",
             home: "/"
         },

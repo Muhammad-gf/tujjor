@@ -1059,6 +1059,16 @@
 
 <script>
 export default {
+    head: {
+        title: "Продукт — Tujjor. Низкие цены и широкий ассортимент!",
+        meta: [
+            {
+                hid: "description",
+                name: "description",
+                content: "Продукт - Tujjor"
+            }
+        ]
+    },
     data() {
         return {
             rating: "No Rating Selected",

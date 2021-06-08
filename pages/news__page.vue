@@ -246,6 +246,17 @@
 import BaseLoading from "../components/UI/BaseLoading.vue";
 
 export default {
+    head: {
+        title: "Новости — Tujjor. Низкие цены и широкий ассортимент!",
+        meta: [
+            {
+                hid: "description",
+                name: "description",
+                content: "Новости - Tujjor"
+            }
+        ]
+    },
+
     components: { BaseLoading },
     data() {
         return {

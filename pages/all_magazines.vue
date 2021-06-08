@@ -1,13 +1,23 @@
 <template>
-        <div>
-                <all-magazines-component />
-        </div>
+    <div>
+        <all-magazines-component />
+    </div>
 </template>
 
 <script>
-import all_magazines_component from "../components/all_magazines_component.vue";
+import AllMagazinesComponent from "../components/AllMagazinesComponent.vue";
 export default {
-        components: { all_magazines_component }
+    head: {
+        title: "Все магазины — Tujjor. Низкие цены и широкий ассортимент!",
+        meta: [
+            {
+                hid: "description",
+                name: "description",
+                content: "Все магазины - Tujjor"
+            }
+        ]
+    },
+    components: { AllMagazinesComponent }
 };
 </script>
 
