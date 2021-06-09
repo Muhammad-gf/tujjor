@@ -46,9 +46,11 @@
                         ></div>
                     </div>
                     <div class="data__box">
-                        <a href="#" class="data__box--btn">Подробно</a>
+                        <a href="#" class="data__box--btn text-center"
+                            >Подробно</a
+                        >
                         <p class="data__box--date">
-                            {{ newsItem.createdAt }}
+                            {{ getDate(newsItem.createdAt) }}
                         </p>
                     </div>
                 </div>
@@ -71,7 +73,9 @@
                         </div>
                     </div>
                     <div class="data__box">
-                        <a href="#" class="data__box--btn">Подробно</a>
+                        <a href="#" class="data__box--btn text-center"
+                            >Подробно</a
+                        >
                         <p class="data__box--date">
                             24.04.2021
                         </p>
@@ -95,7 +99,9 @@
                         </div>
                     </div>
                     <div class="data__box">
-                        <a href="#" class="data__box--btn">Подробно</a>
+                        <a href="#" class="data__box--btn text-center"
+                            >Подробно</a
+                        >
                         <p class="data__box--date">
                             24.04.2021
                         </p>
@@ -120,7 +126,9 @@
                         </div>
                     </div>
                     <div class="data__box">
-                        <a href="#" class="data__box--btn">Подробно</a>
+                        <a href="#" class="data__box--btn text-center"
+                            >Подробно</a
+                        >
                         <p class="data__box--date">
                             24.04.2021
                         </p>
@@ -129,7 +137,10 @@
             </div>
         </div>
 
-        <section class="news__video__section">
+        <section
+            class="news__video__section"
+            v-if="newsVideo && newsVideo.length > 0"
+        >
             <section class="container popular__container">
                 <div class="popular__heading">
                     Видео новости
@@ -137,7 +148,7 @@
             </section>
 
             <section class="video__box__container container">
-                <div class="video__box--first" v-if="newsVideo.length > 0">
+                <div class="video__box--first">
                     <div class="video__box--item">
                         <div class="video__img__container">
                             <video
@@ -158,11 +169,11 @@
                                 <div class="video__about--data__box">
                                     <a
                                         href="#"
-                                        class="video__about--data__box--btn"
+                                        class="video__about--data__box--btn text-center"
                                         >Подробно</a
                                     >
                                     <p class="video__about--data__box--date">
-                                        {{ newsVideo[0].createdAt }}
+                                        {{ getDate(newsVideo[0].createdAt) }}
                                     </p>
                                 </div>
                             </div>
@@ -193,7 +204,7 @@
                                 <div class="video__about--data__box">
                                     <a
                                         href="#"
-                                        class="video__about--data__box--btn"
+                                        class="video__about--data__box--btn text-center"
                                         >Подробно</a
                                     >
                                     <p class="video__about--data__box--date">
@@ -267,7 +278,19 @@ export default {
         };
     },
 
-    methods: {},
+    methods: {
+        getDate(time) {
+            const date = new Date(time);
+            const day =
+                date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            const month =
+                date.getMonth() + 1 < 10
+                    ? "0" + (date.getMonth() + 1)
+                    : date.getMonth() + 1;
+            const year = date.getFullYear();
+            return day + "." + month + "." + year;
+        }
+    },
 
     async mounted() {
         this.isGet = false;

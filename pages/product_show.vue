@@ -22,82 +22,13 @@
                     <h2>POLO Рубашка</h2>
                 </div>
 
-                <div class="col-md-12 col-sm-12 m-b--4 ">
+                <div class="col-md-5 col-sm-5 m-b--5 ">
                     <div class="row image__product">
-                        <VueSlickCarousel
-                            class="product__img__box col-sm-4"
-                            v-bind="productSlickOptions"
-                            ref="c1"
-                            :asNavFor="c2"
-                        >
-                            <div class="img">
-                                <img
-                                    src="../assets/img/product show/exp-2.png"
-                                    alt="Brand"
-                                />
+                        <slick :options="slickOptions">
+                            <div v-for="(item, index) in 8" :key="index">
+                                <h3>{{ index }}</h3>
                             </div>
-
-                            <div class="img">
-                                <img
-                                    src="../assets/img/product show/exp-3.png"
-                                    alt="Brand"
-                                />
-                            </div>
-
-                            <div class="img">
-                                <img
-                                    src="../assets/img/order/1.png"
-                                    alt="Brand"
-                                />
-                            </div>
-
-                            <div class="img">
-                                <img
-                                    src="../assets/img/other/12.png"
-                                    alt="Brand"
-                                />
-                            </div>
-                        </VueSlickCarousel>
-
-                        <VueSlickCarousel
-                            class="product__img__selected col-sm-8 "
-                            v-bind="productSlickSelectedOptions"
-                            ref="c2"
-                            :asNavFor="c1"
-                        >
-                            <div class="img">
-                                <img
-                                    src="../assets/img/product show/exp-2.png"
-                                    alt="Brand"
-                                />
-                            </div>
-
-                            <div class="img">
-                                <img
-                                    src="../assets/img/product show/exp-3.png"
-                                    alt="Brand"
-                                />
-                            </div>
-
-                            <div class="img">
-                                <img
-                                    src="../assets/img/order/1.png"
-                                    alt="Brand"
-                                />
-                            </div>
-
-                            <div class="img">
-                                <img
-                                    src="../assets/img/other/12.png"
-                                    alt="Brand"
-                                />
-                            </div>
-                        </VueSlickCarousel>
-                        <!-- <div class="top-img">
-                            <div class="img-view">
-                                <img src="@/assets/img/p5.png" alt="" />
-                            </div>
-                        </div> -->
+                        </slick>
                     </div>
                 </div>
 
@@ -1058,7 +989,15 @@
 </template>
 
 <script>
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+// optional style for arrows & dots
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+
 export default {
+    components: {
+        VueSlickCarousel
+    },
     head: {
         title: "Продукт — Tujjor. Низкие цены и широкий ассортимент!",
         meta: [
@@ -1095,7 +1034,16 @@ export default {
             },
 
             c1: undefined,
-            c2: undefined
+            c2: undefined,
+
+            slickOptions: {
+                dots: true,
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                vertical: true,
+                verticalSwiping: true
+            }
         };
     },
 

@@ -463,7 +463,7 @@
                             </svg>
                         </button>
                     </div>
-                    <span class="header__item">
+                    <nuxt-link to="/favourite" class="header__item">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -476,27 +476,25 @@
                                 fill="#FB8500"
                             />
                         </svg>
-                    </span>
+                    </nuxt-link>
 
-                    <span class="basket">
-                        <nuxt-link to="/basket">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="21"
-                                height="24"
-                                viewBox="0 0 21 24"
-                                fill="none"
-                            >
-                                <path
-                                    d="M10.4426 1.66086C9.67089 1.66086 8.93077 1.96765 8.38508 2.51373C7.83938 3.05982 7.53281 3.80047 7.53281 4.57275V7.48463H6.07791V4.57275C6.07791 3.41433 6.53776 2.30335 7.3563 1.48423C8.17485 0.665098 9.28503 0.204918 10.4426 0.204918C11.6002 0.204918 12.7104 0.665098 13.5289 1.48423C14.3475 2.30335 14.8073 3.41433 14.8073 4.57275V7.48463H13.3524V4.57275C13.3524 3.80047 13.0459 3.05982 12.5002 2.51373C11.9545 1.96765 11.2144 1.66086 10.4426 1.66086ZM6.07791 7.48463H3.69187C3.16937 7.48475 2.66426 7.67245 2.26833 8.01363C1.87239 8.35481 1.61192 8.82681 1.53424 9.34387L0.0400561 19.3214C-0.0373626 19.8392 -0.00228232 20.3675 0.142904 20.8704C0.28809 21.3733 0.539966 21.8389 0.881348 22.2356C1.22273 22.6322 1.64559 22.9505 2.12107 23.1687C2.59656 23.3869 3.11348 23.4999 3.63658 23.5H17.2472C17.7704 23.5001 18.2875 23.3873 18.7632 23.1691C19.2388 22.951 19.6619 22.6328 20.0034 22.2361C20.345 21.8395 20.597 21.3737 20.7422 20.8707C20.8875 20.3677 20.9226 19.8393 20.8452 19.3214L19.3495 9.34387C19.2719 8.82706 19.0116 8.35525 18.616 8.0141C18.2204 7.67296 17.7156 7.4851 17.1934 7.48463H14.8073V9.66854C14.8073 9.86162 14.7307 10.0468 14.5943 10.1833C14.4578 10.3198 14.2728 10.3965 14.0799 10.3965C13.887 10.3965 13.7019 10.3198 13.5655 10.1833C13.4291 10.0468 13.3524 9.86162 13.3524 9.66854V7.48463H7.53281V9.66854C7.53281 9.86162 7.45617 10.0468 7.31975 10.1833C7.18332 10.3198 6.99829 10.3965 6.80536 10.3965C6.61243 10.3965 6.4274 10.3198 6.29098 10.1833C6.15455 10.0468 6.07791 9.86162 6.07791 9.66854V7.48463Z"
-                                    fill="#FB8500"
-                                />
-                            </svg>
-                            <span class="basket-count">
-                                4
-                            </span>
-                        </nuxt-link>
-                    </span>
+                    <nuxt-link to="/basket" class=" header__item basket">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="21"
+                            height="24"
+                            viewBox="0 0 21 24"
+                            fill="none"
+                        >
+                            <path
+                                d="M10.4426 1.66086C9.67089 1.66086 8.93077 1.96765 8.38508 2.51373C7.83938 3.05982 7.53281 3.80047 7.53281 4.57275V7.48463H6.07791V4.57275C6.07791 3.41433 6.53776 2.30335 7.3563 1.48423C8.17485 0.665098 9.28503 0.204918 10.4426 0.204918C11.6002 0.204918 12.7104 0.665098 13.5289 1.48423C14.3475 2.30335 14.8073 3.41433 14.8073 4.57275V7.48463H13.3524V4.57275C13.3524 3.80047 13.0459 3.05982 12.5002 2.51373C11.9545 1.96765 11.2144 1.66086 10.4426 1.66086ZM6.07791 7.48463H3.69187C3.16937 7.48475 2.66426 7.67245 2.26833 8.01363C1.87239 8.35481 1.61192 8.82681 1.53424 9.34387L0.0400561 19.3214C-0.0373626 19.8392 -0.00228232 20.3675 0.142904 20.8704C0.28809 21.3733 0.539966 21.8389 0.881348 22.2356C1.22273 22.6322 1.64559 22.9505 2.12107 23.1687C2.59656 23.3869 3.11348 23.4999 3.63658 23.5H17.2472C17.7704 23.5001 18.2875 23.3873 18.7632 23.1691C19.2388 22.951 19.6619 22.6328 20.0034 22.2361C20.345 21.8395 20.597 21.3737 20.7422 20.8707C20.8875 20.3677 20.9226 19.8393 20.8452 19.3214L19.3495 9.34387C19.2719 8.82706 19.0116 8.35525 18.616 8.0141C18.2204 7.67296 17.7156 7.4851 17.1934 7.48463H14.8073V9.66854C14.8073 9.86162 14.7307 10.0468 14.5943 10.1833C14.4578 10.3198 14.2728 10.3965 14.0799 10.3965C13.887 10.3965 13.7019 10.3198 13.5655 10.1833C13.4291 10.0468 13.3524 9.86162 13.3524 9.66854V7.48463H7.53281V9.66854C7.53281 9.86162 7.45617 10.0468 7.31975 10.1833C7.18332 10.3198 6.99829 10.3965 6.80536 10.3965C6.61243 10.3965 6.4274 10.3198 6.29098 10.1833C6.15455 10.0468 6.07791 9.86162 6.07791 9.66854V7.48463Z"
+                                fill="#FB8500"
+                            />
+                        </svg>
+                        <span class="basket-count">
+                            4
+                        </span>
+                    </nuxt-link>
 
                     <span class="header__item header__item__logo">
                         <svg
@@ -516,7 +514,7 @@
                     </span>
 
                     <div class="person__box" @click="doVisiblePerson">
-                        <span class="header__item">
+                        <span class="header__item ">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -903,7 +901,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header.header {
+.header {
     width: 100vw;
     position: fixed;
     top: 0;
@@ -912,32 +910,32 @@ header.header {
 
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 
-    div.header-top {
+    .header-top {
         background-color: #f7931f;
         display: flex;
         height: 60px;
         justify-content: space-between;
         padding-right: 10px;
 
-        div.header-top-left {
+        .header-top-left {
             display: flex;
             align-items: center;
-            span.logo-site {
+            .logo-site {
                 display: flex;
                 align-items: center;
             }
         }
-        div.header-top-right {
+        .header-top-right {
             display: flex;
             align-items: center;
-            div.email {
+            .email {
                 display: flex;
                 align-items: center;
                 margin-right: 25px;
             }
 
-            div.phone__lang__box {
-                div.phone {
+            .phone__lang__box {
+                .phone {
                     display: flex;
                     align-items: center;
                 }
@@ -955,13 +953,13 @@ header.header {
         margin-left: 5px;
         font-weight: normal;
     }
-    h6.__adress {
+    .__adress {
         max-width: 180px;
     }
-    div.header-bottom {
+    .header-bottom {
         padding: 10px 0px;
         background: #fcf6f6;
-        div.header-bottom-right {
+        .header-bottom-right {
             width: 100%;
 
             display: flex;
@@ -972,7 +970,7 @@ header.header {
                 flex-grow: 1;
                 padding-right: 15px;
             }
-            div.dropdown-language {
+            .dropdown-language {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -1009,18 +1007,35 @@ header.header {
                     flex-wrap: nowrap;
                 }
             }
-            span.header__item {
+            .header__item {
                 margin-left: 30px;
+                height: 38px;
+                width: 38px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                svg {
+                    height: 65%;
+                    width: 65%;
+                }
             }
-            span.basket {
+
+            .header__item:hover {
+                background-color: #e2e2e2;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            .basket {
                 position: relative;
                 margin-left: 30px;
                 cursor: pointer;
 
-                span.basket-count {
+                .basket-count {
                     position: absolute;
                     top: 0;
-                    right: -10px;
+                    right: -1px;
                     background: #023047;
                     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
                     display: inline-block;
@@ -1034,7 +1049,7 @@ header.header {
                     color: #ffffff;
                 }
             }
-            div.dropdown-category {
+            .dropdown-category {
                 position: relative;
                 button {
                     padding: 0px 12px;
@@ -1057,7 +1072,7 @@ header.header {
 
                 // }
             }
-            div.header-search {
+            .header-search {
                 flex-grow: 1;
                 border-radius: 5px;
                 margin-left: 15px;
@@ -1278,17 +1293,17 @@ header.header {
 
 @media only screen and (max-width: 1200px) and (min-width: 765px) {
     header.header {
-        div.header-bottom {
-            div.header-bottom-right {
-                span.header__item {
+        .header-bottom {
+            .header-bottom-right {
+                .header__item {
                     margin-left: 15px;
                 }
 
-                span.basket {
+                .basket {
                     margin-left: 15px;
                 }
 
-                div.dropdown-language {
+                .dropdown-language {
                     margin-left: 15px;
 
                     b {
@@ -1307,14 +1322,14 @@ header.header {
 }
 
 @media (max-width: 764px) {
-    header.header {
-        div.header-top {
-            div.header-top-right {
-                div.phone__lang__box {
+    .header {
+        .header-top {
+            .header-top-right {
+                .phone__lang__box {
                     display: flex;
                     justify-content: space-between;
 
-                    div.phone {
+                    .phone {
                         order: -1;
                         margin-right: 10px;
                     }
@@ -1356,7 +1371,7 @@ header.header {
             }
         }
         div.header-bottom {
-            div.header-bottom-right {
+            .header-bottom-right {
                 .logo-tujjor {
                     flex-grow: 0;
                     display: inline-block;
@@ -1379,44 +1394,44 @@ header.header {
                 }
             }
         }
-        div.dropdown-category {
+        .dropdown-category {
             margin-left: 10px;
         }
-        span.header__item {
+        .header__item {
             margin: 10px 5px !important;
         }
-        span.header__item__logo {
+        .header__item__logo {
             display: none;
         }
-        span.basket {
+        .basket {
             margin: 10px 5px !important;
         }
-        div.dropdown-language {
+        .dropdown-language {
             display: none !important;
         }
     }
 }
 
 @media (max-width: 655px) {
-    header.header {
-        div.header-top {
-            div.header-top-left {
+    .header {
+        .header-top {
+            .header-top-left {
                 display: none;
             }
-            div.header-top-right {
+            .header-top-right {
                 flex-grow: 1;
                 display: flex;
                 justify-content: space-between;
 
                 position: relative;
-                div.email {
+                .email {
                     position: absolute;
                     top: 50%;
                     left: 50%;
                     transform: translateY(-50%);
                 }
 
-                div.phone__lang__box {
+                .phone__lang__box {
                     width: 100%;
                     display: flex;
                     justify-content: space-between;
@@ -1430,10 +1445,10 @@ header.header {
 }
 
 @media only screen and (max-width: 560px) {
-    header.header {
-        div.header-bottom {
-            div.header-bottom-right {
-                div.dropdown-category {
+    .header {
+        .header-bottom {
+            .header-bottom-right {
+                .dropdown-category {
                     display: none;
                 }
 

@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import VueSlickCarousel from "vue-slick-carousel";
-import "vue-slick-carousel/dist/vue-slick-carousel.css";
-// optional style for arrows & dots
-import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+// import VueSlickCarousel from "vue-slick-carousel";
+// import "vue-slick-carousel/dist/vue-slick-carousel.css";
+// // optional style for arrows & dots
+// import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 
 export default {
     data() {
@@ -30,7 +30,7 @@ export default {
             brand: [],
             slickOptions: {
                 arows: false,
-                slidesToShow: 7,
+                slidesToShow: 6,
                 autoplay: true,
                 autoplaySpeed: 500,
 
@@ -40,13 +40,6 @@ export default {
                         settings: {
                             slidesToShow: 5
                         }
-                    },
-
-                    {
-                        breakpoint: 764,
-                        settings: {
-                            slidesToShow: 4
-                        }
                     }
                 ]
             }
@@ -54,7 +47,7 @@ export default {
     },
 
     name: "MyComponent",
-    components: { VueSlickCarousel },
+    // components: { VueSlickCarousel },
 
     async mounted() {
         let b = await this.$axios.get("/brand/all");
@@ -72,8 +65,8 @@ export default {
         display: flex !important;
         justify-content: center;
         align-items: center;
-        width: auto;
-        height: 114px;
+        width: 84px !important;
+        height: 54px;
         margin: 0 auto;
 
         img {
@@ -81,6 +74,13 @@ export default {
             width: 100%;
             object-fit: contain;
         }
+    }
+
+    .slick-list {
+        margin: 0 -15px;
+    }
+    .slick-slide > div {
+        padding: 0 15px;
     }
 }
 
@@ -91,7 +91,8 @@ export default {
         }
 
         .img__box {
-            height: 80px;
+            width: 74px !important;
+            height: 47px;
         }
     }
 }
@@ -99,7 +100,17 @@ export default {
 @media only screen and (max-width: 600px) {
     .brands {
         .img__box {
-            height: 50px;
+            width: 68px !important;
+            height: 43px;
+        }
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .brands {
+        .img__box {
+            width: 52px !important;
+            height: 35px;
         }
     }
 }
@@ -107,7 +118,8 @@ export default {
 @media only screen and (max-width: 400px) {
     .brands {
         .img__box {
-            height: 40px;
+            width: 48px !important;
+            height: 30px;
         }
     }
 }

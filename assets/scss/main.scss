@@ -47,18 +47,15 @@ $gc: f7931e;
 // ANIMATION HOVER
 @mixin hover__active--animation {
     &:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 1rem 2rem rgba(#999, 0.2);
+        transform: scale(1.07);
         &::after {
-            transform: scaleX(1.4) scaleY(1.6);
             opacity: 0;
         }
     }
 
     &:active {
         outline: none;
-        transform: translateY(-1px);
-        box-shadow: 0 0.5rem 1rem rgba(#999, 0.2);
+        transform: scale(1.03);
     }
 }
 
@@ -70,8 +67,8 @@ $gc: f7931e;
     &:active {
         background-color: #ffffff;
         color: #f7931e;
-        font-weight: 700;
-        border: 2px solid #f7931e;
+        // font-weight: 700;
+        border: 1px solid #f7931e;
     }
 }
 
@@ -122,6 +119,7 @@ $gc: f7931e;
                 width: 222px;
                 height: 222px;
             }
+
             .popular__items__desription {
                 padding-left: 16px;
                 display: flex;
@@ -165,14 +163,14 @@ $gc: f7931e;
                 }
 
                 &--categorie {
-                    margin-top: 9px;
+                    margin: 9px 0;
                     font-family: Roboto;
                     font-weight: 700;
                     font-size: 16px;
                     line-height: 100%;
                     color: #000000;
 
-                    height: 70px;
+                    height: 60px;
                 }
 
                 &--price {
@@ -185,12 +183,10 @@ $gc: f7931e;
                 }
 
                 &--old--price {
+                    margin-bottom: 2px;
                     font-size: 14px;
                     color: #f7931e;
                     text-decoration: line-through;
-
-                    position: absolute;
-                    bottom: 20px;
                 }
             }
         }
@@ -209,14 +205,14 @@ $gc: f7931e;
 
             margin: 0 auto;
             margin-top: 20px;
+
             text-align: center;
             padding: 10px;
             text-decoration: none;
             font-family: inherit;
             font-weight: 500;
             font-size: 18px;
-            color: rgb(255, 255, 255, 0.9);
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+            color: rgba(255, 255, 255, 0.9);
 
             // Change for the <button> element
             background-color: #f7931e;
@@ -224,8 +220,8 @@ $gc: f7931e;
             cursor: pointer;
         }
 
-        @include button__bg--color;
         @include hover__active--animation;
+        @include button__bg--color;
     }
 
     .popular__dropdown__box {
@@ -345,7 +341,7 @@ $gc: f7931e;
                         margin: 0;
                         margin-top: 6.6px;
                         font-size: 12px;
-                        height: 58px;
+                        height: 50px;
                         padding: 0;
                     }
 
@@ -395,7 +391,7 @@ $gc: f7931e;
                     &--categorie {
                         margin-top: 3.6px;
                         font-size: 12px;
-                        height: 56px;
+                        height: 47px;
                         padding: 0;
                     }
 

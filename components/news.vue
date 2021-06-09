@@ -33,7 +33,7 @@
                                 name: 'news_full-id',
                                 params: { id: news[index].slug }
                             }"
-                            class="data__box--btn"
+                            class="data__box--btn text-center"
                             >Подробно</nuxt-link
                         >
                         <p class="data__box--date">
@@ -157,7 +157,6 @@ export default {
                     font-weight: 500;
                     font-size: 14px;
                     color: rgb(255, 255, 255, 0.9);
-                    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
 
                     // Change for the <button> element
                     background-color: #f7931e;
@@ -199,7 +198,6 @@ export default {
     .news {
         &__box {
             &--item {
-                height: 500px;
                 width: 280px;
 
                 &--img {

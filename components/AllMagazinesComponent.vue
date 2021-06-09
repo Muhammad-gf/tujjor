@@ -85,7 +85,6 @@
                 </div>
             </div>
 
-            <!-- 
             <div class="magazine__item__box">
                 <div class="magazine__item--logo__box">
                     <div class="magazine__item--logo">
@@ -498,7 +497,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </section>
 </template>

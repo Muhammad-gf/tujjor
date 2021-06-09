@@ -138,7 +138,7 @@
             </div>
         </div>
 
-        <a href="#" class="popular__btn">Показать ещё</a>
+        <a href="#" class="popular__btn text-center">Показать ещё</a>
     </section>
 </template>
 
@@ -150,23 +150,6 @@ export default {};
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 </style>
 <style lang="scss">
-@mixin hover__active--animation {
-    &:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 1rem 2rem rgba(#999, 0.2);
-        &::after {
-            transform: scaleX(1.4) scaleY(1.6);
-            opacity: 0;
-        }
-    }
-
-    &:active {
-        outline: none;
-        transform: translateY(-1px);
-        box-shadow: 0 0.5rem 1rem rgba(#999, 0.2);
-    }
-}
-
 // MAIN PAGE CONTAINER
 
 .popular__container {
@@ -216,6 +199,7 @@ export default {};
             }
             .popular__items__desription {
                 padding-left: 16px;
+
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -232,14 +216,14 @@ export default {};
                 }
 
                 &--categorie {
-                    margin-top: 9px;
+                    margin: 9px 0;
                     font-family: Roboto;
                     font-weight: 700;
                     font-size: 16px;
                     line-height: 100%;
                     color: #000000;
 
-                    height: 70px;
+                    height: 60px;
                 }
 
                 &--price {
@@ -252,12 +236,10 @@ export default {};
                 }
 
                 &--old--price {
+                    margin-bottom: 2px;
                     font-size: 14px;
                     color: #f7931e;
                     text-decoration: line-through;
-
-                    position: absolute;
-                    bottom: 20px;
                 }
             }
         }
@@ -282,7 +264,6 @@ export default {};
             font-weight: 500;
             font-size: 18px;
             color: rgb(255, 255, 255, 0.9);
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
 
             // Change for the <button> element
             background-color: #f7931e;
@@ -350,7 +331,7 @@ export default {};
                         margin: 0;
                         margin-top: 6.6px;
                         font-size: 12px;
-                        height: 58px;
+                        height: 50px;
                         padding: 0;
                     }
 
@@ -400,7 +381,7 @@ export default {};
                     &--categorie {
                         margin-top: 3.6px;
                         font-size: 12px;
-                        height: 56px;
+                        height: 47px;
                         padding: 0;
                     }
 
