@@ -2,11 +2,45 @@
     <section class="container banner__container">
         <div class="banner__box">
             <div class="banner__box--large--img">
+                <b-carousel
+                    class="b-carousel"
+                    id="carousel-1"
+                    v-model="slide"
+                    :interval="3000"
+                    indicators
+                    background="#ababab"
+                    style="text-shadow: 1px 1px 2px #333;"
+                    @sliding-start="onSlideStart"
+                    @sliding-end="onSlideEnd"
+                >
+                    <!-- Text slides with image -->
+                    <b-carousel-slide
+                        class="b-carousel-slide"
+                        img-src="../assets/img/banner/banner-large.png"
+                    ></b-carousel-slide>
+
+                    <!-- Slides with custom text -->
+                    <b-carousel-slide
+                        class="b-carousel-slide"
+                        img-src="https://picsum.photos/1024/480/?image=54"
+                    >
+                    </b-carousel-slide>
+
+                    <!-- Slides with image only -->
+                    <b-carousel-slide
+                        class="b-carousel-slide"
+                        img-src="https://picsum.photos/1024/480/?image=58"
+                    ></b-carousel-slide>
+
+                    <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+                </b-carousel>
+            </div>
+            <!-- <div class="banner__box--large--img">
                 <img
                     src="../assets/img/banner/banner-large.png"
                     alt="Banner photo"
                 />
-            </div>
+            </div> -->
             <div class="banner__box--small--img">
                 <img src="../assets/img/banner/banner.png" alt="Banner photo" />
             </div>
@@ -15,7 +49,22 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            slide: 0,
+            sliding: null
+        };
+    },
+    methods: {
+        onSlideStart(slide) {
+            this.sliding = true;
+        },
+        onSlideEnd(slide) {
+            this.sliding = false;
+        }
+    }
+};
 </script>
 
 <style lang="scss">
@@ -28,6 +77,7 @@ export default {};
         display: flex;
         justify-content: center;
         align-items: stretch;
+
         &--large--img {
             height: 403px;
             width: 895px;
@@ -35,11 +85,26 @@ export default {};
             border-radius: 5px;
             overflow: hidden;
 
-            img {
-                width: 100%;
-                height: 100%;
+            .b-carousel {
+                width: 100% !important;
+                height: 100% !important;
+                .carousel-inner {
+                    width: 100% !important;
+                    height: 100% !important;
+
+                    .b-carousel-slide {
+                        width: 100% !important;
+                        height: 100% !important;
+                        img {
+                            width: 100% !important;
+                            height: 100% !important;
+                            object-fit: cover;
+                        }
+                    }
+                }
             }
         }
+
         &--small--img {
             margin-left: 20px;
             width: 286px;
@@ -59,11 +124,51 @@ export default {};
     .container {
         .banner__box {
             &--large--img {
-                height: auto;
+                max-height: 370px;
                 width: 100%;
             }
             &--small--img {
                 display: none;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        .banner__box {
+            &--large--img {
+                max-height: 300px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .container {
+        .banner__box {
+            &--large--img {
+                max-height: 300px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .container {
+        .banner__box {
+            &--large--img {
+                max-height: 250px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .container {
+        .banner__box {
+            &--large--img {
+                max-height: 220px;
             }
         }
     }
@@ -77,6 +182,7 @@ export default {};
             margin-top: 20px;
             &--large--img {
                 border-radius: 0;
+                max-height: 180px;
             }
         }
     }

@@ -9,7 +9,7 @@
             <!-- <div class="brands__box"> -->
 
             <slick v-if="brand.length > 0" :options="slickOptions">
-                <div class="img" v-for="item in brand" :key="item._id">
+                <div class="img__box" v-for="item in brand" :key="item._id">
                     <img :src="$store.state.uploads + item.image" alt="Brand" />
                 </div>
             </slick>
@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import VueSlickCarousel from "vue-slick-carousel";
-import "vue-slick-carousel/dist/vue-slick-carousel.css";
-// optional style for arrows & dots
-import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+// import VueSlickCarousel from "vue-slick-carousel";
+// import "vue-slick-carousel/dist/vue-slick-carousel.css";
+// // optional style for arrows & dots
+// import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 
 export default {
     data() {
@@ -30,15 +30,24 @@ export default {
             brand: [],
             slickOptions: {
                 arows: false,
-                slidesToShow: 9,
+                slidesToShow: 6,
                 autoplay: true,
-                autoplaySpeed: 500
+                autoplaySpeed: 500,
+
+                responsive: [
+                    {
+                        breakpoint: 1000,
+                        settings: {
+                            slidesToShow: 5
+                        }
+                    }
+                ]
             }
         };
     },
 
     name: "MyComponent",
-    components: { VueSlickCarousel },
+    // components: { VueSlickCarousel },
 
     async mounted() {
         let b = await this.$axios.get("/brand/all");
@@ -52,16 +61,26 @@ export default {
 
 <style lang="scss">
 .brands {
-    .img {
+    .img__box {
         display: flex !important;
         justify-content: center;
         align-items: center;
-        width: auto;
+        width: 84px !important;
+        height: 54px;
         margin: 0 auto;
 
         img {
-            max-width: 80%;
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
         }
+    }
+
+    .slick-list {
+        margin: 0 -15px;
+    }
+    .slick-slide > div {
+        padding: 0 15px;
     }
 }
 
@@ -70,37 +89,37 @@ export default {
         .popular__heading {
             margin-bottom: 0;
         }
-        &__box {
-            width: 100%;
-            height: 80px;
 
-            .img {
-                height: 80px;
-            }
+        .img__box {
+            width: 74px !important;
+            height: 47px;
         }
     }
 }
 
 @media only screen and (max-width: 600px) {
     .brands {
-        &__box {
-            height: 55px;
-
-            .img {
-                height: 55px;
-            }
+        .img__box {
+            width: 68px !important;
+            height: 43px;
         }
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 450px) {
     .brands {
-        &__box {
+        .img__box {
+            width: 52px !important;
+            height: 35px;
+        }
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .brands {
+        .img__box {
+            width: 48px !important;
             height: 30px;
-
-            .img {
-                height: 30px;
-            }
         }
     }
 }

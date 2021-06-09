@@ -36,6 +36,7 @@
                         <span>Количество:</span>
                         <div class="btn__box">
                             <a class="btn--primary" v-on:click="decrease()">
+                                _
                             </a>
                             <span> {{ counter }} шт</span>
                             <a class="btn--secondary" v-on:click="increase()">
@@ -175,6 +176,16 @@
 
 <script>
 export default {
+	 head: {
+        title: "Корзина — Tujjor. Низкие цены и широкий ассортимент!",
+        meta: [
+            {
+                hid: "description",
+                name: "description",
+                content: "Корзина - Tujjor"
+            }
+        ]
+    },
     data() {
         return {
             counter: 1,

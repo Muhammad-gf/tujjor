@@ -65,8 +65,15 @@
                                 +998 (90) 123 45 67
                             </h6>
                         </div>
-                        <div class="dropdown-language__top">
-                            <button type="button">
+                        <div
+                            class="dropdown-language__top"
+                            @click="doVisibleLanguage"
+                        >
+                            <button
+                                type="button"
+                                class="language__russian"
+                                v-if="!activeLanguage"
+                            >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -103,6 +110,178 @@
                                 </svg>
                                 <b>ру</b>
                             </button>
+
+                            <button class="language__uzbek" v-else>
+                                <svg
+                                    width="43"
+                                    height="28"
+                                    viewBox="0 0 26 19"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <rect
+                                        x="0.25"
+                                        y="0.25"
+                                        width="42"
+                                        height="18"
+                                        rx="1.75"
+                                        fill="white"
+                                        stroke="#F5F5F5"
+                                        stroke-width="0.5"
+                                    ></rect>
+                                    <mask
+                                        id="mask0"
+                                        mask-type="alpha"
+                                        maskUnits="userSpaceOnUse"
+                                        x="0"
+                                        y="0"
+                                        width="42"
+                                        height="28"
+                                    >
+                                        <rect
+                                            x="0.25"
+                                            y="0.25"
+                                            width="42"
+                                            height="28"
+                                            rx="1.75"
+                                            fill="white"
+                                            stroke="white"
+                                            stroke-width="0.5"
+                                        ></rect>
+                                    </mask>
+                                    <g mask="url(#mask0)">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M0 6.33333H26V0H0V6.33333Z"
+                                            fill="#04AAC8"
+                                        ></path>
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M0 19H26V12.6667H0V19Z"
+                                            fill="#23C840"
+                                        ></path>
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M4.33322 5.06666C4.71515 5.06666 5.07015 4.94871 5.36532 4.74647C5.3311 4.74878 5.29658 4.74996 5.26179 4.74996C4.40706 4.74996 3.71417 4.04107 3.71417 3.16662C3.71417 2.29217 4.40706 1.58329 5.26179 1.58329C5.29653 1.58329 5.33101 1.58446 5.36519 1.58677C5.07004 1.38458 4.71509 1.26666 4.33322 1.26666C3.30755 1.26666 2.47607 2.11732 2.47607 3.16666C2.47607 4.216 3.30755 5.06666 4.33322 5.06666ZM7.42843 4.43331C7.42843 4.78309 7.15127 5.06664 6.80938 5.06664C6.46749 5.06664 6.19034 4.78309 6.19034 4.43331C6.19034 4.08352 6.46749 3.79997 6.80938 3.79997C7.15127 3.79997 7.42843 4.08352 7.42843 4.43331ZM9.28562 2.53333C9.62751 2.53333 9.90466 2.24978 9.90466 1.9C9.90466 1.55022 9.62751 1.26666 9.28562 1.26666C8.94373 1.26666 8.66657 1.55022 8.66657 1.9C8.66657 2.24978 8.94373 2.53333 9.28562 2.53333ZM12.3809 1.9C12.3809 2.24978 12.1037 2.53333 11.7619 2.53333C11.42 2.53333 11.1428 2.24978 11.1428 1.9C11.1428 1.55022 11.42 1.26666 11.7619 1.26666C12.1037 1.26666 12.3809 1.55022 12.3809 1.9ZM11.7619 5.06664C12.1037 5.06664 12.3809 4.78309 12.3809 4.43331C12.3809 4.08352 12.1037 3.79997 11.7619 3.79997C11.42 3.79997 11.1428 4.08352 11.1428 4.43331C11.1428 4.78309 11.42 5.06664 11.7619 5.06664ZM9.90466 4.43331C9.90466 4.78309 9.62751 5.06664 9.28562 5.06664C8.94373 5.06664 8.66657 4.78309 8.66657 4.43331C8.66657 4.08352 8.94373 3.79997 9.28562 3.79997C9.62751 3.79997 9.90466 4.08352 9.90466 4.43331Z"
+                                            fill="white"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <b>uz</b>
+                            </button>
+
+                            <div
+                                class="dropdown__list__box"
+                                v-show="isVibibleDropdownList"
+                                @click="changeLanguage"
+                            >
+                                <button
+                                    type="button"
+                                    class="language__russian"
+                                    v-if="activeLanguage"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="43"
+                                        height="28"
+                                        viewBox="0 0 43 28"
+                                        fill="none"
+                                    >
+                                        <rect
+                                            x="0.37793"
+                                            width="42"
+                                            height="28"
+                                            fill="url(#pattern1)"
+                                        />
+                                        <defs>
+                                            <pattern
+                                                id="pattern1"
+                                                patternContentUnits="objectBoundingBox"
+                                                width="1"
+                                                height="1"
+                                            >
+                                                <use
+                                                    xlink:href="#image1"
+                                                    transform="translate(0 -0.00025) scale(0.001 0.0015)"
+                                                />
+                                            </pattern>
+                                            <image
+                                                id="image1"
+                                                width="1000"
+                                                height="667"
+                                                xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wCEAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSgBBwcHCggKEwoKEygaFhooKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKP/CABEIApsD6AMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAABggF/9oACAEBAAAAANUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAGLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADqgAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/xAAXAQEBAQEAAAAAAAAAAAAAAAAABwQF/9oACAECEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABoAAAAAAAAAAKCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcgAAAAAAAAAAkoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/8QAGAEBAAMBAAAAAAAAAAAAAAAAAAMFBgf/2gAIAQMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAABmgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC8AAAAAAAAAAO4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//xAAWEAEBAQAAAAAAAAAAAAAAAAAVF7D/2gAIAQEAAQIA1L65XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5qXiCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCa1n/8QAHBAAAQQDAQAAAAAAAAAAAAAAAwAGU1aTodKw/9oACAEBAAM/APUvYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYic+pgaUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe/Wt//EABYRAQEBAAAAAAAAAAAAAAAAABQVkP/aAAgBAgEBAgDTMhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCaZ3r169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr17XL/xAAdEQABAwUBAAAAAAAAAAAAAAABAAMFUlORodGQ/9oACAECAQM/APTN+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dg+mkfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvnrn//xAAWEQEBAQAAAAAAAAAAAAAAAAATFpD/2gAIAQMBAQIA0zZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm0zmpqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqa1y/8QAHREAAQMFAQAAAAAAAAAAAAAAAQADBVJTkaHRkP/aAAgBAwEDPwD0zbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZ9NJSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXfXP/9k="
+                                            />
+                                        </defs>
+                                    </svg>
+                                    <b>ру</b>
+                                </button>
+
+                                <button class="language__uzbek" v-else>
+                                    <svg
+                                        width="43"
+                                        height="28"
+                                        viewBox="0 0 26 19"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <rect
+                                            x="0.25"
+                                            y="0.25"
+                                            width="42"
+                                            height="18"
+                                            rx="1.75"
+                                            fill="white"
+                                            stroke="#F5F5F5"
+                                            stroke-width="0.5"
+                                        ></rect>
+                                        <mask
+                                            id="mask0"
+                                            mask-type="alpha"
+                                            maskUnits="userSpaceOnUse"
+                                            x="0"
+                                            y="0"
+                                            width="42"
+                                            height="28"
+                                        >
+                                            <rect
+                                                x="0.25"
+                                                y="0.25"
+                                                width="42"
+                                                height="28"
+                                                rx="1.75"
+                                                fill="white"
+                                                stroke="white"
+                                                stroke-width="0.5"
+                                            ></rect>
+                                        </mask>
+                                        <g mask="url(#mask0)">
+                                            <path
+                                                fill-rule="evenodd"
+                                                clip-rule="evenodd"
+                                                d="M0 6.33333H26V0H0V6.33333Z"
+                                                fill="#04AAC8"
+                                            ></path>
+                                            <path
+                                                fill-rule="evenodd"
+                                                clip-rule="evenodd"
+                                                d="M0 19H26V12.6667H0V19Z"
+                                                fill="#23C840"
+                                            ></path>
+                                            <path
+                                                fill-rule="evenodd"
+                                                clip-rule="evenodd"
+                                                d="M4.33322 5.06666C4.71515 5.06666 5.07015 4.94871 5.36532 4.74647C5.3311 4.74878 5.29658 4.74996 5.26179 4.74996C4.40706 4.74996 3.71417 4.04107 3.71417 3.16662C3.71417 2.29217 4.40706 1.58329 5.26179 1.58329C5.29653 1.58329 5.33101 1.58446 5.36519 1.58677C5.07004 1.38458 4.71509 1.26666 4.33322 1.26666C3.30755 1.26666 2.47607 2.11732 2.47607 3.16666C2.47607 4.216 3.30755 5.06666 4.33322 5.06666ZM7.42843 4.43331C7.42843 4.78309 7.15127 5.06664 6.80938 5.06664C6.46749 5.06664 6.19034 4.78309 6.19034 4.43331C6.19034 4.08352 6.46749 3.79997 6.80938 3.79997C7.15127 3.79997 7.42843 4.08352 7.42843 4.43331ZM9.28562 2.53333C9.62751 2.53333 9.90466 2.24978 9.90466 1.9C9.90466 1.55022 9.62751 1.26666 9.28562 1.26666C8.94373 1.26666 8.66657 1.55022 8.66657 1.9C8.66657 2.24978 8.94373 2.53333 9.28562 2.53333ZM12.3809 1.9C12.3809 2.24978 12.1037 2.53333 11.7619 2.53333C11.42 2.53333 11.1428 2.24978 11.1428 1.9C11.1428 1.55022 11.42 1.26666 11.7619 1.26666C12.1037 1.26666 12.3809 1.55022 12.3809 1.9ZM11.7619 5.06664C12.1037 5.06664 12.3809 4.78309 12.3809 4.43331C12.3809 4.08352 12.1037 3.79997 11.7619 3.79997C11.42 3.79997 11.1428 4.08352 11.1428 4.43331C11.1428 4.78309 11.42 5.06664 11.7619 5.06664ZM9.90466 4.43331C9.90466 4.78309 9.62751 5.06664 9.28562 5.06664C8.94373 5.06664 8.66657 4.78309 8.66657 4.43331C8.66657 4.08352 8.94373 3.79997 9.28562 3.79997C9.62751 3.79997 9.90466 4.08352 9.90466 4.43331Z"
+                                                fill="white"
+                                            ></path>
+                                        </g>
+                                    </svg>
+                                    <b>uz</b>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -284,7 +463,7 @@
                             </svg>
                         </button>
                     </div>
-                    <span class="header__item">
+                    <nuxt-link to="/favourite" class="header__item">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -297,8 +476,9 @@
                                 fill="#FB8500"
                             />
                         </svg>
-                    </span>
-                    <span class="basket">
+                    </nuxt-link>
+
+                    <nuxt-link to="/basket" class=" header__item basket">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="21"
@@ -314,7 +494,8 @@
                         <span class="basket-count">
                             4
                         </span>
-                    </span>
+                    </nuxt-link>
+
                     <span class="header__item header__item__logo">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -331,22 +512,71 @@
                             />
                         </svg>
                     </span>
-                    <span class="header__item">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="25"
-                            viewBox="0 0 24 25"
-                            fill="none"
+
+                    <div class="person__box" @click="doVisiblePerson">
+                        <span class="header__item ">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="25"
+                                viewBox="0 0 24 25"
+                                fill="none"
+                            >
+                                <path
+                                    d="M5.9215 5.92105C5.9215 9.18553 8.53228 11.8421 11.7405 11.8421C14.9487 11.8421 17.5594 9.18553 17.5594 5.92105C17.5594 2.65658 14.9487 0 11.7405 0C8.53228 0 5.9215 2.65658 5.9215 5.92105ZM22.0853 25H23.3784V23.6842C23.3784 18.6066 19.3168 14.4737 14.3267 14.4737H9.15426C4.16288 14.4737 0.102539 18.6066 0.102539 23.6842V25H22.0853Z"
+                                    fill="#FB8500"
+                                />
+                            </svg>
+                        </span>
+
+                        <div class="person__dropdown" v-if="isVisiblePerson">
+                            <div class="person__logIn" v-if="loggedIn">
+                                <div class="info">
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M10 0.375C8.09636 0.375 6.23546 0.939497 4.65264 1.99711C3.06982 3.05471 1.83616 4.55793 1.10766 6.31667C0.37917 8.07541 0.188563 10.0107 0.559946 11.8777C0.931329 13.7448 1.84802 15.4598 3.1941 16.8059C4.54018 18.152 6.25519 19.0687 8.12226 19.4401C9.98933 19.8114 11.9246 19.6208 13.6833 18.8923C15.4421 18.1638 16.9453 16.9302 18.0029 15.3474C19.0605 13.7645 19.625 11.9036 19.625 10C19.6221 7.44818 18.6071 5.00172 16.8027 3.19731C14.9983 1.39291 12.5518 0.377911 10 0.375ZM15.4945 16.1366C15.4808 15.2349 15.1134 14.3746 14.4714 13.7411C13.8295 13.1076 12.9644 12.7517 12.0625 12.75H7.9375C7.03563 12.7517 6.17052 13.1076 5.52857 13.7411C4.88661 14.3746 4.51921 15.2349 4.5055 16.1366C3.25877 15.0234 2.37957 13.5577 1.98433 11.9337C1.58909 10.3097 1.69645 8.60392 2.29219 7.04228C2.88794 5.48063 3.94397 4.13677 5.32045 3.18864C6.69693 2.24051 8.32893 1.73283 10.0003 1.73283C11.6718 1.73283 13.3038 2.24051 14.6802 3.18864C16.0567 4.13677 17.1128 5.48063 17.7085 7.04228C18.3042 8.60392 18.4116 10.3097 18.0164 11.9337C17.6211 13.5577 16.7419 15.0234 15.4952 16.1366H15.4945Z"
+                                            fill="#565656"
+                                        />
+                                    </svg>
+
+                                    <span> {{ personName }} </span>
+                                </div>
+                                <nuxt-link to="/" class="links">
+                                    <span>> Профиль</span>
+                                </nuxt-link>
+                                <nuxt-link to="/my__orders" class="links">
+                                    <span>> Заказы</span>
+                                </nuxt-link>
+                                <a class="links" @click="logOut">
+                                    <span>> Выйти</span>
+                                </a>
+                            </div>
+
+                            <div class="person__logOut" v-else>
+                                <nuxt-link to="/auth/register" class="links">
+                                    <button class="button_register">
+                                        Регистратция
+                                    </button>
+                                </nuxt-link>
+                                <nuxt-link to="/auth/login" class="links">
+                                    <button class="button_auth">Вход</button>
+                                </nuxt-link>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-language" @click="doVisibleLanguage">
+                        <button
+                            type="button"
+                            class="language__russian"
+                            v-if="!activeLanguage"
                         >
-                            <path
-                                d="M5.9215 5.92105C5.9215 9.18553 8.53228 11.8421 11.7405 11.8421C14.9487 11.8421 17.5594 9.18553 17.5594 5.92105C17.5594 2.65658 14.9487 0 11.7405 0C8.53228 0 5.9215 2.65658 5.9215 5.92105ZM22.0853 25H23.3784V23.6842C23.3784 18.6066 19.3168 14.4737 14.3267 14.4737H9.15426C4.16288 14.4737 0.102539 18.6066 0.102539 23.6842V25H22.0853Z"
-                                fill="#FB8500"
-                            />
-                        </svg>
-                    </span>
-                    <div class="dropdown-language">
-                        <button type="button">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -383,6 +613,178 @@
                             </svg>
                             <b>ру</b>
                         </button>
+
+                        <button class="language__uzbek" v-else>
+                            <svg
+                                width="43"
+                                height="28"
+                                viewBox="0 0 26 19"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <rect
+                                    x="0.25"
+                                    y="0.25"
+                                    width="42"
+                                    height="28"
+                                    rx="1.75"
+                                    fill="white"
+                                    stroke="#F5F5F5"
+                                    stroke-width="0.5"
+                                ></rect>
+                                <mask
+                                    id="mask0"
+                                    mask-type="alpha"
+                                    maskUnits="userSpaceOnUse"
+                                    x="0"
+                                    y="0"
+                                    width="42"
+                                    height="28"
+                                >
+                                    <rect
+                                        x="0.25"
+                                        y="0.25"
+                                        width="42"
+                                        height="28"
+                                        rx="1.75"
+                                        fill="white"
+                                        stroke="white"
+                                        stroke-width="0.5"
+                                    ></rect>
+                                </mask>
+                                <g mask="url(#mask0)">
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M0 6.33333H26V0H0V6.33333Z"
+                                        fill="#04AAC8"
+                                    ></path>
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M0 19H26V12.6667H0V19Z"
+                                        fill="#23C840"
+                                    ></path>
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M4.33322 5.06666C4.71515 5.06666 5.07015 4.94871 5.36532 4.74647C5.3311 4.74878 5.29658 4.74996 5.26179 4.74996C4.40706 4.74996 3.71417 4.04107 3.71417 3.16662C3.71417 2.29217 4.40706 1.58329 5.26179 1.58329C5.29653 1.58329 5.33101 1.58446 5.36519 1.58677C5.07004 1.38458 4.71509 1.26666 4.33322 1.26666C3.30755 1.26666 2.47607 2.11732 2.47607 3.16666C2.47607 4.216 3.30755 5.06666 4.33322 5.06666ZM7.42843 4.43331C7.42843 4.78309 7.15127 5.06664 6.80938 5.06664C6.46749 5.06664 6.19034 4.78309 6.19034 4.43331C6.19034 4.08352 6.46749 3.79997 6.80938 3.79997C7.15127 3.79997 7.42843 4.08352 7.42843 4.43331ZM9.28562 2.53333C9.62751 2.53333 9.90466 2.24978 9.90466 1.9C9.90466 1.55022 9.62751 1.26666 9.28562 1.26666C8.94373 1.26666 8.66657 1.55022 8.66657 1.9C8.66657 2.24978 8.94373 2.53333 9.28562 2.53333ZM12.3809 1.9C12.3809 2.24978 12.1037 2.53333 11.7619 2.53333C11.42 2.53333 11.1428 2.24978 11.1428 1.9C11.1428 1.55022 11.42 1.26666 11.7619 1.26666C12.1037 1.26666 12.3809 1.55022 12.3809 1.9ZM11.7619 5.06664C12.1037 5.06664 12.3809 4.78309 12.3809 4.43331C12.3809 4.08352 12.1037 3.79997 11.7619 3.79997C11.42 3.79997 11.1428 4.08352 11.1428 4.43331C11.1428 4.78309 11.42 5.06664 11.7619 5.06664ZM9.90466 4.43331C9.90466 4.78309 9.62751 5.06664 9.28562 5.06664C8.94373 5.06664 8.66657 4.78309 8.66657 4.43331C8.66657 4.08352 8.94373 3.79997 9.28562 3.79997C9.62751 3.79997 9.90466 4.08352 9.90466 4.43331Z"
+                                        fill="white"
+                                    ></path>
+                                </g>
+                            </svg>
+                            <b>uz</b>
+                        </button>
+
+                        <div
+                            class="dropdown__list__box"
+                            v-show="isVibibleDropdownList"
+                            @click="changeLanguage"
+                        >
+                            <button
+                                type="button"
+                                class="language__russian"
+                                v-if="activeLanguage"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="43"
+                                    height="28"
+                                    viewBox="0 0 43 28"
+                                    fill="none"
+                                >
+                                    <rect
+                                        x="0.37793"
+                                        width="42"
+                                        height="28"
+                                        fill="url(#pattern0)"
+                                    />
+                                    <defs>
+                                        <pattern
+                                            id="pattern0"
+                                            patternContentUnits="objectBoundingBox"
+                                            width="1"
+                                            height="1"
+                                        >
+                                            <use
+                                                xlink:href="#image0"
+                                                transform="translate(0 -0.00025) scale(0.001 0.0015)"
+                                            />
+                                        </pattern>
+                                        <image
+                                            id="image0"
+                                            width="1000"
+                                            height="667"
+                                            xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wCEAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSgBBwcHCggKEwoKEygaFhooKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKP/CABEIApsD6AMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAABggF/9oACAEBAAAAANUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAGLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADqgAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/xAAXAQEBAQEAAAAAAAAAAAAAAAAABwQF/9oACAECEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABoAAAAAAAAAAKCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcgAAAAAAAAAAkoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/8QAGAEBAAMBAAAAAAAAAAAAAAAAAAMFBgf/2gAIAQMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAABmgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC8AAAAAAAAAAO4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//xAAWEAEBAQAAAAAAAAAAAAAAAAAVF7D/2gAIAQEAAQIA1L65XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5qXiCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCa1n/8QAHBAAAQQDAQAAAAAAAAAAAAAAAwAGU1aTodKw/9oACAEBAAM/APUvYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYic+pgaUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe/Wt//EABYRAQEBAAAAAAAAAAAAAAAAABQVkP/aAAgBAgEBAgDTMhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCaZ3r169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr17XL/xAAdEQABAwUBAAAAAAAAAAAAAAABAAMFUlORodGQ/9oACAECAQM/APTN+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dg+mkfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvnrn//xAAWEQEBAQAAAAAAAAAAAAAAAAATFpD/2gAIAQMBAQIA0zZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm0zmpqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqa1y/8QAHREAAQMFAQAAAAAAAAAAAAAAAQADBVJTkaHRkP/aAAgBAwEDPwD0zbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZ9NJSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXfXP/9k="
+                                        />
+                                    </defs>
+                                </svg>
+                                <b>ру</b>
+                            </button>
+
+                            <button class="language__uzbek" v-else>
+                                <svg
+                                    width="43"
+                                    height="28"
+                                    viewBox="0 0 26 19"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <rect
+                                        x="0.25"
+                                        y="0.25"
+                                        width="42"
+                                        height="28"
+                                        rx="1.75"
+                                        fill="white"
+                                        stroke="#F5F5F5"
+                                        stroke-width="0.5"
+                                    ></rect>
+                                    <mask
+                                        id="mask0"
+                                        mask-type="alpha"
+                                        maskUnits="userSpaceOnUse"
+                                        x="0"
+                                        y="0"
+                                        width="42"
+                                        height="28"
+                                    >
+                                        <rect
+                                            x="0.25"
+                                            y="0.25"
+                                            width="42"
+                                            height="28"
+                                            rx="1.75"
+                                            fill="white"
+                                            stroke="white"
+                                            stroke-width="0.5"
+                                        ></rect>
+                                    </mask>
+                                    <g mask="url(#mask0)">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M0 6.33333H26V0H0V6.33333Z"
+                                            fill="#04AAC8"
+                                        ></path>
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M0 19H26V12.6667H0V19Z"
+                                            fill="#23C840"
+                                        ></path>
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M4.33322 5.06666C4.71515 5.06666 5.07015 4.94871 5.36532 4.74647C5.3311 4.74878 5.29658 4.74996 5.26179 4.74996C4.40706 4.74996 3.71417 4.04107 3.71417 3.16662C3.71417 2.29217 4.40706 1.58329 5.26179 1.58329C5.29653 1.58329 5.33101 1.58446 5.36519 1.58677C5.07004 1.38458 4.71509 1.26666 4.33322 1.26666C3.30755 1.26666 2.47607 2.11732 2.47607 3.16666C2.47607 4.216 3.30755 5.06666 4.33322 5.06666ZM7.42843 4.43331C7.42843 4.78309 7.15127 5.06664 6.80938 5.06664C6.46749 5.06664 6.19034 4.78309 6.19034 4.43331C6.19034 4.08352 6.46749 3.79997 6.80938 3.79997C7.15127 3.79997 7.42843 4.08352 7.42843 4.43331ZM9.28562 2.53333C9.62751 2.53333 9.90466 2.24978 9.90466 1.9C9.90466 1.55022 9.62751 1.26666 9.28562 1.26666C8.94373 1.26666 8.66657 1.55022 8.66657 1.9C8.66657 2.24978 8.94373 2.53333 9.28562 2.53333ZM12.3809 1.9C12.3809 2.24978 12.1037 2.53333 11.7619 2.53333C11.42 2.53333 11.1428 2.24978 11.1428 1.9C11.1428 1.55022 11.42 1.26666 11.7619 1.26666C12.1037 1.26666 12.3809 1.55022 12.3809 1.9ZM11.7619 5.06664C12.1037 5.06664 12.3809 4.78309 12.3809 4.43331C12.3809 4.08352 12.1037 3.79997 11.7619 3.79997C11.42 3.79997 11.1428 4.08352 11.1428 4.43331C11.1428 4.78309 11.42 5.06664 11.7619 5.06664ZM9.90466 4.43331C9.90466 4.78309 9.62751 5.06664 9.28562 5.06664C8.94373 5.06664 8.66657 4.78309 8.66657 4.43331C8.66657 4.08352 8.94373 3.79997 9.28562 3.79997C9.62751 3.79997 9.90466 4.08352 9.90466 4.43331Z"
+                                            fill="white"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <b>uz</b>
+                            </button>
+                        </div>
                     </div>
 
                     <nav class="header__navbar">
@@ -406,136 +808,28 @@
         <div class="category-dropdown" v-show="visibleCategory">
             <div class="container d-flex w-100 ">
                 <div class="category-dropdown__main">
-                    <span class="category-dropdown__main--txt">
-                        <!-- {{ category.name.uz }} - {{ category._id }} -->
-                    </span>
                     <span class="category-dropdown__main--txt"
                         >Бытовая техника</span
                     >
-                    <!--   <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
+                    <span
+                        class="category-dropdown__main--txt"
+                        v-for="category in categoryArray"
+                        :key="category._id"
                     >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
+                        {{ category.name.uz }}</span
                     >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Наращивание волос и парики</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Наращивание волос и парики</span
-                    >
-
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Наращивание волос и парики</span
-                    >
-
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span class="category-dropdown__main--txt"
-                        >Наращивание волос и парики</span
-                    > -->
                 </div>
                 <div class="category-dropdown__children d-flex flex-column">
                     <span
                         class="category-dropdown__children--txt main-children"
+                        v-for="category in categoryArray"
+                        :key="category._id"
                     >
                         <!-- {{ children.name.uz }} - {{ children._id }} -->
                     </span>
                     <span class="category-dropdown__children--txt ">
                         <!-- {{ child.name.uz }} - {{ child._id }} -->
                     </span>
-
-                    <!-- <span class="category-dropdown__children--txt ">
-                        Обувь
-                    </span>
-                    <span class="category-dropdown__children--txt ">
-                        Аксессуары
-                    </span>
-                    <span class="category-dropdown__children--txt ">
-                        Нижнее белье
-                    </span>
-                    <span class="category-dropdown__children--txt ">
-                        Чулки, носки, колготки
-                    </span>
-                    <span class="category-dropdown__children--txt ">
-                        Домашняя одежда
-                    </span>
-                    <span class="category-dropdown__children--txt ">
-                        Одежда для беременных
-                    </span>
-                    <span class="category-dropdown__children--txt ">
-                        Купальники и пляжная одежда
-                    </span> -->
                 </div>
             </div>
         </div>
@@ -547,7 +841,12 @@ export default {
     data() {
         return {
             visibleCategory: false,
-            categoryArray: []
+            categoryArray: [],
+            activeLanguage: false,
+            isVibibleDropdownList: false,
+            loggedIn: null,
+            isVisiblePerson: false,
+            personName: ""
         };
     },
     methods: {
@@ -566,6 +865,25 @@ export default {
             }
             console.log(arrayList);
             return arrayList;
+        },
+
+        doVisibleLanguage() {
+            this.isVibibleDropdownList = !this.isVibibleDropdownList;
+        },
+
+        changeLanguage() {
+            this.activeLanguage = !this.activeLanguage;
+        },
+
+        doVisiblePerson() {
+            this.isVisiblePerson = !this.isVisiblePerson;
+        },
+
+        async logOut() {
+            await this.$auth.logout();
+            this.loggedIn = this.$auth.loggedIn;
+
+            this.personName = this.$auth.user?.name;
         }
     },
 
@@ -576,13 +894,14 @@ export default {
             "http://cdn.tujjor.org/api/category/all"
         );
         this.categoryArray = ip.data;
-        console.log(this.categoryArray);
+        this.loggedIn = this.$auth.loggedIn;
+        this.personName = this.$auth.user?.name;
     }
 };
 </script>
 
 <style lang="scss" scoped>
-header.header {
+.header {
     width: 100vw;
     position: fixed;
     top: 0;
@@ -591,31 +910,32 @@ header.header {
 
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 
-    div.header-top {
+    .header-top {
         background-color: #f7931f;
         display: flex;
         height: 60px;
         justify-content: space-between;
+        padding-right: 10px;
 
-        div.header-top-left {
+        .header-top-left {
             display: flex;
             align-items: center;
-            span.logo-site {
+            .logo-site {
                 display: flex;
                 align-items: center;
             }
         }
-        div.header-top-right {
+        .header-top-right {
             display: flex;
             align-items: center;
-            div.email {
+            .email {
                 display: flex;
                 align-items: center;
                 margin-right: 25px;
             }
 
-            div.phone__lang__box {
-                div.phone {
+            .phone__lang__box {
+                .phone {
                     display: flex;
                     align-items: center;
                 }
@@ -633,13 +953,13 @@ header.header {
         margin-left: 5px;
         font-weight: normal;
     }
-    h6.__adress {
+    .__adress {
         max-width: 180px;
     }
-    div.header-bottom {
+    .header-bottom {
         padding: 10px 0px;
         background: #fcf6f6;
-        div.header-bottom-right {
+        .header-bottom-right {
             width: 100%;
 
             display: flex;
@@ -650,14 +970,18 @@ header.header {
                 flex-grow: 1;
                 padding-right: 15px;
             }
-            div.dropdown-language {
-                // display: flex;
-                // justify-content: center;
-                // align-items: center;
-                margin-left: 30px;
+            .dropdown-language {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                position: relative;
+                margin: 0 10px 0 30px;
+
                 button {
                     background: transparent;
                     border: none;
+
                     b {
                         font-style: normal;
                         font-weight: 500;
@@ -667,17 +991,51 @@ header.header {
                         color: #000000;
                     }
                 }
+                .dropdown__list__box {
+                    position: absolute;
+                    top: 40px;
+                    left: -10%;
+                    max-width: 80px;
+
+                    background-color: #fcf6f6;
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 14%);
+                    padding: 5px;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: nowrap;
+                }
             }
-            span.header__item {
+            .header__item {
                 margin-left: 30px;
+                height: 38px;
+                width: 38px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                svg {
+                    height: 65%;
+                    width: 65%;
+                }
             }
-            span.basket {
+
+            .header__item:hover {
+                background-color: #e2e2e2;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            .basket {
                 position: relative;
                 margin-left: 30px;
-                span.basket-count {
+                cursor: pointer;
+
+                .basket-count {
                     position: absolute;
                     top: 0;
-                    right: -10px;
+                    right: -1px;
                     background: #023047;
                     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
                     display: inline-block;
@@ -691,7 +1049,7 @@ header.header {
                     color: #ffffff;
                 }
             }
-            div.dropdown-category {
+            .dropdown-category {
                 position: relative;
                 button {
                     padding: 0px 12px;
@@ -714,7 +1072,7 @@ header.header {
 
                 // }
             }
-            div.header-search {
+            .header-search {
                 flex-grow: 1;
                 border-radius: 5px;
                 margin-left: 15px;
@@ -754,6 +1112,103 @@ header.header {
                     margin: auto 5px;
                     .navbar-toggler-icon {
                         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28247, 147, 31, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+                    }
+                }
+            }
+
+            .person__box {
+                position: relative;
+                cursor: pointer;
+                .person__dropdown {
+                    position: absolute;
+                    top: 40px;
+                    left: -50%;
+
+                    .person__logIn {
+                        width: 194px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-evenly;
+
+                        background: white;
+
+                        .info {
+                            width: 100%;
+                            padding: 9px 14px;
+                            background-color: #e9e4e4;
+                            display: flex;
+                            justify-content: baseline;
+                            align-items: center;
+                            overflow-x: hidden;
+
+                            span {
+                                display: inline-block;
+                                margin-left: 10px;
+                                font-family: Montserrat, sans-serif;
+                                font-size: 14px;
+                                line-height: 17px;
+                                /* identical to box height */
+
+                                color: #565656;
+                            }
+                        }
+
+                        .links {
+                            width: 100%;
+                            margin: 4px 0;
+                            padding: 0 14px;
+                            span {
+                                font-family: Montserrat, sans-serif;
+
+                                font-weight: 500;
+                                font-size: 14px;
+                                line-height: 17px;
+                                /* identical to box height */
+
+                                color: #565656;
+                            }
+                        }
+                    }
+
+                    .person__logOut {
+                        width: 173px;
+                        height: 94px;
+                        padding: 10px;
+                        background: white;
+                        box-shadow: 0 4px 12px rgb(0 0 0 / 14%);
+                        border-radius: 5px;
+
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+
+                        button {
+                            width: 100%;
+                            height: 34px;
+                            border-radius: 10px;
+                        }
+
+                        .button_register {
+                            font-family: Montserrat, sans-serif;
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 100%;
+                            /* identical to box height, or 14px */
+                            background-color: transparent;
+                            color: #023047;
+                            border: 2px solid #023047;
+                        }
+
+                        .button_auth {
+                            font-family: Montserrat, sans-serif;
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 100%;
+                            /* identical to box height, or 14px */
+                            background-color: #f7931e;
+                            color: white;
+                            border: 2px solid #f7931e;
+                        }
                     }
                 }
             }
@@ -838,21 +1293,27 @@ header.header {
 
 @media only screen and (max-width: 1200px) and (min-width: 765px) {
     header.header {
-        div.header-bottom {
-            div.header-bottom-right {
-                span.header__item {
+        .header-bottom {
+            .header-bottom-right {
+                .header__item {
                     margin-left: 15px;
                 }
 
-                span.basket {
+                .basket {
                     margin-left: 15px;
                 }
 
-                div.dropdown-language {
+                .dropdown-language {
                     margin-left: 15px;
 
                     b {
                         display: none;
+                    }
+                }
+
+                .person__box {
+                    .person__dropdown {
+                        left: -180%;
                     }
                 }
             }
@@ -861,14 +1322,14 @@ header.header {
 }
 
 @media (max-width: 764px) {
-    header.header {
-        div.header-top {
-            div.header-top-right {
-                div.phone__lang__box {
+    .header {
+        .header-top {
+            .header-top-right {
+                .phone__lang__box {
                     display: flex;
                     justify-content: space-between;
 
-                    div.phone {
+                    .phone {
                         order: -1;
                         margin-right: 10px;
                     }
@@ -876,6 +1337,7 @@ header.header {
                     div.dropdown-language__top {
                         display: inline-block;
                         margin-right: 2px;
+                        position: relative;
                         button {
                             outline: none;
                             border: none;
@@ -887,12 +1349,29 @@ header.header {
                         b {
                             display: none;
                         }
+
+                        .dropdown__list__box {
+                            position: absolute;
+
+                            top: 30px;
+                            left: -5%;
+                            max-width: 80px;
+
+                            background-color: #fcf6f6;
+                            box-shadow: 0 10px 20px rgba(0, 0, 0, 14%);
+                            padding: 2px;
+
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            flex-wrap: nowrap;
+                        }
                     }
                 }
             }
         }
         div.header-bottom {
-            div.header-bottom-right {
+            .header-bottom-right {
                 .logo-tujjor {
                     flex-grow: 0;
                     display: inline-block;
@@ -907,46 +1386,52 @@ header.header {
                         }
                     }
                 }
+
+                .person__box {
+                    .person__dropdown {
+                        left: -400%;
+                    }
+                }
             }
         }
-        div.dropdown-category {
+        .dropdown-category {
             margin-left: 10px;
         }
-        span.header__item {
+        .header__item {
             margin: 10px 5px !important;
         }
-        span.header__item__logo {
+        .header__item__logo {
             display: none;
         }
-        span.basket {
+        .basket {
             margin: 10px 5px !important;
         }
-        div.dropdown-language {
-            display: none;
+        .dropdown-language {
+            display: none !important;
         }
     }
 }
 
 @media (max-width: 655px) {
-    header.header {
-        div.header-top {
-            div.header-top-left {
+    .header {
+        .header-top {
+            .header-top-left {
                 display: none;
             }
-            div.header-top-right {
+            .header-top-right {
                 flex-grow: 1;
                 display: flex;
                 justify-content: space-between;
 
                 position: relative;
-                div.email {
+                .email {
                     position: absolute;
                     top: 50%;
                     left: 50%;
                     transform: translateY(-50%);
                 }
 
-                div.phone__lang__box {
+                .phone__lang__box {
                     width: 100%;
                     display: flex;
                     justify-content: space-between;
@@ -960,10 +1445,10 @@ header.header {
 }
 
 @media only screen and (max-width: 560px) {
-    header.header {
-        div.header-bottom {
-            div.header-bottom-right {
-                div.dropdown-category {
+    .header {
+        .header-bottom {
+            .header-bottom-right {
+                .dropdown-category {
                     display: none;
                 }
 

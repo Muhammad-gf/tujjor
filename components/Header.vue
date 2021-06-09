@@ -191,21 +191,23 @@
                         </svg>
                     </span>
                     <span class="basket">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="21"
-                            height="24"
-                            viewBox="0 0 21 24"
-                            fill="none"
-                        >
-                            <path
-                                d="M10.4426 1.66086C9.67089 1.66086 8.93077 1.96765 8.38508 2.51373C7.83938 3.05982 7.53281 3.80047 7.53281 4.57275V7.48463H6.07791V4.57275C6.07791 3.41433 6.53776 2.30335 7.3563 1.48423C8.17485 0.665098 9.28503 0.204918 10.4426 0.204918C11.6002 0.204918 12.7104 0.665098 13.5289 1.48423C14.3475 2.30335 14.8073 3.41433 14.8073 4.57275V7.48463H13.3524V4.57275C13.3524 3.80047 13.0459 3.05982 12.5002 2.51373C11.9545 1.96765 11.2144 1.66086 10.4426 1.66086ZM6.07791 7.48463H3.69187C3.16937 7.48475 2.66426 7.67245 2.26833 8.01363C1.87239 8.35481 1.61192 8.82681 1.53424 9.34387L0.0400561 19.3214C-0.0373626 19.8392 -0.00228232 20.3675 0.142904 20.8704C0.28809 21.3733 0.539966 21.8389 0.881348 22.2356C1.22273 22.6322 1.64559 22.9505 2.12107 23.1687C2.59656 23.3869 3.11348 23.4999 3.63658 23.5H17.2472C17.7704 23.5001 18.2875 23.3873 18.7632 23.1691C19.2388 22.951 19.6619 22.6328 20.0034 22.2361C20.345 21.8395 20.597 21.3737 20.7422 20.8707C20.8875 20.3677 20.9226 19.8393 20.8452 19.3214L19.3495 9.34387C19.2719 8.82706 19.0116 8.35525 18.616 8.0141C18.2204 7.67296 17.7156 7.4851 17.1934 7.48463H14.8073V9.66854C14.8073 9.86162 14.7307 10.0468 14.5943 10.1833C14.4578 10.3198 14.2728 10.3965 14.0799 10.3965C13.887 10.3965 13.7019 10.3198 13.5655 10.1833C13.4291 10.0468 13.3524 9.86162 13.3524 9.66854V7.48463H7.53281V9.66854C7.53281 9.86162 7.45617 10.0468 7.31975 10.1833C7.18332 10.3198 6.99829 10.3965 6.80536 10.3965C6.61243 10.3965 6.4274 10.3198 6.29098 10.1833C6.15455 10.0468 6.07791 9.86162 6.07791 9.66854V7.48463Z"
-                                fill="#FB8500"
-                            />
-                        </svg>
-                        <span class="basket-count">
-                            4
-                        </span>
+                        <nuxt-link to="/basket">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="21"
+                                height="24"
+                                viewBox="0 0 21 24"
+                                fill="none"
+                            >
+                                <path
+                                    d="M10.4426 1.66086C9.67089 1.66086 8.93077 1.96765 8.38508 2.51373C7.83938 3.05982 7.53281 3.80047 7.53281 4.57275V7.48463H6.07791V4.57275C6.07791 3.41433 6.53776 2.30335 7.3563 1.48423C8.17485 0.665098 9.28503 0.204918 10.4426 0.204918C11.6002 0.204918 12.7104 0.665098 13.5289 1.48423C14.3475 2.30335 14.8073 3.41433 14.8073 4.57275V7.48463H13.3524V4.57275C13.3524 3.80047 13.0459 3.05982 12.5002 2.51373C11.9545 1.96765 11.2144 1.66086 10.4426 1.66086ZM6.07791 7.48463H3.69187C3.16937 7.48475 2.66426 7.67245 2.26833 8.01363C1.87239 8.35481 1.61192 8.82681 1.53424 9.34387L0.0400561 19.3214C-0.0373626 19.8392 -0.00228232 20.3675 0.142904 20.8704C0.28809 21.3733 0.539966 21.8389 0.881348 22.2356C1.22273 22.6322 1.64559 22.9505 2.12107 23.1687C2.59656 23.3869 3.11348 23.4999 3.63658 23.5H17.2472C17.7704 23.5001 18.2875 23.3873 18.7632 23.1691C19.2388 22.951 19.6619 22.6328 20.0034 22.2361C20.345 21.8395 20.597 21.3737 20.7422 20.8707C20.8875 20.3677 20.9226 19.8393 20.8452 19.3214L19.3495 9.34387C19.2719 8.82706 19.0116 8.35525 18.616 8.0141C18.2204 7.67296 17.7156 7.4851 17.1934 7.48463H14.8073V9.66854C14.8073 9.86162 14.7307 10.0468 14.5943 10.1833C14.4578 10.3198 14.2728 10.3965 14.0799 10.3965C13.887 10.3965 13.7019 10.3198 13.5655 10.1833C13.4291 10.0468 13.3524 9.86162 13.3524 9.66854V7.48463H7.53281V9.66854C7.53281 9.86162 7.45617 10.0468 7.31975 10.1833C7.18332 10.3198 6.99829 10.3965 6.80536 10.3965C6.61243 10.3965 6.4274 10.3198 6.29098 10.1833C6.15455 10.0468 6.07791 9.86162 6.07791 9.66854V7.48463Z"
+                                    fill="#FB8500"
+                                />
+                            </svg>
+                            <span class="basket-count">
+                                4
+                            </span>
+                        </nuxt-link>
                     </span>
                     <span class="header__item header__item__logo">
                         <svg
@@ -223,22 +225,71 @@
                             />
                         </svg>
                     </span>
-                    <span class="header__item">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="25"
-                            viewBox="0 0 24 25"
-                            fill="none"
+
+                    <div class="person__box" @click="doVisiblePerson">
+                        <span class="header__item">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="25"
+                                viewBox="0 0 24 25"
+                                fill="none"
+                            >
+                                <path
+                                    d="M5.9215 5.92105C5.9215 9.18553 8.53228 11.8421 11.7405 11.8421C14.9487 11.8421 17.5594 9.18553 17.5594 5.92105C17.5594 2.65658 14.9487 0 11.7405 0C8.53228 0 5.9215 2.65658 5.9215 5.92105ZM22.0853 25H23.3784V23.6842C23.3784 18.6066 19.3168 14.4737 14.3267 14.4737H9.15426C4.16288 14.4737 0.102539 18.6066 0.102539 23.6842V25H22.0853Z"
+                                    fill="#FB8500"
+                                />
+                            </svg>
+                        </span>
+
+                        <div class="person__dropdown" v-if="isVisiblePerson">
+                            <div class="person__logIn" v-if="loggedIn">
+                                <div class="info">
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M10 0.375C8.09636 0.375 6.23546 0.939497 4.65264 1.99711C3.06982 3.05471 1.83616 4.55793 1.10766 6.31667C0.37917 8.07541 0.188563 10.0107 0.559946 11.8777C0.931329 13.7448 1.84802 15.4598 3.1941 16.8059C4.54018 18.152 6.25519 19.0687 8.12226 19.4401C9.98933 19.8114 11.9246 19.6208 13.6833 18.8923C15.4421 18.1638 16.9453 16.9302 18.0029 15.3474C19.0605 13.7645 19.625 11.9036 19.625 10C19.6221 7.44818 18.6071 5.00172 16.8027 3.19731C14.9983 1.39291 12.5518 0.377911 10 0.375ZM15.4945 16.1366C15.4808 15.2349 15.1134 14.3746 14.4714 13.7411C13.8295 13.1076 12.9644 12.7517 12.0625 12.75H7.9375C7.03563 12.7517 6.17052 13.1076 5.52857 13.7411C4.88661 14.3746 4.51921 15.2349 4.5055 16.1366C3.25877 15.0234 2.37957 13.5577 1.98433 11.9337C1.58909 10.3097 1.69645 8.60392 2.29219 7.04228C2.88794 5.48063 3.94397 4.13677 5.32045 3.18864C6.69693 2.24051 8.32893 1.73283 10.0003 1.73283C11.6718 1.73283 13.3038 2.24051 14.6802 3.18864C16.0567 4.13677 17.1128 5.48063 17.7085 7.04228C18.3042 8.60392 18.4116 10.3097 18.0164 11.9337C17.6211 13.5577 16.7419 15.0234 15.4952 16.1366H15.4945Z"
+                                            fill="#565656"
+                                        />
+                                    </svg>
+
+                                    <span>{{ personName }}</span>
+                                </div>
+                                <nuxt-link to="/" class="links">
+                                    <span>> Профиль</span>
+                                </nuxt-link>
+                                <nuxt-link to="/my__orders" class="links">
+                                    <span>> Заказы</span>
+                                </nuxt-link>
+                                <a class="links" @click="logOut">
+                                    <span>> Выйти</span>
+                                </a>
+                            </div>
+
+                            <div class="person__logOut" v-else>
+                                <nuxt-link to="/auth/register" class="links">
+                                    <button class="button_register">
+                                        Регистратция
+                                    </button>
+                                </nuxt-link>
+                                <nuxt-link to="/auth/login" class="links">
+                                    <button class="button_auth">Вход</button>
+                                </nuxt-link>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-language" @click="doVisibleLanguage">
+                        <button
+                            type="button"
+                            class="language__russian"
+                            v-if="!activeLanguage"
                         >
-                            <path
-                                d="M5.9215 5.92105C5.9215 9.18553 8.53228 11.8421 11.7405 11.8421C14.9487 11.8421 17.5594 9.18553 17.5594 5.92105C17.5594 2.65658 14.9487 0 11.7405 0C8.53228 0 5.9215 2.65658 5.9215 5.92105ZM22.0853 25H23.3784V23.6842C23.3784 18.6066 19.3168 14.4737 14.3267 14.4737H9.15426C4.16288 14.4737 0.102539 18.6066 0.102539 23.6842V25H22.0853Z"
-                                fill="#FB8500"
-                            />
-                        </svg>
-                    </span>
-                    <div class="dropdown-language">
-                        <button type="button">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -275,6 +326,178 @@
                             </svg>
                             <b>ру</b>
                         </button>
+
+                        <button class="language__uzbek" v-else>
+                            <svg
+                                width="43"
+                                height="28"
+                                viewBox="0 0 26 19"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <rect
+                                    x="0.25"
+                                    y="0.25"
+                                    width="42"
+                                    height="28"
+                                    rx="1.75"
+                                    fill="white"
+                                    stroke="#F5F5F5"
+                                    stroke-width="0.5"
+                                ></rect>
+                                <mask
+                                    id="mask0"
+                                    mask-type="alpha"
+                                    maskUnits="userSpaceOnUse"
+                                    x="0"
+                                    y="0"
+                                    width="42"
+                                    height="28"
+                                >
+                                    <rect
+                                        x="0.25"
+                                        y="0.25"
+                                        width="42"
+                                        height="28"
+                                        rx="1.75"
+                                        fill="white"
+                                        stroke="white"
+                                        stroke-width="0.5"
+                                    ></rect>
+                                </mask>
+                                <g mask="url(#mask0)">
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M0 6.33333H26V0H0V6.33333Z"
+                                        fill="#04AAC8"
+                                    ></path>
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M0 19H26V12.6667H0V19Z"
+                                        fill="#23C840"
+                                    ></path>
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M4.33322 5.06666C4.71515 5.06666 5.07015 4.94871 5.36532 4.74647C5.3311 4.74878 5.29658 4.74996 5.26179 4.74996C4.40706 4.74996 3.71417 4.04107 3.71417 3.16662C3.71417 2.29217 4.40706 1.58329 5.26179 1.58329C5.29653 1.58329 5.33101 1.58446 5.36519 1.58677C5.07004 1.38458 4.71509 1.26666 4.33322 1.26666C3.30755 1.26666 2.47607 2.11732 2.47607 3.16666C2.47607 4.216 3.30755 5.06666 4.33322 5.06666ZM7.42843 4.43331C7.42843 4.78309 7.15127 5.06664 6.80938 5.06664C6.46749 5.06664 6.19034 4.78309 6.19034 4.43331C6.19034 4.08352 6.46749 3.79997 6.80938 3.79997C7.15127 3.79997 7.42843 4.08352 7.42843 4.43331ZM9.28562 2.53333C9.62751 2.53333 9.90466 2.24978 9.90466 1.9C9.90466 1.55022 9.62751 1.26666 9.28562 1.26666C8.94373 1.26666 8.66657 1.55022 8.66657 1.9C8.66657 2.24978 8.94373 2.53333 9.28562 2.53333ZM12.3809 1.9C12.3809 2.24978 12.1037 2.53333 11.7619 2.53333C11.42 2.53333 11.1428 2.24978 11.1428 1.9C11.1428 1.55022 11.42 1.26666 11.7619 1.26666C12.1037 1.26666 12.3809 1.55022 12.3809 1.9ZM11.7619 5.06664C12.1037 5.06664 12.3809 4.78309 12.3809 4.43331C12.3809 4.08352 12.1037 3.79997 11.7619 3.79997C11.42 3.79997 11.1428 4.08352 11.1428 4.43331C11.1428 4.78309 11.42 5.06664 11.7619 5.06664ZM9.90466 4.43331C9.90466 4.78309 9.62751 5.06664 9.28562 5.06664C8.94373 5.06664 8.66657 4.78309 8.66657 4.43331C8.66657 4.08352 8.94373 3.79997 9.28562 3.79997C9.62751 3.79997 9.90466 4.08352 9.90466 4.43331Z"
+                                        fill="white"
+                                    ></path>
+                                </g>
+                            </svg>
+                            <b>uz</b>
+                        </button>
+
+                        <div
+                            class="dropdown__list__box"
+                            v-show="isVibibleDropdownList"
+                            @click="changeLanguage"
+                        >
+                            <button
+                                type="button"
+                                class="language__russian"
+                                v-if="activeLanguage"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="43"
+                                    height="28"
+                                    viewBox="0 0 43 28"
+                                    fill="none"
+                                >
+                                    <rect
+                                        x="0.37793"
+                                        width="42"
+                                        height="28"
+                                        fill="url(#pattern0)"
+                                    />
+                                    <defs>
+                                        <pattern
+                                            id="pattern0"
+                                            patternContentUnits="objectBoundingBox"
+                                            width="1"
+                                            height="1"
+                                        >
+                                            <use
+                                                xlink:href="#image0"
+                                                transform="translate(0 -0.00025) scale(0.001 0.0015)"
+                                            />
+                                        </pattern>
+                                        <image
+                                            id="image0"
+                                            width="1000"
+                                            height="667"
+                                            xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wCEAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSgBBwcHCggKEwoKEygaFhooKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKP/CABEIApsD6AMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAABggF/9oACAEBAAAAANUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAGLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADqgAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/xAAXAQEBAQEAAAAAAAAAAAAAAAAABwQF/9oACAECEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABoAAAAAAAAAAKCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcgAAAAAAAAAAkoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/8QAGAEBAAMBAAAAAAAAAAAAAAAAAAMFBgf/2gAIAQMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAABmgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC8AAAAAAAAAAO4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//xAAWEAEBAQAAAAAAAAAAAAAAAAAVF7D/2gAIAQEAAQIA1L65XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5XK5qXiCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCa1n/8QAHBAAAQQDAQAAAAAAAAAAAAAAAwAGU1aTodKw/9oACAEBAAM/APUvYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYicpi2EGInKYthBiJymLYQYic+pgaUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe0aUe/Wt//EABYRAQEBAAAAAAAAAAAAAAAAABQVkP/aAAgBAgEBAgDTMhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCEIQhCaZ3r169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr169evXr17XL/xAAdEQABAwUBAAAAAAAAAAAAAAABAAMFUlORodGQ/9oACAECAQM/APTN+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dgp+g4KfoOCn6Dg+mkfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvij7o3xR90b4o+6N8UfdG+KPujfFH3Rvnrn//xAAWEQEBAQAAAAAAAAAAAAAAAAATFpD/2gAIAQMBAQIA0zZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm0zmpqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqa1y/8QAHREAAQMFAQAAAAAAAAAAAAAAAQADBVJTkaHRkP/aAAgBAwEDPwD0zbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZTdQym6hlN1DKbqGU3UMpuoZ9NJSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXVKWDrqlLB11Slg66pSwddUpYOuqUsHXfXP/9k="
+                                        />
+                                    </defs>
+                                </svg>
+                                <b>ру</b>
+                            </button>
+
+                            <button class="language__uzbek" v-else>
+                                <svg
+                                    width="43"
+                                    height="28"
+                                    viewBox="0 0 26 19"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <rect
+                                        x="0.25"
+                                        y="0.25"
+                                        width="42"
+                                        height="28"
+                                        rx="1.75"
+                                        fill="white"
+                                        stroke="#F5F5F5"
+                                        stroke-width="0.5"
+                                    ></rect>
+                                    <mask
+                                        id="mask0"
+                                        mask-type="alpha"
+                                        maskUnits="userSpaceOnUse"
+                                        x="0"
+                                        y="0"
+                                        width="42"
+                                        height="28"
+                                    >
+                                        <rect
+                                            x="0.25"
+                                            y="0.25"
+                                            width="42"
+                                            height="28"
+                                            rx="1.75"
+                                            fill="white"
+                                            stroke="white"
+                                            stroke-width="0.5"
+                                        ></rect>
+                                    </mask>
+                                    <g mask="url(#mask0)">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M0 6.33333H26V0H0V6.33333Z"
+                                            fill="#04AAC8"
+                                        ></path>
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M0 19H26V12.6667H0V19Z"
+                                            fill="#23C840"
+                                        ></path>
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M4.33322 5.06666C4.71515 5.06666 5.07015 4.94871 5.36532 4.74647C5.3311 4.74878 5.29658 4.74996 5.26179 4.74996C4.40706 4.74996 3.71417 4.04107 3.71417 3.16662C3.71417 2.29217 4.40706 1.58329 5.26179 1.58329C5.29653 1.58329 5.33101 1.58446 5.36519 1.58677C5.07004 1.38458 4.71509 1.26666 4.33322 1.26666C3.30755 1.26666 2.47607 2.11732 2.47607 3.16666C2.47607 4.216 3.30755 5.06666 4.33322 5.06666ZM7.42843 4.43331C7.42843 4.78309 7.15127 5.06664 6.80938 5.06664C6.46749 5.06664 6.19034 4.78309 6.19034 4.43331C6.19034 4.08352 6.46749 3.79997 6.80938 3.79997C7.15127 3.79997 7.42843 4.08352 7.42843 4.43331ZM9.28562 2.53333C9.62751 2.53333 9.90466 2.24978 9.90466 1.9C9.90466 1.55022 9.62751 1.26666 9.28562 1.26666C8.94373 1.26666 8.66657 1.55022 8.66657 1.9C8.66657 2.24978 8.94373 2.53333 9.28562 2.53333ZM12.3809 1.9C12.3809 2.24978 12.1037 2.53333 11.7619 2.53333C11.42 2.53333 11.1428 2.24978 11.1428 1.9C11.1428 1.55022 11.42 1.26666 11.7619 1.26666C12.1037 1.26666 12.3809 1.55022 12.3809 1.9ZM11.7619 5.06664C12.1037 5.06664 12.3809 4.78309 12.3809 4.43331C12.3809 4.08352 12.1037 3.79997 11.7619 3.79997C11.42 3.79997 11.1428 4.08352 11.1428 4.43331C11.1428 4.78309 11.42 5.06664 11.7619 5.06664ZM9.90466 4.43331C9.90466 4.78309 9.62751 5.06664 9.28562 5.06664C8.94373 5.06664 8.66657 4.78309 8.66657 4.43331C8.66657 4.08352 8.94373 3.79997 9.28562 3.79997C9.62751 3.79997 9.90466 4.08352 9.90466 4.43331Z"
+                                            fill="white"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <b>uz</b>
+                            </button>
+                        </div>
                     </div>
 
                     <nav class="header__navbar">
@@ -439,7 +662,12 @@ export default {
     data() {
         return {
             visibleCategory: false,
-            categoryArray: []
+            categoryArray: [],
+            activeLanguage: false,
+            isVibibleDropdownList: false,
+            loggedIn: null,
+            isVisiblePerson: false,
+            personName: ""
         };
     },
     methods: {
@@ -458,6 +686,25 @@ export default {
             }
             console.log(arrayList);
             return arrayList;
+        },
+
+        doVisibleLanguage() {
+            console.log(1);
+            this.isVibibleDropdownList = !this.isVibibleDropdownList;
+        },
+
+        changeLanguage() {
+            this.activeLanguage = !this.activeLanguage;
+        },
+
+        doVisiblePerson() {
+            this.isVisiblePerson = !this.isVisiblePerson;
+        },
+
+        async logOut() {
+            await this.$auth.logout();
+            this.loggedIn = this.$auth.loggedIn;
+            this.personName = this.$auth.user?.name;
         }
     },
 
@@ -468,7 +715,8 @@ export default {
             "http://cdn.tujjor.org/api/category/all"
         );
         this.categoryArray = ip.data;
-        console.log(this.categoryArray);
+        this.loggedIn = this.$auth.loggedIn;
+        this.personName = this.$auth.user?.name;
     }
 };
 </script>
@@ -529,7 +777,7 @@ header.header {
         max-width: 180px;
     }
     div.header-bottom {
-        padding: 10px 0px;
+        padding: 10px 10px 10px 0;
         background: #fcf6f6;
 
         div.header-bottom-right {
@@ -548,6 +796,7 @@ header.header {
                 // justify-content: center;
                 // align-items: center;
                 margin-left: 30px;
+                position: relative;
                 button {
                     background: transparent;
                     border: none;
@@ -559,6 +808,22 @@ header.header {
 
                         color: #000000;
                     }
+                }
+
+                .dropdown__list__box {
+                    position: absolute;
+                    top: 40px;
+                    left: -6%;
+                    max-width: 80px;
+
+                    background-color: #fcf6f6;
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 14%);
+                    padding: 5px;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: nowrap;
                 }
             }
             span.header__item {
@@ -647,6 +912,100 @@ header.header {
                     margin: auto 5px;
                     .navbar-toggler-icon {
                         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28247, 147, 31, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+                    }
+                }
+            }
+
+            .person__box {
+                position: relative;
+                cursor: pointer;
+                .person__dropdown {
+                    position: absolute;
+                    top: 40px;
+                    left: -50%;
+
+                    .person__logIn {
+                        width: 194px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-evenly;
+
+                        background: white;
+
+                        .info {
+                            width: 100%;
+                            padding: 9px 14px;
+                            background-color: #e9e4e4;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: flex-end;
+
+                            span {
+                                font-family: Montserrat, sans-serif;
+                                font-size: 14px;
+                                line-height: 17px;
+                                /* identical to box height */
+
+                                color: #565656;
+                            }
+                        }
+
+                        .links {
+                            width: 100%;
+                            margin: 4px 0;
+                            padding: 0 14px;
+                            span {
+                                font-family: Montserrat, sans-serif;
+
+                                font-weight: 500;
+                                font-size: 14px;
+                                line-height: 17px;
+                                /* identical to box height */
+
+                                color: #565656;
+                            }
+                        }
+                    }
+
+                    .person__logOut {
+                        width: 173px;
+                        height: 94px;
+                        padding: 10px;
+                        background: white;
+                        box-shadow: 0 4px 12px rgb(0 0 0 / 14%);
+                        border-radius: 5px;
+
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+
+                        button {
+                            width: 100%;
+                            height: 34px;
+                            border-radius: 10px;
+                        }
+
+                        .button_register {
+                            font-family: Montserrat, sans-serif;
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 100%;
+                            /* identical to box height, or 14px */
+                            background-color: transparent;
+                            color: #023047;
+                            border: 2px solid #023047;
+                        }
+
+                        .button_auth {
+                            font-family: Montserrat, sans-serif;
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 100%;
+                            /* identical to box height, or 14px */
+                            background-color: #f7931e;
+                            color: white;
+                            border: 2px solid #f7931e;
+                        }
                     }
                 }
             }
@@ -748,6 +1107,12 @@ header.header {
                         display: none;
                     }
                 }
+
+                .person__box {
+                    .person__dropdown {
+                        left: -180%;
+                    }
+                }
             }
         }
     }
@@ -798,6 +1163,12 @@ header.header {
                             width: 84px;
                             height: 42px;
                         }
+                    }
+                }
+
+                .person__box {
+                    .person__dropdown {
+                        left: -400%;
                     }
                 }
             }

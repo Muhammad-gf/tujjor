@@ -81,9 +81,6 @@
 </template>
 
 <script>
-// import aboutUs from "../components/about-us.vue";
-// import CatalogMagazinesMainPage from "../components/catalog-magazines-main-page.vue";
-// import BaseLoading from "../components/UI/BaseLoading.vue";
 export default {
     layout: "main__page__layout"
 };

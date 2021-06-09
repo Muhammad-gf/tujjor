@@ -33,11 +33,11 @@
                                 name: 'news_full-id',
                                 params: { id: news[index].slug }
                             }"
-                            class="data__box--btn"
+                            class="data__box--btn text-center"
                             >Подробно</nuxt-link
                         >
                         <p class="data__box--date">
-                            24.04.2021
+                            {{ getDate(news[index].createdAt) }}
                         </p>
                     </div>
                 </div>
@@ -55,10 +55,32 @@ export default {
             news: null
         };
     },
+
+    methods: {
+        getDate(time) {
+            const date = new Date(time);
+            const day =
+                date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            const month =
+                date.getMonth() + 1 < 10
+                    ? "0" + (date.getMonth() + 1)
+                    : date.getMonth() + 1;
+            const year = date.getFullYear();
+            return day + "." + month + "." + year;
+        }
+    },
     async mounted() {
         let n = await this.$axios.$get("/news/all");
         console.log("news-->", n.data);
         this.news = n.data;
+        for (let i = 0; i < n.data.length; i++) {
+            console.log(
+                n.data[i].slug,
+                new Date(n.data[i].createdAt).getFullYear(),
+                new Date(n.data[i].createdAt).getMonth(),
+                new Date(n.data[i].createdAt).getDate()
+            );
+        }
     }
 };
 </script>
@@ -82,8 +104,10 @@ export default {
         }
 
         &--item {
-            height: 550px;
+            height: auto;
             width: 380px;
+            margin: 20px 0;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 
             &--img {
                 height: 300px;
@@ -91,7 +115,7 @@ export default {
             }
         }
         &--description {
-            padding: 12px 5px;
+            padding: 12px 7px;
             &--header {
                 font-family: Roboto;
                 font-weight: 500;
@@ -99,7 +123,7 @@ export default {
                 color: #000000;
                 display: block;
                 overflow: hidden;
-                height: 4.7em;
+                height: 3em;
             }
             &--p {
                 width: inherit;
@@ -115,6 +139,7 @@ export default {
             display: flex;
             align-items: baseline;
             justify-content: space-between;
+            padding: 0 7px 2px;
             &--btn {
                 &,
                 &:link,
@@ -132,7 +157,6 @@ export default {
                     font-weight: 500;
                     font-size: 14px;
                     color: rgb(255, 255, 255, 0.9);
-                    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
 
                     // Change for the <button> element
                     background-color: #f7931e;
@@ -174,7 +198,6 @@ export default {
     .news {
         &__box {
             &--item {
-                height: 500px;
                 width: 280px;
 
                 &--img {

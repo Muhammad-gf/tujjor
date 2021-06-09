@@ -332,7 +332,19 @@
 </template>
 
 <script>
-export default {};
+export default {
+ head: {
+        title: "Оформить заказ — Tujjor. Низкие цены и широкий ассортимент!",
+        meta: [
+            {
+                hid: "description",
+                name: "description",
+                content: "Оформить заказ - Tujjor"
+            }
+        ]
+    },
+
+};
 </script>
 
 <style lang="scss">

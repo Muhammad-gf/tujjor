@@ -60,42 +60,70 @@
         </div>
 
         <div class="login-page-box d-flex flex-column ">
-            <div class="d-flex flex-column justify-content-center input__box">
-                <label for="number"> Номер</label>
+            <div
+                class="d-flex flex-column justify-content-center input__box form-floating"
+            >
+                <label for="floatingInput">Номер</label>
                 <input
                     type="text"
+                    class="form-control"
                     v-model="user.phone"
                     name="number"
                     id="number"
+                    placeholder="Ваш номер"
                 />
             </div>
 
-            <div class="d-flex flex-column justify-content-center input__box">
-                <label for="password">Парол </label>
+            <div
+                class="d-flex flex-column justify-content-center input__box form-floating"
+            >
+                <label for="floatingInput">Парол</label>
                 <input
                     type="password"
+                    class="form-control"
                     v-model="user.password"
                     name="password"
                     id="password"
+                    placeholder="Ваш парол"
                 />
             </div>
 
-            <button class="button__links" @click="loginUser">
+            <a class="button__links" @click="loginUser">
                 Авторизоваться
-            </button>
-            <div class="hot__link__box d-flex  justify-content-between">
-                <a class="hot__links remember__password">Забыли пароль? </a>
+            </a>
 
-                <a class="hot__links ">Нет учетной записи? </a>
+            <div
+                class="hot__link__box d-flex  justify-content-between align-items-baseline"
+            >
+                <a class="hot__links remember__password">
+                    Забыли пароль?
+                </a>
+                <nuxt-link to="/auth/register" class="hot__links">
+                    Нет учетной записи?
+                </nuxt-link>
             </div>
-            <a href="#" class="button__links">Регистрация</a>
+            <nuxt-link to="/auth/register" class="button__links">
+                Регистрация
+            </nuxt-link>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    layout: "WhiteLayout",
+    head: {
+        title: "Авторизация — Tujjor. Низкие цены и широкий ассортимент!",
+        meta: [
+            {
+                hid: "description",
+                name: "description",
+                content: "Авторизация - Tujjor"
+            }
+        ]
+    },
+
+    middleware: "auth",
+
     data() {
         return {
             user: {
@@ -107,7 +135,6 @@ export default {
     methods: {
         async loginUser() {
             let phone = this.user.phone.replace(/[^0-9]/g, "");
-            console.log(phone);
             try {
                 let response = await this.$auth.loginWith("local", {
                     data: {
@@ -116,7 +143,6 @@ export default {
                     }
                 });
                 this.$router.push("/");
-                console.log(response);
             } catch (err) {
                 console.log(err);
             }
@@ -127,9 +153,6 @@ export default {
 
 <style lang="scss" scoped>
 .login-page {
-    position: absolute;
-    left: 0;
-    top: 0;
     width: 100%;
     height: 100vh;
 
@@ -146,6 +169,7 @@ export default {
 
         .input__box {
             margin: 5px 0;
+
             label {
                 font-family: Roboto, sans-serif;
                 font-size: 14px;
@@ -160,8 +184,15 @@ export default {
                 border-radius: 5px;
                 height: 50px;
 
-                font-size: 24px;
-                line-height: 24px;
+                font-size: 18px;
+                line-height: 1.3;
+            }
+            .form-control:focus {
+                color: #495057;
+                background-color: #fff;
+                border-color: #f7931e;
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(247, 147, 30, 0.25);
             }
         }
 
@@ -178,19 +209,33 @@ export default {
             font-weight: 500;
             font-size: 16px;
             line-height: 24px;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        .button__links:hover {
+            background-color: rgba(247, 147, 30, 0.8);
         }
 
         .hot__link__box {
-            margin: 5px 0 15px;
+            margin: 5px 0 7px;
 
-            .remember__password {
+            .hot__links {
                 font-family: Roboto, sans-serif;
                 font-size: 14px;
                 line-height: 16px;
                 text-align: center;
                 text-decoration-line: underline;
-                /* dark blue */
+                cursor: pointer;
+            }
 
+            .hot__links:hover {
+                opacity: 0.9;
+                color: #023047;
+            }
+
+            .remember__password {
+                /* dark blue */
                 color: #023047;
             }
         }
