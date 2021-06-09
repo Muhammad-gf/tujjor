@@ -15,21 +15,10 @@
                 >
                     <!-- Text slides with image -->
                     <b-carousel-slide
+                        v-for="(item, index) in slider"
+                        :key="index"
                         class="b-carousel-slide"
-                        img-src="../assets/img/banner/banner-large.png"
-                    ></b-carousel-slide>
-
-                    <!-- Slides with custom text -->
-                    <b-carousel-slide
-                        class="b-carousel-slide"
-                        img-src="https://picsum.photos/1024/480/?image=54"
-                    >
-                    </b-carousel-slide>
-
-                    <!-- Slides with image only -->
-                    <b-carousel-slide
-                        class="b-carousel-slide"
-                        img-src="https://picsum.photos/1024/480/?image=58"
+                        :img-src="$store.state.uploads + item.image"
                     ></b-carousel-slide>
 
                     <!-- Slide with blank fluid image to maintain slide aspect ratio -->
@@ -52,9 +41,15 @@
 export default {
     data() {
         return {
+            slider: [],
             slide: 0,
             sliding: null
         };
+    },
+    async mounted() {
+        let slider = await this.$axios.get("/slider/all");
+
+        this.slider = slider.data.data;
     },
     methods: {
         onSlideStart(slide) {

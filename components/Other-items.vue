@@ -22,21 +22,10 @@
                 >
                     <!-- Text slides with image -->
                     <b-carousel-slide
+                        v-for="(item, index) in bannerOne"
+                        :key="index"
                         class="b-carousel-slide"
-                        img-src="../assets/img/banner/banner-large.png"
-                    ></b-carousel-slide>
-
-                    <!-- Slides with custom text -->
-                    <b-carousel-slide
-                        class="b-carousel-slide"
-                        img-src="https://picsum.photos/1024/480/?image=54"
-                    >
-                    </b-carousel-slide>
-
-                    <!-- Slides with image only -->
-                    <b-carousel-slide
-                        class="b-carousel-slide"
-                        img-src="https://picsum.photos/1024/480/?image=58"
+                        :img-src="$store.state.uploads + item.image"
                     ></b-carousel-slide>
 
                     <!-- Slide with blank fluid image to maintain slide aspect ratio -->
@@ -44,21 +33,30 @@
             </div>
 
             <div class="other__item__banner--banner--box">
-                <div class="other__item__banner--banner--1">
+                <div
+                    class="other__item__banner--banner--1"
+                    v-if="bannerTwo.length > 0"
+                >
                     <img
-                        src="../assets/img/Other/grid-1.png"
+                        :src="$store.state.uploads + bannerTwo[0].image"
                         alt="Other item photo"
                     />
                 </div>
-                <div class="other__item__banner--banner--2">
+                <div
+                    class="other__item__banner--banner--2"
+                    v-if="bannerThree.length > 0"
+                >
                     <img
-                        src="../assets/img/Other/grid-2.png"
+                        :src="$store.state.uploads + bannerThree[0].image"
                         alt="Other item photo"
                     />
                 </div>
-                <div class="other__item__banner--banner--3">
+                <div
+                    class="other__item__banner--banner--3"
+                    v-if="bannerFour.length > 0"
+                >
                     <img
-                        src="../assets/img/other/grid-3.png"
+                        :src="$store.state.uploads + bannerFour[0].image"
                         alt="Other item photo"
                     />
                 </div>
@@ -403,8 +401,30 @@ export default {
     data() {
         return {
             slide: 0,
-            sliding: null
+            sliding: null,
+
+            bannerOne: [],
+            bannerTwo: [],
+            bannerThree: [],
+            bannerFour: [],
+            bannerFive: []
         };
+    },
+    async mounted() {
+        let res = await this.$axios.get("/banner/all");
+        let data = res.data.data;
+
+        let one = data.filter(item => item.position == 1);
+        let two = data.filter(item => item.position == 2);
+        let three = data.filter(item => item.position == 3);
+        let four = data.filter(item => item.position == 4);
+        let five = data.filter(item => item.position == 5);
+
+        this.bannerOne = one;
+        this.bannerTwo = two;
+        this.bannerThree = three;
+        this.bannerFour = four;
+        console.log("banner", two);
     },
     methods: {
         onSlideStart(slide) {
