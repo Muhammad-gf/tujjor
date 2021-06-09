@@ -114,7 +114,6 @@ export default {
     async mounted() {
         let n = await this.$axios.get("/news/" + this.$route.params.id);
 
-        console.log("one", n);
 
         this.news = n.data.data;
 
