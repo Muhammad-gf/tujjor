@@ -144,6 +144,26 @@
                 Отправить
             </button>
         </div>
+
+        <b-modal v-model="modalShow" hide-footer hide-header>
+            <div class="d-block text-center">
+                <h3>Вы уже отправили запрос, хотите изменить ваши данные?</h3>
+            </div>
+            <b-button
+                class="mt-3"
+                variant="warning"
+                block
+                @click="$router.push('/')"
+                >Нет!</b-button
+            >
+            <b-button
+                class="mt-2"
+                variant="danger"
+                block
+                @click="modalShow = !modalShow"
+                >Да!</b-button
+            >
+        </b-modal>
     </div>
 </template>
 
@@ -173,7 +193,9 @@ export default {
                 companyName: "",
                 comment: "",
                 id: ""
-            }
+            },
+            sendReq: true,
+            modalShow: true
         };
     },
     methods: {
@@ -185,26 +207,41 @@ export default {
             );
             try {
                 if (this.shopAccess.id) {
+                    this.sendReq = false;
                     await this.$axios
                         .$delete("application/" + this.shopAccess.id)
-                        .then(res => console.log(1, res))
+                        .then(response => {
+                            this.sendReq = true;
+                        })
                         .catch(err => console.error(err));
+                    await this.$axios
+                        .$post("application/create", this.shopAccess)
+                        .then(response => {
+                            if (response.success) {
+                                this.loadSpinner = false;
+                            } else {
+                                throw new Error("Could not save data!");
+                            }
+                        })
+                        .catch(error => {
+                            // handle error
+                            console.log(error);
+                        });
+                } else {
+                    await this.$axios
+                        .$post("application/create", this.shopAccess)
+                        .then(response => {
+                            if (response.success) {
+                                this.loadSpinner = false;
+                            } else {
+                                throw new Error("Could not save data!");
+                            }
+                        })
+                        .catch(error => {
+                            // handle error
+                            console.log(error);
+                        });
                 }
-                await this.$axios
-                    .$post("application/create", this.shopAccess)
-                    .then(response => {
-                        console.log(response);
-                        if (response.success) {
-                            console.log(response);
-                            this.loadSpinner = false;
-                        } else {
-                            throw new Error("Could not save data!");
-                        }
-                    })
-                    .catch(error => {
-                        // handle error
-                        console.log(error);
-                    });
             } catch (err) {
                 console.log(err);
             }
@@ -222,12 +259,10 @@ export default {
             await this.$axios
                 .$get("application/" + user._id)
                 .then(response => {
-                    if (response.success) {
-                        console.log(response);
+                    if (response.data) {
                         this.shopAccess.companyName = response.data.companyName;
                         this.shopAccess.comment = response.data.comment;
                         this.shopAccess.id = response.data._id;
-                        console.log(shopAccess);
                     } else {
                         throw new Error("Could not save data!");
                     }

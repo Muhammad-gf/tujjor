@@ -71,16 +71,7 @@ export default {
     },
     async mounted() {
         let n = await this.$axios.$get("/news/all");
-        console.log("news-->", n.data);
         this.news = n.data;
-        for (let i = 0; i < n.data.length; i++) {
-            console.log(
-                n.data[i].slug,
-                new Date(n.data[i].createdAt).getFullYear(),
-                new Date(n.data[i].createdAt).getMonth(),
-                new Date(n.data[i].createdAt).getDate()
-            );
-        }
     }
 };
 </script>

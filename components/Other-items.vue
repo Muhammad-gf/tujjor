@@ -424,7 +424,6 @@ export default {
         this.bannerTwo = two;
         this.bannerThree = three;
         this.bannerFour = four;
-        console.log("banner", two);
     },
     methods: {
         onSlideStart(slide) {
