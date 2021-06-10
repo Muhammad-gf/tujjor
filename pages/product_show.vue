@@ -22,17 +22,86 @@
                     <h2>POLO Рубашка</h2>
                 </div>
 
-                <div class="col-md-5 col-sm-5 m-b--5 ">
+                <div class="col-md-6 d-flex image__product__container">
                     <div class="row image__product">
-                        <slick :options="slickOptions">
-                            <div v-for="(item, index) in 8" :key="index">
-                                <h3>{{ index }}</h3>
+                        <div class="col-md-3 col-sm-3  slick__box__container ">
+                            <div class="slick__box">
+                                <slick
+                                    :options="slickOptions"
+                                    @afterChange="slideIndex"
+                                >
+                                    <div>
+                                        <img
+                                            src="@/assets/img/p4.png"
+                                            alt="Image product"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <img
+                                            src="@/assets/img/p4.png"
+                                            alt="Image product"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <img
+                                            src="@/assets/img/p4.png"
+                                            alt="Image product"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <img
+                                            src="@/assets/img/p4.png"
+                                            alt="Image product"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <img
+                                            src="@/assets/img/p4.png"
+                                            alt="Image product"
+                                        />
+                                    </div>
+                                    <div>
+                                        <img
+                                            src="@/assets/img/p4.png"
+                                            alt="Image product"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <img
+                                            src="@/assets/img/p4.png"
+                                            alt="Image product"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <img
+                                            src="@/assets/img/p4.png"
+                                            alt="Image product"
+                                        />
+                                    </div>
+                                </slick>
                             </div>
-                        </slick>
+                        </div>
+                        <div class="col-md-9 col-sm-9 ">
+                            <div
+                                class="img__preview__exp"
+                                ref="img__preview__exp"
+                            >
+                                <img
+                                    :src="slideArray[currentSlide]"
+                                    alt="Image product"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-md-7 col-sm-7">
+                <div class="col-md-6 ">
                     <div class="product-info">
                         <div class="row">
                             <div class="col-md-6  price__col">
@@ -1014,32 +1083,26 @@ export default {
             currentRating: "No Rating",
             currentSelectedRating: "No Current Rating",
             boundRating: 3,
-
-            productSlickOptions: {
-                focusOnSelect: true,
-                slidesToScroll: 1,
-                touchThreshold: 1,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 1
-            },
-
-            productSlickSelectedOptions: {
-                focusOnSelect: true,
-                slidesToScroll: 1,
-                touchThreshold: 1,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 1
-            },
-
-            c1: undefined,
-            c2: undefined,
+            currentSlideHeight: 0,
+            currentSlide: 0,
+            slideArray: [
+                "_nuxt/assets/img/catalog_page/4.png",
+                "_nuxt/assets/img/catalog_page/3.png",
+                "_nuxt/assets/img/catalog_page/2.png",
+                "_nuxt/assets/img/catalog_page/1.png",
+                "_nuxt/assets/img/catalog_page/4.png",
+                "_nuxt/assets/img/catalog_page/2.png",
+                "_nuxt/assets/img/catalog_page/3.png",
+                "_nuxt/assets/img/catalog_page/1.png"
+            ],
 
             slickOptions: {
-                dots: true,
+                focusOnSelect: true,
+
+                dots: false,
+                arrows: true,
                 infinite: true,
-                slidesToShow: 3,
+                slidesToShow: 4,
                 slidesToScroll: 1,
                 vertical: true,
                 verticalSwiping: true
@@ -1048,9 +1111,9 @@ export default {
     },
 
     mounted() {
-        this.c1 = this.$refs.c1;
-        this.c2 = this.$refs.c2;
+        this.currentSlide = 0;
     },
+
     methods: {
         setRating: function(rating) {
             this.rating = "You have Selected: " + rating + " stars";
@@ -1064,27 +1127,76 @@ export default {
         setCurrentSelectedRating: function(rating) {
             this.currentSelectedRating =
                 "You have Selected: " + rating + " stars";
+        },
+
+        slideIndex(event, slick, currentSlide) {
+            console.log("afterChange", event, slick, currentSlide);
+            this.currentSlide = currentSlide;
         }
     }
 };
 </script>
 
 <style lang="scss" scoped>
-.image__product {
-    margin-bottom: 20px;
-    .product__img__box {
-        width: 100%;
-        height: 457px;
-        overflow: hidden;
+.image__product__container {
+    align-items: flex-start;
+    .image__product {
+        flex-wrap: nowrap;
+        // .slick__box__container {
+        //     position: relative;
 
-        .img {
+        //     .slick__box {
+        //         position: absolute;
+        //         top: 0;
+        //         left: 0;
+        //         right: 0;
+        //         bottom: 0;
+        //         .slick-slider {
+        //             height: 100% !important;
+        //             width: 100%;
+
+        //             slick-list {
+        //                 height: 100% !important;
+        //                 padding: 0;
+        //                 .slick-track {
+        //                     height: 100% !important;
+        //                     padding: 0;
+        //                     .slick-slide {
+        //                         div > div > img {
+        //                             object-fit: cover;
+        //                             width: 100%;
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+
+        .img__preview__exp {
+            width: 100%;
+            height: 100%;
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .product__img__box {
             width: 100%;
             height: 457px;
+            overflow: hidden;
 
-            img {
+            .img {
                 width: 100%;
                 height: 457px;
-                object-fit: cover;
+
+                img {
+                    width: 100%;
+                    height: 457px;
+                    object-fit: cover;
+                }
             }
         }
     }
