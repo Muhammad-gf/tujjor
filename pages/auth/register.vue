@@ -63,14 +63,14 @@
             <div
                 class="d-flex flex-column justify-content-center input__box form-floating"
             >
-                <label for="floatingInput">Имя</label>
+                <label for="floatingInput">Как вас зовут? </label>
                 <input
                     type="text"
                     class="form-control"
                     v-model="user.name"
                     name="number"
                     id="number"
-                    placeholder="Ваше имя"
+                    placeholder="Имя"
                 />
             </div>
 
@@ -91,26 +91,56 @@
             <div
                 class="d-flex flex-column justify-content-center input__box form-floating"
             >
-                <label for="floatingInput">Пароль</label>
+                <label for="floatingInput">Email</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    v-model="user.email"
+                    name="email"
+                    id="email"
+                    placeholder="Ваш email"
+                />
+            </div>
+
+            <div
+                class="d-flex flex-column justify-content-center input__box form-floating"
+            >
+                <label for="floatingInput">Придумайте пароль</label>
                 <input
                     type="password"
                     class="form-control"
                     v-model="user.password"
                     name="password"
                     id="password"
-                    placeholder="Ваш пароль"
+                    placeholder="Пароль"
                 />
             </div>
 
-            <a class="button__links" @click="registerUser">
-                Регистрация
-            </a>
             <div
-                class="hot__link__box d-flex  justify-content-between align-items-baseline"
+                class="d-flex flex-column justify-content-center input__box form-floating"
             >
-                <nuxt-link to="/auth/login" class="hot__links">
+                <input
+                    type="password"
+                    class="form-control"
+                    v-model="passwordRepeat"
+                    name="password2"
+                    id="password2"
+                    placeholder="Повторите пароль"
+                />
+            </div>
+
+            <recaptcha />
+
+            <a class="button__links" @click="registerUser">
+                Зарегистрироваться
+            </a>
+            <div class="hot__link__box d-flex   align-items-baseline">
+                <span>
                     Уже зарегистрирован?
-                </nuxt-link>
+                </span>
+                <nuxt-link to="/auth/login" class="hot__links">
+                    Войти</nuxt-link
+                >
             </div>
         </div>
     </div>
@@ -131,24 +161,28 @@ export default {
 
     data() {
         return {
+            passwordRepeat: "",
             user: {
                 name: "",
                 phone: "",
-                password: ""
+                password: "",
+                email: ""
             }
         };
     },
     methods: {
         async registerUser() {
             let phone = this.user.phone.replace(/[^0-9]/g, "");
+            this.user.phone = phone;
             try {
-                let response = await this.$auth.loginWith("local", {
-                    data: {
-                        phone: phone,
-                        password: this.user.password
-                    }
-                });
-                this.$router.push("/");
+                this.$axios
+                    .$post("/user/create", this.user)
+                    .then(res => {
+                        console.log("register send", res);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
             } catch (err) {
                 console.log(err);
             }

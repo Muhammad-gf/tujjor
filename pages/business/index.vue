@@ -200,7 +200,10 @@
                 >
             </b-modal>
         </div>
-        <section class="section__second" v-if="showSectionTwo">
+        <section
+            class="section__second"
+            v-if="showSectionTwo && !shopCreate.shopStatus"
+        >
             <div
                 class="login-page d-flex flex-column justify-content-center align-items-center"
             >
@@ -300,7 +303,7 @@
                             name="shopCardIndex"
                             id="shopCardIndex"
                             v-model="shopCreate.shopId"
-                            type="number"
+                            type="text"
                             class="form-control"
                             placeholder="Банковские реквизиты"
                         />
@@ -330,7 +333,8 @@
                             v-model="shopCreate.phone"
                             type="text"
                             class="form-control"
-                            placeholder="Номер телефона"
+                            placeholder="+998 (__) ___ -__-__"
+                            v-mask="'+998 (##) ###-##-##'"
                         />
                     </div>
 
@@ -356,7 +360,7 @@
                             name="identifierNumber"
                             id="identifierNumber"
                             v-model="shopCreate.inn"
-                            type="number"
+                            type="text"
                             class="form-control"
                             placeholder="ИНН"
                         />
@@ -443,8 +447,38 @@
                 </div>
 
                 <b-modal
-                    id="modal-info"
+                    id="modal-danger"
                     v-model="shopCreate.modalShow"
+                    hide-footer
+                    hide-header
+                    centered
+                    class="b-modal"
+                >
+                    <div class="d-block text-center">
+                        <h3>
+                            Вы уже отправили запрос, хотите изменить ваши
+                            данные?
+                        </h3>
+                    </div>
+                    <b-button
+                        class="b-button"
+                        variant="warning"
+                        block
+                        @click="$router.push('/')"
+                        >Нет!</b-button
+                    >
+                    <b-button
+                        class="b-button"
+                        variant="danger"
+                        block
+                        @click="shopCreate.modalShow = !shopCreate.modalShow"
+                        >Да!</b-button
+                    >
+                </b-modal>
+
+                <b-modal
+                    id="modal-info"
+                    v-model="shopCreate.modalSend"
                     hide-footer
                     hide-header
                     centered
@@ -479,7 +513,7 @@
                         <a
                             class="hot__links remember__password"
                             @click="
-                                shopCreate.modalShow = !shopCreate.modalShow
+                                shopCreate.modalSend = !shopCreate.modalSend
                             "
                         >
                             У вас нет договора?
@@ -508,7 +542,7 @@
                         class="b-button"
                         variant="primary"
                         block
-                        @click="$router.push('/')"
+                        @click="sendCreateShop"
                         >Отправить!</b-button
                     >
                 </b-modal>
@@ -566,7 +600,7 @@ export default {
                 comment: "",
                 id: ""
             },
-            showSectionTwo: true,
+            showSectionTwo: false,
             sendReqModal: false,
             modalShow: false,
 
@@ -581,8 +615,11 @@ export default {
                 email: "",
                 fileContract: "",
                 fileCertificate: "",
+                id: "",
                 sendReqModal: false,
-                modalShow: false
+                modalShow: false,
+                modalSend: false,
+                shopStatus: false
             }
         };
     },
@@ -601,38 +638,30 @@ export default {
                             if (response.success) console.log("Deleting done!");
                         })
                         .catch(err => console.error(err));
-                    await this.$axios
-                        .$post("application/create", this.shopAccess)
-                        .then(response => {
-                            if (response.success) {
-                                this.loadSpinner = false;
-                                this.sendReqModal = true;
-                            } else {
-                                throw new Error("Could not save data!");
-                            }
-                        })
-                        .catch(error => {
-                            // handle error
-                            console.log(error);
-                        });
+                    await this.sendApplication();
                 } else {
-                    await this.$axios
-                        .$post("application/create", this.shopAccess)
-                        .then(response => {
-                            if (response.success) {
-                                this.loadSpinner = false;
-                            } else {
-                                throw new Error("Could not save data!");
-                            }
-                        })
-                        .catch(error => {
-                            // handle error
-                            console.log(error);
-                        });
+                    await this.sendApplication();
                 }
             } catch (err) {
                 console.log(err);
             }
+        },
+
+        sendApplication() {
+            this.$axios
+                .$post("application/create", this.shopAccess)
+                .then(response => {
+                    if (response.success) {
+                        this.loadSpinner = false;
+                        this.sendReqModal = true;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(error => {
+                    // handle error
+                    console.log(error);
+                });
         },
 
         handleFileContract() {
@@ -645,12 +674,7 @@ export default {
             this.shopCreate.fileCertificate = file;
         },
 
-        async sendCreateShop() {
-            this.loadSpinner = true;
-            this.shopCreate.phone = this.shopCreate.phone.replace(
-                /[^0-9]/g,
-                ""
-            );
+        createFormData() {
             const formData = new FormData();
             formData.append("address", this.shopCreate.address);
             formData.append("bankName", this.shopCreate.bankName);
@@ -666,22 +690,45 @@ export default {
             formData.append("fileCertificate", this.shopCreate.fileCertificate);
             formData.append("fileContract", this.shopCreate.fileContract);
             formData.append("user", this.$auth.user._id);
+            return formData;
+        },
+
+        formValidation() {
+            const fullName = !!this.shopCreate.fullNameDirector;
+        },
+
+        async sendCreateShop() {
+            this.loadSpinner = true;
+            this.shopCreate.phone = this.shopCreate.phone.replace(
+                /[^0-9]/g,
+                ""
+            );
+            const formData = this.createFormData();
+            console.log(this.shopCreate.id);
+
             try {
-                console.log("start");
-                console.log("fomrData", formData);
+                await this.isHasShop();
+                if (!!this.shopCreate.id) await this.deleteShop();
                 await this.$axios
-                    .$post("shop/create", formData)
+                    .$post("shop/create", formData, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Methods":
+                                "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                            "Access-Control-Allow-Headers":
+                                "Origin, Content-Type, X-Auth-Token"
+                        }
+                    })
                     .then(response => {
-                        console.log("res", response);
                         if (response.success) {
                             this.loadSpinner = false;
                             this.shopCreate.sendReqModal = true;
                         } else {
-                            this.loadSpinner = false;
                             throw new Error("Could not save data!");
                         }
                     })
                     .catch(error => {
+                        this.loadSpinner = false;
                         // handle error
                         console.log(error);
                     });
@@ -689,41 +736,77 @@ export default {
                 console.log(err);
             }
             console.log("end");
+        },
+
+        async isHasShop() {
+            console.log("isHas");
+            try {
+                await this.$axios
+                    .$get("shop/" + this.$auth.user._id)
+                    .then(res => {
+                        if (res.success) {
+                            this.shopCreate.modalShow = true;
+                            this.shopCreate.id = res.data._id;
+                            if (!!res.data.status) {
+                                this.shopCreate.shopStatus = true;
+                            }
+                        }
+                    })
+                    .catch(err => console.error(err));
+            } catch (err) {
+                console.log(err);
+            }
+        },
+
+        async deleteShop() {
+            try {
+                await this.$axios
+                    .$delete("shop/" + this.shopCreate.id)
+                    .then(res => {
+                        if (res.success) {
+                            this.shopCreate.id = "";
+                        }
+                    })
+                    .catch(err => console.error(err));
+            } catch (err) {
+                console.log(err);
+            }
         }
     },
-    mounted() {
-        console.log(this.$auth.user);
+
+    async mounted() {
+        const user = this.$auth.user;
+        this.shopAccess.name = user.name;
+        this.shopAccess.phone = user.phone;
+        this.shopAccess.email = user.email;
+        this.shopAccess.user = user._id;
+        console.log(user);
+        try {
+            await this.$axios
+                .$get("application/" + user._id)
+                .then(response => {
+                    if (!!response.data) {
+                        this.modalShow = true;
+                        this.shopAccess.companyName = response.data.companyName;
+                        this.shopAccess.comment = response.data.comment;
+                        this.shopAccess.id = response.data._id;
+                        console.log("status", !!response.data.status);
+                        if (!!response.data.status) {
+                            this.isHasShop();
+                            this.showSectionTwo = true;
+                        }
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(error => {
+                    // handle error
+                    console.log(error);
+                });
+        } catch (err) {
+            console.log(err);
+        }
     }
-
-    // async mounted() {
-    //     const user = this.$auth.user;
-    //     this.shopAccess.name = user.name;
-    //     this.shopAccess.phone = user.phone;
-    //     this.shopAccess.email = user.email;
-    //     this.shopAccess.user = user._id;
-
-    //     try {
-    //         await this.$axios
-    //             .$get("application/" + user._id)
-    //             .then(response => {
-    //                 console.log("application", response.data);
-    //                 if (!!response.data) {
-    //                     this.modalShow = true;
-    //                     this.shopAccess.companyName = response.data.companyName;
-    //                     this.shopAccess.comment = response.data.comment;
-    //                     this.shopAccess.id = response.data._id;
-    //                 } else {
-    //                     throw new Error("Could not save data!");
-    //                 }
-    //             })
-    //             .catch(error => {
-    //                 // handle error
-    //                 console.log(error);
-    //             });
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
 };
 </script>
 
@@ -813,8 +896,8 @@ export default {
 
             .loading__spinner {
                 position: absolute;
-                left: 33%;
-                top: 25%;
+                left: 30%;
+                top: 22%;
                 padding: 0 10px;
             }
         }

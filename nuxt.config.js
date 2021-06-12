@@ -78,7 +78,8 @@ export default {
     plugins: [
         { src: "@/plugins/vue-slick-carousel.js" },
         { src: "@/plugins/vue-slider-component.js", ssr: false },
-        { src: "@/plugins/vue-star-rating.js", mode: "client", ssr: false }
+        { src: "@/plugins/vue-star-rating.js", mode: "client", ssr: false },
+        { src: "@plugins/v-mask.js" }
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
@@ -94,8 +95,15 @@ export default {
         // https://go.nuxtjs.dev/axios
         "@nuxtjs/style-resources",
         "@nuxtjs/axios",
-        "@nuxtjs/auth-next"
+        "@nuxtjs/auth-next",
+        "@nuxtjs/recaptcha"
     ],
+
+    recaptcha: {
+        hideBadge: true, // Boolean Hide badge element
+        siteKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", // Site key for requests,
+        version: 2 // Version
+    },
 
     router: {
         // middleware: ["auth"]

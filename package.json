@@ -11,11 +11,13 @@
   "dependencies": {
     "@nuxtjs/auth-next": "5.0.0-1622718665.cc99959",
     "@nuxtjs/axios": "^5.13.5",
+    "@nuxtjs/recaptcha": "^1.0.4",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.9.1",
     "jquery": "^3.6.0",
     "nuxt": "^2.15.3",
+    "v-mask": "^2.2.4",
     "vue-slick": "^1.1.16",
     "vue-slick-carousel": "^1.0.6",
     "vue-slider-component": "^3.2.11",

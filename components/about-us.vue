@@ -96,11 +96,11 @@ export default {
         this.isGet = false;
         this.error = null;
         const ip = await this.$axios
-            .$get("http://cdn.tujjor.org/api/info/all")
+            .$get("http://cdn.tujjor.org/api/info/client/all")
             .then(response => {
                 if (response.success) {
-                    console.log(response);
                     this.isGet = true;
+                    this.aboutUsArray = response.data;
                     return response;
                 } else {
                     throw new Error("Could not save data!");
@@ -111,8 +111,6 @@ export default {
                 console.log(error);
                 this.error = error.message;
             });
-        this.aboutUsArray = ip.data;
-        console.log(this.aboutUsArray);
     }
 };
 </script>

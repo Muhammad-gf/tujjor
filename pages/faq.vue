@@ -183,10 +183,9 @@ export default {
     async mounted() {
         this.isRender = false;
         const ip = await this.$axios
-            .$get("/help/all")
+            .$get("/help/client/all")
             .then(response => {
                 if (response.success) {
-                    console.log(response);
                     this.isRender = true;
                     return response;
                 } else {
@@ -199,8 +198,6 @@ export default {
                 this.error = error.message;
             });
         this.faqArray = ip.data;
-        console.log(ip);
-        console.log(this.faqArray);
     }
 };
 </script>
