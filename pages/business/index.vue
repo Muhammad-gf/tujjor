@@ -200,10 +200,8 @@
                 >
             </b-modal>
         </div>
-        <section
-            class="section__second"
-            v-if="showSectionTwo && !shopCreate.shopStatus"
-        >
+
+        <section class="section__second" v-if="showSectionTwo">
             <div
                 class="login-page d-flex flex-column justify-content-center align-items-center"
             >
@@ -380,50 +378,6 @@
                         />
                     </div>
 
-                    <!-- <div
-                        class="d-flex align-items-baseline  input__box form-floating"
-                    >
-                        <label class="input__file__label" for="shopContract"
-                            >Договор:</label
-                        >
-                        <input
-                            name="shopContract"
-                            id="shopContract"
-                            ref="shopContract"
-                            type="file"
-                            accept="image/*,.pdf"
-                            class="form-control input__file"
-                            placeholder="Договор"
-                            @change="handleFileContract"
-                        />
-                    </div>
-
-                    <div
-                        class="hot__link__box d-flex  justify-content-between align-items-baseline"
-                    >
-                        <a class="hot__links remember__password">
-                            У вас нет договора?
-                        </a>
-                    </div>
-
-                    <div
-                        class="d-flex  align-items-baseline input__box form-floating"
-                    >
-                        <label class="input__file__label" for="shopLicense"
-                            >Лицензия:</label
-                        >
-                        <input
-                            name="shopLicense"
-                            id="shopLicense"
-                            ref="shopLicense"
-                            type="file"
-                            accept="image/*,.pdf"
-                            class="form-control input__file"
-                            placeholder="Лицензия"
-                            @change="handleFileLicense"
-                        />
-                    </div> -->
-
                     <button
                         class="button__send d-flex justify-content-center align-items-center"
                         @click="sendCreateShop"
@@ -440,41 +394,11 @@
 
                     <button
                         class="button__openModal button__send d-flex justify-content-center align-items-center"
-                        @click="shopCreate.modalShow = !shopCreate.modalShow"
+                        @click="shopCreate.modalSend = !shopCreate.modalSend"
                     >
                         Следующий
                     </button>
                 </div>
-
-                <b-modal
-                    id="modal-danger"
-                    v-model="shopCreate.modalShow"
-                    hide-footer
-                    hide-header
-                    centered
-                    class="b-modal"
-                >
-                    <div class="d-block text-center">
-                        <h3>
-                            Вы уже отправили запрос, хотите изменить ваши
-                            данные?
-                        </h3>
-                    </div>
-                    <b-button
-                        class="b-button"
-                        variant="warning"
-                        block
-                        @click="$router.push('/')"
-                        >Нет!</b-button
-                    >
-                    <b-button
-                        class="b-button"
-                        variant="danger"
-                        block
-                        @click="shopCreate.modalShow = !shopCreate.modalShow"
-                        >Да!</b-button
-                    >
-                </b-modal>
 
                 <b-modal
                     id="modal-info"
@@ -566,6 +490,36 @@
                         @click="$router.push('/')"
                         class="b-button"
                         >ОК!</b-button
+                    >
+                </b-modal>
+
+                <b-modal
+                    id="modal-danger"
+                    v-model="shopCreate.modalShow"
+                    hide-footer
+                    hide-header
+                    centered
+                    class="b-modal"
+                >
+                    <div class="d-block text-center">
+                        <h3>
+                            Вы уже отправили запрос, хотите изменить ваши
+                            данные?
+                        </h3>
+                    </div>
+                    <b-button
+                        class="b-button"
+                        variant="warning"
+                        block
+                        @click="$router.push('/')"
+                        >Нет!</b-button
+                    >
+                    <b-button
+                        class="b-button"
+                        variant="danger"
+                        block
+                        @click="shopCreate.modalShow = !shopCreate.modalShow"
+                        >Да!</b-button
                     >
                 </b-modal>
             </div>
@@ -697,6 +651,42 @@ export default {
             const fullName = !!this.shopCreate.fullNameDirector;
         },
 
+        // Search is Shop Created Before if it's OK store shop id for deleting!
+        async isHasShop() {
+            try {
+                await this.$axios
+                    .$get("shop/" + this.$auth.user._id)
+                    .then(res => {
+                        if (res.success) {
+                            this.shopCreate.id = res.data._id;
+                            if (!!res.data.status) {
+                                this.shopCreate.shopStatus = true;
+                            }
+                        }
+                    })
+                    .catch(err => console.error(err));
+            } catch (err) {
+                console.log(err);
+            }
+        },
+
+        // Delete shop before update data of shop
+        async deleteShop() {
+            try {
+                await this.$axios
+                    .$delete("shop/" + this.shopCreate.id)
+                    .then(res => {
+                        if (res.success) {
+                            this.shopCreate.id = "";
+                        }
+                    })
+                    .catch(err => console.error(err));
+            } catch (err) {
+                console.log(err);
+            }
+        },
+
+        // HTTP request for Creating Shop
         async sendCreateShop() {
             this.loadSpinner = true;
             this.shopCreate.phone = this.shopCreate.phone.replace(
@@ -704,7 +694,6 @@ export default {
                 ""
             );
             const formData = this.createFormData();
-            console.log(this.shopCreate.id);
 
             try {
                 await this.isHasShop();
@@ -736,41 +725,6 @@ export default {
                 console.log(err);
             }
             console.log("end");
-        },
-
-        async isHasShop() {
-            console.log("isHas");
-            try {
-                await this.$axios
-                    .$get("shop/" + this.$auth.user._id)
-                    .then(res => {
-                        if (res.success) {
-                            this.shopCreate.modalShow = true;
-                            this.shopCreate.id = res.data._id;
-                            if (!!res.data.status) {
-                                this.shopCreate.shopStatus = true;
-                            }
-                        }
-                    })
-                    .catch(err => console.error(err));
-            } catch (err) {
-                console.log(err);
-            }
-        },
-
-        async deleteShop() {
-            try {
-                await this.$axios
-                    .$delete("shop/" + this.shopCreate.id)
-                    .then(res => {
-                        if (res.success) {
-                            this.shopCreate.id = "";
-                        }
-                    })
-                    .catch(err => console.error(err));
-            } catch (err) {
-                console.log(err);
-            }
         }
     },
 
@@ -780,20 +734,21 @@ export default {
         this.shopAccess.phone = user.phone;
         this.shopAccess.email = user.email;
         this.shopAccess.user = user._id;
-        console.log(user);
+
         try {
             await this.$axios
                 .$get("application/" + user._id)
-                .then(response => {
+                .then(async response => {
                     if (!!response.data) {
                         this.modalShow = true;
                         this.shopAccess.companyName = response.data.companyName;
                         this.shopAccess.comment = response.data.comment;
                         this.shopAccess.id = response.data._id;
-                        console.log("status", !!response.data.status);
                         if (!!response.data.status) {
-                            this.isHasShop();
                             this.showSectionTwo = true;
+                            await this.isHasShop();
+                            if (!!this.shopCreate.id)
+                                this.shopCreate.modalShow = true;
                         }
                     } else {
                         throw new Error("Could not save data!");

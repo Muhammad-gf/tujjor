@@ -30,7 +30,7 @@
                     <div class="data__box">
                         <nuxt-link
                             :to="{
-                                name: 'news_full-id',
+                                name: 'news-id',
                                 params: { id: news[index].slug }
                             }"
                             class="data__box--btn text-center"

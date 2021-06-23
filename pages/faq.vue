@@ -92,6 +92,28 @@
                                 Отправить вопрос
                             </button>
                         </form>
+
+                        <b-modal
+                            id="modal-info"
+                            size="sm"
+                            v-model="modalShow"
+                            centered
+                            button-size="sm"
+                            hide-footer
+                            hide-header
+                            class="b-modal"
+                        >
+                            <div class="d-block text-center ">
+                                <h3>Ваш запрос успешно отправлен.</h3>
+                            </div>
+                            <b-button
+                                variant="primary"
+                                block
+                                @click="$router.push('/')"
+                                class="b-button"
+                                >ОК!</b-button
+                            >
+                        </b-modal>
                     </div>
                 </div>
             </section>
@@ -120,11 +142,14 @@ export default {
         return {
             faqArray: [],
             isRender: false,
+
             labelDanger: {
                 name: false,
                 email: false,
                 question: false
             },
+
+            modalShow: false,
 
             question: {
                 name: "",
@@ -135,7 +160,8 @@ export default {
     },
 
     methods: {
-        async sendQuest() {
+        // Input validation and return boolean
+        validation() {
             if (this.question.name === "") this.labelDanger.name = true;
             if (
                 this.question.email === "" ||
@@ -143,29 +169,27 @@ export default {
             )
                 this.labelDanger.email = true;
             if (this.question.question === "") this.labelDanger.question = true;
-            console.log(
-                this.labelDanger.name,
-                this.labelDanger.email,
-                this.labelDanger.question
-            );
             if (
                 this.question.name != "" &&
                 this.question.email != "" &&
                 this.question.email.includes("@") &&
                 this.question.question != ""
             ) {
+                return true;
+            } else return false;
+        },
+
+        // Send question to server if validation is true
+        async sendQuest() {
+            if (this.validation()) {
                 await this.$axios
                     .$post("/question/create", this.question)
                     .then(response => {
-                        console.log(response);
                         if (response.success) {
-                            this.labelDanger.name = false;
-                            this.labelDanger.email = false;
-                            this.labelDanger.question = false;
-                            this.question.name = "";
-                            this.question.email = "";
-                            this.question.question = "";
-                            console.log(response);
+                            this.labelDanger.question = this.labelDanger.email = this.labelDanger.name = false;
+                            this.question.name = this.question.email = this.question.question =
+                                "";
+                            this.modalShow = true;
                         } else {
                             throw new Error("Could not save data!");
                         }
@@ -180,6 +204,7 @@ export default {
         }
     },
 
+    // Upload all faq questions
     async mounted() {
         this.isRender = false;
         const ip = await this.$axios

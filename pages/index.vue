@@ -63,7 +63,7 @@
                     </li>
 
                     <li class="done">
-                        <nuxt-link to="/news__page">News </nuxt-link>
+                        <nuxt-link to="/news_page">News </nuxt-link>
                     </li>
                 </ul>
             </div>

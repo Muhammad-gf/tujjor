@@ -1,5 +1,6 @@
 <template>
     <section class="news_description">
+        <base-loading v-if="!isGet"></base-loading>
         <div class="container">
             <div class="title-box">
                 <ul>
@@ -36,9 +37,7 @@
                 ></div>
             </div>
             <div class="news__up__to__date" v-if="newsAll != null">
-                <h2>
-                    Последние новости
-                </h2>
+                <h2>Последние новости</h2>
                 <div class="news__box__container">
                     <div
                         class="news__box"
@@ -65,7 +64,7 @@
                         <div class="news__box--data">
                             <nuxt-link
                                 :to="{
-                                    name: 'news_full-id',
+                                    name: 'news-id',
                                     params: { id: newsAll[index].slug }
                                 }"
                                 class="news__box--btn"
@@ -84,11 +83,15 @@
 </template>
 
 <script>
+import BaseLoading from "../../components/UI/BaseLoading.vue";
 export default {
+    components: { BaseLoading },
+
     data() {
         return {
             news: null,
-            newsAll: null
+            newsAll: null,
+            isGet: false
         };
     },
     methods: {
@@ -108,11 +111,9 @@ export default {
     async mounted() {
         let n = await this.$axios.get("/news/" + this.$route.params.id);
 
-
         this.news = n.data.data;
-
         let all = await this.$axios.get("/news/all");
-        console.log("all", all);
+        this.isGet = true;
         this.newsAll = all.data.data;
     }
 };

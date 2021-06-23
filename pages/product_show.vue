@@ -1106,7 +1106,9 @@ export default {
                 slidesToScroll: 1,
                 vertical: true,
                 verticalSwiping: true
-            }
+            },
+
+            productData: {}
         };
     },
 
@@ -1133,6 +1135,27 @@ export default {
             console.log("afterChange", event, slick, currentSlide);
             this.currentSlide = currentSlide;
         }
+    },
+
+    async mounted() {
+        await this.$axios
+            .$get("http://cdn.tujjor.org/api/product/714034-asd")
+            .then(response => {
+                if (response.success) {
+                    this.productData = response.data[0];
+                    console.log("product", response);
+                    console.log("data", this.productData);
+                    this.isGet = true;
+                    return response;
+                } else {
+                    throw new Error("Could not save data!");
+                }
+            })
+            .catch(error => {
+                // handle error
+                console.log(error);
+                this.error = error.message;
+            });
     }
 };
 </script>

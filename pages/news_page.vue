@@ -46,9 +46,16 @@
                         ></div>
                     </div>
                     <div class="data__box">
-                        <a href="#" class="data__box--btn text-center"
-                            >Подробно</a
+                        <nuxt-link
+                            :to="{
+                                name: 'news-id',
+                                params: { id: newsItem.slug }
+                            }"
+                            class="data__box--btn text-center"
                         >
+                            Подробно
+                        </nuxt-link>
+
                         <p class="data__box--date">
                             {{ getDate(newsItem.createdAt) }}
                         </p>
@@ -298,7 +305,6 @@ export default {
             .$get("http://cdn.tujjor.org/api/news/all")
             .then(response => {
                 if (response.success) {
-                    console.log(response);
                     this.isGet = true;
                     return response;
                 } else {
@@ -320,8 +326,6 @@ export default {
                 this.newsImage.push(this.newsArray[i]);
             }
         }
-        console.log(this.newsImage);
-        console.log(this.newsVideo);
     }
 };
 </script>
