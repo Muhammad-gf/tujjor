@@ -380,7 +380,6 @@
 
                     <button
                         class="button__send d-flex justify-content-center align-items-center"
-                        @click="sendCreateShop"
                     >
                         <div class="loading__spinner">
                             <b-spinner
@@ -524,6 +523,12 @@
                 </b-modal>
             </div>
         </section>
+
+        <section v-else class="shop__log__box">
+            <div>
+                <p>Ваш магазин успешно создан!</p>
+            </div>
+        </section>
     </section>
 </template>
 
@@ -661,6 +666,10 @@ export default {
                             this.shopCreate.id = res.data._id;
                             if (!!res.data.status) {
                                 this.shopCreate.shopStatus = true;
+                                console.log(
+                                    "shop status",
+                                    this.shopCreate.shopStatus
+                                );
                             }
                         }
                     })
@@ -694,6 +703,7 @@ export default {
                 ""
             );
             const formData = this.createFormData();
+            console.log(formData);
 
             try {
                 await this.isHasShop();
@@ -744,6 +754,7 @@ export default {
                         this.shopAccess.companyName = response.data.companyName;
                         this.shopAccess.comment = response.data.comment;
                         this.shopAccess.id = response.data._id;
+
                         if (!!response.data.status) {
                             this.showSectionTwo = true;
                             await this.isHasShop();
@@ -972,10 +983,29 @@ export default {
     }
 }
 
+.shop__log__box {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+        font-size: 54px;
+        font-weight: 600;
+        color: #f7931e;
+        text-align: center;
+    }
+}
+
 @media only screen and (max-width: 576px) {
     .login-page {
         .login-page-box {
             border-radius: 0;
+        }
+    }
+
+    .shop__log__box {
+        p {
+            font-size: 24px;
         }
     }
 }

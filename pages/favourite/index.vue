@@ -50,7 +50,7 @@
                             >480 000 сум</span
                         >
 
-                        <p class="button__delete">
+                        <p class="button__delete" @click="deleteItem">
                             <svg
                                 width="10"
                                 height="10"
@@ -98,7 +98,7 @@
                         <span class="popular__items__desription--price"
                             >1 080 000 сум</span
                         >
-                        <p class="button__delete">
+                        <p class="button__delete" @click="deleteItem">
                             <svg
                                 width="10"
                                 height="10"
@@ -147,7 +147,7 @@
                             >1 280 000 сум</span
                         >
 
-                        <p class="button__delete">
+                        <p class="button__delete" @click="deleteItem">
                             <svg
                                 width="10"
                                 height="10"
@@ -196,7 +196,7 @@
                             >474 000 сум</span
                         >
 
-                        <p class="button__delete">
+                        <p class="button__delete" @click="deleteItem">
                             <svg
                                 width="10"
                                 height="10"
@@ -245,7 +245,7 @@
                             >1 280 000 сум</span
                         >
 
-                        <p class="button__delete">
+                        <p class="button__delete" @click="deleteItem">
                             <svg
                                 width="10"
                                 height="10"
@@ -262,16 +262,55 @@
                     </div>
                 </div>
             </div>
-
-            <a href="#" class="popular__btn btn--animated text-center"
-                >Показать ещё</a
-            >
         </section>
+
+        <!-- Danger message modal when client want delete item from array! -->
+
+        <b-modal
+            id="modal-danger"
+            v-model="dangerModal"
+            hide-footer
+            hide-header
+            centered
+            class="b-modal"
+        >
+            <div class="d-block text-center">
+                <h3>
+                    Вы уже отправили запрос, хотите изменить ваши данные?
+                </h3>
+            </div>
+            <b-button
+                class="b-button"
+                variant="warning"
+                block
+                @click="dangerModal = !dangerModal"
+                >Нет!</b-button
+            >
+            <b-button
+                class="b-button"
+                variant="danger"
+                block
+                @click="dangerModal = !dangerModal"
+                >Да!</b-button
+            >
+        </b-modal>
     </section>
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            dangerModal: false
+        };
+    },
+
+    methods: {
+        deleteItem() {
+            this.dangerModal = true;
+        }
+    }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -313,6 +352,77 @@ export default {};
     }
 }
 
+#modal-danger___BV_modal_body_,
+#modal-info___BV_modal_body_ {
+    div > h3 {
+        font-size: 20px;
+    }
+    button {
+        font-size: 12px;
+    }
+    button:first-of-type {
+        margin-top: 20px;
+    }
+
+    .input__box {
+        flex-grow: 0;
+        height: auto;
+
+        &:not(:first-of-type) {
+            margin-top: 10px;
+        }
+        label {
+            font-family: Roboto, sans-serif;
+            font-size: 14px;
+            line-height: 24px;
+            margin: 0;
+            padding: 4px 0;
+        }
+
+        input,
+        textarea {
+            border: 0.98px solid #f7931e;
+            box-sizing: border-box;
+            border-radius: 5px;
+
+            font-size: 18px;
+            line-height: 1.3;
+
+            cursor: pointer;
+        }
+
+        .input__file,
+        .input__file__label {
+            padding: 4px 0;
+            display: inline-block;
+            border: none;
+            margin-right: 10px;
+            font-size: 14px;
+            line-height: 1;
+
+            margin: 5px 5px 5px 0;
+        }
+
+        .input__file__label {
+            font-size: 16px;
+        }
+
+        textarea {
+            padding-top: 10px;
+        }
+        .form-control:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #f7931e;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(247, 147, 30, 0.25);
+        }
+    }
+    div > a {
+        cursor: pointer;
+    }
+}
+
 @media only screen and (max-width: 765px) {
     .popular__container {
         .popular__item-box {
@@ -326,6 +436,22 @@ export default {};
                     }
                 }
             }
+        }
+    }
+}
+
+// Flexible modal
+@media only screen and (max-width: 440px) {
+    #modal-danger___BV_modal_body_,
+    #modal-info___BV_modal_body_ {
+        div > h3 {
+            font-size: 18px;
+        }
+        button {
+            display: inline-block;
+            width: 45%;
+            font-size: 10px;
+            margin-top: 15px !important;
         }
     }
 }

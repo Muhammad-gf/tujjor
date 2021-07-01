@@ -7,7 +7,7 @@
             <div class=" title-index">
                 <ul>
                     <li class="done">
-                        <nuxt-link to="/about_us">About us </nuxt-link>
+                        <nuxt-link to="/aboutus">About us </nuxt-link>
                     </li>
 
                     <li class="done">
@@ -15,25 +15,25 @@
                     </li>
 
                     <li class="done">
-                        <nuxt-link to="/all_magazines">
+                        <nuxt-link to="/allmagazines">
                             All magazines
                         </nuxt-link>
                     </li>
 
                     <li class="done">
-                        <nuxt-link to="/catalog_page">
+                        <nuxt-link to="/catalogpage">
                             Catalog page
                         </nuxt-link>
                     </li>
 
                     <li class="done">
-                        <nuxt-link to="/magazine__description">
+                        <nuxt-link to="/magazinedescription">
                             Magazine description
                         </nuxt-link>
                     </li>
 
                     <li>
-                        <nuxt-link to="/Product_show">
+                        <nuxt-link to="/productshow">
                             Product show
                         </nuxt-link>
                     </li>
@@ -45,25 +45,29 @@
                     </li>
 
                     <li class="done">
-                        <nuxt-link to="/checkout__order">
+                        <nuxt-link to="/checkoutorder">
                             Checkout order
                         </nuxt-link>
                     </li>
 
                     <li class="done">
-                        <nuxt-link to="/my__orders">
+                        <nuxt-link to="/myorders">
                             My orders
                         </nuxt-link>
                     </li>
 
                     <li class="done">
-                        <nuxt-link to="/news_description">
+                        <nuxt-link to="/newsdescription">
                             News full
                         </nuxt-link>
                     </li>
 
                     <li class="done">
-                        <nuxt-link to="/news_page">News </nuxt-link>
+                        <nuxt-link to="/newspage">News </nuxt-link>
+                    </li>
+
+                    <li class="done">
+                        <nuxt-link to="/favourite">Избранное </nuxt-link>
                     </li>
                 </ul>
             </div>

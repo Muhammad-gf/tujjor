@@ -805,7 +805,7 @@
             </div>
         </div>
 
-        <div class="category-dropdown" v-show="visibleCategory">
+        <div class="category-dropdown-box" v-show="visibleCategory">
             <div class="container d-flex w-100 ">
                 <div class="category-dropdown__main">
                     <span class="category-dropdown__main--txt"
@@ -906,9 +906,9 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 15;
+    z-index: 9999;
 
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    //  Centering category dropdown menu
 
     .header-top {
         background-color: #f7931f;
@@ -959,6 +959,7 @@ export default {
     .header-bottom {
         padding: 10px 0px;
         background: #fcf6f6;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
         .header-bottom-right {
             width: 100%;
 
@@ -1216,9 +1217,12 @@ export default {
     }
 }
 
-.category-dropdown {
-    background-color: black;
-    color: white;
+.category-dropdown-box {
+    margin: 0 auto;
+    background-color: transparent;
+    overflow: hidden;
+    border-radius: 0 0 3px 3px;
+    max-width: 1200px;
     height: 500px !important;
 
     .container {
@@ -1459,7 +1463,7 @@ export default {
         }
     }
 
-    .category-dropdown {
+    .category-dropdown-box {
         height: 100vh !important;
 
         .category-dropdown__main {
