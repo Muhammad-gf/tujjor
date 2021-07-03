@@ -9,6 +9,9 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+body {
+    min-height: 100vh;
+}
 .white__background {
     position: fixed;
     top: 0;

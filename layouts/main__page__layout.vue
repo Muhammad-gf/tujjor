@@ -19,6 +19,10 @@ export default {};
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap");
 </style>
 <style lang="scss">
+body {
+    min-height: 100vh;
+}
+
 .layout {
     overflow: hidden;
 }

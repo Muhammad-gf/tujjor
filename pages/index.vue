@@ -69,6 +69,10 @@
                     <li class="done">
                         <nuxt-link to="/favourite">Избранное </nuxt-link>
                     </li>
+
+                    <li class="done">
+                        <nuxt-link to="/product">product </nuxt-link>
+                    </li>
                 </ul>
             </div>
         </div>

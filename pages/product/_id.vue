@@ -23,7 +23,7 @@
                     <div class="image__product__container col-md-6 d-flex">
                         <div class="image__product row">
                             <div
-                                class=" col-3 col-sm-3 col-md-3 col-lg-3 flex-shrink-1 flex-grow-0 pr-0"
+                                class=" col-2 col-sm-2 col-md-2 col-lg-2 flex-shrink-1 flex-grow-0 pr-0"
                             >
                                 <div
                                     class="img__view__box"
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div
-                                class="col-9 col-sm-9 col-md-9 col-lg-9  flex-grow-0 h-100 w-100"
+                                class="col-10 col-sm-10 col-md-10 col-lg-10  flex-grow-0 h-100 w-100"
                                 ref="img__preview__exp"
                                 style="padding-left:8px"
                             >
@@ -153,6 +153,7 @@
                                             </button>
                                             <input
                                                 type="text"
+                                                disabled="disabled"
                                                 :value="productCount"
                                             />
                                             <button
@@ -178,10 +179,13 @@
                                         name="product param"
                                         :id="param._id"
                                         :checked="index === 0"
-                                        @click="selectProductParam($event)"
                                     />
                                     <label :for="param._id">
                                         <img
+                                            @mouseenter="
+                                                selectProductParam($event)
+                                            "
+                                            @click="selectProductParam($event)"
                                             :src="
                                                 $store.state.uploads +
                                                     param.image
@@ -199,6 +203,7 @@
                                     v-for="(size, index) in selectedProduct
                                         .params.sizes"
                                     :key="size._id"
+                                    ref="productSizes"
                                 >
                                     <input
                                         type="radio"
@@ -260,9 +265,10 @@
                                             viewBox="12 -1 14 28"
                                             fill="none"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            @click="setFavourite($event)"
+                                            @click="toggleFavourite($event)"
                                         >
                                             <path
+                                                ref="favourite__icon"
                                                 d="M23.2243 8.09896L16.0296 7.04962L12.8133 0.506195C12.7255 0.32704 12.581 0.182009 12.4024 0.0938536C11.9547 -0.127957 11.4106 0.0568852 11.1868 0.506195L7.97055 7.04962L0.77582 8.09896C0.577461 8.12739 0.396105 8.22124 0.257255 8.36342C0.0893918 8.53657 -0.0031083 8.76951 7.97568e-05 9.01106C0.00326781 9.25261 0.101883 9.48301 0.274257 9.65163L5.47974 14.7448L4.24992 21.9365C4.22108 22.1038 4.23953 22.2759 4.30317 22.4332C4.36681 22.5905 4.47311 22.7268 4.60999 22.8266C4.74688 22.9263 4.90889 22.9856 5.07764 22.9977C5.24639 23.0098 5.41514 22.9742 5.56475 22.8949L12.0001 19.4995L18.4354 22.8949C18.6111 22.9887 18.8151 23.02 19.0106 22.9859C19.5037 22.9006 19.8352 22.4314 19.7502 21.9365L18.5204 14.7448L23.7259 9.65163C23.8675 9.51229 23.9611 9.33029 23.9894 9.13123C24.0659 8.63358 23.7202 8.17289 23.2243 8.09896Z"
                                                 fill="#ccc"
                                             />
@@ -287,7 +293,11 @@
                                     <a href="#" class="btn btn--buy">
                                         Купить
                                     </a>
-                                    <a href="#" class="btn btn--basket">
+                                    <a
+                                        href="#"
+                                        class="btn btn--basket"
+                                        @click="toggleBasket"
+                                    >
                                         В корзину
                                     </a>
                                 </div>
@@ -1078,6 +1088,35 @@
                     </a>
                 </div>
             </section>
+
+            <!-- /////////////////////////////////////////////
+            modals on event -->
+            <!-- modal favourite -->
+            <modal-success
+                v-show="favouriteObj.add"
+                post-title="Продукт успешно добавлен в список избранных!"
+            >
+            </modal-success>
+
+            <modal-success
+                v-show="favouriteObj.remove"
+                post-title="Продукт успешно удалён из списка избранных!"
+            >
+            </modal-success>
+
+            <!-- modal basket -->
+
+            <modal-success
+                v-show="basketObj.added"
+                post-title="Продукт успешно добавлен в корзину!"
+            >
+            </modal-success>
+
+            <modal-success
+                v-show="basketObj.inBasket"
+                post-title="Продукт находится в списке избранных!"
+            >
+            </modal-success>
         </div>
     </div>
 </template>
@@ -1085,21 +1124,26 @@
 <script>
 // BaseLoading spinner
 import BaseLoading from "../../components/UI/BaseLoading.vue";
+import ModalSuccess from "../../components/Modals/SuccessModal.vue";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
     components: {
-        BaseLoading
+        BaseLoading,
+        ModalSuccess
     },
 
-    head: {
-        title: "Продукт — Tujjor. Низкие цены и широкий ассортимент!",
-        meta: [
-            {
-                hid: "description",
-                name: "description",
-                content: "Продукт - Tujjor"
-            }
-        ]
+    head() {
+        return {
+            title: "Продукт — Tujjor. Низкие цены и широкий ассортимент!",
+            meta: [
+                {
+                    hid: this.product ? this.product.brand.name : "!",
+                    name: this.product ? this.product.name.uz : "!",
+                    content: this.product ? this.product.description.uz : "!"
+                }
+            ]
+        };
     },
 
     data() {
@@ -1148,12 +1192,40 @@ export default {
             // product count
             productCount: 1,
             // product size
-            productSize: null
+            productSize: null,
+
+            favouriteObj: {
+                add: false,
+                remove: false,
+                status: null,
+                favouriteId: null
+            },
+
+            basketObj: {
+                inBasket: false,
+                added: false,
+                product: null,
+                param: null,
+                size: null,
+                count: null,
+                isCountChanges: false,
+                basketId: null
+            },
+
+            user: {
+                token: this.$auth.strategy.token.get()
+            }
         };
     },
 
+    computed: mapGetters([
+        "allFavourites",
+        "allFavouritesId",
+        "allInBasket",
+        "isInBasket"
+    ]),
+
     methods: {
-        // find box and img height and width correctly and set to our data for rendering
         onResize(event) {
             this.setBoxHeight();
             this.setImgWidth();
@@ -1198,6 +1270,9 @@ export default {
             this.selectedProduct.size = obj.sizes[0];
             this.updatePrice();
             this.updateSize();
+            this.selectImg(event);
+            // Check first param checked
+            this.$refs.productSizes[0].children[0].checked = true;
         },
 
         // checkbox give price on select size
@@ -1205,6 +1280,7 @@ export default {
             const obj = this.selectedProduct.params.sizes.reduce((obj, param) =>
                 param._id === event.path[0].id ? (obj = param) : obj
             );
+            console.log(obj);
             this.selectedProduct.size = obj;
             this.updatePrice();
             this.updateSize();
@@ -1215,14 +1291,22 @@ export default {
             this.selectedProduct = { ...product };
             this.selectedProduct.params = product.params[0];
             this.selectedProduct.size = product.params[0].sizes[0];
-            this.productPrice = product.params[0].sizes[0].price;
+            this.productPrice = this.updatePriceFormat(
+                product.params[0].sizes[0].price
+            );
             this.productSize = product.params[0].sizes[0].size;
+        },
+
+        // update price on currency format
+        updatePriceFormat(price) {
+            const form = new Intl.NumberFormat("en-US").format(price);
+            return form.replaceAll(",", " ");
         },
 
         // update product price
         updatePrice() {
-            this.productPrice =
-                this.selectedProduct.size.price * this.productCount;
+            const data = this.selectedProduct.size.price * this.productCount;
+            this.productPrice = this.updatePriceFormat(data);
         },
 
         // change product count
@@ -1235,22 +1319,221 @@ export default {
         updateSize() {
             this.productSize = this.selectedProduct.size.size;
         },
+
+        // favourite settings -----------------------------------------------
         // favourite icon theme
         toggleFavouriteColor(event) {
-            event.path[0].attributes.fill.nodeValue === "#FB8500"
-                ? (event.path[0].attributes.fill.nodeValue = "#ccc")
-                : (event.path[0].attributes.fill.nodeValue = "#FB8500");
+            const path = event.path[0];
+            const svgPath = event.path[0].children[0];
+            if (path.nodeName === "path") {
+                this.toggleColorImmediat(path);
+            } else {
+                this.toggleColorImmediat(svgPath);
+            }
         },
-        setFavourite(event) {
+
+        // helper toggle color function
+        toggleColorImmediat(obj) {
+            if (obj.attributes.fill.nodeValue === "#FB8500") {
+                obj.attributes.fill.nodeValue = "#ccc";
+            } else {
+                obj.attributes.fill.nodeValue = "#FB8500";
+            }
+        },
+
+        // favourite message modal settings
+        resetModal() {
+            this.favouriteObj.add = false;
+            this.favouriteObj.remove = false;
+        },
+
+        modalAdd(bool) {
+            this.favouriteObj.add === bool
+                ? (this.favouriteObj.add = false)
+                : (this.favouriteObj.add = true);
+        },
+
+        modalRemove(bool) {
+            this.favouriteObj.remove === bool
+                ? (this.favouriteObj.remove = false)
+                : (this.favouriteObj.remove = true);
+        },
+
+        showFavouriteModals(add, remove) {
+            this.modalAdd(add);
+            this.modalRemove(remove);
+        },
+
+        // setFavourite all changes
+        setFavouriteChanges(event) {
             this.toggleFavouriteColor(event);
-        }
+            this.resetModal();
+            if (!!this.favouriteObj.status) {
+                this.showFavouriteModals(true, false);
+            }
+            if (!this.favouriteObj.status) {
+                this.showFavouriteModals(false, true);
+            }
+        },
+
+        // find is favurited this product
+        isFavourite() {
+            const [array] = this.allFavouritesId.filter(
+                el => el.product === this.selectedProduct._id
+            );
+            if (!!array) {
+                this.favouriteObj.favouriteId = array._id;
+                this.favouriteObj.status = true;
+                this.$refs.favourite__icon.attributes.fill.nodeValue =
+                    "#FB8500";
+            }
+        },
+
+        // remove from favourite fetch request
+        async removeFavourite(event) {
+            await this.$axios
+                .$delete("like/" + this.favouriteObj.favouriteId, {
+                    headers: {
+                        token: this.user.token
+                    }
+                })
+                .then(response => {
+                    if (response.success) {
+                        this.favouriteObj.status = false;
+                        this.setFavouriteChanges(event);
+                        this.deleteFavouritesId(this.favouriteObj.favouriteId);
+                        console.log("id", this.allFavouritesId);
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
+        },
+
+        // set favourite fetch request
+        async setFavourite(event) {
+            await this.$axios
+                .$post("like/create", {
+                    headers: {
+                        token: this.user.token
+                    },
+                    product: this.selectedProduct._id
+                })
+                .then(response => {
+                    if (response.success) {
+                        console.log("res", response);
+                        this.favouriteObj.status = true;
+                        this.favouriteObj.favouriteId = response.data._id;
+                        this.setFavouriteChanges(event);
+                        this.pushFavouritesId({
+                            product: response.data.product,
+                            _id: response.data._id
+                        });
+                        console.log("id", this.allFavouritesId);
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
+        },
+
+        // toggle favourite main function for favourite
+        toggleFavourite(event) {
+            if (!this.favouriteObj.status) {
+                this.setFavourite(event);
+            } else {
+                this.removeFavourite(event);
+            }
+        },
+        // -------------------------------------------------
+        // -------------------------- basket setting -------------------------------------
+        setProductOptionToBasket() {
+            const product = this.selectedProduct._id;
+            const param = this.selectedProduct.params._id;
+            const size = this.selectedProduct.size._id;
+            const count = this.productCount;
+            return { product, param, size, count };
+        },
+
+        async addToBasket() {
+            const token = this.user.token;
+            await this.fetchToBasket({ token, product, param, size, count });
+            this.basketObj.added = true;
+        },
+
+        productInBasket() {
+            this.basketObj.inBasket = true;
+        },
+
+        resetBasketSetts() {
+            this.basketObj.added = false;
+            this.basketObj.inBasket = false;
+        },
+
+        isCountChanged() {
+            if (!(this.productCount === this.isInBasket[0].count)) {
+                this.isCountChanges = true;
+            } else {
+                this.isCountChanges = false;
+            }
+        },
+
+        async toggleBasket() {
+            const {
+                product,
+                param,
+                size,
+                count
+            } = this.setProductOptionToBasket();
+            const token = this.user.token;
+            this.resetBasketSetts();
+            this.basketFilter({ product, param, size });
+            if (this.isInBasket) {
+                this.isCountChanged();
+            }
+            if (this.isCountChanges) {
+                const id = this.isInBasket[0]._id;
+                const count = this.productCount;
+                this.updateBasketCount({ token, id, count });
+            }
+
+            console.log(!this.isInBasket);
+        },
+
+        // Vuex settings ----------------------------------------------------------
+        ...mapActions([
+            "fetchFavourites",
+            "fetchFavouritesId",
+            "fetchBasket",
+            "fetchToBasket",
+            "fetchCounBasket",
+            "updateBasketCount"
+        ]),
+        ...mapMutations([
+            "updateFavourites",
+            "updateFavouritesId",
+            "pushFavouritesId",
+            "deleteFavouritesId",
+            "basketFilter"
+        ])
     },
 
     async mounted() {
+        await this.fetchFavourites(this.user.token);
+        await this.fetchFavouritesId(this.user.token);
+        await this.fetchBasket(this.user.token);
+        await this.fetchCounBasket(this.user.token);
+        console.log(
+            "favourites",
+            this.allFavourites,
+            this.allFavouritesId,
+            this.allInBasket
+        );
         await this.$axios
-            .$get("/product/192061-futbolka-massimo-dutti")
+            .$get("/product/403685-iphone-11-pro")
             .then(response => {
                 if (response.success) {
+                    console.log(response);
                     this.isGet = true;
                     this.product = response.data[0];
                     this.updateProduct(this.product);
@@ -1263,17 +1546,13 @@ export default {
                 console.log(error);
             });
 
-        // Give element  width to img carousel
-        const timeInterval = setInterval(() => {
-            this.setBoxHeight();
-            this.setImgWidth();
-            this.setImgHeight();
-            this.selectImg();
-        }, 300);
+        // is product favourite?
+        await this.isFavourite();
 
-        setTimeout(() => {
-            clearInterval(timeInterval);
-        }, 5000);
+        // Give element  width to img carousel
+        await this.setBoxHeight();
+        await this.setImgWidth();
+        await this.setImgHeight();
 
         // Register an event listener when the Vue component is ready
         window.addEventListener("resize", this.onResize);
