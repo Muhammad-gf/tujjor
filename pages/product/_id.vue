@@ -54,7 +54,7 @@
                                                         selectImg($event);
                                                         addClassActive($event);
                                                     "
-                                                    @click="
+                                                    @click.prevent="
                                                         selectImg($event);
                                                         addClassActive($event);
                                                     "
@@ -87,7 +87,7 @@
                                         :style="{
                                             height: carouselData.imgHeight
                                         }"
-                                        @click="
+                                        @click.prevent="
                                             carouselData.imgBoxModal = !carouselData.imgBoxModal
                                         "
                                     />
@@ -98,7 +98,7 @@
                             <div
                                 class="img__modal"
                                 v-if="carouselData.imgBoxModal"
-                                @click="
+                                @click.prevent="
                                     carouselData.imgBoxModal = !carouselData.imgBoxModal
                                 "
                             >
@@ -147,7 +147,7 @@
                                         <div class="count__input">
                                             <button
                                                 class="minus"
-                                                @click="changeCount(-1)"
+                                                @click.prevent="changeCount(-1)"
                                             >
                                                 -
                                             </button>
@@ -158,7 +158,7 @@
                                             />
                                             <button
                                                 class="plus"
-                                                @click="changeCount(1)"
+                                                @click.prevent="changeCount(1)"
                                             >
                                                 +
                                             </button>
@@ -185,7 +185,9 @@
                                             @mouseenter="
                                                 selectProductParam($event)
                                             "
-                                            @click="selectProductParam($event)"
+                                            @click.prevent="
+                                                selectProductParam($event)
+                                            "
                                             :src="
                                                 $store.state.uploads +
                                                     param.image
@@ -265,7 +267,9 @@
                                             viewBox="12 -1 14 28"
                                             fill="none"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            @click="toggleFavourite($event)"
+                                            @click.prevent="
+                                                toggleFavourite($event)
+                                            "
                                         >
                                             <path
                                                 ref="favourite__icon"
@@ -296,7 +300,7 @@
                                     <a
                                         href="#"
                                         class="btn btn--basket"
-                                        @click="toggleBasket"
+                                        @click.prevent="toggleBasket"
                                     >
                                         В корзину
                                     </a>
@@ -1113,8 +1117,14 @@
             </modal-success>
 
             <modal-success
-                v-show="basketObj.inBasket"
-                post-title="Продукт находится в списке избранных!"
+                v-show="basketObj.updated"
+                post-title="Продукт успешно обновлён!"
+            >
+            </modal-success>
+
+            <modal-success
+                v-if="basketObj.inBasket"
+                post-title="Продукт находится в корзине!"
             >
             </modal-success>
         </div>
@@ -1194,6 +1204,8 @@ export default {
             // product size
             productSize: null,
 
+            checkedProduct: 0,
+
             favouriteObj: {
                 add: false,
                 remove: false,
@@ -1204,6 +1216,7 @@ export default {
             basketObj: {
                 inBasket: false,
                 added: false,
+                updated: false,
                 product: null,
                 param: null,
                 size: null,
@@ -1272,7 +1285,7 @@ export default {
             this.updateSize();
             this.selectImg(event);
             // Check first param checked
-            this.$refs.productSizes[0].children[0].checked = true;
+            this.$refs.productSizes[id].children[0].checked = true;
         },
 
         // checkbox give price on select size
@@ -1280,7 +1293,6 @@ export default {
             const obj = this.selectedProduct.params.sizes.reduce((obj, param) =>
                 param._id === event.path[0].id ? (obj = param) : obj
             );
-            console.log(obj);
             this.selectedProduct.size = obj;
             this.updatePrice();
             this.updateSize();
@@ -1315,7 +1327,7 @@ export default {
             this.productCount += x;
             this.updatePrice();
         },
-        // update prouct size
+        // update product size
         updateSize() {
             this.productSize = this.selectedProduct.size.size;
         },
@@ -1446,7 +1458,7 @@ export default {
             }
         },
         // -------------------------------------------------
-        // -------------------------- basket setting -------------------------------------
+        // -------------------------- basket settings -------------------------------------
         setProductOptionToBasket() {
             const product = this.selectedProduct._id;
             const param = this.selectedProduct.params._id;
@@ -1455,10 +1467,15 @@ export default {
             return { product, param, size, count };
         },
 
-        async addToBasket() {
-            const token = this.user.token;
+        async addToBasket(token) {
             await this.fetchToBasket({ token, product, param, size, count });
             this.basketObj.added = true;
+        },
+
+        async updateCountOfProduct(token, count) {
+            const id = this.isInBasket[0]._id;
+            await this.updateBasketCount({ token, id, count });
+            this.basketObj.updated = true;
         },
 
         productInBasket() {
@@ -1468,13 +1485,14 @@ export default {
         resetBasketSetts() {
             this.basketObj.added = false;
             this.basketObj.inBasket = false;
+            this.basketObj.updated = false;
         },
 
-        isCountChanged() {
-            if (!(this.productCount === this.isInBasket[0].count)) {
-                this.isCountChanges = true;
+        isCountChanged(count) {
+            if (!(count === this.isInBasket[0].count)) {
+                this.basketObj.isCountChanges = true;
             } else {
-                this.isCountChanges = false;
+                this.basketObj.isCountChanges = false;
             }
         },
 
@@ -1486,18 +1504,30 @@ export default {
                 count
             } = this.setProductOptionToBasket();
             const token = this.user.token;
+
             this.resetBasketSetts();
-            this.basketFilter({ product, param, size });
+
+            await this.basketFilter({ product, param, size });
+
             if (this.isInBasket) {
-                this.isCountChanged();
-            }
-            if (this.isCountChanges) {
-                const id = this.isInBasket[0]._id;
-                const count = this.productCount;
-                this.updateBasketCount({ token, id, count });
+                this.isCountChanged(count);
             }
 
-            console.log(!this.isInBasket);
+            if (this.basketObj.isCountChanges) {
+                await this.updateCountOfProduct(token, count);
+            }
+
+            if (!this.basketObj.isCountChanges) {
+                this.productInBasket();
+            }
+
+            if (!this.isInBasket) {
+                await this.addToBasket(token);
+            }
+
+            // if (!this.isInBasket) {
+            //     this.basketObj.inBasket = true;
+            // }
         },
 
         // Vuex settings ----------------------------------------------------------
@@ -1518,11 +1548,11 @@ export default {
         ])
     },
 
-    async mounted() {
-        await this.fetchFavourites(this.user.token);
-        await this.fetchFavouritesId(this.user.token);
-        await this.fetchBasket(this.user.token);
-        await this.fetchCounBasket(this.user.token);
+    async mounted(token = this.user.token) {
+        await this.fetchFavourites(token);
+        await this.fetchFavouritesId(token);
+        await this.fetchBasket(token);
+        await this.fetchCounBasket(token);
         console.log(
             "favourites",
             this.allFavourites,

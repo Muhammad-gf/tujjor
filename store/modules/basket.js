@@ -28,7 +28,7 @@ export default {
                 })
                 .then(response => {
                     if (response.success) {
-                        return response.data;
+                        return response.count;
                     } else {
                         throw new Error("Could not save data!");
                     }
@@ -75,14 +75,39 @@ export default {
                 })
                 .then(response => {
                     if (response.success) {
-                        console.log(response);
-                        return response.data;
+                        return response;
                     } else {
                         throw new Error("Could not save data!");
                     }
                 })
                 .catch(error => console.error(error));
-            console.log("put data", res);
+            // this action which i call, needed for work correctly count update function because it based on live count product
+            ctx.dispatch("fetchBasket");
+            ctx.dispatch("fetchCounBasket");
+        },
+
+        async deleteFromBasket(ctx, { token, id }) {
+            const res = await this.$axios
+                .$delete("basket/" + id, {
+                    headers: {
+                        token: token
+                    }
+                })
+                .then(response => {
+                    if (response.success) {
+                        console.log("delete compilited", res);
+                        return response;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(error => console.error(error));
+
+            let data = id == "rm/all" ? 0 : id;
+            console.log(data);
+
+            ctx.dispatch("fetchBasket");
+            ctx.dispatch("fetchCounBasket");
         }
     },
 
@@ -120,6 +145,24 @@ export default {
             }
 
             state.basket.isIn = result;
+        },
+
+        deleteItemFromBasket(state, {}) {
+            const result = [];
+            for (let i = 0; i < state.basket.basket.length; i++) {
+                let data = state.basket.basket[i];
+                if (
+                    data.param._id === param &&
+                    data.product._id === product &&
+                    data.size._id === size
+                )
+                    result.push(data);
+            }
+        },
+
+        changeCountItem(state, { index, count }) {
+            console.log(count, typeof count, index, typeof index);
+            state.basket.basket[index].count = count;
         }
     },
 

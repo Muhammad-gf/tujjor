@@ -80,7 +80,7 @@
 
                             <p
                                 class="button__delete"
-                                @click="
+                                @click.prevent="
                                     showDeleteModal();
                                     defaultProductId();
                                     addProductId(product._id);
@@ -134,7 +134,10 @@
                                 >480 000 сум</span
                             >
 
-                            <p class="button__delete" @click="showDeleteModal">
+                            <p
+                                class="button__delete"
+                                @click.prevent="showDeleteModal"
+                            >
                                 <svg
                                     width="10"
                                     height="10"
@@ -182,7 +185,10 @@
                             <span class="popular__items__desription--price"
                                 >1 080 000 сум</span
                             >
-                            <p class="button__delete" @click="showDeleteModal">
+                            <p
+                                class="button__delete"
+                                @click.prevent="showDeleteModal"
+                            >
                                 <svg
                                     width="10"
                                     height="10"
@@ -231,7 +237,10 @@
                                 >1 280 000 сум</span
                             >
 
-                            <p class="button__delete" @click="showDeleteModal">
+                            <p
+                                class="button__delete"
+                                @click.prevent="showDeleteModal"
+                            >
                                 <svg
                                     width="10"
                                     height="10"
@@ -280,7 +289,10 @@
                                 >474 000 сум</span
                             >
 
-                            <p class="button__delete" @click="showDeleteModal">
+                            <p
+                                class="button__delete"
+                                @click.prevent="showDeleteModal"
+                            >
                                 <svg
                                     width="10"
                                     height="10"
@@ -329,7 +341,10 @@
                                 >1 280 000 сум</span
                             >
 
-                            <p class="button__delete" @click="showDeleteModal">
+                            <p
+                                class="button__delete"
+                                @click.prevent="showDeleteModal"
+                            >
                                 <svg
                                     width="10"
                                     height="10"
@@ -367,14 +382,14 @@
                         class="b-button"
                         variant="warning"
                         block
-                        @click="closeModal"
+                        @click.prevent="closeModal"
                         >Нет</b-button
                     >
                     <b-button
                         class="b-button"
                         variant="danger"
                         block
-                        @click="removeFavourite()"
+                        @click.prevent="removeFavourite()"
                         >Да!</b-button
                     >
                 </div>
@@ -463,7 +478,7 @@
                 <a
                     href="#"
                     class="popular__btn text-center remove__all__product"
-                    @click="
+                    @click.prevent="
                         showDeleteModal();
                         defaultProductId();
                         addProductId('rm/all');
@@ -593,9 +608,9 @@ export default {
         ])
     },
 
-    async mounted() {
-        await this.fetchFavourites();
-        await this.fetchFavouritesId();
+    async mounted(token = this.user.token) {
+        await this.fetchFavourites(token);
+        await this.fetchFavouritesId(token);
         this.isGet = true;
         if (this.allFavourites.length === 0) this.noData = true;
     }

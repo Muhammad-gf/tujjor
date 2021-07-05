@@ -1,181 +1,370 @@
 <template>
-    <section class="basket">
-        <div class="container">
-            <div class="title-box">
-                <ul>
-                    <li>
-                        <nuxt-link to="/">Главная страница </nuxt-link>
-                        /
-                    </li>
+    <section>
+        <base-loading v-if="!isGet"></base-loading>
 
-                    <li>
-                        <nuxt-link to="#">Корзина покупателя </nuxt-link>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <section class="basket" v-if="isGet">
+            <div class="container">
+                <div class="title-box">
+                    <ul>
+                        <li>
+                            <nuxt-link to="/">Главная страница </nuxt-link>
+                            /
+                        </li>
 
-        <main class="basket__container container">
-            <div class="basket__heading">
-                <h2>Корзина покупателя</h2>
-            </div>
-
-            <div class="basket__item__box">
-                <div class="basket__item--header">
-                    <img src="../../assets/img/basket/1.png" alt="Item image" />
-                    <div class="basket__item__description">
-                        <h3>POLO рубашка</h3>
-                        <p class="p-first">
-                            Рубашка с контрастным дизайном
-                        </p>
-                        <p class="p-second"><span>Размер:</span>XXL - 44</p>
-                    </div>
+                        <li>
+                            <nuxt-link to="#">Корзина покупателя </nuxt-link>
+                        </li>
+                    </ul>
                 </div>
-                <div class="basket__item--secondary">
-                    <div class="basket__item--btn">
-                        <span>Количество:</span>
-                        <div class="btn__box">
-                            <a class="btn--primary" v-on:click="decrease()">
-                                _
+            </div>
+
+            <section class="favourite__is__empty" v-if="isGet && noData">
+                <section class="container popular__container">
+                    <div class="popular__heading">
+                        У вас нет продукта в корзины!
+                    </div>
+                </section>
+            </section>
+
+            <main class="basket__container container" v-if="isGet && !noData">
+                <div class="basket__heading">
+                    <h2>Корзина покупателя</h2>
+                </div>
+
+                <div
+                    class="basket__item__box"
+                    v-for="(item, index) in allInBasket"
+                    :key="item._id"
+                >
+                    <div class="basket__item--header">
+                        <img
+                            :src="$store.state.uploads + item.product.image"
+                            alt="Item image"
+                        />
+                        <div class="basket__item__description">
+                            <h3>POLO рубашка</h3>
+                            <p class="p-first">
+                                Рубашка с контрастным дизайном
+                            </p>
+                            <p class="p-second">
+                                <span>Размер:</span>{{ item.size.size }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="basket__item--secondary">
+                        <div class="basket__item--btn">
+                            <span>Количество:</span>
+                            <div class="btn__box">
+                                <a
+                                    class="btn--primary"
+                                    v-on:click="
+                                        decreaseCount(
+                                            index,
+                                            item.count,
+                                            item._id
+                                        )
+                                    "
+                                >
+                                    _
+                                </a>
+                                <span> {{ item.count }} шт</span>
+                                <a
+                                    class="btn--secondary"
+                                    v-on:click="
+                                        increaseCount(
+                                            index,
+                                            item.count,
+                                            item._id
+                                        )
+                                    "
+                                >
+                                    +
+                                </a>
+                            </div>
+                        </div>
+                        <div class="basket__item--price">
+                            <span
+                                >{{ updatePrice(item.count, item.size.price) }}
+                                cум
+                            </span>
+                        </div>
+                        <div class="basket__item--color">
+                            <span>Цвет:</span>
+                            <img
+                                :src="$store.state.uploads + item.param.image"
+                                alt="Color image"
+                            />
+                        </div>
+                        <div class="backet__item--activity">
+                            <a href="#" class="item__btn btn--submit">
+                                Оформить заказ
                             </a>
-                            <span> {{ counter }} шт</span>
-                            <a class="btn--secondary" v-on:click="increase()">
-                                +
+                            <a
+                                href="#"
+                                class="item__btn btn--reject"
+                                @click.prevent="
+                                    openRemoveModal(item._id, index)
+                                "
+                            >
+                                Стереть
                             </a>
                         </div>
                     </div>
-                    <div class="basket__item--price">
-                        <span>{{ total }} cум </span>
-                    </div>
-                    <div class="basket__item--color">
-                        <span>Цвет:</span>
-                        <img
-                            src="../../assets/img/basket/color.png"
-                            alt="Color image"
-                        />
-                    </div>
-                    <div class="backet__item--activity">
-                        <a href="#" class="item__btn btn--submit">
-                            Оформить заказ
-                        </a>
-                        <a href="#" class="item__btn btn--reject">
-                            Стереть
-                        </a>
-                    </div>
                 </div>
-            </div>
 
-            <div class="basket__item__box">
-                <div class="basket__item--header">
-                    <img src="../../assets/img/basket/1.png" alt="Item image" />
-                    <div class="basket__item__description">
-                        <h3>POLO рубашка</h3>
-                        <p class="p-first">
-                            Рубашка с контрастным дизайном
-                        </p>
-                        <p class="p-second"><span>Размер:</span>XXL - 44</p>
+                <div class="basket__item__box">
+                    <div class="basket__item--header">
+                        <img
+                            src="../../assets/img/basket/1.png"
+                            alt="Item image"
+                        />
+                        <div class="basket__item__description">
+                            <h3>POLO рубашка</h3>
+                            <p class="p-first">
+                                Рубашка с контрастным дизайном
+                            </p>
+                            <p class="p-second"><span>Размер:</span>XXL - 44</p>
+                        </div>
                     </div>
-                </div>
-                <div class="basket__item--secondary">
-                    <div class="basket__item--btn">
-                        <span>Количество:</span>
-                        <div class="btn__box">
-                            <a class="btn--primary">
-                                _
+                    <div class="basket__item--secondary">
+                        <div class="basket__item--btn">
+                            <span>Количество:</span>
+                            <div class="btn__box">
+                                <a class="btn--primary">
+                                    _
+                                </a>
+                                <span> 1 шт</span>
+                                <a class="btn--secondary">
+                                    +
+                                </a>
+                            </div>
+                        </div>
+                        <div class="basket__item--price">
+                            <span>100 000 cум </span>
+                        </div>
+                        <div class="basket__item--color">
+                            <span>Цвет:</span>
+                            <img
+                                src="../../assets/img/basket/color.png"
+                                alt="Color image"
+                            />
+                        </div>
+                        <div class="backet__item--activity">
+                            <a href="#" class="item__btn btn--submit">
+                                Оформить заказ
                             </a>
-                            <span> 1 шт</span>
-                            <a class="btn--secondary">
-                                +
+                            <a href="#" class="item__btn btn--reject">
+                                Стереть
                             </a>
                         </div>
                     </div>
-                    <div class="basket__item--price">
-                        <span>100 000 cум </span>
-                    </div>
-                    <div class="basket__item--color">
-                        <span>Цвет:</span>
-                        <img
-                            src="../../assets/img/basket/color.png"
-                            alt="Color image"
-                        />
-                    </div>
-                    <div class="backet__item--activity">
-                        <a href="#" class="item__btn btn--submit">
-                            Оформить заказ
-                        </a>
-                        <a href="#" class="item__btn btn--reject">
-                            Стереть
-                        </a>
-                    </div>
                 </div>
-            </div>
 
-            <div class="basket__item__box">
-                <div class="basket__item--header">
-                    <img src="../../assets/img/basket/1.png" alt="Item image" />
-                    <div class="basket__item__description">
-                        <h3>POLO рубашка</h3>
-                        <p class="p-first">
-                            Рубашка с контрастным дизайном
-                        </p>
-                        <p class="p-second"><span>Размер:</span>XXL - 44</p>
+                <div class="basket__item__box">
+                    <div class="basket__item--header">
+                        <img
+                            src="../../assets/img/basket/1.png"
+                            alt="Item image"
+                        />
+                        <div class="basket__item__description">
+                            <h3>POLO рубашка</h3>
+                            <p class="p-first">
+                                Рубашка с контрастным дизайном
+                            </p>
+                            <p class="p-second"><span>Размер:</span>XXL - 44</p>
+                        </div>
                     </div>
-                </div>
-                <div class="basket__item--secondary">
-                    <div class="basket__item--btn">
-                        <span>Количество:</span>
-                        <div class="btn__box">
-                            <a class="btn--primary">
-                                _
+                    <div class="basket__item--secondary">
+                        <div class="basket__item--btn">
+                            <span>Количество:</span>
+                            <div class="btn__box">
+                                <a class="btn--primary">
+                                    _
+                                </a>
+                                <span> 1 шт</span>
+                                <a class="btn--secondary">
+                                    +
+                                </a>
+                            </div>
+                        </div>
+                        <div class="basket__item--price">
+                            <span>100 000 cум </span>
+                        </div>
+                        <div class="basket__item--color">
+                            <span>Цвет:</span>
+                            <img
+                                src="../../assets/img/basket/color.png"
+                                alt="Color image"
+                            />
+                        </div>
+                        <div class="backet__item--activity">
+                            <a href="#" class="item__btn btn--submit">
+                                Оформить заказ
                             </a>
-                            <span> 1 шт</span>
-                            <a class="btn--secondary">
-                                +
+                            <a href="#" class="item__btn btn--reject">
+                                Стереть
                             </a>
                         </div>
                     </div>
-                    <div class="basket__item--price">
-                        <span>100 000 cум </span>
+                </div>
+
+                <div class="basket__price">
+                    <div class="basket__price--total">
+                        <span>Общая сумма:</span>
+                        <span class="all__price">450 000 cум</span>
                     </div>
-                    <div class="basket__item--color">
-                        <span>Цвет:</span>
-                        <img
-                            src="../../assets/img/basket/color.png"
-                            alt="Color image"
-                        />
-                    </div>
-                    <div class="backet__item--activity">
-                        <a href="#" class="item__btn btn--submit">
-                            Оформить заказ
+
+                    <div class="backet__price--activity">
+                        <a href="#" class="activity__btn btn--submit">
+                            Оформить все заказы
                         </a>
-                        <a href="#" class="item__btn btn--reject">
-                            Стереть
+                        <a href="#" class="activity__btn btn--reject">
+                            Стереть все заказы
                         </a>
                     </div>
                 </div>
-            </div>
-
-            <div class="basket__price">
-                <div class="basket__price--total">
-                    <span>Общая сумма:</span>
-                    <span class="all__price">450 000 cум</span>
+            </main>
+        </section>
+        <section>
+            <!-- modal on deleting -->
+            <b-modal
+                id="modal-danger"
+                v-model="basketObj.removeModal.showModal"
+                hide-footer
+                hide-header
+                centered
+                class="b-modal"
+            >
+                <div v-if="basketObj.removeModal.showContent">
+                    <div class="d-block text-center">
+                        <h3>
+                            Вы хотите удалить этот продукт из корзины???
+                        </h3>
+                    </div>
+                    <b-button
+                        class="b-button"
+                        variant="warning"
+                        block
+                        @click="closeRemoveModal()"
+                        >Нет</b-button
+                    >
+                    <b-button
+                        class="b-button"
+                        variant="danger"
+                        block
+                        @click="deleteFromBasket()"
+                        >Да!</b-button
+                    >
+                </div>
+                <div
+                    v-if="basketObj.removeModal.showLoading"
+                    class="text-center  d-flex justify-content-center align-items-center loading__spinner"
+                >
+                    <b-spinner
+                        :variant="'warning'"
+                        :key="'warning'"
+                    ></b-spinner>
                 </div>
 
-                <div class="backet__price--activity">
-                    <a href="#" class="activity__btn btn--submit">
-                        Оформить все заказы
-                    </a>
-                    <a href="#" class="activity__btn btn--reject">
-                        Стереть все заказы
-                    </a>
+                <div
+                    class="success__block"
+                    v-if="basketObj.removeModal.showSuccess"
+                >
+                    <div class="success__icon">
+                        <svg
+                            xml:space="preserve"
+                            viewBox="0 0 100 100"
+                            y="0"
+                            x="0"
+                            xmlns="http://www.w3.org/2000/svg"
+                            id="圖層_1"
+                            version="1.1"
+                            width="200px"
+                            height="200px"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            style="width:100%;height:100%;background-size:initial;background-repeat-y:initial;background-repeat-x:initial;background-position-y:initial;background-position-x:initial;background-origin:initial;background-color:initial;background-clip:initial;background-attachment:initial;animation-play-state:play"
+                        >
+                            <g
+                                class="ldl-scale"
+                                style="transform-origin:50% 50%;transform:rotate(0deg) scale(0.8, 0.8);animation-play-state:play"
+                            >
+                                <circle
+                                    stroke-miterlimit="10"
+                                    stroke-width="
+						5"
+                                    stroke="#333"
+                                    fill="none"
+                                    r="40"
+                                    cy="50"
+                                    cx="50"
+                                    style="stroke:rgb(2, 48, 71);animation-play-state:play"
+                                ></circle>
+                                <g
+                                    style="animation-play-state:play"
+                                    class="exl"
+                                >
+                                    <path
+                                        d="M43.7 69.4L25 47.7l3.9-3.9 14.8 12.6 28.6-25.8 2.7 2.7z"
+                                        fill="#abbd81"
+                                        style="fill:rgb(247, 147, 31);animation-play-state:play"
+                                    ></path>
+                                </g>
+                                <metadata
+                                    xmlns:d="https://loading.io/stock/"
+                                    style="animation-play-state:play"
+                                >
+                                    <d:name style="animation-play-state:play"
+                                        >ok</d:name
+                                    >
+                                    <d:tags style="animation-play-state:play"
+                                        >ok,confirm,ready,positive,check,right,correct,affirmative,success</d:tags
+                                    >
+                                    <d:license style="animation-play-state:play"
+                                        >by</d:license
+                                    >
+                                    <d:slug style="animation-play-state:play"
+                                        >47ibm8</d:slug
+                                    >
+                                </metadata>
+                            </g>
+                            <!-- generated by https://loading.io/ -->
+                        </svg>
+                    </div>
                 </div>
-            </div>
-        </main>
+            </b-modal>
+
+            <!-- /////////////////////////////////////////////
+            modals on event -->
+            <modal-success
+                v-if="basketObj.updatedModal"
+                post-title="Продукт успешно обновлён!"
+            >
+            </modal-success>
+            <warning-message
+                v-if="basketObj.updatedBlockedModal"
+                post-title="Количество продукта не может быть меньше одного!"
+            ></warning-message>
+
+            <!-- deleted successfully modal -->
+            <modal-success
+                v-show="basketObj.removeModal.deletedSuccess"
+                post-title="Продукт успешно удалён из корзины!"
+            >
+            </modal-success>
+        </section>
     </section>
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
+
+import ModalSuccess from "../../components/Modals/SuccessModal.vue";
+import WarningMessage from "../../components/Modals/WarningMessage.vue";
+import BaseLoading from "../../components/UI/BaseLoading.vue";
+
 export default {
+    components: { ModalSuccess, WarningMessage, BaseLoading },
+
     head: {
         title: "Корзина — Tujjor. Низкие цены и широкий ассортимент!",
         meta: [
@@ -190,19 +379,88 @@ export default {
         return {
             user: {
                 token: this.$auth.strategy.token.get()
-            }
+            },
+
+            basketObj: {
+                updatedModal: false,
+                updatedBlockedModal: false,
+                removeModal: {
+                    showModal: false,
+                    showContent: false,
+                    showLoading: false,
+                    showSuccess: false,
+                    deletedSuccess: false
+                },
+
+                removeObject: {
+                    id: null,
+                    index: null
+                }
+            },
+
+            isGet: false,
+            noData: false
         };
     },
 
+    computed: mapGetters(["allInBasket", "countBasket"]),
+
     methods: {
-        increaseCount() {
-            this.counter++;
-            this.total = this.counter * 100000;
+        ...mapActions(["fetchBasket", "fetchCounBasket", "updateBasketCount"]),
+        ...mapMutations(["changeCountItem"]),
+        // --------------------- modal settings --------------------------
+        resetAllModals() {
+            this.basketObj.updatedModal = false;
+            this.basketObj.updatedBlockedModal = false;
+            this.basketObj.removeModal.showModal = this.basketObj.removeModal.showContent = this.basketObj.removeModal.showLoading = this.basketObj.removeModal.showSuccess = false;
         },
 
-        decreaseCount() {
-            if (this.counter >= 1) this.counter--;
-            this.total = this.counter * 100000;
+        // show loading on start of deleting
+        deleteStarted() {
+            this.basketObj.removeModal.showContent = false;
+            this.basketObj.removeModal.deletedSuccess = false;
+            this.basketObj.removeModal.showLoading = true;
+        },
+
+        // show succes on the end of deleting
+        deleteEnded() {
+            this.basketObj.removeModal.showLoading = false;
+            this.basketObj.removeModal.showSuccess = true;
+            this.basketObj.removeModal.deletedSuccess = true;
+            setTimeout(() => {
+                this.basketObj.removeModal.showModal = false;
+            }, 1500);
+        },
+
+        async increaseCount(index, resCount, id) {
+            this.resetAllModals();
+
+            const count = resCount + 1;
+            const token = this.user.token;
+
+            this.changeCountItem({ index, count });
+            await this.updateBasketCount({ token, id, count });
+            this.basketObj.updatedModal = true;
+
+            console.log(this.allInBasket[index]);
+        },
+
+        async decreaseCount(index, resCount, id) {
+            this.resetAllModals();
+
+            if (resCount > 1) {
+                const count = resCount - 1;
+                const token = this.user.token;
+
+                this.changeCountItem({ index, count });
+                await this.updateBasketCount({ token, id, count });
+                this.basketObj.updatedModal = true;
+            } else {
+                // this.basketObj.updatedBlockedModal = true;
+                this.blockModal = true;
+            }
+
+            console.log(this.allInBasket[index]);
         },
 
         // update priceFormat
@@ -211,10 +469,64 @@ export default {
             return form.replaceAll(",", " ");
         },
 
-        updatePrice(price) {}
+        updatePrice(price, count) {
+            const resultPrice = price * count;
+            return this.updatePriceFormat(resultPrice);
+        },
+
+        // --------------------------------- remove settings --------------------------------
+        closeRemoveModal() {
+            this.basketObj.removeModal.showModal = false;
+        },
+
+        openRemoveModal(id, index) {
+            this.resetAllModals();
+
+            this.basketObj.removeModal.showModal = true;
+            this.basketObj.removeModal.showContent = true;
+
+            this.basketObj.removeObject.id = id;
+            this.basketObj.removeObject.index = index;
+        },
+
+        // main function for deleting
+        async deleteFromBasket(
+            token = this.user.token,
+            id = this.basketObj.removeObject.id
+        ) {
+            this.deleteStarted();
+
+            await this.$axios
+                .$delete("basket/" + id, {
+                    headers: {
+                        token: token
+                    }
+                })
+                .then(response => {
+                    if (response.success) {
+                        this.deleteEnded();
+                        console.log(response);
+
+                        return response;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(error => console.error(error));
+
+            await Promise.all([
+                this.fetchBasket(token),
+                this.fetchCounBasket(token)
+            ]);
+        }
     },
 
-    async mounted() {}
+    async mounted(oken = this.user.token) {
+        await Promise.all([
+            this.fetchBasket(token),
+            this.fetchCounBasket(token)
+        ]);
+    }
 };
 </script>
 
@@ -253,6 +565,8 @@ export default {
                 margin-right: 18px;
                 max-height: 100%;
                 border-radius: 3px;
+                width: 120px;
+                height: 120px;
             }
 
             .basket__item__description {
@@ -512,6 +826,125 @@ export default {
     }
 }
 
+#modal-danger___BV_modal_body_ {
+    .loading__spinner {
+        min-height: 80px;
+    }
+
+    .success__block {
+        min-height: 80px;
+        width: 100%;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        .success__icon {
+            max-width: 80%;
+            width: 80px;
+            animation: scaleIcon 1.3s infinite linear forwards;
+            color: #155724;
+            border-color: #c3e6cb;
+            border-radius: 4px;
+            padding: 3px 8px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+    }
+
+    @keyframes scaleIcon {
+        0% {
+            transform: scale(1);
+        }
+        25% {
+            transform: scale(0.9);
+        }
+        50% {
+            transform: scale(1);
+        }
+        75% {
+            transform: scale(1.08);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    // --------------------
+    div > h3 {
+        font-size: 20px;
+    }
+    button {
+        font-size: 12px;
+    }
+    button:first-of-type {
+        margin-top: 20px;
+    }
+
+    .input__box {
+        flex-grow: 0;
+        height: auto;
+
+        &:not(:first-of-type) {
+            margin-top: 10px;
+        }
+        label {
+            font-family: Roboto, sans-serif;
+            font-size: 14px;
+            line-height: 24px;
+            margin: 0;
+            padding: 4px 0;
+        }
+
+        input,
+        textarea {
+            border: 0.98px solid #f7931e;
+            box-sizing: border-box;
+            border-radius: 5px;
+
+            font-size: 18px;
+            line-height: 1.3;
+
+            cursor: pointer;
+        }
+
+        .input__file,
+        .input__file__label {
+            padding: 4px 0;
+            display: inline-block;
+            border: none;
+            margin-right: 10px;
+            font-size: 14px;
+            line-height: 1;
+
+            margin: 5px 5px 5px 0;
+        }
+
+        .input__file__label {
+            font-size: 16px;
+        }
+
+        textarea {
+            padding-top: 10px;
+        }
+        .form-control:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #f7931e;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(247, 147, 30, 0.25);
+        }
+    }
+    div > a {
+        cursor: pointer;
+    }
+}
+
 @media screen and (max-width: 1200px) {
     .basket__container {
         .basket__item__box {
@@ -722,6 +1155,27 @@ export default {
                     flex-basis: auto;
                     margin-bottom: 20px;
                 }
+            }
+        }
+    }
+}
+
+// Flexible modal
+@media only screen and (max-width: 440px) {
+    #modal-danger___BV_modal_body_ {
+        div > h3 {
+            font-size: 18px;
+        }
+        button {
+            display: inline-block;
+            width: 45%;
+            font-size: 10px;
+            margin-top: 15px !important;
+        }
+        .success__block {
+            .success__icon {
+                max-width: 70%;
+                width: 80px;
             }
         }
     }
