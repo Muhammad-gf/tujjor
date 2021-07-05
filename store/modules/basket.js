@@ -9,14 +9,16 @@ export default {
                 })
                 .then(response => {
                     if (response.success) {
-                        return response.data;
+                        return response;
                     } else {
                         throw new Error("Could not save data!");
                     }
                 })
                 .catch(err => console.error(err));
 
-            ctx.commit("updateBasket", res);
+            ctx.commit("updateBasket", res.data);
+
+            return res;
         },
 
         async fetchCounBasket(ctx, token) {
@@ -28,7 +30,7 @@ export default {
                 })
                 .then(response => {
                     if (response.success) {
-                        return response.count;
+                        return response;
                     } else {
                         throw new Error("Could not save data!");
                     }
@@ -37,7 +39,7 @@ export default {
                     console.error(error);
                 });
 
-            ctx.commit("updateCountBasket", res);
+            ctx.commit("updateCountBasket", res.count);
         },
 
         async fetchToBasket(ctx, { token, product, param, size, count }) {
@@ -61,6 +63,7 @@ export default {
                 })
                 .catch(err => console.error(err));
 
+            ctx.dispatch("fetchBasket");
             ctx.commit("pushToBasket", res);
             ctx.commit("increaseCountBasket");
         },
@@ -83,7 +86,7 @@ export default {
                 .catch(error => console.error(error));
             // this action which i call, needed for work correctly count update function because it based on live count product
             ctx.dispatch("fetchBasket");
-            ctx.dispatch("fetchCounBasket");
+            // ctx.dispatch("fetchCounBasket");
         },
 
         async deleteFromBasket(ctx, { token, id }) {
@@ -107,7 +110,7 @@ export default {
             console.log(data);
 
             ctx.dispatch("fetchBasket");
-            ctx.dispatch("fetchCounBasket");
+            // ctx.dispatch("fetchCounBasket");
         }
     },
 
@@ -140,9 +143,13 @@ export default {
                     data.param._id === param &&
                     data.product._id === product &&
                     data.size._id === size
-                )
+                ) {
                     result.push(data);
+                }
             }
+
+            console.log(state.basket.basket);
+            console.log(result);
 
             state.basket.isIn = result;
         },

@@ -140,7 +140,9 @@ export default {
     },
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
-        baseURL: "http://cdn.tujjor.org/api"
+        baseURL: "http://cdn.tujjor.org/api",
+        proxyHeaders: false,
+        credentials: false
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build

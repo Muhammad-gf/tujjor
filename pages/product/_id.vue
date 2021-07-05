@@ -1082,7 +1082,7 @@
                         href="#"
                         class="navbar__bottom__button button__to__basket  d-flex justify-content-center align-items-center"
                     >
-                        корзину
+                        Корзину
                     </a>
                     <a
                         href="#"
@@ -1285,7 +1285,7 @@ export default {
             this.updateSize();
             this.selectImg(event);
             // Check first param checked
-            this.$refs.productSizes[id].children[0].checked = true;
+            this.$refs.productSizes[0].children[0].checked = true;
         },
 
         // checkbox give price on select size
@@ -1323,13 +1323,17 @@ export default {
 
         // change product count
         changeCount(x) {
-            if (this.productCount == 1 && x == "-1") return "1";
-            this.productCount += x;
-            this.updatePrice();
+            // to fix many clicking in  one moment
+            setTimeout(() => {
+                if (this.productCount == 1 && x == "-1") return "1";
+                this.productCount += x;
+                this.updatePrice();
+            }, 1500);
         },
         // update product size
         updateSize() {
             this.productSize = this.selectedProduct.size.size;
+            console.log(this.productSize);
         },
 
         // favourite settings -----------------------------------------------
@@ -1467,7 +1471,7 @@ export default {
             return { product, param, size, count };
         },
 
-        async addToBasket(token) {
+        async addToBasket(token, product, param, size, count) {
             await this.fetchToBasket({ token, product, param, size, count });
             this.basketObj.added = true;
         },
@@ -1493,6 +1497,7 @@ export default {
                 this.basketObj.isCountChanges = true;
             } else {
                 this.basketObj.isCountChanges = false;
+                this.productInBasket();
             }
         },
 
@@ -1509,7 +1514,7 @@ export default {
 
             await this.basketFilter({ product, param, size });
 
-            if (this.isInBasket) {
+            if (this.isInBasket.length > 0) {
                 this.isCountChanged(count);
             }
 
@@ -1517,12 +1522,8 @@ export default {
                 await this.updateCountOfProduct(token, count);
             }
 
-            if (!this.basketObj.isCountChanges) {
-                this.productInBasket();
-            }
-
-            if (!this.isInBasket) {
-                await this.addToBasket(token);
+            if (this.isInBasket.length === 0) {
+                await this.addToBasket(token, product, param, size, count);
             }
 
             // if (!this.isInBasket) {
@@ -1552,7 +1553,7 @@ export default {
         await this.fetchFavourites(token);
         await this.fetchFavouritesId(token);
         await this.fetchBasket(token);
-        await this.fetchCounBasket(token);
+        // await this.fetchCounBasket(token);
         console.log(
             "favourites",
             this.allFavourites,

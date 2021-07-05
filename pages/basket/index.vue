@@ -218,7 +218,11 @@
                         <a href="#" class="activity__btn btn--submit">
                             Оформить все заказы
                         </a>
-                        <a href="#" class="activity__btn btn--reject">
+                        <a
+                            href="#"
+                            class="activity__btn btn--reject"
+                            @click.prevent="openRemoveModal('rm/all', 0)"
+                        >
                             Стереть все заказы
                         </a>
                     </div>
@@ -429,7 +433,7 @@ export default {
             this.basketObj.removeModal.deletedSuccess = true;
             setTimeout(() => {
                 this.basketObj.removeModal.showModal = false;
-            }, 1500);
+            }, 1000);
         },
 
         async increaseCount(index, resCount, id) {
@@ -514,23 +518,39 @@ export default {
                 })
                 .catch(error => console.error(error));
 
-            await Promise.all([
-                this.fetchBasket(token),
-                this.fetchCounBasket(token)
-            ]);
+            const response = await this.fetchBasket(token);
+            if (response.data.length === 0) this.noData = true;
+
+            // this.fetchCounBasket(token)
         }
     },
 
-    async mounted(oken = this.user.token) {
-        await Promise.all([
-            this.fetchBasket(token),
-            this.fetchCounBasket(token)
-        ]);
+    async mounted(token = this.user.token) {
+        const res = await this.fetchBasket(token);
+        console.log(res);
+        if (res.success) {
+            this.isGet = true;
+        }
+        if (res.data.length === 0) {
+            this.noData = true;
+        }
     }
 };
 </script>
 
 <style lang="scss">
+.favourite__is__empty {
+    .popular__container {
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .popular__heading {
+            transform: translateY(-5vh);
+        }
+    }
+}
+
 .basket__container {
     .basket__heading {
         h2 {

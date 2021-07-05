@@ -549,7 +549,7 @@ export default {
             this.dangerModal.deletedSuccess = true;
             setTimeout(() => {
                 this.dangerModal.showModal = false;
-            }, 1500);
+            }, 1000);
         },
         // update priceFormat
         updatePriceFormat(price) {
