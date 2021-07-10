@@ -87,6 +87,8 @@ export default {
             // this action which i call, needed for work correctly count update function because it based on live count product
             ctx.dispatch("fetchBasket");
             // ctx.dispatch("fetchCounBasket");
+
+            return res;
         },
 
         async deleteFromBasket(ctx, { token, id }) {

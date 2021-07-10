@@ -1,5 +1,6 @@
-import favourites from "./modules/favourites.js";
-import basket from "./modules/basket.js";
+import favourites from "./modules/favourites";
+import basket from "./modules/basket";
+import orders from "./modules/orders";
 
 export const state = () => ({
     uploads: "http://cdn.tujjor.org"
@@ -9,5 +10,6 @@ export const actions = {};
 
 export const modules = {
     favourites,
-    basket
+    basket,
+    orders
 };

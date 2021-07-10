@@ -96,9 +96,14 @@
                             />
                         </div>
                         <div class="backet__item--activity">
-                            <a href="#" class="item__btn btn--submit">
+                            <a
+                                href="#"
+                                class="item__btn btn--submit"
+                                @click="goToOrder(item)"
+                            >
                                 Оформить заказ
                             </a>
+
                             <a
                                 href="#"
                                 class="item__btn btn--reject"
@@ -112,110 +117,20 @@
                     </div>
                 </div>
 
-                <div class="basket__item__box">
-                    <div class="basket__item--header">
-                        <img
-                            src="../../assets/img/basket/1.png"
-                            alt="Item image"
-                        />
-                        <div class="basket__item__description">
-                            <h3>POLO рубашка</h3>
-                            <p class="p-first">
-                                Рубашка с контрастным дизайном
-                            </p>
-                            <p class="p-second"><span>Размер:</span>XXL - 44</p>
-                        </div>
-                    </div>
-                    <div class="basket__item--secondary">
-                        <div class="basket__item--btn">
-                            <span>Количество:</span>
-                            <div class="btn__box">
-                                <a class="btn--primary">
-                                    _
-                                </a>
-                                <span> 1 шт</span>
-                                <a class="btn--secondary">
-                                    +
-                                </a>
-                            </div>
-                        </div>
-                        <div class="basket__item--price">
-                            <span>100 000 cум </span>
-                        </div>
-                        <div class="basket__item--color">
-                            <span>Цвет:</span>
-                            <img
-                                src="../../assets/img/basket/color.png"
-                                alt="Color image"
-                            />
-                        </div>
-                        <div class="backet__item--activity">
-                            <a href="#" class="item__btn btn--submit">
-                                Оформить заказ
-                            </a>
-                            <a href="#" class="item__btn btn--reject">
-                                Стереть
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="basket__item__box">
-                    <div class="basket__item--header">
-                        <img
-                            src="../../assets/img/basket/1.png"
-                            alt="Item image"
-                        />
-                        <div class="basket__item__description">
-                            <h3>POLO рубашка</h3>
-                            <p class="p-first">
-                                Рубашка с контрастным дизайном
-                            </p>
-                            <p class="p-second"><span>Размер:</span>XXL - 44</p>
-                        </div>
-                    </div>
-                    <div class="basket__item--secondary">
-                        <div class="basket__item--btn">
-                            <span>Количество:</span>
-                            <div class="btn__box">
-                                <a class="btn--primary">
-                                    _
-                                </a>
-                                <span> 1 шт</span>
-                                <a class="btn--secondary">
-                                    +
-                                </a>
-                            </div>
-                        </div>
-                        <div class="basket__item--price">
-                            <span>100 000 cум </span>
-                        </div>
-                        <div class="basket__item--color">
-                            <span>Цвет:</span>
-                            <img
-                                src="../../assets/img/basket/color.png"
-                                alt="Color image"
-                            />
-                        </div>
-                        <div class="backet__item--activity">
-                            <a href="#" class="item__btn btn--submit">
-                                Оформить заказ
-                            </a>
-                            <a href="#" class="item__btn btn--reject">
-                                Стереть
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="basket__price">
                     <div class="basket__price--total">
                         <span>Общая сумма:</span>
-                        <span class="all__price">450 000 cум</span>
+                        <span class="all__price"
+                            >{{ updatePriceAll() }} cум</span
+                        >
                     </div>
 
                     <div class="backet__price--activity">
-                        <a href="#" class="activity__btn btn--submit">
+                        <a
+                            href="#"
+                            class="activity__btn btn--submit"
+                            @click.prevent="orderAllProducts()"
+                        >
                             Оформить все заказы
                         </a>
                         <a
@@ -407,11 +322,15 @@ export default {
         };
     },
 
-    computed: mapGetters(["allInBasket", "countBasket"]),
+    computed: mapGetters(["allInBasket", "countBasket", "orderAll"]),
 
     methods: {
         ...mapActions(["fetchBasket", "fetchCounBasket", "updateBasketCount"]),
-        ...mapMutations(["changeCountItem"]),
+        ...mapMutations([
+            "changeCountItem",
+            "updateOrder",
+            "updateOrderProduct"
+        ]),
         // --------------------- modal settings --------------------------
         resetAllModals() {
             this.basketObj.updatedModal = false;
@@ -478,6 +397,14 @@ export default {
             return this.updatePriceFormat(resultPrice);
         },
 
+        updatePriceAll() {
+            let amount = 0;
+            this.allInBasket.forEach(item => {
+                amount += item.count * item.size.price;
+            });
+            return this.updatePriceFormat(amount);
+        },
+
         // --------------------------------- remove settings --------------------------------
         closeRemoveModal() {
             this.basketObj.removeModal.showModal = false;
@@ -522,6 +449,82 @@ export default {
             if (response.data.length === 0) this.noData = true;
 
             // this.fetchCounBasket(token)
+        },
+
+        // -------------------------------- order settings -------------------------
+        goToOrder(item) {
+            const products = [
+                {
+                    productId: item.product._id,
+                    paramId: item.param._id,
+                    sizeId: item.size._id,
+                    shop: item.product.shop._id,
+                    amount: item.size.price,
+                    size: item.size.size,
+                    count: item.count,
+                    color: item.param.image,
+                    image: item.product.image,
+                    name: {
+                        uz: item.product.name.uz,
+                        ru: item.product.name.ru
+                    },
+                    description: {
+                        uz: item.product.description.uz,
+                        ru: item.product.description.ru
+                    }
+                }
+            ];
+            const amount = item.count * item.size.price;
+
+            this.updateOrderProduct({ products, amount });
+            console.log(this.orderAll);
+
+            this.$router.push({
+                name: "order-id",
+                params: { id: item.product.slug }
+            });
+        },
+
+        orderAllProducts() {
+            const products = [];
+            let amount = 0;
+            this.allInBasket.forEach(item => {
+                console.log("item", item);
+
+                const obj = {
+                    productId: item.product._id,
+                    paramId: item.param._id,
+                    sizeId: item.size._id,
+                    shop: item.product.shop._id,
+                    amount: item.size.price,
+                    size: item.size.size,
+                    count: item.count,
+                    color: item.param.image,
+                    image: item.product.image,
+                    name: {
+                        uz: item.product.name.uz,
+                        ru: item.product.name.ru
+                    },
+                    description: {
+                        uz: item.product.description.uz,
+                        ru: item.product.description.ru
+                    }
+                };
+
+                amount += item.count * item.size.price;
+
+                products.push(obj);
+            });
+
+            console.log("obj", products, amount);
+
+            this.updateOrderProduct({ products, amount });
+            console.log(this.orderAll);
+
+            this.$router.push({
+                name: "order-id",
+                params: { id: "order-all" }
+            });
         }
     },
 

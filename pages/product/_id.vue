@@ -294,9 +294,14 @@
                                 <div
                                     class="col-md-7 col-sm-8  d-flex justify-content-around justify-content-sm-between"
                                 >
-                                    <a href="#" class="btn btn--buy">
+                                    <a
+                                        href="#"
+                                        class="btn btn--buy"
+                                        @click.prevent="goToOrder"
+                                    >
                                         Купить
                                     </a>
+
                                     <a
                                         href="#"
                                         class="btn btn--basket"
@@ -1084,6 +1089,7 @@
                     >
                         Корзину
                     </a>
+
                     <a
                         href="#"
                         class="navbar__bottom__button button__buy__now d-flex justify-content-center align-items-center"
@@ -1239,6 +1245,25 @@ export default {
     ]),
 
     methods: {
+        // Vuex settings ----------------------------------------------------------
+        ...mapActions([
+            "fetchFavourites",
+            "fetchFavouritesId",
+            "fetchBasket",
+            "fetchToBasket",
+            "fetchCounBasket",
+            "updateBasketCount"
+        ]),
+        ...mapMutations([
+            "updateFavourites",
+            "updateFavouritesId",
+            "pushFavouritesId",
+            "deleteFavouritesId",
+            "basketFilter",
+            "updateOrderProduct"
+        ]),
+
+        // ----------------------------------------------------------
         onResize(event) {
             this.setBoxHeight();
             this.setImgWidth();
@@ -1324,11 +1349,9 @@ export default {
         // change product count
         changeCount(x) {
             // to fix many clicking in  one moment
-            setTimeout(() => {
-                if (this.productCount == 1 && x == "-1") return "1";
-                this.productCount += x;
-                this.updatePrice();
-            }, 1500);
+            if (this.productCount == 1 && x == "-1") return "1";
+            this.productCount += x;
+            this.updatePrice();
         },
         // update product size
         updateSize() {
@@ -1525,28 +1548,45 @@ export default {
             if (this.isInBasket.length === 0) {
                 await this.addToBasket(token, product, param, size, count);
             }
-
-            // if (!this.isInBasket) {
-            //     this.basketObj.inBasket = true;
-            // }
         },
 
-        // Vuex settings ----------------------------------------------------------
-        ...mapActions([
-            "fetchFavourites",
-            "fetchFavouritesId",
-            "fetchBasket",
-            "fetchToBasket",
-            "fetchCounBasket",
-            "updateBasketCount"
-        ]),
-        ...mapMutations([
-            "updateFavourites",
-            "updateFavouritesId",
-            "pushFavouritesId",
-            "deleteFavouritesId",
-            "basketFilter"
-        ])
+        goToOrder() {
+            const product = this.selectedProduct;
+            console.log(product);
+            const products = [];
+            let amount = 0;
+            const obj = {
+                productId: product._id,
+                paramId: product.params._id,
+                shop: product.shop._id,
+                sizeId: product.size._id,
+                size: product.size.size,
+                amount: product.size.price,
+                count: this.productCount,
+                color: product.params.image,
+                image: product.image,
+                name: {
+                    uz: product.name.uz,
+                    ru: product.name.ru
+                },
+                description: {
+                    uz: product.description.uz,
+                    ru: product.description.ru
+                }
+            };
+            amount += obj.count * obj.amount;
+            products.push(obj);
+
+            console.log("obj", products, amount);
+
+            this.updateOrderProduct({ products, amount });
+            console.log(this.orderAll);
+
+            this.$router.push({
+                name: "order-id",
+                params: { id: product.slug }
+            });
+        }
     },
 
     async mounted(token = this.user.token) {
@@ -1564,7 +1604,7 @@ export default {
             .$get("/product/403685-iphone-11-pro")
             .then(response => {
                 if (response.success) {
-                    console.log(response);
+                    console.log("product", response);
                     this.isGet = true;
                     this.product = response.data[0];
                     this.updateProduct(this.product);
