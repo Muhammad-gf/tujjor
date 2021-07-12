@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div
-                                class="col-10 col-sm-10 col-md-10 col-lg-10  flex-grow-0 h-100 w-100"
+                                class="col-10 col-sm-10 col-md-10 col-lg-10  flex-grow-0 h-100 w-100 pr-0"
                                 ref="img__preview__exp"
                                 style="padding-left:8px"
                             >
@@ -119,7 +119,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 pl-0">
+                    <div class="col-md-6 ">
                         <div class="col-md-12 product__name">
                             <h2>
                                 {{ product.name.uz }}
@@ -1478,10 +1478,16 @@ export default {
 
         // toggle favourite main function for favourite
         toggleFavourite(event) {
-            if (!this.favouriteObj.status) {
-                this.setFavourite(event);
+            if (!!this.$auth.user) {
+                if (!this.favouriteObj.status) {
+                    this.setFavourite(event);
+                } else {
+                    this.removeFavourite(event);
+                }
             } else {
-                this.removeFavourite(event);
+                this.$router.push({
+                    name: "auth-login"
+                });
             }
         },
         // -------------------------------------------------
@@ -1525,28 +1531,34 @@ export default {
         },
 
         async toggleBasket() {
-            const {
-                product,
-                param,
-                size,
-                count
-            } = this.setProductOptionToBasket();
-            const token = this.user.token;
+            if (!!this.$auth.user) {
+                const {
+                    product,
+                    param,
+                    size,
+                    count
+                } = this.setProductOptionToBasket();
+                const token = this.user.token;
 
-            this.resetBasketSetts();
+                this.resetBasketSetts();
 
-            await this.basketFilter({ product, param, size });
+                await this.basketFilter({ product, param, size });
 
-            if (this.isInBasket.length > 0) {
-                this.isCountChanged(count);
-            }
+                if (this.isInBasket.length > 0) {
+                    this.isCountChanged(count);
+                }
 
-            if (this.basketObj.isCountChanges) {
-                await this.updateCountOfProduct(token, count);
-            }
+                if (this.basketObj.isCountChanges) {
+                    await this.updateCountOfProduct(token, count);
+                }
 
-            if (this.isInBasket.length === 0) {
-                await this.addToBasket(token, product, param, size, count);
+                if (this.isInBasket.length === 0) {
+                    await this.addToBasket(token, product, param, size, count);
+                }
+            } else {
+                this.$router.push({
+                    name: "auth-login"
+                });
             }
         },
 
@@ -1572,16 +1584,14 @@ export default {
                 description: {
                     uz: product.description.uz,
                     ru: product.description.ru
-                }
+                },
+                category: product.category._id,
+                brand: product.brand._id
             };
+
             amount += obj.count * obj.amount;
             products.push(obj);
-
-            console.log("obj", products, amount);
-
             this.updateOrderProduct({ products, amount });
-            console.log(this.orderAll);
-
             this.$router.push({
                 name: "order-id",
                 params: { id: product.slug }
@@ -1589,17 +1599,16 @@ export default {
         }
     },
 
-    async mounted(token = this.user.token) {
-        await this.fetchFavourites(token);
-        await this.fetchFavouritesId(token);
-        await this.fetchBasket(token);
+    async mounted() {
+        console.log(this.$auth.user);
+        const token = this.user.token;
+        if (!!this.$auth.user) {
+            await this.fetchFavourites(token);
+            await this.fetchFavouritesId(token);
+            await this.fetchBasket(token);
+        }
         // await this.fetchCounBasket(token);
-        console.log(
-            "favourites",
-            this.allFavourites,
-            this.allFavouritesId,
-            this.allInBasket
-        );
+
         await this.$axios
             .$get("/product/403685-iphone-11-pro")
             .then(response => {
@@ -1618,7 +1627,9 @@ export default {
             });
 
         // is product favourite?
-        await this.isFavourite();
+        if (!!this.$auth.user) {
+            await this.isFavourite();
+        }
 
         // Give element  width to img carousel
         await this.setBoxHeight();
@@ -2465,6 +2476,12 @@ export default {
             ::-webkit-scrollbar {
                 width: 5px;
             }
+        }
+    }
+
+    .container {
+        .product__name {
+            margin-top: 15px;
         }
     }
 }

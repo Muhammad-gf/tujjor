@@ -108,7 +108,11 @@
                         <div class="span__container">
                             <span>Товары ({{ orderAll.products.length }})</span>
                             <span class="primary">
-                                {{ updatePriceFormat(orderAll.amount) }}
+                                {{
+                                    !!updatePriceFormat(orderAll.amount)
+                                        ? updatePriceFormat(orderAll.amount)
+                                        : 0
+                                }}
                                 cум</span
                             >
                         </div>
@@ -116,14 +120,24 @@
                         <div class="span__container">
                             <span>Скидка</span>
                             <span class="secondary"
-                                >{{ orderAll.amount.length }} cум</span
+                                >{{
+                                    orderAll.amount.length
+                                        ? orderAll.amount.length
+                                        : 0
+                                }}
+                                cум</span
                             >
                         </div>
 
                         <div class="span__container">
                             <span>Доставка</span>
                             <span class="tritary"
-                                >{{ orderAll.amount.length }} cум</span
+                                >{{
+                                    orderAll.amount.length
+                                        ? orderAll.amount.length
+                                        : 0
+                                }}
+                                cум</span
                             >
                         </div>
 
@@ -222,6 +236,8 @@ export default {
             }
         ]
     },
+
+    middleware: "auth",
 
     data() {
         return {

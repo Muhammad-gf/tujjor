@@ -436,9 +436,13 @@
                             </div>
                         </div> -->
                     </div>
-                    <div class="header-search">
-                        <input type="search" placeholder="Поиск..." />
-                        <button>
+                    <div class="header-search" @keypress="searchByTxt($event)">
+                        <input
+                            type="search"
+                            placeholder="Поиск..."
+                            v-model="searchTxt"
+                        />
+                        <button @click="searchByTxt($event)">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -495,23 +499,6 @@
                             4
                         </span>
                     </nuxt-link>
-
-                    <span class="header__item header__item__logo">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="26"
-                            height="25"
-                            viewBox="0 0 26 25"
-                            fill="none"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M2.88032 0C2.1436 0 1.43707 0.292658 0.916131 0.813592C0.395197 1.33453 0.102539 2.04107 0.102539 2.77778V5.55556C0.102539 6.29227 0.395197 6.99881 0.916131 7.51974C1.43707 8.04067 2.1436 8.33333 2.88032 8.33333H5.65809C6.39481 8.33333 7.10135 8.04067 7.62228 7.51974C8.14321 6.99881 8.43587 6.29227 8.43587 5.55556V2.77778C8.43587 2.04107 8.14321 1.33453 7.62228 0.813592C7.10135 0.292658 6.39481 0 5.65809 0H2.88032ZM13.9914 1.38889C13.9914 1.02053 13.8451 0.667263 13.5846 0.406796C13.3242 0.146329 12.9709 0 12.6025 0C12.2342 0 11.8809 0.146329 11.6204 0.406796C11.36 0.667263 11.2136 1.02053 11.2136 1.38889V2.77778C11.2136 3.14613 11.36 3.4994 11.6204 3.75987C11.8809 4.02034 12.2342 4.16667 12.6025 4.16667C12.9709 4.16667 13.3242 4.02034 13.5846 3.75987C13.8451 3.4994 13.9914 3.14613 13.9914 2.77778V1.38889ZM19.547 0C18.8103 0 18.1037 0.292658 17.5828 0.813592C17.0619 1.33453 16.7692 2.04107 16.7692 2.77778V5.55556C16.7692 6.29227 17.0619 6.99881 17.5828 7.51974C18.1037 8.04067 18.8103 8.33333 19.547 8.33333H22.3248C23.0615 8.33333 23.768 8.04067 24.2889 7.51974C24.8099 6.99881 25.1025 6.29227 25.1025 5.55556V2.77778C25.1025 2.04107 24.8099 1.33453 24.2889 0.813592C23.768 0.292658 23.0615 0 22.3248 0H19.547ZM13.9914 8.33333C13.9914 7.96498 13.8451 7.61171 13.5846 7.35124C13.3242 7.09077 12.9709 6.94444 12.6025 6.94444C12.2342 6.94444 11.8809 7.09077 11.6204 7.35124C11.36 7.61171 11.2136 7.96498 11.2136 8.33333V11.1111C11.2136 11.8478 11.5063 12.5544 12.0272 13.0753C12.5482 13.5962 13.2547 13.8889 13.9914 13.8889H15.3803C15.7487 13.8889 16.1019 13.7426 16.3624 13.4821C16.6229 13.2216 16.7692 12.8684 16.7692 12.5C16.7692 12.1316 16.6229 11.7784 16.3624 11.5179C16.1019 11.2574 15.7487 11.1111 15.3803 11.1111H13.9914V8.33333ZM1.49143 11.1111C1.12307 11.1111 0.769802 11.2574 0.509335 11.5179C0.248868 11.7784 0.102539 12.1316 0.102539 12.5C0.102539 12.8684 0.248868 13.2216 0.509335 13.4821C0.769802 13.7426 1.12307 13.8889 1.49143 13.8889H7.04698C7.41534 13.8889 7.76861 13.7426 8.02908 13.4821C8.28954 13.2216 8.43587 12.8684 8.43587 12.5C8.43587 12.1316 8.28954 11.7784 8.02908 11.5179C7.76861 11.2574 7.41534 11.1111 7.04698 11.1111H1.49143ZM20.9359 11.1111C20.5675 11.1111 20.2142 11.2574 19.9538 11.5179C19.6933 11.7784 19.547 12.1316 19.547 12.5C19.547 12.8684 19.6933 13.2216 19.9538 13.4821C20.2142 13.7426 20.5675 13.8889 20.9359 13.8889H23.7136C24.082 13.8889 24.4353 13.7426 24.6957 13.4821C24.9562 13.2216 25.1025 12.8684 25.1025 12.5C25.1025 12.1316 24.9562 11.7784 24.6957 11.5179C24.4353 11.2574 24.082 11.1111 23.7136 11.1111H20.9359ZM2.88032 16.6667C2.1436 16.6667 1.43707 16.9593 0.916131 17.4803C0.395197 18.0012 0.102539 18.7077 0.102539 19.4444V22.2222C0.102539 22.9589 0.395197 23.6655 0.916131 24.1864C1.43707 24.7073 2.1436 25 2.88032 25H5.65809C6.39481 25 7.10135 24.7073 7.62228 24.1864C8.14321 23.6655 8.43587 22.9589 8.43587 22.2222V19.4444C8.43587 18.7077 8.14321 18.0012 7.62228 17.4803C7.10135 16.9593 6.39481 16.6667 5.65809 16.6667H2.88032ZM13.9914 16.6667C13.2547 16.6667 12.5482 16.9593 12.0272 17.4803C11.5063 18.0012 11.2136 18.7077 11.2136 19.4444V23.6111C11.2136 23.9795 11.36 24.3327 11.6204 24.5932C11.8809 24.8537 12.2342 25 12.6025 25C12.9709 25 13.3242 24.8537 13.5846 24.5932C13.8451 24.3327 13.9914 23.9795 13.9914 23.6111V19.4444H15.3803C15.7487 19.4444 16.1019 19.2981 16.3624 19.0376C16.6229 18.7772 16.7692 18.4239 16.7692 18.0556C16.7692 17.6872 16.6229 17.3339 16.3624 17.0735C16.1019 16.813 15.7487 16.6667 15.3803 16.6667H13.9914ZM20.9359 16.6667C20.5675 16.6667 20.2142 16.813 19.9538 17.0735C19.6933 17.3339 19.547 17.6872 19.547 18.0556C19.547 18.4239 19.6933 18.7772 19.9538 19.0376C20.2142 19.2981 20.5675 19.4444 20.9359 19.4444H23.7136C24.082 19.4444 24.4353 19.2981 24.6957 19.0376C24.9562 18.7772 25.1025 18.4239 25.1025 18.0556C25.1025 17.6872 24.9562 17.3339 24.6957 17.0735C24.4353 16.813 24.082 16.6667 23.7136 16.6667H20.9359ZM18.1581 22.2222C17.7897 22.2222 17.4365 22.3685 17.176 22.629C16.9155 22.8895 16.7692 23.2428 16.7692 23.6111C16.7692 23.9795 16.9155 24.3327 17.176 24.5932C17.4365 24.8537 17.7897 25 18.1581 25H23.7136C24.082 25 24.4353 24.8537 24.6957 24.5932C24.9562 24.3327 25.1025 23.9795 25.1025 23.6111C25.1025 23.2428 24.9562 22.8895 24.6957 22.629C24.4353 22.3685 24.082 22.2222 23.7136 22.2222H18.1581Z"
-                                fill="#F7931F"
-                            />
-                        </svg>
-                    </span>
 
                     <div class="person__box" @click="doVisiblePerson">
                         <span class="header__item ">
@@ -806,30 +793,52 @@
         </div>
 
         <div class="category-dropdown-box" v-show="visibleCategory">
-            <div class="container d-flex w-100 ">
-                <div class="category-dropdown__main">
-                    <span class="category-dropdown__main--txt"
-                        >Бытовая техника</span
-                    >
-                    <span
+            <div class="container d-flex w-100 row ml-0 mr-0 pl-0">
+                <div
+                    class="category-dropdown__main col-xl-3 col-lg-4 col-md-4 col-sm-5 col-7 pr-0 ml-0 pl-0"
+                >
+                    <button
                         class="category-dropdown__main--txt"
                         v-for="category in categoryArray"
                         :key="category._id"
+                        @mouseenter="doActiveCategory(category)"
+                        @click="doActiveCategory(category)"
                     >
-                        {{ category.name.uz }}</span
-                    >
+                        {{ category.name.uz }}
+                    </button>
                 </div>
-                <div class="category-dropdown__children d-flex flex-column">
-                    <span
-                        class="category-dropdown__children--txt main-children"
-                        v-for="category in categoryArray"
-                        :key="category._id"
+
+                <div
+                    style="background-color: white"
+                    class="col-xl-9 col-lg-8 col-md-8 col-sm-7 col-5 pr-0 pl-0"
+                >
+                    <div
+                        class="category-dropdown__children d-flex flex-wrap align-items-start row mr-0 ml-0"
                     >
-                        <!-- {{ children.name.uz }} - {{ children._id }} -->
-                    </span>
-                    <span class="category-dropdown__children--txt ">
-                        <!-- {{ child.name.uz }} - {{ child._id }} -->
-                    </span>
+                        <span
+                            class="category-dropdown__children--txt main-children col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12"
+                            v-for="children in childCategory"
+                            :key="children._id"
+                        >
+                            <b> {{ children.name.uz }} </b>
+
+                            <span
+                                class="category-dropdown__child"
+                                v-for="child in children.children"
+                                :key="child._id"
+                            >
+                                {{ child.name.uz }}
+                            </span>
+                        </span>
+
+                        <!-- <span
+                            class="category-dropdown__children--txt "
+                            v-for="category in childCategory"
+                            :key="category._id"
+                        >
+                            {{ category.name.uz }} - {{ category._id }}
+                        </span> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -837,6 +846,8 @@
 </template>
 
 <script>
+import { mapActions, mapMutations, mapGetters } from "vuex";
+
 export default {
     data() {
         return {
@@ -846,25 +857,30 @@ export default {
             isVibibleDropdownList: false,
             loggedIn: null,
             isVisiblePerson: false,
-            personName: ""
+            personName: "",
+            childCategory: [],
+            searchTxt: ""
         };
     },
     methods: {
+        ...mapActions(["searchProduct"]),
+        ...mapMutations([
+            "setSearchBody",
+            "pushSearchCategory",
+            "setSearchTxt"
+        ]),
+
         doVisibleCategory() {
             this.visibleCategory = !this.visibleCategory;
             console.log(1, this.visibleCategory);
         },
 
-        categoryRecurcy(item) {
-            let arrayList = [];
-            if (item.children) {
-                for (let i = 0; i < item.children.length; i++) {
-                    arrayList.push(item.children[i].name.uz);
-                }
-                this.categoryRecurcy(item.children);
-            }
-            console.log(arrayList);
-            return arrayList;
+        doActiveCategory(obj) {
+            this.childCategory = obj.children;
+        },
+
+        resetCategory() {
+            this.childCategory = [];
         },
 
         doVisibleLanguage() {
@@ -884,16 +900,30 @@ export default {
             this.loggedIn = this.$auth.loggedIn;
 
             this.personName = this.$auth.user?.name;
+        },
+
+        // search settings
+        searchByTxt(event) {
+            // validate is it enter or click
+            if (event.key === "Enter" || event.type === "click") {
+                const txt = this.searchTxt;
+                this.setSearchTxt(txt);
+                this.$router.push({
+                    name: "search-id",
+                    params: { id: txt }
+                });
+            }
         }
     },
 
-    computed: {},
+    computed: mapGetters(["searchBody"]),
 
     async mounted() {
-        const ip = await this.$axios.$get(
+        const res = await this.$axios.$get(
             "http://cdn.tujjor.org/api/category/all"
         );
-        this.categoryArray = ip.data;
+        console.log("category all", res);
+        this.categoryArray = res.data;
         this.loggedIn = this.$auth.loggedIn;
         this.personName = this.$auth.user?.name;
     }
@@ -977,7 +1007,7 @@ export default {
                 align-items: center;
 
                 position: relative;
-                margin: 0 10px 0 30px;
+                margin: 0 10px;
 
                 button {
                     background: transparent;
@@ -1009,7 +1039,7 @@ export default {
                 }
             }
             .header__item {
-                margin-left: 30px;
+                margin-left: 10px;
                 height: 38px;
                 width: 38px;
                 display: flex;
@@ -1030,7 +1060,6 @@ export default {
 
             .basket {
                 position: relative;
-                margin-left: 30px;
                 cursor: pointer;
 
                 .basket-count {
@@ -1225,6 +1254,25 @@ export default {
     max-width: 1200px;
     height: 500px !important;
 
+    // styling scrollbar
+    ::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #f7931f;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 5px;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(247, 147, 31, 0.7);
+    }
+
     .container {
         padding: 0;
     }
@@ -1233,9 +1281,9 @@ export default {
         flex-shrink: 0;
         width: 248px;
         height: 500px;
-        padding: 5px 0;
         background: #fce3a4;
         overflow-y: scroll;
+        padding: 2px 0;
 
         .category-dropdown__main--txt {
             font-family: Roboto, sans-serif;
@@ -1243,12 +1291,19 @@ export default {
             font-size: 14px;
             line-height: 100%;
             /* identical to box height, or 14px */
-            padding: 10px 15px;
+            padding: 10px 8px;
             color: #666666;
-            display: block;
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            outline: none;
+
+            text-align: left;
         }
 
-        .category-dropdown__main--txt:hover {
+        .category-dropdown__main--txt:hover,
+        .category-dropdown__main--txt:active,
+        .category-dropdown__main--txt:focus {
             color: #fb8500;
             background-color: white;
             font-weight: 500;
@@ -1261,36 +1316,57 @@ export default {
     }
 
     .category-dropdown__children {
-        width: 960px;
-        height: 500px;
-        background-color: white;
-
-        padding: 5px 0;
-        overflow-x: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 500px;
+        flex-shrink: 0;
+        align-self: flex-start;
+        flex-grow: 0;
 
         .category-dropdown__children--txt {
             display: inline-block;
             width: 230px;
-            padding: 10px 15px;
+            padding: 10px 0 10px 10px;
             font-family: Roboto, sans-serif;
             font-weight: 400;
             font-size: 13px;
             line-height: 100%;
             /* identical to box height, or 14px */
             color: #666666;
+
+            .category-dropdown__child {
+                display: block;
+                padding: 2.5px 0;
+                font-family: Roboto, sans-serif;
+                font-weight: 400;
+                font-size: 13px;
+                line-height: 100%;
+                /* identical to box height, or 14px */
+                color: #666666;
+            }
+
+            b {
+                display: block;
+                padding: 5px 0;
+                font-family: Roboto, sans-serif;
+                font-size: 13px;
+                line-height: 100%;
+                /* identical to box height, or 14px */
+            }
+
+            b:hover,
+            .category-dropdown__child {
+                cursor: pointer;
+            }
+            b:hover,
+            .category-dropdown__child:hover {
+                opacity: 0.7;
+            }
         }
 
         .main-children {
             font-weight: 500;
             color: black;
-        }
-
-        .category-dropdown__children--txt,
-        .category-dropdown__children--txt:hover {
-            cursor: pointer;
-        }
-        .category-dropdown__children--txt:hover {
-            opacity: 0.7;
         }
     }
 }
@@ -1469,7 +1545,6 @@ export default {
         .category-dropdown__main {
             width: 180px;
             height: 100vh;
-            padding: 3px 0;
 
             .category-dropdown__main--txt {
                 font-size: 13px;
@@ -1478,12 +1553,11 @@ export default {
         }
 
         .category-dropdown__children {
-            height: 100vh;
             padding: 3px 0;
 
             .category-dropdown__children--txt {
                 width: 200px;
-                padding: 8px 12px;
+                padding: 0 12px;
                 font-size: 13px;
             }
         }

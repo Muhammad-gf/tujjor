@@ -279,6 +279,7 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 
 import ModalSuccess from "../../components/Modals/SuccessModal.vue";
 import WarningMessage from "../../components/Modals/WarningMessage.vue";
+import PopularItemVue from "../../components/PopularItem.vue";
 import BaseLoading from "../../components/UI/BaseLoading.vue";
 
 export default {
@@ -294,6 +295,9 @@ export default {
             }
         ]
     },
+
+    middleware: "auth",
+
     data() {
         return {
             user: {
@@ -453,6 +457,7 @@ export default {
 
         // -------------------------------- order settings -------------------------
         goToOrder(item) {
+            console.log(item);
             const products = [
                 {
                     productId: item.product._id,
@@ -471,7 +476,9 @@ export default {
                     description: {
                         uz: item.product.description.uz,
                         ru: item.product.description.ru
-                    }
+                    },
+                    category: item.product.category,
+                    brand: item.product.brand
                 }
             ];
             const amount = item.count * item.size.price;
@@ -486,11 +493,11 @@ export default {
         },
 
         orderAllProducts() {
+            console.log(this.allInBasket);
             const products = [];
             let amount = 0;
             this.allInBasket.forEach(item => {
                 console.log("item", item);
-
                 const obj = {
                     productId: item.product._id,
                     paramId: item.param._id,
@@ -508,7 +515,9 @@ export default {
                     description: {
                         uz: item.product.description.uz,
                         ru: item.product.description.ru
-                    }
+                    },
+                    category: item.product.category,
+                    brand: item.product.brand
                 };
 
                 amount += item.count * item.size.price;

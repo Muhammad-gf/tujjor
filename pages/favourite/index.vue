@@ -501,6 +501,8 @@ export default {
         ModalSuccess
     },
 
+    middleware: "auth",
+
     data() {
         return {
             isGet: false,
