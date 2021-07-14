@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="container">
-            <!-- HEADER -->
+        <!-- <div class="container"> -->
+        <!-- HEADER -->
 
-            <!-- HEADER END -->
-            <div class=" title-index">
+        <!-- HEADER END -->
+        <!-- <div class=" title-index">
                 <ul>
                     <li class="done">
                         <nuxt-link to="/aboutus">About us </nuxt-link>
@@ -75,7 +75,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> -->
 
         <banner-on-main-page />
         <catalog-magazines-main-page />

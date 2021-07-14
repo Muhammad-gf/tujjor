@@ -9,13 +9,9 @@
                             /
                         </li>
 
-                        <li>
-                            <nuxt-link to="/rubashki">Для мужчин</nuxt-link>
+                        <li v-for="title in linksForTitle" :key="title">
+                            <nuxt-link to="/rubashki">{{ title }}</nuxt-link>
                             /
-                        </li>
-
-                        <li>
-                            <nuxt-link to="/rubashki">Футболки</nuxt-link>
                         </li>
                     </ul>
                 </div>
@@ -49,7 +45,7 @@
                             id="range"
                             name="range"
                             value="range"
-                            v-model="value_2"
+                            v-model="valueForSliderPrice"
                             :min="0"
                             :max="1500000"
                             :interval="10000"
@@ -384,17 +380,41 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapMutations } from "vuex";
+
 export default {
-    data: function() {
+    data() {
         return {
-            value_2: [50000, 500000]
+            valueForSliderPrice: [50000, 500000],
+            linksForTitle: []
         };
+    },
+
+    computed: mapGetters(["searchBody"]),
+
+    methods: {
+        ...mapActions([]),
+        ...mapMutations([])
+    },
+
+    async mounted() {
+        console.log(this.searchBody);
+        if (this.searchBody.search.length > 0) {
+            this.linksForTitle.push(this.searchBody.search);
+        }
     }
 };
 </script>
 
 <style lang="scss">
 .filtr__section {
+    .product-show {
+        .container {
+            .title-box {
+                padding-bottom: 0;
+            }
+        }
+    }
     .catalog__page__filtr__box {
         margin-top: 0;
         display: flex;
@@ -580,8 +600,7 @@ export default {
         position: relative;
         .catalog__page__filtr__box {
             justify-content: flex-start;
-            position: absolute;
-            top: 540px;
+            width: 100%;
         }
     }
 }
