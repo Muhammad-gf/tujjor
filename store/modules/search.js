@@ -65,6 +65,10 @@ export default {
     getters: {
         searchBody(state) {
             return state.searchBody;
+        },
+
+        searchBodyTxt(state) {
+            return state.searchBody.sort;
         }
     }
 };
