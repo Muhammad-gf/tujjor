@@ -436,13 +436,13 @@
                             </div>
                         </div> -->
                     </div>
-                    <div class="header-search" @keypress="searchByTxt($event)">
+                    <div class="header-search" @keypress="searchByTxt">
                         <input
                             type="search"
                             placeholder="Поиск..."
                             v-model="searchTxt"
                         />
-                        <button @click="searchByTxt($event)">
+                        <button>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -904,6 +904,7 @@ export default {
 
         // search settings
         searchByTxt(event) {
+            console.log(event);
             // validate is it enter or click
             if (event.key === "Enter" || event.type === "click") {
                 const txt = this.searchTxt;
