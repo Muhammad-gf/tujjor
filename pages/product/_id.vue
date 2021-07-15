@@ -183,10 +183,16 @@
                                     <label :for="param._id">
                                         <img
                                             @mouseenter="
-                                                selectProductParam($event)
+                                                selectProductParam(
+                                                    $event,
+                                                    param
+                                                )
                                             "
                                             @click.prevent="
-                                                selectProductParam($event)
+                                                selectProductParam(
+                                                    $event,
+                                                    param
+                                                )
                                             "
                                             :src="
                                                 $store.state.uploads +
@@ -1299,16 +1305,21 @@ export default {
         },
 
         // checkbox give sizes on  select param
-        selectProductParam(event) {
-            const obj = this.product.params.reduce((arr, param) =>
-                param._id === event.path[0].id ? (arr = param) : arr
+        selectProductParam(event, param) {
+            console.log(event, param);
+            const obj = this.product.params.reduce((arr, item) =>
+                item._id === param._id ? (arr = item) : arr
             );
+            console.log(obj);
             this.selectedProduct.params = obj;
             // update size on selected product
             this.selectedProduct.size = obj.sizes[0];
             this.updatePrice();
             this.updateSize();
             this.selectImg(event);
+
+            // Check selected
+            event.path[1].control.checked = true;
             // Check first param checked
             this.$refs.productSizes[0].children[0].checked = true;
         },
@@ -1356,7 +1367,6 @@ export default {
         // update product size
         updateSize() {
             this.productSize = this.selectedProduct.size.size;
-            console.log(this.productSize);
         },
 
         // favourite settings -----------------------------------------------
@@ -1603,13 +1613,14 @@ export default {
         console.log(this.$auth.user);
         const token = this.user.token;
         if (!!this.$auth.user) {
-            await this.fetchFavourites(token);
-            await this.fetchFavouritesId(token);
-            await this.fetchBasket(token);
+            await Promise.all([
+                this.fetchFavourites(token),
+                this.fetchFavouritesId(token),
+                this.fetchBasket(token)
+            ]);
         }
         // await this.fetchCounBasket(token);
         const slug = this.$route.params.id;
-        console.log("slig", slug);
         await this.$axios
             .$get("/product/" + slug)
             .then(response => {

@@ -819,6 +819,7 @@
                             class="category-dropdown__children--txt main-children col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12"
                             v-for="children in childCategory"
                             :key="children._id"
+                            @click.stop="searchByCategory(children)"
                         >
                             <b> {{ children.name.uz }} </b>
 
@@ -826,6 +827,9 @@
                                 class="category-dropdown__child"
                                 v-for="child in children.children"
                                 :key="child._id"
+                                @click.stop="
+                                    searchByCategory(child, childCategory)
+                                "
                             >
                                 {{ child.name.uz }}
                             </span>
@@ -867,7 +871,10 @@ export default {
         ...mapMutations([
             "setSearchBody",
             "pushSearchCategory",
-            "setSearchTxt"
+            "setSearchTxt",
+            "resetSearchSettings",
+            "setSearchMainCategory",
+            "setSearchChildCategory"
         ]),
 
         doVisibleCategory() {
@@ -914,6 +921,35 @@ export default {
                     params: { id: txt }
                 });
             }
+        },
+
+        // search by category
+        searchByCategory(obj, mainObj = "") {
+            this.resetSearchSettings();
+            // validate if is it main category
+            if (obj.children.length > 0) {
+                obj.children.forEach(item => {
+                    this.pushSearchCategory(item._id);
+                });
+            } else this.pushSearchCategory(obj._id);
+
+            // add main and child category to show on filter page
+            console.log(mainObj.length);
+            if (obj.children.length > 0 || mainObj.length === 0) {
+                this.setSearchMainCategory(obj);
+            }
+            if (obj.children.length === 0 && mainObj.length > 0) {
+                const [data] = mainObj.filter(
+                    item => item._id === obj.parentId
+                );
+                this.setSearchMainCategory(data);
+                this.setSearchChildCategory(obj);
+            }
+
+            this.$router.push({
+                name: "search-id",
+                params: { id: obj._id }
+            });
         }
     },
 

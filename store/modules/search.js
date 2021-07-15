@@ -1,5 +1,3 @@
-import { BIconCartX } from "bootstrap-vue";
-
 export default {
     actions: {
         async searchProduct(ctx, { page, limit }) {
@@ -51,13 +49,23 @@ export default {
             state.searchBody.end = data;
         },
 
+        setSearchMainCategory(state, data) {
+            state.searchBody.mainCategory = data;
+        },
+
+        setSearchChildCategory(state, data) {
+            state.searchBody.childCategory = data;
+        },
+
         resetSearchSettings(state) {
-            state.searchBody.search = [];
+            state.searchBody.category = [];
             state.searchBody.brand = [];
             state.searchBody.search = "";
             state.searchBody.sort = "";
             state.searchBody.start = null;
             state.searchBody.end = null;
+            state.searchBody.mainCategory = {};
+            state.searchBody.childCategory = {};
         }
     },
 
@@ -69,7 +77,9 @@ export default {
                 search: "",
                 sort: "",
                 start: null,
-                end: null
+                end: null,
+                mainCategory: {},
+                childCategory: {}
             }
         };
     },

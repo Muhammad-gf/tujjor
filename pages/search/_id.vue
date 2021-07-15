@@ -1,146 +1,218 @@
 <template>
-    <div class="filtr__section">
-        <div class="product-show">
-            <div class="container">
-                <div class="title-box">
-                    <ul>
-                        <li>
-                            <nuxt-link to="/">Поиск...</nuxt-link>
-                            /
-                        </li>
+    <section>
+        <base-loading v-if="!isGet"></base-loading>
 
-                        <li v-for="title in linksForTitle" :key="title">
-                            <nuxt-link to="/rubashki">{{ title }}</nuxt-link>
-                            /
-                        </li>
-                    </ul>
+        <div class="filtr__section" v-if="isGet && noData">
+            <div class="product-show">
+                <div class="container">
+                    <div class="title-box">
+                        <ul>
+                            <li>
+                                <nuxt-link to="/">Поиск...</nuxt-link>
+                                /
+                            </li>
+
+                            <li v-if="linksForTitle.length > 0">
+                                <nuxt-link :to="'search/' + linksForTitle">{{
+                                    linksForTitle
+                                }}</nuxt-link>
+                                /
+                            </li>
+
+                            <li
+                                v-if="categoryLinksForTitle.length > 0"
+                                v-for="title in categoryLinksForTitle"
+                                :key="title._id"
+                            >
+                                <nuxt-link :to="title._id">
+                                    {{ title.name.uz }}
+                                </nuxt-link>
+                                /
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
+            <section class="container popular__container search__noData">
+                <div class="popular__heading">
+                    Не найдено не одного продукта по этому запросу!
+                </div>
+            </section>
         </div>
 
-        <section class="container popular__container catalog__page__filtr__box">
-            <div class="popular__dropdown__box">
-                <div class="person__home--description">
-                    <select
-                        name="region"
-                        id="region"
-                        v-model="filter.sort"
-                        @change="filterBySort()"
-                    >
-                        <option value="" disabled selected
-                            >Сортировка по</option
-                        >
-                        <option value="new"> По новинкам</option>
-                        <option value="popular">
-                            По популярности
-                        </option>
-                        <option value="priceDown"> По убыванию</option>
-                        <option value="priceUp"> По возрастанию</option>
-                    </select>
+        <div class="filtr__section" v-if="isGet && !noData">
+            <div class="product-show">
+                <div class="container">
+                    <div class="title-box">
+                        <ul>
+                            <li>
+                                <nuxt-link to="/">Поиск...</nuxt-link>
+                                /
+                            </li>
+
+                            <li v-if="linksForTitle.length > 0">
+                                <nuxt-link :to="'search/' + linksForTitle">{{
+                                    linksForTitle
+                                }}</nuxt-link>
+                                /
+                            </li>
+
+                            <li
+                                v-if="categoryLinksForTitle.length > 0"
+                                v-for="title in categoryLinksForTitle"
+                                :key="title._id"
+                            >
+                                <nuxt-link :to="title._id">
+                                    {{ title.name.uz }}
+                                </nuxt-link>
+                                /
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <section class="catalog__container container">
-            <div class="catalog__filtraiton__box" v-if="!isProductOnlyOne">
-                <form @submit.prevent class="filtraiton__form__box">
-                    <h5 class="filtraiton__header" v-if="!isSliderPricesEqual">
-                        Диапазон цена
-                    </h5>
-
-                    <div class="input__range" v-if="!isSliderPricesEqual">
-                        <vue-slider
-                            v-model="sliderValue"
-                            :min="sliderMinPrice"
-                            :max="sliderMaxPrice"
-                            :interval="1"
-                            :process-style="{
-                                backgroundColor: '#FE9E0D'
-                            }"
-                            :tooltip-style="{
-                                backgroundColor: 'black',
-                                borderColor: 'black'
-                            }"
-                        ></vue-slider>
-                    </div>
-
-                    <h5
-                        class="filtraiton__header"
-                        v-if="brandsOnPage.length > 1"
-                    >
-                        Филтр по брендам
-                    </h5>
-
-                    <div
-                        class="center__input__label"
-                        v-for="brand in brandsOnPage"
-                        :key="brand._id"
-                    >
-                        <input
-                            class="filtraiton__form--input"
-                            type="checkbox"
-                            v-model="filter.brands"
-                            :id="brand._id"
-                            :name="brand"
-                            :value="brand._id"
-                        />
-                        <label class="filtraiton__form--label" :for="brand._id">
-                            {{ brand.name }}</label
-                        ><br />
-                    </div>
-                    <div class="submit__box">
-                        <input
-                            class="filtraiton__form--submit"
-                            type="submit"
-                            value="Фильтр"
-                            @click="filterProducts"
-                        />
-                    </div>
-                </form>
-            </div>
-            <div class="catalog__page__about">
-                <loading-on-blocks v-if="!filter.isGetData"></loading-on-blocks>
-                <section
-                    class="container popular__container"
-                    v-if="filter.isGetData && products.length > 0"
-                >
-                    <div class="popular__item-box">
-                        <div
-                            class="popular__items"
-                            v-for="product in products"
-                            :key="product._id"
-                            @click="goToProduct(product.slug)"
+            <section
+                class="container popular__container catalog__page__filtr__box"
+                v-if="!noData"
+            >
+                <div class="popular__dropdown__box">
+                    <div class="person__home--description">
+                        <select
+                            name="region"
+                            id="region"
+                            v-model="filter.sort"
+                            @change="filterBySort()"
                         >
-                            <img
-                                class="popular__items__img"
-                                :src="$store.state.uploads + product.image"
-                                alt="Popular item photo"
-                                type="photo/png"
-                            />
-                            <div class="popular__items__desription">
-                                <span class="popular__items__desription--name">
-                                    {{ product.name.uz }}
-                                </span>
-                                <h4
-                                    class="popular__items__desription--categorie"
-                                >
-                                    {{ product.name.uz }}
-                                </h4>
-                                <span
-                                    v-if="!!product.oldPrice"
-                                    class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >
-                                    {{ updatePriceFormat(product.oldPrice) }}
-                                    сум</span
-                                >
-                                <span class="popular__items__desription--price">
-                                    {{ updatePriceFormat(product.price) }}
-                                    сум</span
-                                >
-                            </div>
+                            <option value="" disabled selected
+                                >Сортировка по</option
+                            >
+                            <option value="new"> По новинкам</option>
+                            <option value="popular">
+                                По популярности
+                            </option>
+                            <option value="priceDown"> По убыванию</option>
+                            <option value="priceUp"> По возрастанию</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="catalog__container container">
+                <div class="catalog__filtraiton__box" v-if="!isProductOnlyOne">
+                    <form @submit.prevent class="filtraiton__form__box">
+                        <h5
+                            class="filtraiton__header"
+                            v-if="!isSliderPricesEqual"
+                        >
+                            Диапазон цена
+                        </h5>
+
+                        <div class="input__range" v-if="!isSliderPricesEqual">
+                            <vue-slider
+                                v-model="sliderValue"
+                                :min="sliderMinPrice"
+                                :max="sliderMaxPrice"
+                                :interval="1"
+                                :process-style="{
+                                    backgroundColor: '#FE9E0D'
+                                }"
+                                :tooltip-style="{
+                                    backgroundColor: 'black',
+                                    borderColor: 'black'
+                                }"
+                            ></vue-slider>
                         </div>
 
-                        <!-- <div class="popular__items">
+                        <h5
+                            class="filtraiton__header"
+                            v-if="brandsOnPage.length > 1"
+                        >
+                            Филтр по брендам
+                        </h5>
+
+                        <div
+                            class="center__input__label"
+                            v-for="brand in brandsOnPage"
+                            :key="brand._id"
+                        >
+                            <input
+                                class="filtraiton__form--input"
+                                type="checkbox"
+                                v-model="filter.brands"
+                                :id="brand._id"
+                                :name="brand"
+                                :value="brand._id"
+                            />
+                            <label
+                                class="filtraiton__form--label"
+                                :for="brand._id"
+                            >
+                                {{ brand.name }}</label
+                            ><br />
+                        </div>
+                        <div class="submit__box">
+                            <input
+                                class="filtraiton__form--submit"
+                                type="submit"
+                                value="Фильтр"
+                                @click="filterProducts"
+                            />
+                        </div>
+                    </form>
+                </div>
+                <div class="catalog__page__about">
+                    <loading-on-blocks
+                        v-if="!filter.isGetData"
+                    ></loading-on-blocks>
+                    <section
+                        class="container popular__container"
+                        v-if="filter.isGetData && products.length > 0"
+                    >
+                        <div class="popular__item-box">
+                            <div
+                                class="popular__items"
+                                v-for="product in products"
+                                :key="product._id"
+                                @click="goToProduct(product.slug)"
+                            >
+                                <img
+                                    class="popular__items__img"
+                                    :src="$store.state.uploads + product.image"
+                                    alt="Popular item photo"
+                                    type="photo/png"
+                                />
+                                <div class="popular__items__desription">
+                                    <span
+                                        class="popular__items__desription--name"
+                                    >
+                                        {{ product.name.uz }}
+                                    </span>
+                                    <h4
+                                        class="popular__items__desription--categorie"
+                                    >
+                                        {{ product.name.uz }}
+                                    </h4>
+                                    <span
+                                        v-if="!!product.oldPrice"
+                                        class="popular__items__desription--price popular__items__desription--old--price hidden"
+                                    >
+                                        {{
+                                            updatePriceFormat(product.oldPrice)
+                                        }}
+                                        сум</span
+                                    >
+                                    <span
+                                        class="popular__items__desription--price"
+                                    >
+                                        {{ updatePriceFormat(product.price) }}
+                                        сум</span
+                                    >
+                                </div>
+                            </div>
+
+                            <!-- <div class="popular__items">
                             <img
                                 class="popular__items__img"
                                 src="../../assets/img/catalog_page/2.png"
@@ -297,17 +369,17 @@
                                 >
                             </div>
                         </div> -->
-                    </div>
+                        </div>
 
-                    <a
-                        href="#"
-                        class="popular__btn"
-                        v-if="products.length === 12"
-                        >Показать ещё</a
-                    >
-                </section>
+                        <a
+                            href="#"
+                            class="popular__btn"
+                            v-if="products.length === 12"
+                            >Показать ещё</a
+                        >
+                    </section>
 
-                <!-- <div class="catalog__page__btn--box">
+                    <!-- <div class="catalog__page__btn--box">
                                         <a
                                                 href="#"
                                                 class="catalog__page--btn catalog__page--btn--active"
@@ -335,16 +407,18 @@
                                                 >></a
                                         >
                                 </div> -->
-            </div>
-        </section>
-    </div>
+                </div>
+            </section>
+        </div>
+    </section>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import LoadingOnBlocks from "../../components/UI/LoadingOnBlocks.vue";
+import BaseLoading from "../../components/UI/BaseLoading.vue";
 export default {
-    components: { LoadingOnBlocks },
+    components: { LoadingOnBlocks, BaseLoading },
 
     data() {
         return {
@@ -354,9 +428,12 @@ export default {
             isProductOnlyOne: false,
             sliderValue: [5000, 100000],
             linksForTitle: [],
+            categoryLinksForTitle: [],
             brandsOnPage: [],
 
             isGet: false,
+            noData: false,
+
             filter: {
                 sort: "",
                 brands: [],
@@ -399,7 +476,17 @@ export default {
         addLinksOnTheTopPage() {
             if (this.searchBody.search.length > 0) {
                 this.linksForTitle.push(this.searchBody.search);
-            } else this.linksForTitle = this.searchBody.category;
+            } else {
+                if (!!this.searchBody.mainCategory.name)
+                    this.categoryLinksForTitle.push(
+                        this.searchBody.mainCategory
+                    );
+
+                if (!!this.searchBody.childCategory.name)
+                    this.categoryLinksForTitle.push(
+                        this.searchBody.childCategory
+                    );
+            }
         },
 
         // filter brands for page to show
@@ -504,12 +591,24 @@ export default {
             // filter max end min value in search product and show
             this.filterMaxAndMin(search);
         }
+
+        if (search.data.length === 0) this.noData = true;
     }
 };
 </script>
 
 <style lang="scss">
 .filtr__section {
+    .search__noData {
+        height: 50vh;
+        display: flex;
+
+        .popular__heading {
+            margin-top: 10%;
+            text-align: center;
+        }
+    }
+
     .product-show {
         .container {
             .title-box {
