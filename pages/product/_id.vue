@@ -1608,9 +1608,10 @@ export default {
             await this.fetchBasket(token);
         }
         // await this.fetchCounBasket(token);
-
+        const slug = this.$route.params.id;
+        console.log("slig", slug);
         await this.$axios
-            .$get("/product/403685-iphone-11-pro")
+            .$get("/product/" + slug)
             .then(response => {
                 if (response.success) {
                     console.log("product", response);

@@ -20,35 +20,40 @@
 
         <section class="container popular__container catalog__page__filtr__box">
             <div class="popular__dropdown__box">
-                <button class="popular__dropdown--btn">
-                    <span>Сортировка по</span>
-                    <img
-                        src="../../assets/img/magazines/vector.png"
-                        alt="Vector"
-                    />
-                </button>
-                <div class="popular__dropdown__content">
-                    <a href="#" class="popular__dropdown--link">По дате</a>
-                    <a href="#" class="popular__dropdown--link">По рейтинг</a>
+                <div class="person__home--description">
+                    <select
+                        name="region"
+                        id="region"
+                        v-model="filter.sort"
+                        @change="filterBySort()"
+                    >
+                        <option value="" disabled selected
+                            >Сортировка по</option
+                        >
+                        <option value="new"> По новинкам</option>
+                        <option value="popular">
+                            По популярности
+                        </option>
+                        <option value="priceDown"> По убыванию</option>
+                        <option value="priceUp"> По возрастанию</option>
+                    </select>
                 </div>
             </div>
         </section>
 
         <section class="catalog__container container">
-            <div class="catalog__filtraiton__box">
-                <form v-on:submit.prevent class="filtraiton__form__box">
-                    <h5 class="filtraiton__header">
+            <div class="catalog__filtraiton__box" v-if="!isProductOnlyOne">
+                <form @submit.prevent class="filtraiton__form__box">
+                    <h5 class="filtraiton__header" v-if="!isSliderPricesEqual">
                         Диапазон цена
                     </h5>
-                    <div class="input__range">
+
+                    <div class="input__range" v-if="!isSliderPricesEqual">
                         <vue-slider
-                            id="range"
-                            name="range"
-                            value="range"
-                            v-model="valueForSliderPrice"
-                            :min="0"
-                            :max="1500000"
-                            :interval="10000"
+                            v-model="sliderValue"
+                            :min="sliderMinPrice"
+                            :max="sliderMaxPrice"
+                            :interval="1"
                             :process-style="{
                                 backgroundColor: '#FE9E0D'
                             }"
@@ -58,92 +63,29 @@
                             }"
                         ></vue-slider>
                     </div>
-                    <h5 class="filtraiton__header">
-                        Филтр по брендам.
+
+                    <h5
+                        class="filtraiton__header"
+                        v-if="brandsOnPage.length > 1"
+                    >
+                        Филтр по брендам
                     </h5>
 
-                    <div class="center__input__label">
+                    <div
+                        class="center__input__label"
+                        v-for="brand in brandsOnPage"
+                        :key="brand._id"
+                    >
                         <input
                             class="filtraiton__form--input"
                             type="checkbox"
-                            id="zara"
-                            name="zara"
-                            value="Zara"
+                            v-model="filter.brands"
+                            :id="brand._id"
+                            :name="brand"
+                            :value="brand._id"
                         />
-                        <label class="filtraiton__form--label" for="zara">
-                            Zara</label
-                        ><br />
-                    </div>
-                    <div class="center__input__label">
-                        <input
-                            class="filtraiton__form--input"
-                            type="checkbox"
-                            id="legendr"
-                            name="legendr"
-                            value="legendr"
-                        />
-                        <label class="filtraiton__form--label" for="legendr">
-                            Legendr</label
-                        ><br />
-                    </div>
-                    <div class="center__input__label">
-                        <input
-                            class="filtraiton__form--input"
-                            type="checkbox"
-                            id="abb"
-                            name="abb"
-                            value="abb"
-                        />
-                        <label class="filtraiton__form--label" for="abb">
-                            ABB</label
-                        ><br />
-                    </div>
-                    <div class="center__input__label">
-                        <input
-                            class="filtraiton__form--input"
-                            type="checkbox"
-                            id="navigator"
-                            name="navigator"
-                            value="navigator"
-                        />
-                        <label class="filtraiton__form--label" for="navigator">
-                            Navigator</label
-                        ><br />
-                    </div>
-                    <div class="center__input__label">
-                        <input
-                            class="filtraiton__form--input"
-                            type="checkbox"
-                            id="telfor"
-                            name="telfor"
-                            value="telfor"
-                        />
-                        <label class="filtraiton__form--label" for="telfor">
-                            TEKFOR</label
-                        ><br />
-                    </div>
-                    <div class="center__input__label">
-                        <input
-                            class="filtraiton__form--input"
-                            type="checkbox"
-                            id="wago"
-                            name="wago"
-                            value="wago"
-                        />
-                        <label class="filtraiton__form--label" for="wago">
-                            Wago</label
-                        ><br />
-                    </div>
-                    <div class="center__input__label">
-                        <input
-                            class="filtraiton__form--input"
-                            type="checkbox"
-                            id="universal"
-                            name="universal"
-                            value="universal"
-                        />
-                        <label class="filtraiton__form--label" for="universal">
-                            UniVersal</label
+                        <label class="filtraiton__form--label" :for="brand._id">
+                            {{ brand.name }}</label
                         ><br />
                     </div>
                     <div class="submit__box">
@@ -151,40 +93,54 @@
                             class="filtraiton__form--submit"
                             type="submit"
                             value="Фильтр"
+                            @click="filterProducts"
                         />
                     </div>
                 </form>
             </div>
             <div class="catalog__page__about">
-                <section class="container popular__container">
+                <loading-on-blocks v-if="!filter.isGetData"></loading-on-blocks>
+                <section
+                    class="container popular__container"
+                    v-if="filter.isGetData && products.length > 0"
+                >
                     <div class="popular__item-box">
-                        <div class="popular__items">
+                        <div
+                            class="popular__items"
+                            v-for="product in products"
+                            :key="product._id"
+                            @click="goToProduct(product.slug)"
+                        >
                             <img
                                 class="popular__items__img"
-                                src="../../assets/img/catalog_page/1.png"
+                                :src="$store.state.uploads + product.image"
                                 alt="Popular item photo"
                                 type="photo/png"
                             />
                             <div class="popular__items__desription">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
+                                <span class="popular__items__desription--name">
+                                    {{ product.name.uz }}
+                                </span>
                                 <h4
                                     class="popular__items__desription--categorie"
                                 >
-                                    Детская одежда
+                                    {{ product.name.uz }}
                                 </h4>
                                 <span
+                                    v-if="!!product.oldPrice"
                                     class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                    >580 000 сум</span
                                 >
-                                <span class="popular__items__desription--price"
-                                    >480 000 сум</span
+                                    {{ updatePriceFormat(product.oldPrice) }}
+                                    сум</span
+                                >
+                                <span class="popular__items__desription--price">
+                                    {{ updatePriceFormat(product.price) }}
+                                    сум</span
                                 >
                             </div>
                         </div>
 
-                        <div class="popular__items">
+                        <!-- <div class="popular__items">
                             <img
                                 class="popular__items__img"
                                 src="../../assets/img/catalog_page/2.png"
@@ -340,10 +296,15 @@
                                     >474 000 сум</span
                                 >
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
-                    <a href="#" class="popular__btn">Показать ещё</a>
+                    <a
+                        href="#"
+                        class="popular__btn"
+                        v-if="products.length === 12"
+                        >Показать ещё</a
+                    >
                 </section>
 
                 <!-- <div class="catalog__page__btn--box">
@@ -381,26 +342,167 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
-
+import LoadingOnBlocks from "../../components/UI/LoadingOnBlocks.vue";
 export default {
+    components: { LoadingOnBlocks },
+
     data() {
         return {
-            valueForSliderPrice: [50000, 500000],
-            linksForTitle: []
+            sliderMaxPrice: 0,
+            sliderMinPrice: 0,
+            isSliderPricesEqual: false,
+            isProductOnlyOne: false,
+            sliderValue: [5000, 100000],
+            linksForTitle: [],
+            brandsOnPage: [],
+
+            isGet: false,
+            filter: {
+                sort: "",
+                brands: [],
+                start: null,
+                end: null,
+                isGetData: false
+            },
+
+            products: []
         };
     },
 
     computed: mapGetters(["searchBody"]),
 
     methods: {
-        ...mapActions([]),
-        ...mapMutations([])
+        ...mapActions(["searchProduct"]),
+        ...mapMutations([
+            "setSearchBrand",
+            "setSearchPriceStart",
+            "setSearchPriceEnd",
+            "setSearchSort",
+            "resetSearchSettings"
+        ]),
+
+        async fetchAllBrands() {
+            return await this.$axios
+                .$get("brand/client/all")
+                .then(response => {
+                    if (response.success) {
+                        console.log(response);
+                        return response.data;
+                    } else {
+                        throw new Error("Could not fetch data");
+                    }
+                })
+                .catch(err => console.error(err));
+        },
+
+        // add to router link on the top of page
+        addLinksOnTheTopPage() {
+            if (this.searchBody.search.length > 0) {
+                this.linksForTitle.push(this.searchBody.search);
+            } else this.linksForTitle = this.searchBody.category;
+        },
+
+        // filter brands for page to show
+        filterBrandForShowOnPage(search, brands) {
+            if (search.data.length > 0) {
+                brands.forEach(item => {
+                    if (search.brands.includes(item._id)) {
+                        this.brandsOnPage.push(item);
+                    }
+                });
+            }
+        },
+
+        // filter max end min value in search product and show
+        filterMaxAndMin(search) {
+            if (search.data.length > 0) {
+                const maxValue = search.data.reduce(function(acc, item) {
+                    acc.price < item.price ? (acc = item) : acc;
+                    return acc;
+                });
+                const minValue = search.data.reduce(function(acc, item) {
+                    acc.price > item.price ? (acc = item) : acc;
+                    return acc;
+                });
+                [this.sliderMinPrice, this.sliderMaxPrice] = [
+                    minValue.price,
+                    maxValue.price
+                ];
+                if (minValue.price === maxValue.price) {
+                    this.isSliderPricesEqual = true;
+                }
+                this.sliderValue = [minValue.price, maxValue.price];
+                console.log(this.sliderValue);
+            }
+        },
+        // filter products on click on filter
+        async filterProducts() {
+            const [start, end, brand] = [
+                this.sliderValue[0],
+                this.sliderValue[1],
+                this.filter.brands
+            ];
+            const page = 1;
+            const limit = 12;
+
+            this.setSearchPriceStart(start);
+            this.setSearchPriceEnd(end);
+            this.setSearchBrand(brand);
+            this.filter.isGetData = false;
+            const search = await this.searchProduct({ page, limit });
+            this.products = search.data;
+            this.filter.isGetData = true;
+        },
+
+        // sort products
+        async filterBySort() {
+            const page = 1;
+            const limit = 12;
+            console.log(this.filter);
+            this.setSearchSort(this.filter.sort);
+            this.filter.isGetData = false;
+            const search = await this.searchProduct({ page, limit });
+            this.products = search.data;
+            this.filter.isGetData = true;
+        },
+
+        //  go to product on click card of product
+        goToProduct(slug) {
+            console.log(slug);
+            this.$router.push({
+                name: "product-id",
+                params: { id: slug }
+            });
+        },
+
+        // update price on currency format
+        updatePriceFormat(price) {
+            const form = new Intl.NumberFormat("en-US").format(price);
+            return form.replaceAll(",", " ");
+        }
     },
 
     async mounted() {
-        console.log(this.searchBody);
-        if (this.searchBody.search.length > 0) {
-            this.linksForTitle.push(this.searchBody.search);
+        const page = 1;
+        const limit = 12;
+        let [search, brands] = await Promise.all([
+            this.searchProduct({ page, limit }),
+            this.fetchAllBrands()
+        ]);
+        this.products = search.data;
+        this.filter.isGetData = this.isGet = true;
+
+        // add to router link on the top of page
+        this.addLinksOnTheTopPage();
+
+        if (search.data.length === 1) {
+            this.isProductOnlyOne = true;
+        } else {
+            // filter brands for page to show
+            this.filterBrandForShowOnPage(search, brands);
+
+            // filter max end min value in search product and show
+            this.filterMaxAndMin(search);
         }
     }
 };
@@ -419,6 +521,65 @@ export default {
         margin-top: 0;
         display: flex;
         justify-content: flex-end;
+
+        .popular__dropdown__box {
+            .person__home--description {
+                span {
+                    font-family: Roboto, sans-serif;
+                    font-weight: 500;
+                    font-size: 15px;
+                    line-height: 28px;
+                    /* identical to box height, or 168% */
+                    color: #000000;
+                }
+
+                input,
+                select {
+                    width: 180px;
+                    // border: ;
+                    border: 1.4px solid #f7931e;
+                    outline: none;
+                    background-color: transparent;
+                    padding: 3px 10px;
+                    border-radius: 5px;
+
+                    /* asosiy */
+
+                    text-align: left;
+                    font-family: Roboto, sans-serif;
+                    color: #f7931e;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 28px;
+
+                    // To center vector png
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                /* Firefox */
+                input[type="number"] {
+                    -moz-appearance: textfield;
+                }
+
+                select {
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+
+                    background-image: url("../../assets/img/checkout__order/vector.png");
+                    background-repeat: no-repeat;
+                    background-position: 97% 50%;
+                }
+            }
+        }
     }
 }
 .catalog__container {
@@ -447,7 +608,7 @@ export default {
 
         .filtraiton__form__box {
             .input__range {
-                padding: 18px 0 9px;
+                padding: 18px 4px 9px;
             }
 
             padding: 5px 0;
@@ -499,6 +660,7 @@ export default {
 
     .catalog__page__about {
         margin-bottom: 40px;
+        flex-grow: 1;
 
         .popular__container {
             margin: 0;
@@ -589,7 +751,6 @@ export default {
         }
 
         .catalog__page__about {
-            margin-top: 45px;
             .catalog__page__btn--box {
                 justify-content: center;
             }
