@@ -1,5 +1,7 @@
 <template>
     <section>
+        <base-loading v-if="!isGet"></base-loading>
+
         <div
             class="login-page d-flex flex-column justify-content-center align-items-center"
             v-if="!showSectionTwo"
@@ -201,7 +203,10 @@
             </b-modal>
         </div>
 
-        <section class="section__second" v-if="showSectionTwo">
+        <section
+            class="section__second"
+            v-if="showSectionTwo && !shopCreate.shopStatus"
+        >
             <div
                 class="login-page d-flex flex-column justify-content-center align-items-center"
             >
@@ -524,7 +529,10 @@
             </div>
         </section>
 
-        <section v-else class="shop__log__box">
+        <section
+            v-if="showSectionTwo && shopCreate.shopStatus"
+            class="shop__log__box"
+        >
             <div>
                 <p>Ваш магазин успешно создан!</p>
             </div>
@@ -533,6 +541,8 @@
 </template>
 
 <script>
+import BaseLoading from "../../components/UI/BaseLoading.vue";
+
 export default {
     head: {
         title: "Авторизация — Tujjor. Низкие цены и широкий ассортимент!",
@@ -547,8 +557,12 @@ export default {
 
     middleware: "auth",
 
+    components: { BaseLoading },
+
     data() {
         return {
+            isGet: false,
+
             loadSpinner: false,
             shopAccess: {
                 name: "",
@@ -660,7 +674,7 @@ export default {
         async isHasShop() {
             try {
                 await this.$axios
-                    .$get("shop/" + this.$auth.user._id)
+                    .$get("shop/user/me")
                     .then(res => {
                         if (res.success) {
                             this.shopCreate.id = res.data._id;
@@ -772,6 +786,8 @@ export default {
         } catch (err) {
             console.log(err);
         }
+
+        this.isGet = true;
     }
 };
 </script>
@@ -984,7 +1000,7 @@ export default {
 }
 
 .shop__log__box {
-    height: 100vh;
+    height: 50vh;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -241,4 +241,14 @@ export default {
         }
     }
 }
+
+@media only screen and (max-width: 500px) {
+    .login-page {
+        padding: 10px;
+        .login-page-box {
+            width: 98%;
+            padding: 20px 10px;
+        }
+    }
+}
 </style>

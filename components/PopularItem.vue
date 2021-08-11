@@ -285,6 +285,7 @@ export default {};
 
 @media only screen and (max-width: 1200px) and (min-width: 765px) {
     .popular__container {
+        margin-top: 25px !important;
         padding: 20px;
         .popular__item-box {
             .popular__items {
@@ -304,6 +305,7 @@ export default {};
 @media only screen and (max-width: 765px) {
     .popular__container {
         padding: 16px;
+        margin-top: 25px !important;
         .popular__heading {
             font-size: 22px;
             margin-bottom: 28px;

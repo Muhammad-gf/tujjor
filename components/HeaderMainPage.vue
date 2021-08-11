@@ -1,6 +1,6 @@
 <template>
     <header class="header">
-        <div class="header-top" id="header-top">
+        <!-- <div class="header-top" id="header-top">
             <div class="container d-flex justify-content-between w-100">
                 <div class="header-top-left">
                     <span class="logo-site">
@@ -285,10 +285,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div> -->
+        <!-- </div> -->
         <div class="header-bottom ">
-            <div class="container d-flex justify-content-between w-100 ">
+            <div
+                class="container d-flex justify-content-between w-100 container-bottom"
+            >
                 <div class="header-bottom-right">
                     <div class="logo-tujjor">
                         <nuxt-link to="/">
@@ -467,38 +469,42 @@
                             </svg>
                         </button>
                     </div>
-                    <nuxt-link to="/favourite" class="header__item">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="23"
-                            viewBox="0 0 24 23"
-                            fill="none"
-                        >
-                            <path
-                                d="M23.2243 8.09896L16.0296 7.04962L12.8133 0.506195C12.7255 0.32704 12.581 0.182009 12.4024 0.0938536C11.9547 -0.127957 11.4106 0.0568852 11.1868 0.506195L7.97055 7.04962L0.77582 8.09896C0.577461 8.12739 0.396105 8.22124 0.257255 8.36342C0.0893918 8.53657 -0.0031083 8.76951 7.97568e-05 9.01106C0.00326781 9.25261 0.101883 9.48301 0.274257 9.65163L5.47974 14.7448L4.24992 21.9365C4.22108 22.1038 4.23953 22.2759 4.30317 22.4332C4.36681 22.5905 4.47311 22.7268 4.60999 22.8266C4.74688 22.9263 4.90889 22.9856 5.07764 22.9977C5.24639 23.0098 5.41514 22.9742 5.56475 22.8949L12.0001 19.4995L18.4354 22.8949C18.6111 22.9887 18.8151 23.02 19.0106 22.9859C19.5037 22.9006 19.8352 22.4314 19.7502 21.9365L18.5204 14.7448L23.7259 9.65163C23.8675 9.51229 23.9611 9.33029 23.9894 9.13123C24.0659 8.63358 23.7202 8.17289 23.2243 8.09896Z"
-                                fill="#FB8500"
-                            />
-                        </svg>
-                    </nuxt-link>
+                    <div>
+                        <nuxt-link to="/favourite" class="header__item basket">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="23"
+                                viewBox="0 0 24 23"
+                                fill="none"
+                            >
+                                <path
+                                    d="M23.2243 8.09896L16.0296 7.04962L12.8133 0.506195C12.7255 0.32704 12.581 0.182009 12.4024 0.0938536C11.9547 -0.127957 11.4106 0.0568852 11.1868 0.506195L7.97055 7.04962L0.77582 8.09896C0.577461 8.12739 0.396105 8.22124 0.257255 8.36342C0.0893918 8.53657 -0.0031083 8.76951 7.97568e-05 9.01106C0.00326781 9.25261 0.101883 9.48301 0.274257 9.65163L5.47974 14.7448L4.24992 21.9365C4.22108 22.1038 4.23953 22.2759 4.30317 22.4332C4.36681 22.5905 4.47311 22.7268 4.60999 22.8266C4.74688 22.9263 4.90889 22.9856 5.07764 22.9977C5.24639 23.0098 5.41514 22.9742 5.56475 22.8949L12.0001 19.4995L18.4354 22.8949C18.6111 22.9887 18.8151 23.02 19.0106 22.9859C19.5037 22.9006 19.8352 22.4314 19.7502 21.9365L18.5204 14.7448L23.7259 9.65163C23.8675 9.51229 23.9611 9.33029 23.9894 9.13123C24.0659 8.63358 23.7202 8.17289 23.2243 8.09896Z"
+                                    fill="#FB8500"
+                                />
+                            </svg>
+                        </nuxt-link>
+                    </div>
 
-                    <nuxt-link to="/basket" class=" header__item basket">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="21"
-                            height="24"
-                            viewBox="0 0 21 24"
-                            fill="none"
-                        >
-                            <path
-                                d="M10.4426 1.66086C9.67089 1.66086 8.93077 1.96765 8.38508 2.51373C7.83938 3.05982 7.53281 3.80047 7.53281 4.57275V7.48463H6.07791V4.57275C6.07791 3.41433 6.53776 2.30335 7.3563 1.48423C8.17485 0.665098 9.28503 0.204918 10.4426 0.204918C11.6002 0.204918 12.7104 0.665098 13.5289 1.48423C14.3475 2.30335 14.8073 3.41433 14.8073 4.57275V7.48463H13.3524V4.57275C13.3524 3.80047 13.0459 3.05982 12.5002 2.51373C11.9545 1.96765 11.2144 1.66086 10.4426 1.66086ZM6.07791 7.48463H3.69187C3.16937 7.48475 2.66426 7.67245 2.26833 8.01363C1.87239 8.35481 1.61192 8.82681 1.53424 9.34387L0.0400561 19.3214C-0.0373626 19.8392 -0.00228232 20.3675 0.142904 20.8704C0.28809 21.3733 0.539966 21.8389 0.881348 22.2356C1.22273 22.6322 1.64559 22.9505 2.12107 23.1687C2.59656 23.3869 3.11348 23.4999 3.63658 23.5H17.2472C17.7704 23.5001 18.2875 23.3873 18.7632 23.1691C19.2388 22.951 19.6619 22.6328 20.0034 22.2361C20.345 21.8395 20.597 21.3737 20.7422 20.8707C20.8875 20.3677 20.9226 19.8393 20.8452 19.3214L19.3495 9.34387C19.2719 8.82706 19.0116 8.35525 18.616 8.0141C18.2204 7.67296 17.7156 7.4851 17.1934 7.48463H14.8073V9.66854C14.8073 9.86162 14.7307 10.0468 14.5943 10.1833C14.4578 10.3198 14.2728 10.3965 14.0799 10.3965C13.887 10.3965 13.7019 10.3198 13.5655 10.1833C13.4291 10.0468 13.3524 9.86162 13.3524 9.66854V7.48463H7.53281V9.66854C7.53281 9.86162 7.45617 10.0468 7.31975 10.1833C7.18332 10.3198 6.99829 10.3965 6.80536 10.3965C6.61243 10.3965 6.4274 10.3198 6.29098 10.1833C6.15455 10.0468 6.07791 9.86162 6.07791 9.66854V7.48463Z"
-                                fill="#FB8500"
-                            />
-                        </svg>
-                        <span class="basket-count">
-                            4
-                        </span>
-                    </nuxt-link>
+                    <div>
+                        <nuxt-link to="/basket" class=" header__item basket">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="21"
+                                height="24"
+                                viewBox="0 0 21 24"
+                                fill="none"
+                            >
+                                <path
+                                    d="M10.4426 1.66086C9.67089 1.66086 8.93077 1.96765 8.38508 2.51373C7.83938 3.05982 7.53281 3.80047 7.53281 4.57275V7.48463H6.07791V4.57275C6.07791 3.41433 6.53776 2.30335 7.3563 1.48423C8.17485 0.665098 9.28503 0.204918 10.4426 0.204918C11.6002 0.204918 12.7104 0.665098 13.5289 1.48423C14.3475 2.30335 14.8073 3.41433 14.8073 4.57275V7.48463H13.3524V4.57275C13.3524 3.80047 13.0459 3.05982 12.5002 2.51373C11.9545 1.96765 11.2144 1.66086 10.4426 1.66086ZM6.07791 7.48463H3.69187C3.16937 7.48475 2.66426 7.67245 2.26833 8.01363C1.87239 8.35481 1.61192 8.82681 1.53424 9.34387L0.0400561 19.3214C-0.0373626 19.8392 -0.00228232 20.3675 0.142904 20.8704C0.28809 21.3733 0.539966 21.8389 0.881348 22.2356C1.22273 22.6322 1.64559 22.9505 2.12107 23.1687C2.59656 23.3869 3.11348 23.4999 3.63658 23.5H17.2472C17.7704 23.5001 18.2875 23.3873 18.7632 23.1691C19.2388 22.951 19.6619 22.6328 20.0034 22.2361C20.345 21.8395 20.597 21.3737 20.7422 20.8707C20.8875 20.3677 20.9226 19.8393 20.8452 19.3214L19.3495 9.34387C19.2719 8.82706 19.0116 8.35525 18.616 8.0141C18.2204 7.67296 17.7156 7.4851 17.1934 7.48463H14.8073V9.66854C14.8073 9.86162 14.7307 10.0468 14.5943 10.1833C14.4578 10.3198 14.2728 10.3965 14.0799 10.3965C13.887 10.3965 13.7019 10.3198 13.5655 10.1833C13.4291 10.0468 13.3524 9.86162 13.3524 9.66854V7.48463H7.53281V9.66854C7.53281 9.86162 7.45617 10.0468 7.31975 10.1833C7.18332 10.3198 6.99829 10.3965 6.80536 10.3965C6.61243 10.3965 6.4274 10.3198 6.29098 10.1833C6.15455 10.0468 6.07791 9.86162 6.07791 9.66854V7.48463Z"
+                                    fill="#FB8500"
+                                />
+                            </svg>
+                            <span class="basket-count">
+                                4
+                            </span>
+                        </nuxt-link>
+                    </div>
 
                     <div class="person__box" @click="doVisiblePerson">
                         <span class="header__item ">
@@ -1027,9 +1033,9 @@ export default {
         padding: 10px 0px;
         background: #fcf6f6;
         box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+
         .header-bottom-right {
             width: 100%;
-
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -1076,7 +1082,6 @@ export default {
                 }
             }
             .header__item {
-                margin-left: 10px;
                 height: 38px;
                 width: 38px;
                 display: flex;
@@ -1116,6 +1121,7 @@ export default {
                     color: #ffffff;
                 }
             }
+
             .dropdown-category {
                 position: relative;
                 button {
@@ -1139,14 +1145,17 @@ export default {
 
                 // }
             }
+
             .header-search {
+                margin-left: 10px;
                 flex-grow: 1;
                 border-radius: 5px;
-                margin-left: 15px;
                 overflow: hidden;
                 height: 36px;
-                width: 435px;
+                width: auto;
                 display: flex;
+                flex-basis: 200%;
+
                 input {
                     background: #ffffff;
                     border: 1px solid #f7931f;
@@ -1154,13 +1163,15 @@ export default {
                     height: 100%;
                     border-top-left-radius: 5px;
                     border-bottom-left-radius: 5px;
-                    padding-left: 16px;
+                    padding-left: 10px;
                     font-size: 14px;
                     width: 100%;
+
                     &:focus {
                         outline: none;
                     }
                 }
+
                 button {
                     background: #fb8500;
                     border: 1px solid #fb8500;
@@ -1412,17 +1423,7 @@ export default {
     header.header {
         .header-bottom {
             .header-bottom-right {
-                .header__item {
-                    margin-left: 15px;
-                }
-
-                .basket {
-                    margin-left: 15px;
-                }
-
                 .dropdown-language {
-                    margin-left: 15px;
-
                     b {
                         display: none;
                     }
@@ -1440,66 +1441,20 @@ export default {
 
 @media (max-width: 764px) {
     .header {
-        .header-top {
-            .header-top-right {
-                .phone__lang__box {
-                    display: flex;
-                    justify-content: space-between;
-
-                    .phone {
-                        order: -1;
-                        margin-right: 10px;
-                    }
-
-                    div.dropdown-language__top {
-                        display: inline-block;
-                        margin-right: 2px;
-                        position: relative;
-                        button {
-                            outline: none;
-                            border: none;
-                            background-color: transparent;
-                            svg {
-                                width: 30px;
-                            }
-                        }
-                        b {
-                            display: none;
-                        }
-
-                        .dropdown__list__box {
-                            position: absolute;
-
-                            top: 30px;
-                            left: -5%;
-                            max-width: 80px;
-
-                            background-color: #fcf6f6;
-                            box-shadow: 0 10px 20px rgba(0, 0, 0, 14%);
-                            padding: 2px;
-
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            flex-wrap: nowrap;
-                        }
-                    }
-                }
-            }
-        }
-        div.header-bottom {
+        .header-bottom {
+            padding: 10px 0;
             .header-bottom-right {
                 .logo-tujjor {
                     flex-grow: 0;
                     display: inline-block;
-                    width: 84px;
-                    height: 42px;
+                    width: 74px;
+                    height: auto;
                     padding: 0;
                     margin: 0;
                     a {
                         svg {
-                            width: 84px;
-                            height: 42px;
+                            width: 74px;
+                            height: auto;
                         }
                     }
                 }
@@ -1511,18 +1466,11 @@ export default {
                 }
             }
         }
+
         .dropdown-category {
             margin-left: 10px;
         }
-        .header__item {
-            margin: 10px 5px !important;
-        }
-        .header__item__logo {
-            display: none;
-        }
-        .basket {
-            margin: 10px 5px !important;
-        }
+
         .dropdown-language {
             display: none !important;
         }
@@ -1565,12 +1513,21 @@ export default {
     .header {
         .header-bottom {
             .header-bottom-right {
+                .header-search {
+                    height: 30px;
+                }
+
                 .dropdown-category {
                     display: none;
                 }
 
                 .header__navbar {
                     display: inline-block;
+                }
+
+                .header__item {
+                    height: 30px;
+                    width: 30px;
                 }
             }
         }
@@ -1596,6 +1553,61 @@ export default {
                 width: 200px;
                 padding: 0 12px;
                 font-size: 13px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .header {
+        .header-bottom {
+            .container-bottom {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+            .header-bottom-right {
+                .header-search {
+                    height: 25px;
+
+                    input {
+                        font-size: 12px;
+                        padding-left: 6px;
+                    }
+                }
+
+                .basket {
+                    .basket-count {
+                        top: -2px;
+                        right: -3px;
+                        padding: 1px 4px;
+                        border-radius: 60px;
+                        font-size: 10px;
+                        line-height: 14px;
+
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+                }
+
+                .logo-tujjor {
+                    width: 60px;
+                    a {
+                        svg {
+                            width: 60px;
+                        }
+                    }
+                }
+
+                .header__item {
+                    height: 26px;
+                    width: 26px;
+                }
+
+                .header__navbar {
+                    .navbar-toggler {
+                        font-size: 1rem;
+                    }
+                }
             }
         }
     }

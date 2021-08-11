@@ -182,12 +182,6 @@
                                     />
                                     <label :for="param._id">
                                         <img
-                                            @mouseenter="
-                                                selectProductParam(
-                                                    $event,
-                                                    param
-                                                )
-                                            "
                                             @click.prevent="
                                                 selectProductParam(
                                                     $event,
@@ -2457,7 +2451,7 @@ export default {
         .select__size {
             div {
                 label {
-                    margin-right: 20px;
+                    margin-right: 10px;
                 }
             }
         }
@@ -2532,7 +2526,7 @@ export default {
     .product-info {
         .select__size {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
         }
     }
 

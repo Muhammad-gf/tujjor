@@ -1,8 +1,10 @@
 <template>
     <div class="layout">
-        <div class="header__back"></div>
-        <Header />
+        <div class="header_back"></div>
+        <Header-main-page />
+
         <Nuxt />
+
         <Footer />
     </div>
 </template>
@@ -24,12 +26,20 @@ body {
     overflow: hidden;
 }
 
-div.header__back {
+.header_back {
     height: 81px;
 
     & {
-        @media only screen and (max-width: 768px) {
-            height: 67px;
+        @media only screen and (max-width: 766px) {
+            height: 58px;
+        }
+
+        @media only screen and (max-width: 560px) {
+            height: 52px;
+        }
+
+        @media only screen and (max-width: 400px) {
+            height: 47px;
         }
     }
 }

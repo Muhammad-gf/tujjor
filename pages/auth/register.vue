@@ -129,7 +129,7 @@
                 />
             </div>
 
-            <recaptcha />
+            <!-- <recaptcha id="recaptcha" /> -->
 
             <a class="button__links" @click="registerUser">
                 Зарегистрироваться
@@ -193,8 +193,8 @@ export default {
 
 <style lang="scss" scoped>
 .login-page {
+    height: 150vh;
     width: 100%;
-    height: 100vh;
 
     .logo-tujjor {
         margin-bottom: 40px;
@@ -279,6 +279,16 @@ export default {
 
                 color: #023047;
             }
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .login-page {
+        padding: 10px;
+        .login-page-box {
+            width: 98%;
+            padding: 20px 10px;
         }
     }
 }

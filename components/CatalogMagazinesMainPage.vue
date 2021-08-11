@@ -140,7 +140,7 @@
                 </div>
             </div>
         </div>
-        <section class="container popular__container btn__box">
+        <section class="container popular__container" id="btn__box">
             <a href="#" class="popular__btn text-center">Показать ещё</a>
         </section>
     </section>
@@ -298,7 +298,7 @@ export default {};
 @media only screen and(max-width: 560px) {
     .magazines__main__page {
         .popular__container {
-            margin-top: 40px;
+            margin-top: 25px;
             padding-top: 0;
             padding-bottom: 0;
         }
@@ -333,8 +333,8 @@ export default {};
             }
         }
 
-        .btn__box {
-            margin-top: 30px;
+        #btn__box {
+            margin-top: 15px;
         }
     }
 }

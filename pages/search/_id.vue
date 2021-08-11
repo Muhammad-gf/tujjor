@@ -13,9 +13,9 @@
                             </li>
 
                             <li v-if="linksForTitle.length > 0">
-                                <nuxt-link :to="'search/' + linksForTitle">{{
-                                    linksForTitle
-                                }}</nuxt-link>
+                                <nuxt-link :to="linksForTitle">
+                                    {{ linksForTitle[0] }}
+                                </nuxt-link>
                                 /
                             </li>
 
@@ -52,9 +52,9 @@
                             </li>
 
                             <li v-if="linksForTitle.length > 0">
-                                <nuxt-link :to="'search/' + linksForTitle">{{
-                                    linksForTitle
-                                }}</nuxt-link>
+                                <nuxt-link :to="linksForTitle">
+                                    {{ linksForTitle }}
+                                </nuxt-link>
                                 /
                             </li>
 
@@ -195,218 +195,40 @@
                                         {{ product.name.uz }}
                                     </h4>
                                     <span
-                                        v-if="!!product.oldPrice"
+                                        v-if="!!product.discount"
                                         class="popular__items__desription--price popular__items__desription--old--price hidden"
                                     >
-                                        {{
-                                            updatePriceFormat(product.oldPrice)
-                                        }}
-                                        сум</span
-                                    >
+                                        {{ updatePriceFormat(product.price) }}
+                                        сум
+                                    </span>
                                     <span
                                         class="popular__items__desription--price"
+                                        v-if="!!product.discount"
+                                    >
+                                        {{
+                                            updatePriceFormat(product.discount)
+                                        }}
+                                        сум
+                                    </span>
+
+                                    <span
+                                        class="popular__items__desription--price"
+                                        v-if="!product.discount"
                                     >
                                         {{ updatePriceFormat(product.price) }}
-                                        сум</span
-                                    >
+                                        сум
+                                    </span>
                                 </div>
                             </div>
-
-                            <!-- <div class="popular__items">
-                            <img
-                                class="popular__items__img"
-                                src="../../assets/img/catalog_page/2.png"
-                                alt="Popular item photo"
-                                type="photo/png"
-                            />
-                            <div class="popular__items__desription">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-                                <h4
-                                    class="popular__items__desription--categorie"
-                                >
-                                    для фанатов футбола Ювентус
-                                </h4>
-                                <span class="popular__items__desription--price"
-                                    >1 280 000 сум</span
-                                >
-                            </div>
-                        </div>
-
-                        <div class="popular__items">
-                            <img
-                                class="popular__items__img"
-                                src="../../assets/img/catalog_page/3.png"
-                                alt="Popular item photo"
-                                type="photo/png"
-                            />
-                            <div class="popular__items__desription">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-                                <h4
-                                    class="popular__items__desription--categorie"
-                                >
-                                    Новая весенняя коллекция для женщин
-                                </h4>
-                                <span class="popular__items__desription--price"
-                                    >1 280 000 сум</span
-                                >
-                            </div>
-                        </div>
-
-                        <div class="popular__items">
-                            <img
-                                class="popular__items__img"
-                                src="../../assets/img/catalog_page/4.png"
-                                alt="Popular item photo"
-                                type="photo/png"
-                            />
-                            <div class="popular__items__desription">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-                                <h4
-                                    class="popular__items__desription--categorie"
-                                >
-                                    весенная рубашка для мужчин
-                                </h4>
-                                <span class="popular__items__desription--price"
-                                    >474 000 сум</span
-                                >
-                            </div>
-                        </div>
-
-                        <div class="popular__items">
-                            <img
-                                class="popular__items__img"
-                                src="../../assets/img/catalog_page/1.png"
-                                alt="Popular item photo"
-                                type="photo/png"
-                            />
-                            <div class="popular__items__desription">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-                                <h4
-                                    class="popular__items__desription--categorie"
-                                >
-                                    Детская одежда
-                                </h4>
-                                <span
-                                    class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                    >580 000 сум</span
-                                >
-                                <span class="popular__items__desription--price"
-                                    >480 000 сум</span
-                                >
-                            </div>
-                        </div>
-
-                        <div class="popular__items">
-                            <img
-                                class="popular__items__img"
-                                src="../../assets/img/catalog_page/2.png"
-                                alt="Popular item photo"
-                                type="photo/png"
-                            />
-                            <div class="popular__items__desription">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-                                <h4
-                                    class="popular__items__desription--categorie"
-                                >
-                                    для фанатов футбола Ювентус
-                                </h4>
-                                <span class="popular__items__desription--price"
-                                    >1 280 000 сум</span
-                                >
-                            </div>
-                        </div>
-
-                        <div class="popular__items">
-                            <img
-                                class="popular__items__img"
-                                src="../../assets/img/catalog_page/3.png"
-                                alt="Popular item photo"
-                                type="photo/png"
-                            />
-                            <div class="popular__items__desription">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-                                <h4
-                                    class="popular__items__desription--categorie"
-                                >
-                                    Новая весенняя коллекция для женщин
-                                </h4>
-                                <span class="popular__items__desription--price"
-                                    >1 280 000 сум</span
-                                >
-                            </div>
-                        </div>
-
-                        <div class="popular__items">
-                            <img
-                                class="popular__items__img"
-                                src="../../assets/img/catalog_page/4.png"
-                                alt="Popular item photo"
-                                type="photo/png"
-                            />
-                            <div class="popular__items__desription">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-                                <h4
-                                    class="popular__items__desription--categorie"
-                                >
-                                    весенная рубашка для мужчин
-                                </h4>
-                                <span class="popular__items__desription--price"
-                                    >474 000 сум</span
-                                >
-                            </div>
-                        </div> -->
                         </div>
 
                         <a
                             href="#"
                             class="popular__btn"
-                            v-if="products.length === 12"
+                            v-if="products.length >= 12"
                             >Показать ещё</a
                         >
                     </section>
-
-                    <!-- <div class="catalog__page__btn--box">
-                                        <a
-                                                href="#"
-                                                class="catalog__page--btn catalog__page--btn--active"
-                                                >1</a
-                                        >
-                                        <a href="#" class="catalog__page--btn"
-                                                >2</a
-                                        >
-                                        <a href="#" class="catalog__page--btn"
-                                                >3</a
-                                        >
-                                        <a href="#" class="catalog__page--btn"
-                                                >4</a
-                                        >
-                                        <a href="#" class="catalog__page--btn"
-                                                >5</a
-                                        >
-                                        <a href="#" class="catalog__page--btn"
-                                                >...</a
-                                        >
-                                        <a href="#" class="catalog__page--btn"
-                                                >30</a
-                                        >
-                                        <a href="#" class="catalog__page--btn"
-                                                >></a
-                                        >
-                                </div> -->
                 </div>
             </section>
         </div>
@@ -449,7 +271,7 @@ export default {
     computed: mapGetters(["searchBody"]),
 
     methods: {
-        ...mapActions(["searchProduct"]),
+        ...mapActions(["searchProduct", "productCount"]),
         ...mapMutations([
             "setSearchBrand",
             "setSearchPriceStart",
@@ -463,7 +285,6 @@ export default {
                 .$get("brand/client/all")
                 .then(response => {
                     if (response.success) {
-                        console.log(response);
                         return response.data;
                     } else {
                         throw new Error("Could not fetch data");
@@ -490,10 +311,10 @@ export default {
         },
 
         // filter brands for page to show
-        filterBrandForShowOnPage(search, brands) {
-            if (search.data.length > 0) {
+        filterBrandForShowOnPage(data, brands) {
+            if (data.count > 0) {
                 brands.forEach(item => {
-                    if (search.brands.includes(item._id)) {
+                    if (data.brands.includes(item._id)) {
                         this.brandsOnPage.push(item);
                     }
                 });
@@ -519,7 +340,6 @@ export default {
                     this.isSliderPricesEqual = true;
                 }
                 this.sliderValue = [minValue.price, maxValue.price];
-                console.log(this.sliderValue);
             }
         },
         // filter products on click on filter
@@ -529,6 +349,7 @@ export default {
                 this.sliderValue[1],
                 this.filter.brands
             ];
+
             const page = 1;
             const limit = 12;
 
@@ -545,7 +366,7 @@ export default {
         async filterBySort() {
             const page = 1;
             const limit = 12;
-            console.log(this.filter);
+
             this.setSearchSort(this.filter.sort);
             this.filter.isGetData = false;
             const search = await this.searchProduct({ page, limit });
@@ -555,7 +376,6 @@ export default {
 
         //  go to product on click card of product
         goToProduct(slug) {
-            console.log(slug);
             this.$router.push({
                 name: "product-id",
                 params: { id: slug }
@@ -572,9 +392,10 @@ export default {
     async mounted() {
         const page = 1;
         const limit = 12;
-        let [search, brands] = await Promise.all([
-            this.searchProduct({ page, limit }),
-            this.fetchAllBrands()
+        let [brands, Allbrands, search] = await Promise.all([
+            this.productCount(),
+            this.fetchAllBrands(),
+            this.searchProduct({ page, limit })
         ]);
         this.products = search.data;
         this.filter.isGetData = this.isGet = true;
@@ -586,9 +407,9 @@ export default {
             this.isProductOnlyOne = true;
         } else {
             // filter brands for page to show
-            this.filterBrandForShowOnPage(search, brands);
+            this.filterBrandForShowOnPage(brands, Allbrands);
 
-            // filter max end min value in search product and show
+            //     // filter max end min value in search product and show
             this.filterMaxAndMin(search);
         }
 
@@ -806,12 +627,6 @@ export default {
     .catalog__container {
         .catalog__filtraiton__box {
             flex-basis: 245px;
-        }
-
-        .catalog__page__about {
-            .popular__item-box {
-                justify-content: space-around;
-            }
         }
     }
 }

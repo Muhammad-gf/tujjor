@@ -26,15 +26,6 @@ body {
 .layout {
     overflow: hidden;
 }
-div.header_back {
-    height: 141px;
-
-    & {
-        @media only screen and (max-width: 768px) {
-            height: 127px;
-        }
-    }
-}
 
 * {
     box-sizing: border-box;

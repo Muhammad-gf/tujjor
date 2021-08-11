@@ -21,6 +21,29 @@ export default {
                 })
                 .catch(err => console.error(err));
             return res;
+        },
+
+        async productCount(ctx) {
+            const res = await this.$axios
+                .$post("product/count", {
+                    category: ctx.state.searchBody.category,
+                    brand: ctx.state.searchBody.brand,
+                    search: ctx.state.searchBody.search,
+                    sort: ctx.state.searchBody.sort,
+                    start: ctx.state.searchBody.start,
+                    end: ctx.state.searchBody.end
+                })
+                .then(response => {
+                    console.log("brand", response);
+                    if (response.success) {
+                        console.log("brand", response);
+                        return response;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
+            return res;
         }
     },
 
