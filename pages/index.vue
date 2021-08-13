@@ -90,7 +90,12 @@
 
 <script>
 export default {
-    layout: "main__page__layout"
+    layout: "main__page__layout",
+    data() {
+        return {
+            seach: null
+        };
+    }
 };
 </script>
 

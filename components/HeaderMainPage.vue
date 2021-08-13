@@ -1,5 +1,8 @@
 <template>
-    <header class="header">
+    <header
+        class="header"
+        :class="stickNavbar.isSticky ? stickNavbar.stickyClass : ''"
+    >
         <!-- <div class="header-top" id="header-top">
             <div class="container d-flex justify-content-between w-100">
                 <div class="header-top-left">
@@ -292,7 +295,14 @@
                 class="container d-flex justify-content-between w-100 container-bottom"
             >
                 <div class="header-bottom-right">
-                    <div class="logo-tujjor">
+                    <div
+                        class="logo-tujjor"
+                        :class="
+                            searchActive.active
+                                ? searchActive.neighbourClass
+                                : ''
+                        "
+                    >
                         <nuxt-link to="/">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -349,7 +359,15 @@
                         </nuxt-link>
                     </div>
 
-                    <div class="dropdown-category" @click="doVisibleCategory">
+                    <div
+                        class="dropdown-category"
+                        :class="
+                            searchActive.active
+                                ? searchActive.neighbourClass
+                                : ''
+                        "
+                        @click="doVisibleCategory"
+                    >
                         <button type="button">
                             <span>
                                 <svg
@@ -438,7 +456,14 @@
                             </div>
                         </div> -->
                     </div>
-                    <div class="header-search" @keypress="searchByTxt">
+
+                    <div
+                        class="header-search"
+                        :class="
+                            searchActive.active ? searchActive.searchClass : ''
+                        "
+                        @keypress="searchByTxt"
+                    >
                         <input
                             type="search"
                             placeholder="Поиск..."
@@ -469,7 +494,14 @@
                             </svg>
                         </button>
                     </div>
-                    <div>
+
+                    <div
+                        :class="
+                            searchActive.active
+                                ? searchActive.neighbourClass
+                                : ''
+                        "
+                    >
                         <nuxt-link to="/favourite" class="header__item basket">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -486,7 +518,13 @@
                         </nuxt-link>
                     </div>
 
-                    <div>
+                    <div
+                        :class="
+                            searchActive.active
+                                ? searchActive.neighbourClass
+                                : ''
+                        "
+                    >
                         <nuxt-link to="/basket" class=" header__item basket">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -506,7 +544,15 @@
                         </nuxt-link>
                     </div>
 
-                    <div class="person__box" @click="doVisiblePerson">
+                    <div
+                        class="person__box"
+                        :class="
+                            searchActive.active
+                                ? searchActive.neighbourClass
+                                : ''
+                        "
+                        @click="doVisiblePerson"
+                    >
                         <span class="header__item ">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -564,7 +610,15 @@
                         </div>
                     </div>
 
-                    <div class="dropdown-language" @click="doVisibleLanguage">
+                    <div
+                        class="dropdown-language"
+                        :class="
+                            searchActive.active
+                                ? searchActive.neighbourClass
+                                : ''
+                        "
+                        @click="doVisibleLanguage"
+                    >
                         <button
                             type="button"
                             class="language__russian"
@@ -780,7 +834,14 @@
                         </div>
                     </div>
 
-                    <nav class="header__navbar">
+                    <nav
+                        class="header__navbar"
+                        :class="
+                            searchActive.active
+                                ? searchActive.neighbourClass
+                                : ''
+                        "
+                    >
                         <button
                             class="navbar-toggler"
                             type="button"
@@ -869,7 +930,19 @@ export default {
             isVisiblePerson: false,
             personName: "",
             childCategory: [],
-            searchTxt: ""
+            searchTxt: "",
+
+            stickNavbar: {
+                scrollY: 0,
+                stickyClass: "sticky",
+                isSticky: true
+            },
+
+            searchActive: {
+                active: false,
+                searchClass: "search-active",
+                neighbourClass: "display-none"
+            }
         };
     },
     methods: {
@@ -956,6 +1029,35 @@ export default {
                 name: "search-id",
                 params: { id: obj._id }
             });
+        },
+
+        // function for sticky nav
+        handleScroll() {
+            const scrollY = window.scrollY;
+            if (this.stickNavbar.scrollY > scrollY) {
+                this.stickNavbar.isSticky = true;
+            }
+            if (this.stickNavbar.scrollY < scrollY) {
+                this.stickNavbar.isSticky = false;
+            }
+
+            this.stickNavbar.scrollY = scrollY;
+        },
+
+        // function for animation search poly
+        windowCLicked(target) {
+            console.log(target);
+
+            if (
+                target.path[0].nodeName.toLowerCase() === "input" &&
+                target.path[1].classList[0] === "header-search"
+            ) {
+                console.log("true");
+                this.searchActive.active = true;
+            } else {
+                console.log(false);
+                this.searchActive.active = false;
+            }
         }
     },
 
@@ -969,17 +1071,50 @@ export default {
         this.categoryArray = res.data;
         this.loggedIn = this.$auth.loggedIn;
         this.personName = this.$auth.user?.name;
+        window.addEventListener("scroll", this.handleScroll);
+        window.addEventListener("click", this.windowCLicked);
+    },
+
+    beforeDestroy() {
+        window.removeEventListener("scroll", this.handleScroll);
+        window.removeEventListener("click", this.windowCLicked);
     }
 };
 </script>
 
 <style lang="scss" scoped>
+.sticky {
+    top: 0 !important;
+}
+.display-none {
+    display: none !important;
+}
+.search-active {
+    margin-right: 20px !important;
+}
+
 .header {
     width: 100vw;
     position: fixed;
-    top: 0;
+    top: -81px;
     left: 0;
     z-index: 9999;
+
+    & {
+        transition: all 0.2s;
+
+        @media only screen and (max-width: 766px) {
+            top: -58px;
+        }
+
+        @media only screen and (max-width: 560px) {
+            top: -52px;
+        }
+
+        @media only screen and (max-width: 400px) {
+            top: -47px;
+        }
+    }
 
     //  Centering category dropdown menu
 
@@ -1124,6 +1259,8 @@ export default {
 
             .dropdown-category {
                 position: relative;
+
+                transition: all 2s;
                 button {
                     padding: 0px 12px;
                     background: transparent;
@@ -1154,7 +1291,6 @@ export default {
                 height: 36px;
                 width: auto;
                 display: flex;
-                flex-basis: 200%;
 
                 input {
                     background: #ffffff;

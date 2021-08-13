@@ -17,7 +17,7 @@
                     </ul>
                 </div>
 
-                <h1 class="name_product">{{ product.category.name.uz }}</h1>
+                <!-- <h1 class="name_product">{{ product.category.name.uz }}</h1> -->
 
                 <div class="row">
                     <div class="image__product__container col-md-6 d-flex">
@@ -129,9 +129,9 @@
                             <div class="row">
                                 <div class="col-md-6  price__col">
                                     <div class="__price">
-                                        <h6>
+                                        <!-- <h6>
                                             Цена:
-                                        </h6>
+                                        </h6> -->
                                         <b>
                                             {{ productPrice }}
                                             cум
@@ -139,7 +139,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6  ">
+                                <!-- <div class="col-md-6  ">
                                     <div class="product-count">
                                         <h3>
                                             Количество:
@@ -164,7 +164,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                             <h4>Цвет:</h4>
@@ -220,16 +220,71 @@
                                     }}</label>
                                 </div>
                             </div>
+
+                            <h4
+                                class="heading__size d-flex align-items-center mt-0 mb-1 pb-2 border__bottom"
+                            >
+                                Количество:
+                                <div class="product-count pl-2 mb-0 mt-1">
+                                    <div class="count__input">
+                                        <button
+                                            class="minus"
+                                            @click.prevent="changeCount(-1)"
+                                        >
+                                            -
+                                        </button>
+                                        <input
+                                            type="text"
+                                            disabled="disabled"
+                                            :value="productCount"
+                                        />
+                                        <button
+                                            class="plus"
+                                            @click.prevent="changeCount(1)"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            </h4>
+
+                            <!-- <div class="col-md-6 pl-0 pr-0 ">
+                                <div class="product-count">
+                                    <h3>
+                                        Количество:
+                                    </h3>
+                                    <div class="count__input">
+                                        <button
+                                            class="minus"
+                                            @click.prevent="changeCount(-1)"
+                                        >
+                                            -
+                                        </button>
+                                        <input
+                                            type="text"
+                                            disabled="disabled"
+                                            :value="productCount"
+                                        />
+                                        <button
+                                            class="plus"
+                                            @click.prevent="changeCount(1)"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> -->
+
                             <div class="row ">
                                 <div
-                                    class="product__info--txt col-md-6 col-sm-6"
+                                    class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
                                     SKU:
                                     <Span>{{ product.article }}</Span>
                                 </div>
 
                                 <div
-                                    class="product__info--txt col-md-6 col-sm-6"
+                                    class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
                                     Бренд:
                                     <Span>
@@ -238,7 +293,7 @@
                                 </div>
 
                                 <div
-                                    class="product__info--txt col-md-6 col-sm-6 "
+                                    class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
                                     Рейтинг:
                                     <Span>
@@ -256,7 +311,7 @@
                                 </div>
 
                                 <div
-                                    class="product__info--txt col-md-6 col-sm-6"
+                                    class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
                                     В избранное:
                                     <Span>
@@ -1654,6 +1709,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.border__bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
 .image__product__container {
     align-items: flex-start;
     overflow: hidden;
@@ -1996,7 +2054,7 @@ export default {
 }
 
 .title-box {
-    padding: 40px 0px;
+    padding: 20px 0px !important;
     ul {
         li {
             display: inline-block;
@@ -2043,21 +2101,16 @@ export default {
     .select__size {
         /* identical to box height, or 16px */
 
-        margin-bottom: 5px;
-        padding-bottom: 5px;
-        border-bottom: 1px solid #e5e5e5;
+        // border-bottom: 1px solid #e5e5e5;
 
         div {
-            &:not(:last-child) {
-                margin-bottom: 5px;
-            }
             display: inline-block;
             label {
                 margin-right: 7px;
                 font-family: Roboto;
                 font-size: 16px;
                 line-height: 1.3;
-                padding: 4px 6px;
+                padding: 4px 6px 0px;
                 background-color: #f7931e;
                 color: white;
                 border-radius: 3px;
@@ -2404,7 +2457,8 @@ export default {
         }
 
         .__price {
-            padding: 9px 10px;
+            padding: 3px 5px;
+            margin-bottom: 8px;
 
             h6 {
                 font-size: 16px;
@@ -2426,9 +2480,11 @@ export default {
 
             .count__input {
                 button {
-                    width: 28.33px;
-                    height: 35.41px;
+                    width: 0.33px;
+                    height: 25.41px;
                     font-size: 28px;
+                    padding-bottom: 5px;
+                    flex-basis: 15%;
                 }
                 .minus {
                     border-top-left-radius: 3px;
@@ -2442,8 +2498,8 @@ export default {
 
                 input {
                     font-size: 15px;
-                    max-width: 40%;
-                    flex-basis: 40%;
+                    max-width: 17%;
+                    flex-basis: 20%;
                 }
             }
         }
@@ -2451,7 +2507,7 @@ export default {
         .select__size {
             div {
                 label {
-                    margin-right: 10px;
+                    margin-right: 6px;
                 }
             }
         }
