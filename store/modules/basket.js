@@ -21,7 +21,7 @@ export default {
             return res;
         },
 
-        async fetchCounBasket(ctx, token) {
+        async fetchCountBasket(ctx, token) {
             const res = await this.$axios
                 .$get("/basket/count", {
                     headers: {
@@ -40,6 +40,8 @@ export default {
                 });
 
             ctx.commit("updateCountBasket", res.count);
+
+            return res;
         },
 
         async fetchToBasket(ctx, { token, product, param, size, count }) {

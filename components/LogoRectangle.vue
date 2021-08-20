@@ -14,7 +14,7 @@
                     src="../assets/img/other/logo-men.png"
                     alt="Logo rectangle men"
                 />
-            </div>
+            </div>``
         </div>
     </section>
 </template>

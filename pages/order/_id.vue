@@ -149,12 +149,13 @@
                         </div>
 
                         <a
-                            href=""
                             type="submit"
                             class="checkout__you__order submit"
-                            @click.prevent="fetchOrder()"
-                            >Заказать</a
+                            target="_blank"
+                            @click="fetchOrder($event)"
                         >
+                            Заказать
+                        </a>
                     </div>
                 </form>
 
@@ -191,6 +192,10 @@
                                     >{{ updatePrice(item.amount, item.count) }}
                                     cум
                                 </span>
+                                <span v-if="''"
+                                    >{{ updatePrice(item.amount, item.count) }}
+                                    cум
+                                </span>
                             </div>
                             <div class="checkout__order__item--color">
                                 <span>Цвет:</span>
@@ -216,15 +221,25 @@
                 </section>
             </main>
         </section>
+
+        <warning-message
+            v-if="warningMessage"
+            post-title="Пополните пустые поле!"
+        >
+        </warning-message>
+
+        <warning-message v-if="errorrMessage" post-title="Произошло ошибка!">
+        </warning-message>
     </section>
 </template>
 
 <script>
 import BaseLoading from "../../components/UI/BaseLoading.vue";
+import WarningMessage from "../../components/Modals/WarningMessage.vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {
-    components: { BaseLoading },
+    components: { BaseLoading, WarningMessage },
 
     head: {
         title: "Оформить заказ — Tujjor. Низкие цены и широкий ассортимент!",
@@ -262,9 +277,11 @@ export default {
             },
 
             product: "",
-
+            warningMessage: false,
+            errorrMessage: false,
             isGet: false,
-            noData: false
+            noData: false,
+            base64Data: ""
         };
     },
     computed: mapGetters([
@@ -286,6 +303,7 @@ export default {
 
         // select region and find districts depends on in
         giveCity() {
+            this.order.address.district = this.selectedAdress.district = "";
             const region = this.selectedAdress.region;
             const result = this.allRegions.filter(arr => {
                 return arr.name.uz == region || arr.name.ru == region;
@@ -343,11 +361,11 @@ export default {
             return this.updatePriceFormat(resultPrice);
         },
 
-        findDescription() {},
-
         // ------------------------------------- go to payment create order ----------------
-        async fetchOrder() {
-            console.log(this.order);
+        // main function
+        async fetchOrder(event) {
+            // this.isGet = false;
+            this.warningMessage = this.errorrMessage = false;
             const add = {
                 region: this.order.address.region._id,
                 district: this.order.address.district,
@@ -355,33 +373,115 @@ export default {
                 phone: this.order.address.phone
             };
             await this.updateOrderAddress({ add });
-            console.log(this.orderAll);
+            console.log("order all", this.orderAll, add);
             const amount = this.orderAll.amount;
             const address = this.orderAll.address;
             const products = this.orderAll.products;
             const token = this.user.token;
             console.log(token, amount, address, products);
-            await this.createOrder({ token, amount, address, products });
+            if (
+                !!address.address &&
+                !!address.district &&
+                !!address.phone &&
+                !!address.region
+            ) {
+                const result = await this.createOrder({
+                    token,
+                    amount,
+                    address,
+                    products
+                });
+                console.log("result", result);
+                // this.isGet = true;
+                if (!!result) {
+                    this.base64Data = result.data;
+                    const link = this.redirectToPayMe();
+                    // console.log(
+                    //     "event",
+                    //     event,
+                    //     "window",
+                    //     window,
+                    //     "result",
+                    //     result
+                    // );
+                    // event.path[0].href = link;
+                    // console.log(
+                    //     "event",
+                    //     event,
+                    //     "window",
+                    //     window,
+                    //     "result",
+                    //     result
+                    // );
+                    // this.$router.push({
+                    //     path: "paycom"
+                    // });
+                    // let routeData = {
+                    //     name: "paycom",
+                    //     href: "https://checkout.paycom.uz/"
+                    // };
+                    window.open(link, "_blank");
+                } else {
+                    // this.isGet = true;
+                    this.errorrMessage = true;
+                }
+            } else {
+                // this.isGet = true;
+                this.warningMessage = true;
+            }
+        },
+        // go to pay me
+        redirectToPayMe() {
+            const teene = this.base64Data.amount * 100;
+            const str =
+                "m=6113b418754e932e68fd87ad;ac.order=" +
+                this.base64Data.orderId +
+                ";a=" +
+                +teene;
+
+            const base64 = btoa(str);
+            console.log("base64", base64, str);
+            // this.$router.beforeEnter({
+            //     location: "https://checkout.paycom.uz/"
+            // }),
+            // this.$router.push({
+            //     // beforeEnter(to, from, next) {
+            //     //     // Put the full page URL including the protocol http(s) below
+            //     //     // window.location.replace("https://checkout.paycom.uz/");
+            //     // },
+            //     // location: "https://checkout.paycom.uz/",
+            //     location: "https://checkout.paycom.uz/",
+            //     path: base64
+            // });\
+            const link = "https://checkout.paycom.uz/" + base64;
+            return link;
+            //     this.$router.beforeEnter(to, from, next, {
+            // 		        // Put the full page URL including the protocol http(s) below
+            // window.location.replace("https://example.com")
+            // 	});
         }
     },
 
     async mounted() {
+        console.log("this router", this.$router);
         const token = this.user.token;
         const router = this.$route.params.id;
         if (router === "order-all") {
-            await Promise.all([
+            const [basket, region] = await Promise.all([
                 this.fetchBasket(token),
                 this.fetchRegion(token)
             ]);
+            console.log("basket", basket, "orderAll", this.orderAll);
             this.isGet = true;
             if (!this.orderAll.amount) this.noData = true;
         }
 
         if (router !== "order-all") {
-            await Promise.all([
+            const [basket, region] = await Promise.all([
                 this.fetchBasket(token),
                 this.fetchRegion(token)
             ]);
+            console.log("basket", basket, "orderAll", this.orderAll);
             this.isGet = true;
             if (!this.orderAll.amount) this.noData = true;
         }
@@ -662,6 +762,8 @@ export default {
                         font-size: 18px;
                         line-height: 100%;
                         /* or 18px */
+                        overflow: hidden;
+                        height: 2.8em;
 
                         text-transform: uppercase;
 
@@ -674,6 +776,8 @@ export default {
                         font-size: 14px;
                         line-height: 100%;
                         /* or 14px */
+                        height: 1em;
+                        overflow: hidden;
 
                         color: #000000;
 
@@ -684,6 +788,8 @@ export default {
                         font-family: Roboto, sans-serif;
                         font-size: 16px;
                         line-height: 100%;
+                        height: 1em;
+                        overflow: hidden;
                         /* or 16px */
                         font-weight: 500;
                         color: #000000;
@@ -947,7 +1053,7 @@ export default {
                 .checkout__order__item--header {
                     flex-basis: auto;
                     margin-right: 0;
-                    margin-bottom: 25px;
+                    margin-bottom: 0;
 
                     img {
                         height: 95px;
@@ -960,7 +1066,7 @@ export default {
                         }
 
                         .p-first {
-                            margin-bottom: 27px;
+                            margin-bottom: 3px;
                         }
                         .p-second {
                             font-size: 14px;
@@ -970,7 +1076,7 @@ export default {
 
                 .checkout__order__item--secondary {
                     .checkout__order__item--number {
-                        margin-bottom: 20px;
+                        margin-bottom: 0;
                         span,
                         span.number {
                             font-size: 14px;

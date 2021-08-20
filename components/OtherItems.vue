@@ -1,403 +1,135 @@
 <template>
-    <section class="container popular__container">
-        <div class="container other__item__banner">
-            <!-- <div class="other__item__banner--carousel">
+    <section>
+        <base-loading v-if="!isGet"></base-loading>
+
+        <section class="container popular__container" v-if="isGet">
+            <div class="container other__item__banner">
+                <!-- <div class="other__item__banner--carousel">
                                 <img
                                         class="banner--carousel--img"
                                         src="../assets/img/other/banner-3.png"
                                         alt="Banner photo"
                                 />
                         </div> -->
-            <div class=" other__item__banner--carousel">
-                <b-carousel
-                    class="b-carousel"
-                    id="carousel-1"
-                    v-model="slide"
-                    :interval="3000"
-                    indicators
-                    background="#ababab"
-                    style="text-shadow: 1px 1px 2px #333;"
-                    @sliding-start="onSlideStart"
-                    @sliding-end="onSlideEnd"
-                >
-                    <!-- Text slides with image -->
-                    <b-carousel-slide
-                        v-for="(item, index) in bannerOne"
-                        :key="index"
-                        class="b-carousel-slide"
-                        :img-src="$store.state.uploads + item.image"
-                    ></b-carousel-slide>
+                <div class=" other__item__banner--carousel">
+                    <b-carousel
+                        class="b-carousel"
+                        id="carousel-1"
+                        v-model="slide"
+                        :interval="3000"
+                        indicators
+                        background="#ababab"
+                        style="text-shadow: 1px 1px 2px #333;"
+                        @sliding-start="onSlideStart"
+                        @sliding-end="onSlideEnd"
+                    >
+                        <!-- Text slides with image -->
+                        <b-carousel-slide
+                            v-for="(item, index) in bannerOne"
+                            :key="index"
+                            class="b-carousel-slide"
+                            :img-src="$store.state.uploads + item.image"
+                        ></b-carousel-slide>
 
-                    <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-                </b-carousel>
+                        <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+                    </b-carousel>
+                </div>
+
+                <div class="other__item__banner--banner--box">
+                    <div
+                        class="other__item__banner--banner--1"
+                        v-if="bannerTwo.length > 0"
+                    >
+                        <img
+                            :src="$store.state.uploads + bannerTwo[0].image"
+                            alt="Other item photo"
+                        />
+                    </div>
+                    <div
+                        class="other__item__banner--banner--2"
+                        v-if="bannerThree.length > 0"
+                    >
+                        <img
+                            :src="$store.state.uploads + bannerThree[0].image"
+                            alt="Other item photo"
+                        />
+                    </div>
+                    <div
+                        class="other__item__banner--banner--3"
+                        v-if="bannerFour.length > 0"
+                    >
+                        <img
+                            :src="$store.state.uploads + bannerFour[0].image"
+                            alt="Other item photo"
+                        />
+                    </div>
+                </div>
             </div>
-
-            <div class="other__item__banner--banner--box">
+            <div class="popular__item-box">
                 <div
-                    class="other__item__banner--banner--1"
-                    v-if="bannerTwo.length > 0"
+                    class="popular__items"
+                    v-for="product in allProducts.data"
+                    :key="product._id"
+                    @click="goToProduct(product.slug)"
                 >
                     <img
-                        :src="$store.state.uploads + bannerTwo[0].image"
-                        alt="Other item photo"
+                        class="popular__items__img"
+                        :src="$store.state.uploads + product.image"
+                        alt="Popular item photo"
+                        type="photo/png"
                     />
-                </div>
-                <div
-                    class="other__item__banner--banner--2"
-                    v-if="bannerThree.length > 0"
-                >
-                    <img
-                        :src="$store.state.uploads + bannerThree[0].image"
-                        alt="Other item photo"
-                    />
-                </div>
-                <div
-                    class="other__item__banner--banner--3"
-                    v-if="bannerFour.length > 0"
-                >
-                    <img
-                        :src="$store.state.uploads + bannerFour[0].image"
-                        alt="Other item photo"
-                    />
-                </div>
-            </div>
-        </div>
-        <div class="popular__item-box">
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/Popular/boy-1.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name"
-                        >Футболки</span
-                    >
-                    <h4 class="popular__items__desription--categorie">
-                        Детская одежда
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price hidden"
-                        >580 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >480 000 сум</span
-                    >
+                    <div class="popular__items__desription">
+                        <span class="popular__items__desription--name">
+                            {{ product.category.uz }}
+                        </span>
+                        <h4 class="popular__items__desription--categorie">
+                            {{ product.name.uz }}
+                        </h4>
+
+                        <span
+                            class="popular__items__desription--price"
+                            v-if="!!product.discount"
+                        >
+                            {{ updatePriceFormat(product.discount) }}
+                            сум
+                        </span>
+
+                        <span
+                            v-if="!!product.discount"
+                            class="popular__items__desription--price popular__items__desription--old--price hidden"
+                        >
+                            {{ updatePriceFormat(product.price) }}
+                            сум
+                        </span>
+
+                        <span
+                            class="popular__items__desription--price"
+                            v-if="!product.discount"
+                        >
+                            {{ updatePriceFormat(product.price) }}
+                            сум
+                        </span>
+                    </div>
                 </div>
             </div>
 
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/Popular/boy-2.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name"
-                        >Футболки</span
-                    >
-                    <h4 class="popular__items__desription--categorie">
-                        Мужская кожаная куртка
-                    </h4>
-                    <span class="popular__items__desription--price"
-                        >1 080 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/Popular/item-1.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name"
-                        >Кроссовки</span
-                    >
-                    <h4 class="popular__items__desription--categorie">
-                        для фанатов футбола Ювентуса
-                    </h4>
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/Popular/boy-3.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name"
-                        >Рубашки</span
-                    >
-                    <h4 class="popular__items__desription--categorie">
-                        весенная рубашка для мужчин
-                    </h4>
-                    <span class="popular__items__desription--price"
-                        >474 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/Popular/woman-1.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name">Одежда</span>
-                    <h4 class="popular__items__desription--categorie">
-                        Новая весенная коллекция для женщин
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price"
-                        >1 480 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/other/6.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name">Одежда</span>
-                    <h4 class="popular__items__desription--categorie">
-                        Новая весенная коллекция для женщин
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price"
-                        >1 480 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/other/7.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name">Одежда</span>
-                    <h4 class="popular__items__desription--categorie">
-                        Новая весенная коллекция для женщин
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price"
-                        >1 480 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/other/8.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name">Одежда</span>
-                    <h4 class="popular__items__desription--categorie">
-                        Новая весенная коллекция для женщин
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price"
-                        >1 480 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/other/9.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name">Одежда</span>
-                    <h4 class="popular__items__desription--categorie">
-                        Новая весенная коллекция для женщин
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price"
-                        >1 480 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/other/10.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name">Одежда</span>
-                    <h4 class="popular__items__desription--categorie">
-                        Новая весенная коллекция для женщин
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price"
-                        >1 480 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/other/11.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name">Одежда</span>
-                    <h4 class="popular__items__desription--categorie">
-                        Новая весенная коллекция для женщин
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price"
-                        >1 480 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/other/12.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name">Одежда</span>
-                    <h4 class="popular__items__desription--categorie">
-                        Новая весенная коллекция для женщин
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price"
-                        >1 480 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/other/13.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name">Одежда</span>
-                    <h4 class="popular__items__desription--categorie">
-                        Новая весенная коллекция для женщин
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price"
-                        >1 480 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/other/14.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name">Одежда</span>
-                    <h4 class="popular__items__desription--categorie">
-                        Новая весенная коллекция для женщин
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price"
-                        >1 480 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-
-            <div class="popular__items">
-                <img
-                    class="popular__items__img"
-                    src="../assets/img/other/15.png"
-                    alt="Popular item photo"
-                    type="photo/png"
-                />
-                <div class="popular__items__desription">
-                    <span class="popular__items__desription--name">Одежда</span>
-                    <h4 class="popular__items__desription--categorie">
-                        Новая весенная коллекция для женщин
-                    </h4>
-                    <span
-                        class="popular__items__desription--price popular__items__desription--old--price"
-                        >1 480 000 сум</span
-                    >
-                    <span class="popular__items__desription--price"
-                        >1 280 000 сум</span
-                    >
-                </div>
-            </div>
-        </div>
-
-        <a href="#" class="popular__btn btn--animated text-center"
-            >Показать ещё</a
-        >
+            <a
+                href="#"
+                class="popular__btn text-center"
+                v-if="allProducts.data.length >= allProducts.limit"
+                @click.prevent="updateFetchLimit"
+                >Показать ещё</a
+            >
+        </section>
     </section>
 </template>
 
 <script>
+import BaseLoading from "../components/UI/BaseLoading.vue";
 export default {
+    components: {
+        BaseLoading
+    },
     data() {
         return {
             slide: 0,
@@ -407,10 +139,79 @@ export default {
             bannerTwo: [],
             bannerThree: [],
             bannerFour: [],
-            bannerFive: []
+            bannerFive: [],
+
+            allProducts: {
+                data: [],
+                page: 1,
+                limit: 20
+            },
+            isGet: false
         };
     },
+    methods: {
+        async updateFetchLimit() {
+            this.isGet = false;
+            this.allProducts.limit += 10;
+            const products = await this.fetchProduct();
+            this.allProducts.data = products.data;
+            this.isGet = true;
+        },
+        async fetchProduct() {
+            const page = this.allProducts.page;
+            const limit = this.allProducts.limit;
+            const res = await this.$axios
+                .$post("product/filter?page=" + page + "&limit=" + limit, {
+                    category: [],
+                    brand: [],
+                    search: "",
+                    sort: "",
+                    start: null,
+                    end: null
+                })
+                .then(response => {
+                    console.log("searc", response);
+                    if (response.success) {
+                        console.log("search", response);
+                        return response;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
+            return res;
+        },
+
+        //  go to product on click card of product
+        goToProduct(slug) {
+            this.$router.push({
+                name: "product-id",
+                params: { id: slug }
+            });
+        },
+
+        // update price on currency format
+        updatePriceFormat(price) {
+            const form = new Intl.NumberFormat("en-US").format(price);
+            return form.replaceAll(",", " ");
+        },
+
+        // banner option
+        onSlideStart(slide) {
+            this.sliding = true;
+        },
+        onSlideEnd(slide) {
+            this.sliding = false;
+        }
+    },
+
     async mounted() {
+        const products = await this.fetchProduct();
+        this.allProducts.data = products.data;
+        console.log(products);
+        this.isGet = true;
+
+        // banner options
         let res = await this.$axios.get("/banner/all");
         let data = res.data.data;
 
@@ -424,14 +225,6 @@ export default {
         this.bannerTwo = two;
         this.bannerThree = three;
         this.bannerFour = four;
-    },
-    methods: {
-        onSlideStart(slide) {
-            this.sliding = true;
-        },
-        onSlideEnd(slide) {
-            this.sliding = false;
-        }
     }
 };
 </script>

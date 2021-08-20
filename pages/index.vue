@@ -100,6 +100,10 @@ export default {
 </script>
 
 <style lang="scss">
+html,
+body {
+    touch-action: auto !important;
+}
 /////////////////
 section {
     padding: 0;

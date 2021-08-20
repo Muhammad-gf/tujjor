@@ -24,7 +24,10 @@
                 <h2 class="header">Заказ №23</h2>
                 <div class="order__item__box">
                     <div class="order__item--header">
-                        <img src="../assets/img/order/1.png" alt="Item image" />
+                        <img
+                            src="../assets/img/magazine description/bg.png"
+                            alt="Item image"
+                        />
                         <div class="order__item__description">
                             <h3>POLO рубашка</h3>
                             <p class="p-first">
@@ -45,7 +48,7 @@
                         <div class="order__item--color">
                             <span>Цвет:</span>
                             <img
-                                src="../assets/img/order/color.png"
+                                src="../assets/img/magazine description/bg.png"
                                 alt="Color image"
                             />
                         </div>
@@ -54,7 +57,10 @@
 
                 <div class="order__item__box">
                     <div class="order__item--header">
-                        <img src="../assets/img/order/1.png" alt="Item image" />
+                        <img
+                            src="../assets/img/magazine description/bg.png"
+                            alt="Item image"
+                        />
                         <div class="order__item__description">
                             <h3>POLO рубашка</h3>
                             <p class="p-first">
@@ -75,7 +81,7 @@
                         <div class="order__item--color">
                             <span>Цвет:</span>
                             <img
-                                src="../assets/img/order/color.png"
+                                src="../assets/img/magazine description/bg.png"
                                 alt="Color image"
                             />
                         </div>
@@ -84,7 +90,10 @@
 
                 <div class="order__item__box">
                     <div class="order__item--header">
-                        <img src="../assets/img/order/1.png" alt="Item image" />
+                        <img
+                            src="../assets/img/magazine description/bg.png"
+                            alt="Item image"
+                        />
                         <div class="order__item__description">
                             <h3>POLO рубашка</h3>
                             <p class="p-first">
@@ -105,7 +114,7 @@
                         <div class="order__item--color">
                             <span>Цвет:</span>
                             <img
-                                src="../assets/img/order/color.png"
+                                src="../assets/img/magazine description/bg.png"
                                 alt="Color image"
                             />
                         </div>
@@ -123,7 +132,10 @@
                 <h2 class="header">Заказ №32</h2>
                 <div class="order__item__box">
                     <div class="order__item--header">
-                        <img src="../assets/img/order/1.png" alt="Item image" />
+                        <img
+                            src="../assets/img/magazine description/bg.png"
+                            alt="Item image"
+                        />
                         <div class="order__item__description">
                             <h3>POLO рубашка</h3>
                             <p class="p-first">
@@ -144,7 +156,7 @@
                         <div class="order__item--color">
                             <span>Цвет:</span>
                             <img
-                                src="../assets/img/order/color.png"
+                                src="../assets/img/magazine description/bg.png"
                                 alt="Color image"
                             />
                         </div>
@@ -153,7 +165,10 @@
 
                 <div class="order__item__box">
                     <div class="order__item--header">
-                        <img src="../assets/img/order/1.png" alt="Item image" />
+                        <img
+                            src="../assets/img/magazine description/bg.png"
+                            alt="Item image"
+                        />
                         <div class="order__item__description">
                             <h3>POLO рубашка</h3>
                             <p class="p-first">
@@ -174,7 +189,7 @@
                         <div class="order__item--color">
                             <span>Цвет:</span>
                             <img
-                                src="../assets/img/order/color.png"
+                                src="../assets/img/magazine description/bg.png"
                                 alt="Color image"
                             />
                         </div>
@@ -183,7 +198,10 @@
 
                 <div class="order__item__box">
                     <div class="order__item--header">
-                        <img src="../assets/img/order/1.png" alt="Item image" />
+                        <img
+                            src="../assets/img/magazine description/bg.png"
+                            alt="Item image"
+                        />
                         <div class="order__item__description">
                             <h3>POLO рубашка</h3>
                             <p class="p-first">
@@ -204,7 +222,7 @@
                         <div class="order__item--color">
                             <span>Цвет:</span>
                             <img
-                                src="../assets/img/order/color.png"
+                                src="../assets/img/magazine description/bg.png"
                                 alt="Color image"
                             />
                         </div>
@@ -222,7 +240,10 @@
                 <h2 class="header">Заказ №45</h2>
                 <div class="order__item__box">
                     <div class="order__item--header">
-                        <img src="../assets/img/order/1.png" alt="Item image" />
+                        <img
+                            src="../assets/img/magazine description/bg.png"
+                            alt="Item image"
+                        />
                         <div class="order__item__description">
                             <h3>POLO рубашка</h3>
                             <p class="p-first">
@@ -243,7 +264,7 @@
                         <div class="order__item--color">
                             <span>Цвет:</span>
                             <img
-                                src="../assets/img/order/color.png"
+                                src="../assets/img/magazine description/bg.png"
                                 alt="Color image"
                             />
                         </div>
@@ -252,7 +273,10 @@
 
                 <div class="order__item__box">
                     <div class="order__item--header">
-                        <img src="../assets/img/order/1.png" alt="Item image" />
+                        <img
+                            src="../assets/img/magazine description/bg.png"
+                            alt="Item image"
+                        />
                         <div class="order__item__description">
                             <h3>POLO рубашка</h3>
                             <p class="p-first">
@@ -273,7 +297,7 @@
                         <div class="order__item--color">
                             <span>Цвет:</span>
                             <img
-                                src="../assets/img/order/color.png"
+                                src="../assets/img/magazine description/bg.png"
                                 alt="Color image"
                             />
                         </div>
@@ -282,7 +306,10 @@
 
                 <div class="order__item__box">
                     <div class="order__item--header">
-                        <img src="../assets/img/order/1.png" alt="Item image" />
+                        <img
+                            src="../assets/img/magazine description/bg.png"
+                            alt="Item image"
+                        />
                         <div class="order__item__description">
                             <h3>POLO рубашка</h3>
                             <p class="p-first">
@@ -303,7 +330,7 @@
                         <div class="order__item--color">
                             <span>Цвет:</span>
                             <img
-                                src="../assets/img/order/color.png"
+                                src="../assets/img/magazine description/bg.png"
                                 alt="Color image"
                             />
                         </div>

@@ -89,6 +89,12 @@ export default {
             state.searchBody.end = null;
             state.searchBody.mainCategory = {};
             state.searchBody.childCategory = {};
+        },
+
+        resetSearchCategory(state) {
+            state.searchBody.category = [];
+            state.searchBody.mainCategory = {};
+            state.searchBody.childCategory = {};
         }
     },
 

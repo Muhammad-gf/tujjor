@@ -469,7 +469,7 @@
                             placeholder="Поиск..."
                             v-model="searchTxt"
                         />
-                        <button>
+                        <button @click="searchByTxt">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -538,8 +538,8 @@
                                     fill="#FB8500"
                                 />
                             </svg>
-                            <span class="basket-count">
-                                4
+                            <span class="basket-count" v-if="countBasket > 0">
+                                {{ countBasket }}
                             </span>
                         </nuxt-link>
                     </div>
@@ -886,7 +886,9 @@
                             class="category-dropdown__children--txt main-children col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12"
                             v-for="children in childCategory"
                             :key="children._id"
-                            @click.stop="searchByCategory(children)"
+                            @click.stop="
+                                searchByCategory(children), doVisibleCategory()
+                            "
                         >
                             <b> {{ children.name.uz }} </b>
 
@@ -895,7 +897,8 @@
                                 v-for="child in children.children"
                                 :key="child._id"
                                 @click.stop="
-                                    searchByCategory(child, childCategory)
+                                    searchByCategory(child, childCategory),
+                                        doVisibleCategory()
                                 "
                             >
                                 {{ child.name.uz }}
@@ -942,18 +945,20 @@ export default {
                 active: false,
                 searchClass: "search-active",
                 neighbourClass: "display-none"
-            }
+            },
+            basketCount: 0
         };
     },
     methods: {
-        ...mapActions(["searchProduct"]),
+        ...mapActions(["searchProduct", "fetchCountBasket"]),
         ...mapMutations([
             "setSearchBody",
             "pushSearchCategory",
             "setSearchTxt",
             "resetSearchSettings",
             "setSearchMainCategory",
-            "setSearchChildCategory"
+            "setSearchChildCategory",
+            "resetSearchCategory"
         ]),
 
         doVisibleCategory() {
@@ -991,6 +996,7 @@ export default {
         // search settings
         searchByTxt(event) {
             console.log(event);
+            this.resetSearchSettings();
             // validate is it enter or click
             if (event.key === "Enter" || event.type === "click") {
                 const txt = this.searchTxt;
@@ -1034,10 +1040,9 @@ export default {
         // function for sticky nav
         handleScroll() {
             const scrollY = window.scrollY;
-            if (this.stickNavbar.scrollY > scrollY) {
+            if (this.stickNavbar.scrollY > scrollY || scrollY <= 100) {
                 this.stickNavbar.isSticky = true;
-            }
-            if (this.stickNavbar.scrollY < scrollY) {
+            } else if (this.stickNavbar.scrollY < scrollY) {
                 this.stickNavbar.isSticky = false;
             }
 
@@ -1047,7 +1052,6 @@ export default {
         // function for animation search poly
         windowCLicked(target) {
             console.log(target);
-
             if (
                 target.path[0].nodeName.toLowerCase() === "input" &&
                 target.path[1].classList[0] === "header-search"
@@ -1058,16 +1062,33 @@ export default {
                 console.log(false);
                 this.searchActive.active = false;
             }
+        },
+
+        fetchCategory() {
+            return this.$axios.$get("http://cdn.tujjor.org/api/category/all");
         }
     },
 
-    computed: mapGetters(["searchBody"]),
+    computed: mapGetters(["searchBody", "countBasket"]),
 
     async mounted() {
         const res = await this.$axios.$get(
             "http://cdn.tujjor.org/api/category/all"
         );
-        console.log("category all", res);
+        const token = this.$auth.strategy.token.get();
+
+        // const [res, count] = await Promise.all([
+        //     this.fetchCategory(),
+        //     this.fetchCountBasket(token)
+        // ]);
+        // const res = this.fetchCategory();
+
+        if (!!token) {
+            const count = await this.fetchCountBasket(token);
+            this.basketCount = count.count;
+        }
+
+        console.log("category all", res, !!token);
         this.categoryArray = res.data;
         this.loggedIn = this.$auth.loggedIn;
         this.personName = this.$auth.user?.name;

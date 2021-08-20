@@ -14,7 +14,7 @@
 
                             <li v-if="linksForTitle.length > 0">
                                 <nuxt-link :to="linksForTitle">
-                                    {{ linksForTitle[0] }}
+                                    {{ linksForTitle }}
                                 </nuxt-link>
                                 /
                             </li>
@@ -187,20 +187,14 @@
                                     <span
                                         class="popular__items__desription--name"
                                     >
-                                        {{ product.name.uz }}
+                                        {{ product.category.uz }}
                                     </span>
                                     <h4
                                         class="popular__items__desription--categorie"
                                     >
                                         {{ product.name.uz }}
                                     </h4>
-                                    <span
-                                        v-if="!!product.discount"
-                                        class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                    >
-                                        {{ updatePriceFormat(product.price) }}
-                                        сум
-                                    </span>
+
                                     <span
                                         class="popular__items__desription--price"
                                         v-if="!!product.discount"
@@ -208,6 +202,14 @@
                                         {{
                                             updatePriceFormat(product.discount)
                                         }}
+                                        сум
+                                    </span>
+
+                                    <span
+                                        v-if="!!product.discount"
+                                        class="popular__items__desription--price popular__items__desription--old--price hidden"
+                                    >
+                                        {{ updatePriceFormat(product.price) }}
                                         сум
                                     </span>
 
@@ -225,7 +227,8 @@
                         <a
                             href="#"
                             class="popular__btn"
-                            v-if="products.length >= 12"
+                            v-if="products.length >= limit"
+                            @click="showProductMore"
                             >Показать ещё</a
                         >
                     </section>
@@ -249,7 +252,7 @@ export default {
             isSliderPricesEqual: false,
             isProductOnlyOne: false,
             sliderValue: [5000, 100000],
-            linksForTitle: [],
+            linksForTitle: "",
             categoryLinksForTitle: [],
             brandsOnPage: [],
 
@@ -264,7 +267,9 @@ export default {
                 isGetData: false
             },
 
-            products: []
+            products: [],
+            page: 1,
+            limit: 12
         };
     },
 
@@ -296,7 +301,7 @@ export default {
         // add to router link on the top of page
         addLinksOnTheTopPage() {
             if (this.searchBody.search.length > 0) {
-                this.linksForTitle.push(this.searchBody.search);
+                this.linksForTitle = this.searchBody.search;
             } else {
                 if (!!this.searchBody.mainCategory.name)
                     this.categoryLinksForTitle.push(
@@ -350,8 +355,8 @@ export default {
                 this.filter.brands
             ];
 
-            const page = 1;
-            const limit = 12;
+            const page = this.page;
+            const limit = this.limit;
 
             this.setSearchPriceStart(start);
             this.setSearchPriceEnd(end);
@@ -364,8 +369,8 @@ export default {
 
         // sort products
         async filterBySort() {
-            const page = 1;
-            const limit = 12;
+            const page = this.page;
+            const limit = this.limit;
 
             this.setSearchSort(this.filter.sort);
             this.filter.isGetData = false;
@@ -386,12 +391,41 @@ export default {
         updatePriceFormat(price) {
             const form = new Intl.NumberFormat("en-US").format(price);
             return form.replaceAll(",", " ");
+        },
+
+        // fetch products by magazine
+        async searchProductByMagazine(shopId) {
+            const res = await this.$axios
+                .$post("product/filter?page=" + page + "&limit=" + limit, {
+                    shop: shopId
+                })
+                .then(response => {
+                    console.log("searc", response);
+                    if (response.success) {
+                        console.log("search", response);
+                        return response;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
+            return res;
+        },
+
+        async showProductMore() {
+            this.limit += 12;
+            const limit = this.limit;
+            const page = this.page;
+            this.filter.isGetData = false;
+            const search = await this.searchProduct({ page, limit });
+            this.products = search.data;
+            this.filter.isGetData = true;
         }
     },
 
     async mounted() {
-        const page = 1;
-        const limit = 12;
+        const page = this.page;
+        const limit = this.limit;
         let [brands, Allbrands, search] = await Promise.all([
             this.productCount(),
             this.fetchAllBrands(),
@@ -414,6 +448,7 @@ export default {
         }
 
         if (search.data.length === 0) this.noData = true;
+        console.log(this.products);
     }
 };
 </script>

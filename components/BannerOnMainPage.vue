@@ -31,7 +31,7 @@
                 />
             </div> -->
             <div class="banner__box--small--img">
-                <img src="../assets/img/banner/banner.png" alt="Banner photo" />
+                <img src="../assets/img/other/banner.png" alt="Banner photo" />
             </div>
         </div>
     </section>
@@ -43,12 +43,13 @@ export default {
         return {
             slider: [],
             slide: 0,
-            sliding: null
+            sliding: null,
+            image: ""
         };
     },
     async mounted() {
         let slider = await this.$axios.get("/slider/all");
-
+        console.log("slider", slider);
         this.slider = slider.data.data;
     },
     methods: {

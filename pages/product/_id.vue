@@ -1,9 +1,21 @@
 <template>
     <div>
-        <base-loading v-if="!product"></base-loading>
-        <div v-if="product" class="product-show">
+        <base-loading v-if="!isGet"></base-loading>
+
+        <div v-if="isGet && noData">
+            <section
+                class="container popular__container search__noData d-flex justify-content-center align-items-center"
+                style="height: 50vh"
+            >
+                <div class="popular__heading">
+                    Продукт не найден!
+                </div>
+            </section>
+        </div>
+
+        <div v-if="isGet && !noData" class="product-show">
             <div class="container">
-                <div class="title-box">
+                <!-- <div class="title-box">
                     <ul>
                         <li>
                             <nuxt-link to="/">Главная страница</nuxt-link>
@@ -15,7 +27,7 @@
                         </li>
                         <li>{{ product.category.name.uz }}</li>
                     </ul>
-                </div>
+                </div> -->
 
                 <!-- <h1 class="name_product">{{ product.category.name.uz }}</h1> -->
 
@@ -50,18 +62,15 @@
                                                 }"
                                             >
                                                 <img
-                                                    @mouseenter="
-                                                        selectImg($event);
-                                                        addClassActive($event);
-                                                    "
-                                                    @click.prevent="
-                                                        selectImg($event);
-                                                        addClassActive($event);
-                                                    "
                                                     :src="
                                                         $store.state.uploads +
                                                             item.image
                                                     "
+                                                    @click="
+                                                        selectImg($event);
+                                                        addClassActive($event);
+                                                    "
+                                                    @onload="onResize"
                                                     alt="Image item"
                                                 />
                                             </div>
@@ -87,9 +96,7 @@
                                         :style="{
                                             height: carouselData.imgHeight
                                         }"
-                                        @click.prevent="
-                                            carouselData.imgBoxModal = !carouselData.imgBoxModal
-                                        "
+                                        @onload="onResize"
                                     />
                                 </div>
                             </div>
@@ -98,7 +105,7 @@
                             <div
                                 class="img__modal"
                                 v-if="carouselData.imgBoxModal"
-                                @click.prevent="
+                                @click="
                                     carouselData.imgBoxModal = !carouselData.imgBoxModal
                                 "
                             >
@@ -109,6 +116,7 @@
                                                 ? this.$refs.img__preview.src
                                                 : ''
                                         "
+                                        @onload="onResize"
                                         alt="Image product"
                                     />
                                 </div>
@@ -132,10 +140,7 @@
                                         <!-- <h6>
                                             Цена:
                                         </h6> -->
-                                        <b>
-                                            {{ productPrice }}
-                                            cум
-                                        </b>
+                                        <b v-text="productPrice + ' сум'"> </b>
                                     </div>
                                 </div>
 
@@ -182,23 +187,23 @@
                                     />
                                     <label :for="param._id">
                                         <img
-                                            @click.prevent="
-                                                selectProductParam(
-                                                    $event,
-                                                    param
-                                                )
-                                            "
                                             :src="
                                                 $store.state.uploads +
                                                     param.image
                                             "
                                             alt="Select Option"
+                                            @click="
+                                                selectProductParam(
+                                                    $event,
+                                                    param
+                                                )
+                                            "
                                         />
                                     </label>
                                 </div>
                             </div>
                             <h4 class="heading__size">
-                                Размер: <span> {{ productSize }} </span>
+                                Размер: <span v-text="productSize"> </span>
                             </h4>
                             <div class="select__size">
                                 <div
@@ -212,7 +217,10 @@
                                         name="product__size"
                                         :id="size._id"
                                         :value="size.size"
-                                        :checked="index === 0"
+                                        :checked="
+                                            size.size ===
+                                                selectedProduct.size.size
+                                        "
                                         @click="selectProductSize($event)"
                                     />
                                     <label :for="size._id">{{
@@ -229,7 +237,7 @@
                                     <div class="count__input">
                                         <button
                                             class="minus"
-                                            @click.prevent="changeCount(-1)"
+                                            @click="changeCount(-1)"
                                         >
                                             -
                                         </button>
@@ -240,7 +248,7 @@
                                         />
                                         <button
                                             class="plus"
-                                            @click.prevent="changeCount(1)"
+                                            @click="changeCount(1)"
                                         >
                                             +
                                         </button>
@@ -322,14 +330,16 @@
                                             viewBox="12 -1 14 28"
                                             fill="none"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            @click.prevent="
-                                                toggleFavourite($event)
-                                            "
+                                            @click="toggleFavourite($event)"
                                         >
                                             <path
                                                 ref="favourite__icon"
                                                 d="M23.2243 8.09896L16.0296 7.04962L12.8133 0.506195C12.7255 0.32704 12.581 0.182009 12.4024 0.0938536C11.9547 -0.127957 11.4106 0.0568852 11.1868 0.506195L7.97055 7.04962L0.77582 8.09896C0.577461 8.12739 0.396105 8.22124 0.257255 8.36342C0.0893918 8.53657 -0.0031083 8.76951 7.97568e-05 9.01106C0.00326781 9.25261 0.101883 9.48301 0.274257 9.65163L5.47974 14.7448L4.24992 21.9365C4.22108 22.1038 4.23953 22.2759 4.30317 22.4332C4.36681 22.5905 4.47311 22.7268 4.60999 22.8266C4.74688 22.9263 4.90889 22.9856 5.07764 22.9977C5.24639 23.0098 5.41514 22.9742 5.56475 22.8949L12.0001 19.4995L18.4354 22.8949C18.6111 22.9887 18.8151 23.02 19.0106 22.9859C19.5037 22.9006 19.8352 22.4314 19.7502 21.9365L18.5204 14.7448L23.7259 9.65163C23.8675 9.51229 23.9611 9.33029 23.9894 9.13123C24.0659 8.63358 23.7202 8.17289 23.2243 8.09896Z"
-                                                fill="#ccc"
+                                                :fill="
+                                                    favouriteObj.status
+                                                        ? '#fb8500'
+                                                        : '#ccc'
+                                                "
                                             />
                                         </svg>
                                     </Span>
@@ -345,7 +355,7 @@
                                 краю. -->
                             </p>
 
-                            <div class="row">
+                            <div class="row navi__buttons">
                                 <div
                                     class="col-md-7 col-sm-8  d-flex justify-content-around justify-content-sm-between"
                                 >
@@ -609,83 +619,23 @@
             <section class="container popular__container">
                 <div class="popular__heading">В магазине</div>
                 <div class="popular__item-box">
-                    <div class="popular__items">
+                    <div
+                        class="popular__items"
+                        v-for="product in productsInMagazine.data"
+                        :key="product._id"
+                        v-if="product._id !== selectedProduct._id"
+                        @click="goToProduct(product.slug)"
+                    >
                         <img
                             class="popular__items__img"
-                            src="../../assets/img/other/6.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4</span>
-                                </div>
-                            </div>
-                            <h4 class="popular__items__desription--categorie">
-                                Детская одежда
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >580 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >480 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/other/7.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4</span>
-                                </div>
-                            </div>
-                            <h4 class="popular__items__desription--categorie">
-                                Мужская кожаная куртка
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >1 580 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >1 080 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/other/8.png"
+                            :src="$store.state.uploads + product.image"
                             alt="Popular item photo"
                             type="photo/png"
                         />
                         <div class="popular__items__desription">
                             <div class="name__rating">
                                 <span class="popular__items__desription--name">
-                                    Кросовки
+                                    {{ product.category.uz }}
                                 </span>
 
                                 <div class="magazine__item--rating">
@@ -696,261 +646,68 @@
                                 </div>
                             </div>
                             <h4 class="popular__items__desription--categorie">
-                                для фанатов футбола Ювентус
+                                {{ product.name.uz }}
                             </h4>
                             <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                            ></span>
-                            <span class="popular__items__desription--price"
-                                >1 280 000 сум</span
+                                class="popular__items__desription--price"
+                                v-if="!product.discount"
+                                >{{
+                                    updatePriceFormat(product.price)
+                                }}
+                                сум</span
                             >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/other/9.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4</span>
-                                </div>
-                            </div>
-                            <h4 class="popular__items__desription--categorie">
-                                Женская Футболка
-                            </h4>
+                            <span
+                                class="popular__items__desription--price"
+                                v-if="!!product.discount"
+                                >{{
+                                    updatePriceFormat(product.discount)
+                                }}
+                                сум</span
+                            >
                             <span
                                 class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >350 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >200 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/other/10.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name">
-                                    Одежда
-                                </span>
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4</span>
-                                </div>
-                            </div>
-                            <h4 class="popular__items__desription--categorie">
-                                Новая весенняя коллекция для женщин
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                            ></span>
-                            <span class="popular__items__desription--price"
-                                >1 280 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/other/11.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4</span>
-                                </div>
-                            </div>
-                            <h4 class="popular__items__desription--categorie">
-                                Мужская кожаная куртка
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >1 580 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >1 080 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/other/12.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4</span>
-                                </div>
-                            </div>
-                            <h4 class="popular__items__desription--categorie">
-                                Мужская кожаная куртка
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >1 580 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >1 080 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/other/13.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4</span>
-                                </div>
-                            </div>
-                            <h4 class="popular__items__desription--categorie">
-                                для фанатов футбола Ювентус
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                            ></span>
-                            <span class="popular__items__desription--price"
-                                >1 280 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/other/14.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Рубашки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4</span>
-                                </div>
-                            </div>
-                            <h4 class="popular__items__desription--categorie">
-                                весенняя рубашка для мужчин
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                            ></span>
-                            <span class="popular__items__desription--price"
-                                >474 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/other/15.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name">
-                                    Одежда
-                                </span>
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4</span>
-                                </div>
-                            </div>
-                            <h4 class="popular__items__desription--categorie">
-                                Новая весенняя коллекция для женщин
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                            ></span>
-                            <span class="popular__items__desription--price"
-                                >1 280 000 сум</span
+                                v-if="!!product.discount"
+                                >{{
+                                    updatePriceFormat(product.price)
+                                }}
+                                сум</span
                             >
                         </div>
                     </div>
                 </div>
+                <a
+                    href="#"
+                    class="popular__btn"
+                    v-if="
+                        productsInMagazine.data.length >=
+                            productsInMagazine.limit
+                    "
+                    @click.prevent="updateMagazineLimit"
+                    >Показать ещё</a
+                >
             </section>
 
             <section class="container popular__container">
-                <div class="popular__heading">Похожи товари</div>
+                <div class="popular__heading">Похожие товари</div>
                 <div class="popular__item-box">
-                    <div class="popular__items">
+                    <div
+                        class="popular__items"
+                        v-for="product in productsByCategory.data"
+                        :key="product._id"
+                        v-if="product._id !== selectedProduct._id"
+                        @click="goToProduct(product.slug)"
+                    >
                         <img
                             class="popular__items__img"
-                            src="../../assets/img/Other/1.png"
+                            :src="$store.state.uploads + product.image"
                             alt="Popular item photo"
                             type="photo/png"
                         />
                         <div class="popular__items__desription">
                             <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
+                                <span class="popular__items__desription--name">
+                                    {{ product.category.uz }}
+                                </span>
 
                                 <div class="magazine__item--rating">
                                     <img
@@ -960,126 +717,45 @@
                                 </div>
                             </div>
                             <h4 class="popular__items__desription--categorie">
-                                Детская одежда
+                                {{ product.name.uz }}
                             </h4>
+                            <span
+                                class="popular__items__desription--price"
+                                v-if="!product.discount"
+                                >{{
+                                    updatePriceFormat(product.price)
+                                }}
+                                сум</span
+                            >
+                            <span
+                                class="popular__items__desription--price"
+                                v-if="!!product.discount"
+                                >{{
+                                    updatePriceFormat(product.discount)
+                                }}
+                                сум</span
+                            >
                             <span
                                 class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >580 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >480 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/Popular/boy-1.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4</span>
-                                </div>
-                            </div>
-                            <h4 class="popular__items__desription--categorie">
-                                Детская одежда
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >580 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >480 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/catalog_page/2.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>3.5</span>
-                                </div>
-                            </div>
-
-                            <h4 class="popular__items__desription--categorie">
-                                Мужская кожаная куртка
-                            </h4>
-                            <span class="popular__items__desription--price"
-                                >1 080 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/Popular/woman-1.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <span class="popular__items__desription--name"
-                                >Одежда</span
-                            >
-                            <h4 class="popular__items__desription--categorie">
-                                Новая весенная коллекция для женщин
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price"
-                                >1 480 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >1 280 000 сум</span
-                            >
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/Popular/boy-3.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <span class="popular__items__desription--name"
-                                >Рубашки</span
-                            >
-                            <h4 class="popular__items__desription--categorie">
-                                весенная рубашка для мужчин
-                            </h4>
-                            <span class="popular__items__desription--price"
-                                >474 000 сум</span
+                                v-if="!!product.discount"
+                                >{{
+                                    updatePriceFormat(product.price)
+                                }}
+                                сум</span
                             >
                         </div>
                     </div>
                 </div>
-                <a href="#" class="popular__btn">Показать ещё</a>
+                <a
+                    href="#"
+                    class="popular__btn"
+                    v-if="
+                        productsByCategory.data.length >=
+                            productsByCategory.limit
+                    "
+                    @click.prevent="updateCategoryLimit"
+                    >Показать ещё</a
+                >
             </section>
 
             <section class="navbar__bottom container">
@@ -1104,43 +780,48 @@
                     <span
                         class="header__item icon__box d-flex justify-content-center align-items-center"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="23"
-                            viewBox="0 0 24 23"
-                            fill="none"
-                        >
-                            <path
-                                d="M23.2243 8.09896L16.0296 7.04962L12.8133 0.506195C12.7255 0.32704 12.581 0.182009 12.4024 0.0938536C11.9547 -0.127957 11.4106 0.0568852 11.1868 0.506195L7.97055 7.04962L0.77582 8.09896C0.577461 8.12739 0.396105 8.22124 0.257255 8.36342C0.0893918 8.53657 -0.0031083 8.76951 7.97568e-05 9.01106C0.00326781 9.25261 0.101883 9.48301 0.274257 9.65163L5.47974 14.7448L4.24992 21.9365C4.22108 22.1038 4.23953 22.2759 4.30317 22.4332C4.36681 22.5905 4.47311 22.7268 4.60999 22.8266C4.74688 22.9263 4.90889 22.9856 5.07764 22.9977C5.24639 23.0098 5.41514 22.9742 5.56475 22.8949L12.0001 19.4995L18.4354 22.8949C18.6111 22.9887 18.8151 23.02 19.0106 22.9859C19.5037 22.9006 19.8352 22.4314 19.7502 21.9365L18.5204 14.7448L23.7259 9.65163C23.8675 9.51229 23.9611 9.33029 23.9894 9.13123C24.0659 8.63358 23.7202 8.17289 23.2243 8.09896Z"
-                                fill="#FB8500"
-                            />
-                        </svg>
+                        <nuxt-link to="/favourite" class="header__item basket">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="23"
+                                viewBox="0 0 24 23"
+                                fill="none"
+                            >
+                                <path
+                                    d="M23.2243 8.09896L16.0296 7.04962L12.8133 0.506195C12.7255 0.32704 12.581 0.182009 12.4024 0.0938536C11.9547 -0.127957 11.4106 0.0568852 11.1868 0.506195L7.97055 7.04962L0.77582 8.09896C0.577461 8.12739 0.396105 8.22124 0.257255 8.36342C0.0893918 8.53657 -0.0031083 8.76951 7.97568e-05 9.01106C0.00326781 9.25261 0.101883 9.48301 0.274257 9.65163L5.47974 14.7448L4.24992 21.9365C4.22108 22.1038 4.23953 22.2759 4.30317 22.4332C4.36681 22.5905 4.47311 22.7268 4.60999 22.8266C4.74688 22.9263 4.90889 22.9856 5.07764 22.9977C5.24639 23.0098 5.41514 22.9742 5.56475 22.8949L12.0001 19.4995L18.4354 22.8949C18.6111 22.9887 18.8151 23.02 19.0106 22.9859C19.5037 22.9006 19.8352 22.4314 19.7502 21.9365L18.5204 14.7448L23.7259 9.65163C23.8675 9.51229 23.9611 9.33029 23.9894 9.13123C24.0659 8.63358 23.7202 8.17289 23.2243 8.09896Z"
+                                    fill="#FB8500"
+                                />
+                            </svg>
+                        </nuxt-link>
                     </span>
 
-                    <span
-                        class="basket icon__box d-flex justify-content-center align-items-center"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="21"
-                            height="24"
-                            viewBox="0 0 21 24"
-                            fill="none"
+                    <nuxt-link to="/basket" class=" header__item basket">
+                        <span
+                            class="basket icon__box d-flex justify-content-center align-items-center"
                         >
-                            <path
-                                d="M10.4426 1.66086C9.67089 1.66086 8.93077 1.96765 8.38508 2.51373C7.83938 3.05982 7.53281 3.80047 7.53281 4.57275V7.48463H6.07791V4.57275C6.07791 3.41433 6.53776 2.30335 7.3563 1.48423C8.17485 0.665098 9.28503 0.204918 10.4426 0.204918C11.6002 0.204918 12.7104 0.665098 13.5289 1.48423C14.3475 2.30335 14.8073 3.41433 14.8073 4.57275V7.48463H13.3524V4.57275C13.3524 3.80047 13.0459 3.05982 12.5002 2.51373C11.9545 1.96765 11.2144 1.66086 10.4426 1.66086ZM6.07791 7.48463H3.69187C3.16937 7.48475 2.66426 7.67245 2.26833 8.01363C1.87239 8.35481 1.61192 8.82681 1.53424 9.34387L0.0400561 19.3214C-0.0373626 19.8392 -0.00228232 20.3675 0.142904 20.8704C0.28809 21.3733 0.539966 21.8389 0.881348 22.2356C1.22273 22.6322 1.64559 22.9505 2.12107 23.1687C2.59656 23.3869 3.11348 23.4999 3.63658 23.5H17.2472C17.7704 23.5001 18.2875 23.3873 18.7632 23.1691C19.2388 22.951 19.6619 22.6328 20.0034 22.2361C20.345 21.8395 20.597 21.3737 20.7422 20.8707C20.8875 20.3677 20.9226 19.8393 20.8452 19.3214L19.3495 9.34387C19.2719 8.82706 19.0116 8.35525 18.616 8.0141C18.2204 7.67296 17.7156 7.4851 17.1934 7.48463H14.8073V9.66854C14.8073 9.86162 14.7307 10.0468 14.5943 10.1833C14.4578 10.3198 14.2728 10.3965 14.0799 10.3965C13.887 10.3965 13.7019 10.3198 13.5655 10.1833C13.4291 10.0468 13.3524 9.86162 13.3524 9.66854V7.48463H7.53281V9.66854C7.53281 9.86162 7.45617 10.0468 7.31975 10.1833C7.18332 10.3198 6.99829 10.3965 6.80536 10.3965C6.61243 10.3965 6.4274 10.3198 6.29098 10.1833C6.15455 10.0468 6.07791 9.86162 6.07791 9.66854V7.48463Z"
-                                fill="#FB8500"
-                            />
-                        </svg>
-                        <span class="basket-count">
-                            4
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="21"
+                                height="24"
+                                viewBox="0 0 21 24"
+                                fill="none"
+                            >
+                                <path
+                                    d="M10.4426 1.66086C9.67089 1.66086 8.93077 1.96765 8.38508 2.51373C7.83938 3.05982 7.53281 3.80047 7.53281 4.57275V7.48463H6.07791V4.57275C6.07791 3.41433 6.53776 2.30335 7.3563 1.48423C8.17485 0.665098 9.28503 0.204918 10.4426 0.204918C11.6002 0.204918 12.7104 0.665098 13.5289 1.48423C14.3475 2.30335 14.8073 3.41433 14.8073 4.57275V7.48463H13.3524V4.57275C13.3524 3.80047 13.0459 3.05982 12.5002 2.51373C11.9545 1.96765 11.2144 1.66086 10.4426 1.66086ZM6.07791 7.48463H3.69187C3.16937 7.48475 2.66426 7.67245 2.26833 8.01363C1.87239 8.35481 1.61192 8.82681 1.53424 9.34387L0.0400561 19.3214C-0.0373626 19.8392 -0.00228232 20.3675 0.142904 20.8704C0.28809 21.3733 0.539966 21.8389 0.881348 22.2356C1.22273 22.6322 1.64559 22.9505 2.12107 23.1687C2.59656 23.3869 3.11348 23.4999 3.63658 23.5H17.2472C17.7704 23.5001 18.2875 23.3873 18.7632 23.1691C19.2388 22.951 19.6619 22.6328 20.0034 22.2361C20.345 21.8395 20.597 21.3737 20.7422 20.8707C20.8875 20.3677 20.9226 19.8393 20.8452 19.3214L19.3495 9.34387C19.2719 8.82706 19.0116 8.35525 18.616 8.0141C18.2204 7.67296 17.7156 7.4851 17.1934 7.48463H14.8073V9.66854C14.8073 9.86162 14.7307 10.0468 14.5943 10.1833C14.4578 10.3198 14.2728 10.3965 14.0799 10.3965C13.887 10.3965 13.7019 10.3198 13.5655 10.1833C13.4291 10.0468 13.3524 9.86162 13.3524 9.66854V7.48463H7.53281V9.66854C7.53281 9.86162 7.45617 10.0468 7.31975 10.1833C7.18332 10.3198 6.99829 10.3965 6.80536 10.3965C6.61243 10.3965 6.4274 10.3198 6.29098 10.1833C6.15455 10.0468 6.07791 9.86162 6.07791 9.66854V7.48463Z"
+                                    fill="#FB8500"
+                                />
+                            </svg>
+                            <span class="basket-count" v-if="countBasket > 0">
+                                {{ countBasket }}
+                            </span>
                         </span>
-                    </span>
+                    </nuxt-link>
 
                     <a
                         href="#"
                         class="navbar__bottom__button button__to__basket  d-flex justify-content-center align-items-center"
+                        @click.prevent="toggleBasket"
                     >
                         Корзину
                     </a>
@@ -1148,6 +829,7 @@
                     <a
                         href="#"
                         class="navbar__bottom__button button__buy__now d-flex justify-content-center align-items-center"
+                        @click.prevent="goToOrder"
                     >
                         Купить
                     </a>
@@ -1192,7 +874,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/javascript">
 // BaseLoading spinner
 import BaseLoading from "../../components/UI/BaseLoading.vue";
 import ModalSuccess from "../../components/Modals/SuccessModal.vue";
@@ -1219,6 +901,8 @@ export default {
 
     data() {
         return {
+            isGet: false,
+            noData: null,
             // rating options default
             rating: "No Rating Selected",
             currentRating: "No Rating",
@@ -1267,6 +951,19 @@ export default {
 
             checkedProduct: 0,
 
+            productsInMagazine: {
+                data: [],
+                page: 1,
+                limit: 12,
+                id: ""
+            },
+            productsByCategory: {
+                data: [],
+                page: 1,
+                limit: 12,
+                id: ""
+            },
+
             favouriteObj: {
                 add: false,
                 remove: false,
@@ -1296,7 +993,8 @@ export default {
         "allFavourites",
         "allFavouritesId",
         "allInBasket",
-        "isInBasket"
+        "isInBasket",
+        "countBasket"
     ]),
 
     methods: {
@@ -1319,7 +1017,8 @@ export default {
         ]),
 
         // ----------------------------------------------------------
-        onResize(event) {
+        onResize() {
+            console.log("resize");
             this.setBoxHeight();
             this.setImgWidth();
             this.setImgHeight();
@@ -1342,43 +1041,61 @@ export default {
 
         // find carousel src
         selectImg(event) {
-            this.$refs.img__preview.src = event.path[0].currentSrc;
+            this.$refs.img__preview.src = event.target.currentSrc;
         },
 
         // add active class to li on hover or click
         addClassActive(event) {
-            for (let i = 0; i < event.path[3].children.length; i++) {
-                event.path[3].children[i].classList.remove("active");
+            console.log("clicked on class event", event);
+            console.log("composed path", event.composedPath());
+            const pathObj = event.composedPath();
+            for (let i = 0; i < pathObj[3].children.length; i++) {
+                pathObj[3].children[i].classList.remove("active");
             }
-            event.path[2].classList.add("active");
+            pathObj[2].classList.add("active");
         },
 
         // checkbox give sizes on  select param
         selectProductParam(event, param) {
-            console.log(event, param);
+            console.log("clicked produc param", event);
+            console.log("composed path", event.composedPath());
+            const oldSize = this.selectedProduct.size.size;
             const obj = this.product.params.reduce((arr, item) =>
                 item._id === param._id ? (arr = item) : arr
             );
-            console.log(obj);
             this.selectedProduct.params = obj;
             // update size on selected product
-            this.selectedProduct.size = obj.sizes[0];
             this.updatePrice();
             this.updateSize();
             this.selectImg(event);
-
+            this.selectProductSize(false, oldSize);
             // Check selected
-            event.path[1].control.checked = true;
+
+            // event.path[1].control.checked = true;
             // Check first param checked
-            this.$refs.productSizes[0].children[0].checked = true;
+            // this.$refs.productSizes[0].children[0].checked = true;
         },
 
         // checkbox give price on select size
-        selectProductSize(event) {
-            const obj = this.selectedProduct.params.sizes.reduce((obj, param) =>
-                param._id === event.path[0].id ? (obj = param) : obj
-            );
-            this.selectedProduct.size = obj;
+        selectProductSize(event, oldSize) {
+            console.log("clicked product size", event, oldSize, !!event);
+            console.log("composed path", event.composedPath());
+            const pathObj = event.composedPath();
+            if (!!event) {
+                const obj = this.selectedProduct.params.sizes.reduce(
+                    (obj, param) =>
+                        param._id === pathObj[0].id ? (obj = param) : obj
+                );
+                this.selectedProduct.size = obj;
+            }
+            if (!!oldSize) {
+                const obj = this.selectedProduct.params.sizes.reduce(
+                    (obj, param) =>
+                        param.size === oldSize ? (obj = param) : obj
+                );
+                this.selectedProduct.size = obj;
+            }
+
             this.updatePrice();
             this.updateSize();
         },
@@ -1388,9 +1105,15 @@ export default {
             this.selectedProduct = { ...product };
             this.selectedProduct.params = product.params[0];
             this.selectedProduct.size = product.params[0].sizes[0];
-            this.productPrice = this.updatePriceFormat(
-                product.params[0].sizes[0].price
-            );
+            if (product.params[0].sizes[0].discount !== null) {
+                this.productPrice = this.updatePriceFormat(
+                    product.params[0].sizes[0].discount
+                );
+            } else {
+                this.productPrice = this.updatePriceFormat(
+                    product.params[0].sizes[0].price
+                );
+            }
             this.productSize = product.params[0].sizes[0].size;
         },
 
@@ -1402,8 +1125,19 @@ export default {
 
         // update product price
         updatePrice() {
-            const data = this.selectedProduct.size.price * this.productCount;
-            this.productPrice = this.updatePriceFormat(data);
+            if (this.selectedProduct.size.discount !== null) {
+                // const data =
+                //     this.selectedProduct.size.discount * this.productCount;
+                const data = this.selectedProduct.size.discount;
+
+                this.productPrice = this.updatePriceFormat(data);
+            } else {
+                // const data =
+                //     this.selectedProduct.size.price * this.productCount;
+
+                const data = this.selectedProduct.size.price;
+                this.productPrice = this.updatePriceFormat(data);
+            }
         },
 
         // change product count
@@ -1472,6 +1206,9 @@ export default {
             if (!this.favouriteObj.status) {
                 this.showFavouriteModals(false, true);
             }
+            setTimeout(() => {
+                this.resetModal();
+            }, 1800);
         },
 
         // find is favurited this product
@@ -1479,11 +1216,10 @@ export default {
             const [array] = this.allFavouritesId.filter(
                 el => el.product === this.selectedProduct._id
             );
+            console.log("favourite", array);
             if (!!array) {
                 this.favouriteObj.favouriteId = array._id;
                 this.favouriteObj.status = true;
-                this.$refs.favourite__icon.attributes.fill.nodeValue =
-                    "#FB8500";
             }
         },
 
@@ -1537,6 +1273,7 @@ export default {
 
         // toggle favourite main function for favourite
         toggleFavourite(event) {
+            console.log("clicked toggle favourite", event);
             if (!!this.$auth.user) {
                 if (!this.favouriteObj.status) {
                     this.setFavourite(event);
@@ -1601,8 +1338,12 @@ export default {
 
                 this.resetBasketSetts();
 
-                await this.basketFilter({ product, param, size });
-
+                // await this.fetchCounBasket(token);
+                // await this.basketFilter({ product, param, size });
+                await Promise.all([
+                    this.fetchCounBasket(token),
+                    this.basketFilter({ product, param, size })
+                ]);
                 if (this.isInBasket.length > 0) {
                     this.isCountChanged(count);
                 }
@@ -1614,6 +1355,10 @@ export default {
                 if (this.isInBasket.length === 0) {
                     await this.addToBasket(token, product, param, size, count);
                 }
+
+                setTimeout(() => {
+                    this.resetBasketSetts();
+                }, 1800);
             } else {
                 this.$router.push({
                     name: "auth-login"
@@ -1622,44 +1367,122 @@ export default {
         },
 
         goToOrder() {
-            const product = this.selectedProduct;
-            console.log(product);
-            const products = [];
-            let amount = 0;
-            const obj = {
-                productId: product._id,
-                paramId: product.params._id,
-                shop: product.shop._id,
-                sizeId: product.size._id,
-                size: product.size.size,
-                amount: product.size.price,
-                count: this.productCount,
-                color: product.params.image,
-                image: product.image,
-                name: {
-                    uz: product.name.uz,
-                    ru: product.name.ru
-                },
-                description: {
-                    uz: product.description.uz,
-                    ru: product.description.ru
-                },
-                category: product.category._id,
-                brand: product.brand._id
-            };
+            if (!!this.$auth.user) {
+                const product = this.selectedProduct;
+                const products = [];
+                let amount = 0;
+                const obj = {
+                    productId: product._id,
+                    paramId: product.params._id,
+                    shop: product.shop._id,
+                    sizeId: product.size._id,
+                    size: product.size.size,
+                    amount: product.size.price,
+                    count: this.productCount,
+                    color: product.params.image,
+                    image: product.image,
+                    name: {
+                        uz: product.name.uz,
+                        ru: product.name.ru
+                    },
+                    description: {
+                        uz: product.description.uz,
+                        ru: product.description.ru
+                    },
+                    category: product.category._id,
+                    brand: product.brand._id
+                };
 
-            amount += obj.count * obj.amount;
-            products.push(obj);
-            this.updateOrderProduct({ products, amount });
+                if (!!product.size.discount) {
+                    obj.amount = product.size.discount;
+                }
+
+                amount += obj.count * obj.amount;
+                products.push(obj);
+                this.updateOrderProduct({ products, amount });
+                this.$router.push({
+                    name: "order-id",
+                    params: { id: product.slug }
+                });
+            } else {
+                this.$router.push({
+                    name: "auth-login"
+                });
+            }
+        },
+
+        // fetch products by magazine
+        async searchProductByMagazine() {
+            const shopId = this.productsInMagazine.id;
+            const page = this.productsInMagazine.page;
+            const limit = this.productsInMagazine.limit;
+            const res = await this.$axios
+                .$post("product/filter?page=" + page + "&limit=" + limit, {
+                    shop: shopId
+                })
+                .then(response => {
+                    if (response.success) {
+                        return response;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
+            return res;
+        },
+
+        //  go to product on click card of product
+        goToProduct(slug) {
             this.$router.push({
-                name: "order-id",
-                params: { id: product.slug }
+                name: "product-id",
+                params: { id: slug }
             });
+        },
+
+        // fetch products by magazine
+        async searchProductByCategory() {
+            const categoryId = this.productsByCategory.id;
+            const limit = this.productsByCategory.limit;
+            const page = this.productsByCategory.page;
+            const res = await this.$axios
+                .$post("product/filter?page=" + page + "&limit=" + limit, {
+                    category: [categoryId],
+                    brand: [],
+                    start: null,
+                    end: null,
+                    search: "",
+                    sort: ""
+                })
+                .then(response => {
+                    console.log("searc", response);
+                    if (response.success) {
+                        console.log("search", response);
+                        return response;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
+            return res;
+        },
+        async updateCategoryLimit() {
+            this.isGet = false;
+            this.productsByCategory.limit += 12;
+            const search = await this.searchProductByCategory();
+            this.productsByCategory.data = search.data;
+            this.isGet = true;
+        },
+
+        async updateMagazineLimit() {
+            this.isGet = false;
+            this.productsInMagazine.limit += 12;
+            const search = await this.searchProductByMagazine();
+            this.productsInMagazine.data = search.data;
+            this.isGet = true;
         }
     },
 
     async mounted() {
-        console.log(this.$auth.user);
         const token = this.user.token;
         if (!!this.$auth.user) {
             await Promise.all([
@@ -1673,13 +1496,15 @@ export default {
         await this.$axios
             .$get("/product/" + slug)
             .then(response => {
-                if (response.success) {
-                    console.log("product", response);
-                    this.isGet = true;
+                if (response.success && response.data.length > 0) {
                     this.product = response.data[0];
                     this.updateProduct(this.product);
-                    console.log("selected", this.selectedProduct, this.product);
+                    this.noData = false;
+                    // Give element  width to img carousel
+                    this.onResize();
+                    console.log("selected product", this.selectedProduct);
                 } else {
+                    this.noData = true;
                     throw new Error("Could not save data!");
                 }
             })
@@ -1687,18 +1512,35 @@ export default {
                 console.log(error);
             });
 
+        this.productsInMagazine.id = this.product.shop._id;
+        this.productsByCategory.id = this.product.category._id;
+
+        const [productsInMagazine, productsByCategory] = await Promise.all([
+            this.searchProductByMagazine(),
+            this.searchProductByCategory()
+        ]);
+        this.productsInMagazine.data = productsInMagazine.data;
+        this.productsByCategory.data = productsByCategory.data;
+        console.log("product", this.selectedProduct);
+        console.log("products in magazine", this.productsInMagazine.data);
+        console.log("products by category", this.productsByCategory);
         // is product favourite?
-        if (!!this.$auth.user) {
+        if (!!this.$auth.user && !!this.product) {
             await this.isFavourite();
         }
 
-        // Give element  width to img carousel
-        await this.setBoxHeight();
-        await this.setImgWidth();
-        await this.setImgHeight();
-
         // Register an event listener when the Vue component is ready
         window.addEventListener("resize", this.onResize);
+
+        this.isGet = true;
+        const interval = setInterval(() => {
+            this.onResize();
+        }, 1000);
+        setTimeout(() => {
+            (function() {
+                clearInterval(interval);
+            })();
+        }, 5000);
     },
 
     beforeDestroy() {
@@ -1709,9 +1551,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+html,
+body {
+    touch-action: auto !important;
+}
 .border__bottom {
     border-bottom: 1px solid #e5e5e5;
 }
+.product-show {
+    margin-top: 1rem;
+}
+
 .image__product__container {
     align-items: flex-start;
     overflow: hidden;
@@ -1729,7 +1579,6 @@ export default {
             height: 100%;
             overflow: hidden;
             img {
-                cursor: pointer;
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
@@ -1808,9 +1657,10 @@ export default {
                     position: relative;
 
                     img {
-                        width: 97%;
-                        height: 97%;
+                        width: 90%;
+                        height: 90%;
                         object-fit: cover;
+                        cursor: pointer;
                     }
                 }
             }
@@ -2123,7 +1973,10 @@ export default {
             }
 
             input {
-                display: none;
+                visibility: hidden;
+                width: 0;
+                height: 0;
+                cursor: pointer;
             }
 
             input:checked ~ label {
@@ -2588,6 +2441,9 @@ export default {
 
     .navbar__bottom {
         display: block;
+    }
+    .navi__buttons {
+        display: none;
     }
 }
 

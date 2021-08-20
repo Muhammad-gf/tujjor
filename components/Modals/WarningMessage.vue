@@ -117,7 +117,7 @@ export default {
     align-items: center;
     overflow: hidden;
 
-    animation: modal-scale 1.2s linear forwards,
+    animation: modal-scale 0.7s linear forwards,
         modal-opacity 2s linear forwards;
     div {
         max-width: 80%;

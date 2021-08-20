@@ -65,7 +65,7 @@
                 <div class=" news__box--item">
                     <img
                         class="news__box--item--img"
-                        src="../assets/img/news/news-1.png"
+                         src="../assets/img/magazine description/bg.png"
                         alt="News"
                     />
                     <div class="news__box--description">
@@ -91,7 +91,7 @@
                 <div class=" news__box--item">
                     <img
                         class="news__box--item--img"
-                        src="../assets/img/news/news-2.png"
+                          src="../assets/img/magazine description/bg.png"
                         alt="News"
                     />
                     <div class="news__box--description">
@@ -118,7 +118,7 @@
                 <div class=" news__box--item">
                     <img
                         class="news__box--item--img"
-                        src="../assets/img/news/news-3.png"
+                         src="../assets/img/magazine description/bg.png"
                         alt="News"
                     />
                     <div class="news__box--description">
@@ -192,7 +192,7 @@
                     <div class="video__box--item">
                         <img
                             class="video__box--item--img"
-                            src="../assets/img/news/news-4.png"
+                            src="../assets/img/magazine description/bg.png"
                             alt="News"
                         />
                         <div class="video__about__box">
@@ -225,7 +225,7 @@
                     <div class="video__box--item">
                         <img
                             class="video__box--item--img"
-                            src="../assets/img/news/news-5.png"
+                              src="../assets/img/magazine description/bg.png"
                             alt="News"
                         />
                         <div class="video__about__box">

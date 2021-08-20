@@ -42,9 +42,9 @@
                             alt="Item image"
                         />
                         <div class="basket__item__description">
-                            <h3>POLO рубашка</h3>
+                            <h3>{{ item.product.name.uz }}</h3>
                             <p class="p-first">
-                                Рубашка с контрастным дизайном
+                                {{ item.product.description.uz }}
                             </p>
                             <p class="p-second">
                                 <span>Размер:</span>{{ item.size.size }}
@@ -82,9 +82,24 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="basket__item--price">
+                        <div
+                            class="basket__item--price"
+                            v-if="!item.size.discount"
+                        >
                             <span
                                 >{{ updatePrice(item.count, item.size.price) }}
+                                cум
+                            </span>
+                        </div>
+
+                        <div
+                            class="basket__item--price"
+                            v-if="!!item.size.discount"
+                        >
+                            <span
+                                >{{
+                                    updatePrice(item.count, item.size.discount)
+                                }}
                                 cум
                             </span>
                         </div>
@@ -329,11 +344,13 @@ export default {
     computed: mapGetters(["allInBasket", "countBasket", "orderAll"]),
 
     methods: {
-        ...mapActions(["fetchBasket", "fetchCounBasket", "updateBasketCount"]),
+        ...mapActions(["fetchBasket", "fetchCountBasket", "updateBasketCount"]),
         ...mapMutations([
             "changeCountItem",
             "updateOrder",
-            "updateOrderProduct"
+            "updateOrderProduct",
+            "decreaseCountBasket",
+            "updateCountBasket"
         ]),
         // --------------------- modal settings --------------------------
         resetAllModals() {
@@ -404,7 +421,13 @@ export default {
         updatePriceAll() {
             let amount = 0;
             this.allInBasket.forEach(item => {
-                amount += item.count * item.size.price;
+                if (!!item.size.discount) {
+                    const price = item.count * item.size.discount;
+                    amount += price;
+                } else {
+                    const price = item.count * item.size.price;
+                    amount += price;
+                }
             });
             return this.updatePriceFormat(amount);
         },
@@ -441,7 +464,9 @@ export default {
                     if (response.success) {
                         this.deleteEnded();
                         console.log(response);
-
+                        if (id === "rm/all") {
+                            this.updateCountBasket(0);
+                        }
                         return response;
                     } else {
                         throw new Error("Could not save data!");
@@ -452,7 +477,8 @@ export default {
             const response = await this.fetchBasket(token);
             if (response.data.length === 0) this.noData = true;
 
-            // this.fetchCounBasket(token)
+            this.decreaseCountBasket();
+            // this.fetchCountBasket(token)
         },
 
         // -------------------------------- order settings -------------------------
@@ -481,7 +507,10 @@ export default {
                     brand: item.product.brand
                 }
             ];
-            const amount = item.count * item.size.price;
+            if (!!item.size.discount) {
+                products[0].amount = item.size.discount;
+            }
+            const amount = item.count * products[0].amount;
 
             this.updateOrderProduct({ products, amount });
             console.log(this.orderAll);
@@ -519,8 +548,11 @@ export default {
                     category: item.product.category,
                     brand: item.product.brand
                 };
+                if (!!item.size.discount) {
+                    obj.amount = item.size.discount;
+                }
 
-                amount += item.count * item.size.price;
+                amount += item.count * obj.amount;
 
                 products.push(obj);
             });
@@ -538,14 +570,24 @@ export default {
     },
 
     async mounted(token = this.user.token) {
+        // const [obj, count] = await Promise.all([
+        //     this.fetchBasket(token),
+        //     this.fetchCountBasket(token)
+        // ]);
+
+        // console.log("promise", obj, count);
+
         const res = await this.fetchBasket(token);
-        console.log(res);
+        console.log("basket", res);
+
         if (res.success) {
             this.isGet = true;
         }
         if (res.data.length === 0) {
             this.noData = true;
         }
+
+        console.log("all in basket", this.allInBasket);
     }
 };
 </script>
@@ -608,7 +650,7 @@ export default {
                     font-size: 18px;
                     line-height: 100%;
                     /* or 18px */
-                    height: 1em;
+                    height: 2.8em;
                     overflow: hidden;
 
                     text-transform: uppercase;
@@ -622,12 +664,12 @@ export default {
                     font-size: 14px;
                     line-height: 100%;
                     /* or 14px */
-                    height: 2em;
+                    height: 3em;
                     overflow: hidden;
 
                     color: #000000;
 
-                    margin-bottom: 40px;
+                    margin-bottom: 0;
                 }
 
                 .p-second {
@@ -642,6 +684,8 @@ export default {
 
                     display: flex;
                     align-items: center;
+                    margin-bottom: 0;
+                    margin-top: 5px;
 
                     span {
                         margin-right: 5px;
@@ -977,7 +1021,7 @@ export default {
     }
 }
 
-@media screen and (max-width: 1200px) {
+@media only screen and (max-width: 1200px) {
     .basket__container {
         .basket__item__box {
             .basket__item--header {
@@ -995,7 +1039,7 @@ export default {
     }
 }
 
-@media screen and (max-width: 920px) {
+@media only screen and (max-width: 920px) {
     .basket__container {
         .basket__item__box {
             padding: 14px 18px;
@@ -1032,7 +1076,7 @@ export default {
             .basket__item--secondary {
                 .basket__item--btn {
                     height: 35px;
-                    margin-bottom: 20px;
+                    margin-bottom: 10px;
                     span {
                         font-size: 14px;
                     }
@@ -1103,7 +1147,7 @@ export default {
     }
 }
 
-@media screen and (max-width: 700px) {
+@media only screen and (max-width: 700px) {
     .basket__container {
         .basket__price {
             flex-direction: column;
@@ -1127,7 +1171,7 @@ export default {
     }
 }
 
-@media screen and (max-width: 560px) {
+@media only screen and (max-width: 560px) {
     .basket__container {
         .basket__heading {
             margin-bottom: 5px;
@@ -1140,12 +1184,12 @@ export default {
 
         .basket__item__box {
             flex-direction: column;
-            margin: 20px 0 0;
+            margin: 15px 0 0;
             padding: 14px 20px;
             .basket__item--header {
                 flex-basis: auto;
                 margin-right: 0;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
 
                 img {
                     width: 95px;
@@ -1154,9 +1198,12 @@ export default {
 
                 .basket__item__description {
                     max-width: 55%;
+                    h3 {
+                        margin-bottom: 7px;
+                    }
                     .p-first {
                         font-size: 14px;
-                        margin-bottom: 25px;
+                        margin-bottom: 0;
                     }
                 }
             }
@@ -1179,13 +1226,13 @@ export default {
                 }
                 .basket__item--price {
                     order: 2;
-                    margin-bottom: 20px;
+                    margin-bottom: 0;
                     flex-basis: auto;
                 }
                 .basket__item--color {
                     order: 1;
                     flex-basis: auto;
-                    margin-bottom: 20px;
+                    margin-bottom: 0;
                 }
             }
         }

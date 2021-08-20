@@ -70,12 +70,29 @@
                             <h4 class="popular__items__desription--categorie">
                                 {{ product.product.name.uz }}
                             </h4>
+
                             <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >630 000 сум</span
+                                class="popular__items__desription--price"
+                                v-if="!!product.discount"
                             >
-                            <span class="popular__items__desription--price">
-                                {{ updatePriceFormat(product.price.price) }} сум
+                                {{ updatePriceFormat(product.discount) }}
+                                сум
+                            </span>
+
+                            <span
+                                v-if="!!product.discount"
+                                class="popular__items__desription--price popular__items__desription--old--price hidden"
+                            >
+                                {{ updatePriceFormat(product.price) }}
+                                сум
+                            </span>
+
+                            <span
+                                class="popular__items__desription--price"
+                                v-if="!product.discount"
+                            >
+                                {{ updatePriceFormat(product.price) }}
+                                сум
                             </span>
 
                             <p
@@ -85,265 +102,6 @@
                                     defaultProductId();
                                     addProductId(product._id);
                                 "
-                            >
-                                <svg
-                                    width="10"
-                                    height="10"
-                                    viewBox="0 0 10 10"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M9.37507 0.625018C9.02991 0.279827 8.47027 0.279794 8.12507 0.624945L4.99956 3.75L1.87489 0.625055C1.52972 0.279855 0.970058 0.279856 0.624889 0.625055C0.279763 0.970212 0.279763 1.52979 0.624889 1.87494L3.74967 5L0.624889 8.12506C0.279763 8.47021 0.279763 9.02979 0.624889 9.37495C0.970058 9.72015 1.52972 9.72014 1.87489 9.37494L4.99956 6.25L8.12507 9.37506C8.47027 9.72021 9.02991 9.72017 9.37507 9.37498C9.72022 9.02981 9.72022 8.4702 9.37507 8.12502L6.25033 5L9.37507 1.87498C9.72022 1.5298 9.72022 0.970195 9.37507 0.625018Z"
-                                        fill="#F7931E"
-                                    />
-                                </svg>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/Popular/boy-1.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4</span>
-                                </div>
-                            </div>
-
-                            <h4 class="popular__items__desription--categorie">
-                                Детская одежда
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >630 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >480 000 сум</span
-                            >
-
-                            <p
-                                class="button__delete"
-                                @click.prevent="showDeleteModal"
-                            >
-                                <svg
-                                    width="10"
-                                    height="10"
-                                    viewBox="0 0 10 10"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M9.37507 0.625018C9.02991 0.279827 8.47027 0.279794 8.12507 0.624945L4.99956 3.75L1.87489 0.625055C1.52972 0.279855 0.970058 0.279856 0.624889 0.625055C0.279763 0.970212 0.279763 1.52979 0.624889 1.87494L3.74967 5L0.624889 8.12506C0.279763 8.47021 0.279763 9.02979 0.624889 9.37495C0.970058 9.72015 1.52972 9.72014 1.87489 9.37494L4.99956 6.25L8.12507 9.37506C8.47027 9.72021 9.02991 9.72017 9.37507 9.37498C9.72022 9.02981 9.72022 8.4702 9.37507 8.12502L6.25033 5L9.37507 1.87498C9.72022 1.5298 9.72022 0.970195 9.37507 0.625018Z"
-                                        fill="#F7931E"
-                                    />
-                                </svg>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/Popular/boy-2.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Футболки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>3.5</span>
-                                </div>
-                            </div>
-
-                            <h4 class="popular__items__desription--categorie">
-                                Мужская кожаная куртка
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >1 580 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >1 080 000 сум</span
-                            >
-                            <p
-                                class="button__delete"
-                                @click.prevent="showDeleteModal"
-                            >
-                                <svg
-                                    width="10"
-                                    height="10"
-                                    viewBox="0 0 10 10"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M9.37507 0.625018C9.02991 0.279827 8.47027 0.279794 8.12507 0.624945L4.99956 3.75L1.87489 0.625055C1.52972 0.279855 0.970058 0.279856 0.624889 0.625055C0.279763 0.970212 0.279763 1.52979 0.624889 1.87494L3.74967 5L0.624889 8.12506C0.279763 8.47021 0.279763 9.02979 0.624889 9.37495C0.970058 9.72015 1.52972 9.72014 1.87489 9.37494L4.99956 6.25L8.12507 9.37506C8.47027 9.72021 9.02991 9.72017 9.37507 9.37498C9.72022 9.02981 9.72022 8.4702 9.37507 8.12502L6.25033 5L9.37507 1.87498C9.72022 1.5298 9.72022 0.970195 9.37507 0.625018Z"
-                                        fill="#F7931E"
-                                    />
-                                </svg>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/Popular/item-1.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Кроссовки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4.5</span>
-                                </div>
-                            </div>
-
-                            <h4 class="popular__items__desription--categorie">
-                                для фанатов футбола Ювентуса
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >1 399 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >1 280 000 сум</span
-                            >
-
-                            <p
-                                class="button__delete"
-                                @click.prevent="showDeleteModal"
-                            >
-                                <svg
-                                    width="10"
-                                    height="10"
-                                    viewBox="0 0 10 10"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M9.37507 0.625018C9.02991 0.279827 8.47027 0.279794 8.12507 0.624945L4.99956 3.75L1.87489 0.625055C1.52972 0.279855 0.970058 0.279856 0.624889 0.625055C0.279763 0.970212 0.279763 1.52979 0.624889 1.87494L3.74967 5L0.624889 8.12506C0.279763 8.47021 0.279763 9.02979 0.624889 9.37495C0.970058 9.72015 1.52972 9.72014 1.87489 9.37494L4.99956 6.25L8.12507 9.37506C8.47027 9.72021 9.02991 9.72017 9.37507 9.37498C9.72022 9.02981 9.72022 8.4702 9.37507 8.12502L6.25033 5L9.37507 1.87498C9.72022 1.5298 9.72022 0.970195 9.37507 0.625018Z"
-                                        fill="#F7931E"
-                                    />
-                                </svg>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/Popular/boy-3.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Рубашки</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>4.9</span>
-                                </div>
-                            </div>
-
-                            <h4 class="popular__items__desription--categorie">
-                                весенная рубашка для мужчин
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price hidden"
-                                >532 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >474 000 сум</span
-                            >
-
-                            <p
-                                class="button__delete"
-                                @click.prevent="showDeleteModal"
-                            >
-                                <svg
-                                    width="10"
-                                    height="10"
-                                    viewBox="0 0 10 10"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M9.37507 0.625018C9.02991 0.279827 8.47027 0.279794 8.12507 0.624945L4.99956 3.75L1.87489 0.625055C1.52972 0.279855 0.970058 0.279856 0.624889 0.625055C0.279763 0.970212 0.279763 1.52979 0.624889 1.87494L3.74967 5L0.624889 8.12506C0.279763 8.47021 0.279763 9.02979 0.624889 9.37495C0.970058 9.72015 1.52972 9.72014 1.87489 9.37494L4.99956 6.25L8.12507 9.37506C8.47027 9.72021 9.02991 9.72017 9.37507 9.37498C9.72022 9.02981 9.72022 8.4702 9.37507 8.12502L6.25033 5L9.37507 1.87498C9.72022 1.5298 9.72022 0.970195 9.37507 0.625018Z"
-                                        fill="#F7931E"
-                                    />
-                                </svg>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="popular__items">
-                        <img
-                            class="popular__items__img"
-                            src="../../assets/img/Popular/woman-1.png"
-                            alt="Popular item photo"
-                            type="photo/png"
-                        />
-                        <div class="popular__items__desription">
-                            <div class="name__rating">
-                                <span class="popular__items__desription--name"
-                                    >Одежда</span
-                                >
-
-                                <div class="magazine__item--rating">
-                                    <img
-                                        src="../../assets/img/magazines/star.png"
-                                        alt="Star img"
-                                    /><span>3.6</span>
-                                </div>
-                            </div>
-
-                            <h4 class="popular__items__desription--categorie">
-                                Новая весенная коллекция для женщин
-                            </h4>
-                            <span
-                                class="popular__items__desription--price popular__items__desription--old--price"
-                                >1 619 000 сум</span
-                            >
-                            <span class="popular__items__desription--price"
-                                >1 280 000 сум</span
-                            >
-
-                            <p
-                                class="button__delete"
-                                @click.prevent="showDeleteModal"
                             >
                                 <svg
                                     width="10"
@@ -375,7 +133,13 @@
                 <div v-if="dangerModal.showContent">
                     <div class="d-block text-center">
                         <h3>
-                            Вы хотите удалить этот продукт из корзины???
+                            Вы хотите удалить
+                            {{
+                                removeProductId === "rm/all"
+                                    ? "все продукты"
+                                    : "этот продукт"
+                            }}
+                            из корзины?
                         </h3>
                     </div>
                     <b-button
@@ -599,6 +363,9 @@ export default {
                 .catch(err => console.error(err));
 
             console.log("remove ended");
+            if (this.removeProductId === "rm/all") {
+                this.noData = true;
+            }
         },
 
         ...mapActions(["fetchFavourites", "fetchFavouritesId"]),
@@ -615,6 +382,7 @@ export default {
         await this.fetchFavouritesId(token);
         this.isGet = true;
         if (this.allFavourites.length === 0) this.noData = true;
+        console.log("favourtie", this.allFavourites);
     }
 };
 </script>

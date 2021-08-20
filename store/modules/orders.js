@@ -32,10 +32,12 @@ export default {
                 })
                 .then(res => {
                     if (res.success) {
-                        console.log("order created", res);
+                        return res;
+                    } else {
+                        throw new Error("Could not save data!");
                     }
-                });
-
+                })
+                .catch(err => console.error(err));
             return res;
         }
     },
