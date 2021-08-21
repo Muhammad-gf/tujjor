@@ -1079,9 +1079,9 @@ export default {
         // checkbox give price on select size
         selectProductSize(event, oldSize) {
             console.log("clicked product size", event, oldSize, !!event);
-            console.log("composed path", event.composedPath());
-            const pathObj = event.composedPath();
             if (!!event) {
+                console.log("composed path", event.composedPath());
+                const pathObj = event.composedPath();
                 const obj = this.selectedProduct.params.sizes.reduce(
                     (obj, param) =>
                         param._id === pathObj[0].id ? (obj = param) : obj
@@ -1150,6 +1150,7 @@ export default {
         // update product size
         updateSize() {
             this.productSize = this.selectedProduct.size.size;
+            console.log("product size", this.productSize);
         },
 
         // favourite settings -----------------------------------------------
