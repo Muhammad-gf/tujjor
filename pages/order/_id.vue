@@ -227,9 +227,6 @@
         >
         </warning-message>
 
-        <danger-message v-if="true" post-title="Пополните пустые поле!">
-        </danger-message>
-
         <warning-message v-if="errorrMessage" post-title="Произошло ошибка!">
         </warning-message>
     </section>
@@ -238,11 +235,10 @@
 <script>
 import BaseLoading from "../../components/UI/BaseLoading.vue";
 import WarningMessage from "../../components/Modals/WarningMessage.vue";
-import DangerMessage from "../../components/Modals/DangerMessage.vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {
-    components: { BaseLoading, WarningMessage, DangerMessage },
+    components: { BaseLoading, WarningMessage },
 
     head: {
         title: "Оформить заказ — Tujjor. Низкие цены и широкий ассортимент!",
