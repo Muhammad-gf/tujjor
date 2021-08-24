@@ -194,7 +194,7 @@ export default {
         },
 
         async registerUserMainFunc() {
-            this.messageNoData = this.messageDuplicate = false;
+            this.resetModals();
             console.log(
                 "message start",
                 this.messageNoData,
@@ -227,8 +227,8 @@ export default {
                 .then(res => {
                     if (!!res.token) {
                         console.log("register send", res);
+                        this.loginUser();
                         return res;
-                        // this.loginUser();
                     } else if (!res.success && res.err.code === 11000) {
                         this.$nextTick(() => {
                             this.messageDuplicate = true;
