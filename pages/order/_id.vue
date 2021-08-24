@@ -224,8 +224,7 @@
         <warning-message
             v-if="warningMessage"
             post-title="Пополните пустые поле!"
-        >
-        </warning-message>
+        ></warning-message>
 
         <warning-message v-if="errorrMessage" post-title="Произошло ошибка!">
         </warning-message>

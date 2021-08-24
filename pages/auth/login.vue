@@ -142,6 +142,7 @@ export default {
                         password: this.user.password
                     }
                 });
+                console.log("login sets", response);
                 this.$router.push("/");
             } catch (err) {
                 console.error(err);
