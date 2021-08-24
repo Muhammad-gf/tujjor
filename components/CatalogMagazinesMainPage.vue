@@ -1,7 +1,7 @@
 <template>
     <section class="magazines__main__page">
         <section class="container popular__container">
-            <div class="popular__heading">Ваши магазины</div>
+            <div class="popular__heading">{{$t('magazine')}}</div>
         </section>
         <div class="magazines__box container">
             <div
@@ -55,7 +55,7 @@
                 href="#"
                 class="popular__btn text-center"
                 @click.prevent="updateMagazineLimit"
-                >Показать ещё</a
+                >{{$t('all')}}</a
             >
         </section>
     </section>

@@ -3,7 +3,7 @@
         <div class="brands">
             <section class="container popular__container  ">
                 <div class="popular__heading">
-                    Бренды
+                    {{$t('brands')}}
                 </div>
             </section>
             <!-- <div class="brands__box"> -->

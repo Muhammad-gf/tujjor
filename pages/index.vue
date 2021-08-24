@@ -104,7 +104,6 @@ html,
 body {
     touch-action: auto !important;
 }
-/////////////////
 section {
     padding: 0;
     margin: 0;

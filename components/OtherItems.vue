@@ -118,7 +118,7 @@
                 class="popular__btn text-center"
                 v-if="allProducts.data.length >= allProducts.limit"
                 @click.prevent="updateFetchLimit"
-                >Показать ещё</a
+                >{{$t('all')}}</a
             >
         </section>
     </section>

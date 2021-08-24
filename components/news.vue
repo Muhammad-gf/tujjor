@@ -3,7 +3,7 @@
         <div class="news" v-if="news != null">
             <section class="container popular__container  ">
                 <div class="popular__heading">
-                    Новости
+                    {{$t('news')}}
                 </div>
             </section>
 
@@ -34,7 +34,7 @@
                                 params: { id: news[index].slug }
                             }"
                             class="data__box--btn text-center"
-                            >Подробно</nuxt-link
+                            >{{ $t('full') }}</nuxt-link
                         >
                         <p class="data__box--date">
                             {{ getDate(news[index].createdAt) }}

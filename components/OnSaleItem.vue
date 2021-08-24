@@ -3,7 +3,7 @@
         <base-loading v-if="!isGet"></base-loading>
 
         <section class="container popular__container" v-if="isGet">
-            <div class="popular__heading">Товары со скидкой</div>
+            <div class="popular__heading">{{$t('skidka')}}</div>
             <div class="popular__item-box">
                 <div
                     class="popular__items"
@@ -57,7 +57,7 @@
                 class="popular__btn text-center"
                 v-if="onSaleProducts.data.length >= onSaleProducts.limit"
                 @click.prevent="updateSaleLimit"
-                >Показать ещё</a
+                >{{$t('all')}}</a
             >
         </section>
     </section>

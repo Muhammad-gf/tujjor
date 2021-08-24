@@ -60,35 +60,29 @@
                 </div>
                 <div class="footer__item footer__item--2">
                     <h2 class="footer__title">
-                        Карта сайта
+                        {{$t('sitemap')}}
                     </h2>
                     <ul class="footer">
                         <li>
-                            <nuxt-link to="/">Главная страница</nuxt-link>
+                            <nuxt-link to="/">{{$t('home')}}</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link to="/about_us">О нас</nuxt-link>
+                            <nuxt-link to="/about_us">{{$t('about')}}</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link to="/">Категории товара</nuxt-link>
+                            <nuxt-link to="/">{{$t('aksiya')}}</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link to="/">Акции</nuxt-link>
-                        </li>
-                        <li>
-                            <nuxt-link to="/news__page">Новости</nuxt-link>
+                            <nuxt-link to="/news__page">{{$t('news')}}</nuxt-link>
                         </li>
                         <li>
                             <nuxt-link to="/faq">FAQ</nuxt-link>
-                        </li>
-                        <li>
-                            <nuxt-link to="/">Личный кабинет</nuxt-link>
                         </li>
                     </ul>
                 </div>
                 <div class="footer__item footer__item--3">
                     <h2 class="footer__title">
-                        Принимаем оплату через
+                        {{$t('paySys')}}
                     </h2>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -138,22 +132,22 @@
                 </div>
                 <div class="footer__item footer__item--4">
                     <h2 class="footer__title">
-                        Статистические страницы
+                        {{$t('spage')}}
                     </h2>
                     <ul class="footer">
                         <li>
-                            <nuxt-link to="/about_us">О нас</nuxt-link>
+                            <nuxt-link to="/about_us">{{$t('about')}}</nuxt-link>
                         </li>
                         <li>
                             <nuxt-link to="/business">
-                                Стать партнером
+                                {{$t('partner')}}
                             </nuxt-link>
                         </li>
                     </ul>
                 </div>
                 <div class="footer__item footer__item--5">
                     <h2 class="footer__title">
-                        Адрес
+                        {{$t('address')}}
                     </h2>
 
                     <div class="info__item">
@@ -172,7 +166,7 @@
                             </svg>
                         </span>
                         <h5>
-                            г Ташкент, р Чиланзар, Гавхар 52
+                            {{$t('addr')}}
                         </h5>
                     </div>
                     <div class="info__item">
@@ -264,7 +258,7 @@
             </div>
             <div class="footer-bottom">
                 <h1>
-                    Copyright tujjor 2021 Все прави зашишено.
+                    Copyright tujjor 2021 {{$t('copywrite')}}.
                 </h1>
             </div>
         </div>
