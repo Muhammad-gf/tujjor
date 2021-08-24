@@ -178,13 +178,17 @@ export default {
                 this.$axios
                     .$post("/user/create", this.user)
                     .then(res => {
-                        console.log("register send", res);
+                        if (!!res.success) {
+                            console.log("register send", res);
+                        } else {
+                            throw new Error("Couldn't save data!");
+                        }
                     })
                     .catch(err => {
-                        console.log(err);
+                        console.error(err);
                     });
             } catch (err) {
-                console.log(err);
+                console.error(err);
             }
         }
     }

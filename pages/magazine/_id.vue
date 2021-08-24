@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="magazine__section">
         <base-loading v-if="!isGet"></base-loading>
 
         <div class="filtr__section" v-if="isGet && noData">
@@ -30,6 +30,45 @@
                                 /
                             </li>
                         </ul>
+                    </div>
+
+                    <div class="container magazine__description__box">
+                        <div class="magazine__description__logo__text">
+                            <img
+                                class="magazine__description--logo"
+                                :src="magazine.logo"
+                                alt="Logo image"
+                            />
+                            <p
+                                class="magazine__description--text"
+                                v-text="magazine.description.uz"
+                            ></p>
+                        </div>
+                        <div class="magazine__description__img">
+                            <div class="magazine__description__img--box">
+                                <img
+                                    src="../../assets/img/magazine description/icon/Vector-1.png"
+                                    alt="Icon image"
+                                />
+                                <span v-text="magazine.phone"> </span>
+                            </div>
+
+                            <div class="magazine__description__img--box">
+                                <img
+                                    src="../../assets/img/magazine description/icon/Vector-3.png"
+                                    alt="Icon image"
+                                />
+                                <span v-text="magazine.email"> </span>
+                            </div>
+
+                            <div class="magazine__description__img--box">
+                                <img
+                                    src="../../assets/img/magazine description/icon/Vector-2.png"
+                                    alt="Icon image"
+                                />
+                                <span v-text="magazine.address"> </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,6 +108,46 @@
                                 /
                             </li>
                         </ul>
+                    </div>
+
+                    <div class="container magazine__description__box">
+                        <div class="magazine__description__logo__text">
+                            <img
+                                class="magazine__description--logo"
+                                :src="magazine.logo"
+                                alt="Logo image"
+                            />
+
+                            <p
+                                class="magazine__description--text"
+                                v-text="magazine.description.uz"
+                            ></p>
+                        </div>
+                        <div class="magazine__description__img">
+                            <div class="magazine__description__img--box">
+                                <img
+                                    src="../../assets/img/magazine description/icon/Vector-1.png"
+                                    alt="Icon image"
+                                />
+                                <span v-text="magazine.phone"> </span>
+                            </div>
+
+                            <div class="magazine__description__img--box">
+                                <img
+                                    src="../../assets/img/magazine description/icon/Vector-3.png"
+                                    alt="Icon image"
+                                />
+                                <span v-text="magazine.email"> </span>
+                            </div>
+
+                            <div class="magazine__description__img--box">
+                                <img
+                                    src="../../assets/img/magazine description/icon/Vector-2.png"
+                                    alt="Icon image"
+                                />
+                                <span v-text="magazine.address"> </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -245,6 +324,17 @@ import BaseLoading from "../../components/UI/BaseLoading.vue";
 export default {
     components: { LoadingOnBlocks, BaseLoading },
 
+    head: {
+        title: "Магазин — Tujjor. Низкие цены и широкий ассортимент!",
+        meta: [
+            {
+                hid: "description",
+                name: "description",
+                content: "Магазин - Tujjor"
+            }
+        ]
+    },
+
     data() {
         return {
             sliderMaxPrice: 0,
@@ -269,7 +359,9 @@ export default {
 
             products: [],
             page: 1,
-            limit: 12
+            limit: 12,
+
+            magazine: {}
         };
     },
 
@@ -283,7 +375,7 @@ export default {
             "setSearchPriceEnd",
             "setSearchSort",
             "resetSearchSettings",
-            "setSearchShop"
+            "setSearchShopId"
         ]),
 
         async fetchAllBrands() {
@@ -421,12 +513,32 @@ export default {
             const search = await this.searchProduct({ page, limit });
             this.products = search.data;
             this.filter.isGetData = true;
+        },
+
+        async fetchMagazine() {
+            const slug = this.$route.params.id;
+            const response = await this.$axios
+                .$get("shop/client/" + slug)
+                .then(res => {
+                    if (!!res.success) {
+                        return res;
+                    } else {
+                        throw new Error("Couldn't fetcg data");
+                    }
+                })
+                .catch(error => console.error(error));
+            return response;
         }
     },
 
     async mounted() {
         const page = this.page;
         const limit = this.limit;
+        const data = await this.fetchMagazine();
+        console.log("magazine,", data);
+        this.magazine = data.data;
+        this.setSearchShopId(data.data._id);
+        console.log("body search", this.searchBody);
         let [brands, Allbrands, search] = await Promise.all([
             this.productCount(),
             this.fetchAllBrands(),
@@ -454,7 +566,72 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.magazine__section {
+    .magazine__description__box {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 40px;
+        margin-bottom: 50px;
+
+        .magazine__description__logo__text {
+            flex-basis: 350px;
+            flex-grow: 0;
+            img {
+                margin-bottom: 20px;
+            }
+
+            .magazine__description--text {
+                color: #000000;
+                font-family: Roboto;
+                font-size: 14px;
+                line-height: 1.4;
+                margin-bottom: 0;
+            }
+        }
+
+        .magazine__description__img {
+            flex-basis: 790px;
+            flex-grow: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+
+            padding: 30px;
+            border-radius: 5px;
+            overflow: hidden;
+
+            background-image: url("../../assets/img/magazine description/bg-2.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            .magazine__description__img--box {
+                padding-top: 10px;
+                font-family: Roboto;
+                font-size: 16px;
+                line-height: 19px;
+                color: #ffffff;
+                display: flex;
+                align-items: center;
+
+                &:hover {
+                    cursor: pointer;
+                    color: rgb(255, 255, 255, 0.7);
+                }
+
+                img {
+                    flex-grow: 0;
+                }
+                span {
+                    padding: 0 10px;
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
 .filtr__section {
     .search__noData {
         height: 50vh;
@@ -654,12 +831,39 @@ export default {
         }
     }
 }
+
 @media only screen and (max-width: 1200px) {
     .catalog__container {
         margin-top: 0;
     }
 }
 @media only screen and (max-width: 960px) {
+    .magazine__section {
+        .magazine__description__box {
+            display: flex;
+            flex-direction: column;
+            margin-top: 40px;
+            margin-bottom: 50px;
+
+            .magazine__description__logo__text {
+                flex-grow: 1;
+                flex-basis: auto;
+                margin-bottom: 30px;
+
+                display: flex;
+                flex-direction: column;
+
+                justify-content: flex-start;
+                align-items: center;
+            }
+
+            .magazine__description__img {
+                flex-grow: 1;
+                flex-basis: 235px;
+            }
+        }
+    }
+
     .catalog__container {
         .catalog__filtraiton__box {
             flex-basis: 245px;
@@ -689,6 +893,30 @@ export default {
 }
 
 @media only screen and (max-width: 602px) {
+    .magazine__section {
+        position: relative;
+
+        .magazine__description__box {
+            padding-left: 0;
+            padding-right: 0;
+
+            .magazine__description__logo__text {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .magazine__description__img {
+                flex-basis: 280px;
+                padding: 20px;
+                border-radius: 0;
+
+                .magazine__description__img--box {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
     .catalog__container {
         flex-wrap: wrap;
         .catalog__filtraiton__box {

@@ -954,13 +954,13 @@ export default {
             productsInMagazine: {
                 data: [],
                 page: 1,
-                limit: 12,
+                limit: 11,
                 id: ""
             },
             productsByCategory: {
                 data: [],
                 page: 1,
-                limit: 12,
+                limit: 11,
                 id: ""
             },
 
@@ -1429,6 +1429,7 @@ export default {
                     }
                 })
                 .catch(err => console.error(err));
+            console.log(res);
             return res;
         },
 
@@ -1467,19 +1468,19 @@ export default {
             return res;
         },
         async updateCategoryLimit() {
-            this.isGet = false;
-            this.productsByCategory.limit += 12;
+            // this.isGet = false;
+            this.productsByCategory.limit += 10;
             const search = await this.searchProductByCategory();
             this.productsByCategory.data = search.data;
-            this.isGet = true;
+            // this.isGet = true;
         },
 
         async updateMagazineLimit() {
-            this.isGet = false;
-            this.productsInMagazine.limit += 12;
+            // this.isGet = false;
+            this.productsInMagazine.limit += 10;
             const search = await this.searchProductByMagazine();
             this.productsInMagazine.data = search.data;
-            this.isGet = true;
+            // this.isGet = true;
         }
     },
 

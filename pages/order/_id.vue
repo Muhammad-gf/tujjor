@@ -94,7 +94,7 @@
                         <div class="person__home--description">
                             <span>Номер</span>
                             <input
-                                type="number"
+                                type="text"
                                 placeholder="Ваш номер"
                                 id="Number"
                                 name="Number"
@@ -149,10 +149,9 @@
                         </div>
 
                         <a
-                            type="submit"
                             class="checkout__you__order submit"
                             target="_blank"
-                            @click="fetchOrder($event)"
+                            @click="fetchOrder()"
                         >
                             Заказать
                         </a>
@@ -228,6 +227,9 @@
         >
         </warning-message>
 
+        <danger-message v-if="true" post-title="Пополните пустые поле!">
+        </danger-message>
+
         <warning-message v-if="errorrMessage" post-title="Произошло ошибка!">
         </warning-message>
     </section>
@@ -236,10 +238,11 @@
 <script>
 import BaseLoading from "../../components/UI/BaseLoading.vue";
 import WarningMessage from "../../components/Modals/WarningMessage.vue";
+import DangerMessage from "../../components/Modals/DangerMessage.vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {
-    components: { BaseLoading, WarningMessage },
+    components: { BaseLoading, WarningMessage, DangerMessage },
 
     head: {
         title: "Оформить заказ — Tujjor. Низкие цены и широкий ассортимент!",
@@ -363,7 +366,7 @@ export default {
 
         // ------------------------------------- go to payment create order ----------------
         // main function
-        async fetchOrder(event) {
+        async fetchOrder() {
             // this.isGet = false;
             this.warningMessage = this.errorrMessage = false;
             const add = {
@@ -379,6 +382,7 @@ export default {
             const products = this.orderAll.products;
             const token = this.user.token;
             console.log(token, amount, address, products);
+            console.log("window", window);
             if (
                 !!address.address &&
                 !!address.district &&
@@ -396,30 +400,6 @@ export default {
                 if (!!result) {
                     this.base64Data = result.data;
                     const link = this.redirectToPayMe();
-                    // console.log(
-                    //     "event",
-                    //     event,
-                    //     "window",
-                    //     window,
-                    //     "result",
-                    //     result
-                    // );
-                    // event.path[0].href = link;
-                    // console.log(
-                    //     "event",
-                    //     event,
-                    //     "window",
-                    //     window,
-                    //     "result",
-                    //     result
-                    // );
-                    // this.$router.push({
-                    //     path: "paycom"
-                    // });
-                    // let routeData = {
-                    //     name: "paycom",
-                    //     href: "https://checkout.paycom.uz/"
-                    // };
                     window.open(link, "_blank");
                 } else {
                     // this.isGet = true;
@@ -689,9 +669,10 @@ export default {
                 outline: none;
                 border: none;
 
-                background: #f7931e;
+                background-color: #f7931e;
                 /* asosiy */
-                box-shadow: 0px 2.32px 11.6px rgba(0, 0, 0, 0.25);
+                box-shadow: 0 2.32px 11.6px rgb(0 0 0 / 25%);
+
                 border-radius: 5px;
 
                 font-family: Roboto;
@@ -705,6 +686,7 @@ export default {
 
                 &:hover {
                     opacity: 0.85;
+                    cursor: pointer;
                 }
             }
         }

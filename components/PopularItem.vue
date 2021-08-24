@@ -74,7 +74,7 @@ export default {
             popularProducts: {
                 data: [],
                 page: 1,
-                limit: 5
+                limit: 10
             },
             isGet: false
         };
@@ -131,7 +131,7 @@ export default {
     async mounted() {
         const products = await this.fetchProduct();
         this.popularProducts.data = products.data;
-        console.log(products);
+        console.log("popular products", products);
         this.isGet = true;
     }
 };
@@ -171,7 +171,7 @@ export default {
         .popular__items {
             flex: 0 0 auto;
             width: 222px;
-            height: 370px;
+            height: 355px !important;
             background-color: #ffffff;
             box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12);
             border-radius: 5px;
@@ -201,7 +201,8 @@ export default {
                     font-family: Roboto;
                     font-weight: 500;
                     font-size: 14px;
-                    line-height: 16px;
+                    line-height: 1.2 !important;
+                    height: 1.1em !important;
                     opacity: 0.7;
                     color: #666666;
                 }
@@ -211,10 +212,10 @@ export default {
                     font-family: Roboto;
                     font-weight: 700;
                     font-size: 16px;
-                    line-height: 100%;
+                    line-height: 1.1 !important;
+                    height: 3.2em !important;
                     color: #000000;
                     overflow: hidden !important;
-                    height: 60px;
                 }
 
                 &--price {
@@ -282,7 +283,7 @@ export default {
         .popular__item-box {
             .popular__items {
                 width: 229px;
-                height: 381.67px;
+                height: 358px !important;
                 margin-bottom: 22px;
 
                 .popular__items__img {
@@ -306,7 +307,7 @@ export default {
         .popular__item-box {
             .popular__items {
                 width: 164px;
-                height: 273px;
+                height: 255px !important;
                 margin-bottom: 14px;
 
                 .popular__items__img {
@@ -366,7 +367,7 @@ export default {
         .popular__item-box {
             .popular__items {
                 width: 140px;
-                height: 245px;
+                height: 225px !important;
                 .popular__items__img {
                     width: 140px;
                     height: 140px;

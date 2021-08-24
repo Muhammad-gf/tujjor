@@ -408,15 +408,16 @@ export default {
             justify-content: space-between;
 
             .order__item--header {
-                flex-basis: 340px;
-                flex-grow: 0;
+                flex-basis: 50%;
                 display: flex;
-                margin-right: 100px;
+                margin-right: 30px;
 
                 img {
                     margin-right: 18px;
-                    max-height: 100%;
                     border-radius: 3px;
+                    width: 124px;
+                    height: 124px;
+                    object-fit: cover;
                 }
 
                 .order__item__description {
@@ -426,6 +427,8 @@ export default {
                         font-size: 18px;
                         line-height: 100%;
                         /* or 18px */
+                        overflow: hidden;
+                        height: 1em;
 
                         text-transform: uppercase;
 
@@ -438,10 +441,12 @@ export default {
                         font-size: 14px;
                         line-height: 100%;
                         /* or 14px */
+                        overflow: hidden;
+                        height: 3em;
 
                         color: #000000;
 
-                        margin-bottom: 40px;
+                        margin-bottom: 30px;
                     }
 
                     .p-second {
@@ -449,6 +454,9 @@ export default {
                         font-size: 16px;
                         line-height: 100%;
                         /* or 16px */
+                        overflow: hidden;
+                        height: 1em;
+
                         font-weight: 500;
                         color: #000000;
 
@@ -506,7 +514,7 @@ export default {
                 }
 
                 .order__item--price {
-                    flex-basis: 500px;
+                    flex-basis: 60%;
                     display: flex;
                     justify-content: flex-end;
 
@@ -570,27 +578,10 @@ export default {
     }
 }
 
-@media screen and (max-width: 1200px) {
-    .order__container {
-        .order__section {
-            .order__item__box {
-                .order__item--secondary {
-                    .order__item--price {
-                        flex-basis: 70%;
-                    }
-                }
-            }
-        }
-    }
-}
-
 @media screen and (max-width: 1045px) {
     .order__container {
         .order__section {
             .order__item__box {
-                .order__item--header {
-                    flex-basis: 300px;
-                }
                 .order__item--secondary {
                     align-items: baseline;
                     .order__item--number {
@@ -633,7 +624,7 @@ export default {
     }
 }
 
-@media screen and (max-width: 400px) {
+@media only screen and (max-width: 400px) {
     .order__container {
         .order__heading {
             margin-bottom: 10px;
@@ -642,6 +633,7 @@ export default {
                 line-height: 1.3;
             }
         }
+
         .order__section {
             .header {
                 padding-left: 0;
@@ -655,25 +647,41 @@ export default {
                 .order__item--header {
                     flex-basis: auto;
                     margin-right: 0;
-                    margin-bottom: 25px;
+                    margin-bottom: 5px;
+
+                    img {
+                        margin-right: 7px;
+                        height: 90px;
+                        width: 90px;
+                    }
 
                     .order__item__description {
                         h3 {
                             font-size: 16px;
+                            overflow: hidden;
+                            height: 1em;
                         }
 
                         .p-first {
-                            margin-bottom: 27px;
+                            margin-bottom: 5px;
+                            height: 3em;
+                            overflow: hidden;
                         }
+
                         .p-second {
                             font-size: 14px;
+                            height: 1em;
+                            overflow: hidden;
+                            margin-bottom: 0;
                         }
                     }
                 }
 
                 .order__item--secondary {
                     .order__item--number {
-                        margin-bottom: 20px;
+                        margin-bottom: 5px;
+                        padding: 8px 0;
+                        height: auto;
                         span,
                         span.number {
                             font-size: 14px;

@@ -95,16 +95,16 @@
             <div
                 class="hot__link__box d-flex  justify-content-between align-items-baseline"
             >
-                <a class="hot__links remember__password">
+                <!-- <a class="hot__links remember__password">
                     Забыли пароль?
-                </a>
+                </a> -->
                 <nuxt-link to="/auth/register" class="hot__links">
                     Нет учетной записи?
                 </nuxt-link>
             </div>
-            <nuxt-link to="/auth/register" class="button__links">
+            <!-- <nuxt-link to="/auth/register" class="button__links">
                 Регистрация
-            </nuxt-link>
+            </nuxt-link> -->
         </div>
     </div>
 </template>
@@ -144,7 +144,7 @@ export default {
                 });
                 this.$router.push("/");
             } catch (err) {
-                console.log(err);
+                console.error(err);
             }
         }
     }

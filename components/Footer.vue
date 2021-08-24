@@ -266,7 +266,6 @@
                 <h1>
                     Copyright tujjor 2021 Все прави зашишено.
                 </h1>
-                <h1>UMD Soft</h1>
             </div>
         </div>
     </footer>

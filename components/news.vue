@@ -67,6 +67,13 @@ export default {
                     : date.getMonth() + 1;
             const year = date.getFullYear();
             return day + "." + month + "." + year;
+        },
+        //  go to product on click card of product
+        goToNews(slug) {
+            this.$router.push({
+                name: "news-id",
+                params: { id: slug }
+            });
         }
     },
     async mounted() {

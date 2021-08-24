@@ -8,10 +8,11 @@ export default {
                     search: ctx.state.searchBody.search,
                     sort: ctx.state.searchBody.sort,
                     start: ctx.state.searchBody.start,
-                    end: ctx.state.searchBody.end
+                    end: ctx.state.searchBody.end,
+                    shop: ctx.state.searchBody.shopId
                 })
                 .then(response => {
-                    console.log("searc", response);
+                    console.log("fetch searching", response);
                     if (response.success) {
                         console.log("search", response);
                         return response;
@@ -31,7 +32,8 @@ export default {
                     search: ctx.state.searchBody.search,
                     sort: ctx.state.searchBody.sort,
                     start: ctx.state.searchBody.start,
-                    end: ctx.state.searchBody.end
+                    end: ctx.state.searchBody.end,
+                    shop: ctx.state.searchBody.shopId
                 })
                 .then(response => {
                     console.log("brand", response);
@@ -80,6 +82,10 @@ export default {
             state.searchBody.childCategory = data;
         },
 
+        setSearchShopId(state, data) {
+            state.searchBody.shopId = data;
+        },
+
         resetSearchSettings(state) {
             state.searchBody.category = [];
             state.searchBody.brand = [];
@@ -89,6 +95,7 @@ export default {
             state.searchBody.end = null;
             state.searchBody.mainCategory = {};
             state.searchBody.childCategory = {};
+            state.searchBody.shopId = "";
         },
 
         resetSearchCategory(state) {
@@ -108,7 +115,8 @@ export default {
                 start: null,
                 end: null,
                 mainCategory: {},
-                childCategory: {}
+                childCategory: {},
+                shopId: ""
             }
         };
     },

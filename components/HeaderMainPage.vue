@@ -955,9 +955,9 @@ export default {
             "setSearchBody",
             "pushSearchCategory",
             "setSearchTxt",
-            "resetSearchSettings",
             "setSearchMainCategory",
             "setSearchChildCategory",
+            "resetSearchSettings",
             "resetSearchCategory"
         ]),
 
@@ -1072,11 +1072,8 @@ export default {
     computed: mapGetters(["searchBody", "countBasket"]),
 
     async mounted() {
-        const res = await this.$axios.$get(
-            "http://cdn.tujjor.org/api/category/all"
-        );
+        const res = await this.$axios.$get("category/all");
         const token = this.$auth.strategy.token.get();
-
         // const [res, count] = await Promise.all([
         //     this.fetchCategory(),
         //     this.fetchCountBasket(token)
@@ -1088,7 +1085,6 @@ export default {
             this.basketCount = count.count;
         }
 
-        console.log("category all", res, !!token);
         this.categoryArray = res.data;
         this.loggedIn = this.$auth.loggedIn;
         this.personName = this.$auth.user?.name;

@@ -4,13 +4,15 @@
             <div class="popular__heading">Ваши магазины</div>
         </section>
         <div class="magazines__box container">
-            <div class="magazine__item__box">
+            <div
+                class="magazine__item__box"
+                v-for="magazine in magazines"
+                :key="magazine.slug"
+                @click="goToMagazine(magazine.slug)"
+            >
                 <div class="magazine__item--logo__box">
                     <div class="magazine__item--logo">
-                        <img
-                            src="../assets/img/magazines/logo.png"
-                            alt="Magazine logo"
-                        />
+                        <span v-text="magazine.shopName"></span>
                     </div>
                     <div class="magazine__item--rating">
                         <img
@@ -20,107 +22,11 @@
                     </div>
                 </div>
                 <div class="magazine__item--description">
-                    <span
-                        >Товары из категории Акции и скидки Товары из
-                        категории....</span
-                    >
+                    <span v-text="magazine.description.uz"></span>
                 </div>
                 <div class="magazine__item__img__box">
                     <div class="magazine__item__img--first">
-                        <img
-                            src="../assets/img/magazines/img-first.png"
-                            alt="Item img"
-                        />
-                    </div>
-                    <div class="magazine__item__img--second">
-                        <div class="magazine__item__img--second--first">
-                            <img
-                                src="../assets/img/magazines/img-second.png"
-                                alt="Item img"
-                            />
-                        </div>
-
-                        <div class="magazine__item__img--second--second">
-                            <img
-                                src="../assets/img/magazines/img-second-2.png"
-                                alt="Item img"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="magazine__item__box">
-                <div class="magazine__item--logo__box">
-                    <div class="magazine__item--logo">
-                        <img
-                            src="../assets/img/magazines/logo.png"
-                            alt="Magazine logo"
-                        />
-                    </div>
-                    <div class="magazine__item--rating">
-                        <img
-                            src="../assets/img/magazines/star.png"
-                            alt="Star img"
-                        /><span>4</span>
-                    </div>
-                </div>
-                <div class="magazine__item--description">
-                    <span
-                        >Товары из категории Акции и скидки Товары из
-                        категории....</span
-                    >
-                </div>
-                <div class="magazine__item__img__box">
-                    <div class="magazine__item__img--first">
-                        <img
-                            src="../assets/img/magazines/img-first.png"
-                            alt="Item img"
-                        />
-                    </div>
-                    <div class="magazine__item__img--second">
-                        <div class="magazine__item__img--second--first">
-                            <img
-                                src="../assets/img/magazines/img-second.png"
-                                alt="Item img"
-                            />
-                        </div>
-
-                        <div class="magazine__item__img--second--second">
-                            <img
-                                src="../assets/img/magazines/img-second-2.png"
-                                alt="Item img"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="magazine__item__box">
-                <div class="magazine__item--logo__box">
-                    <div class="magazine__item--logo">
-                        <img
-                            src="../assets/img/magazines/logo.png"
-                            alt="Magazine logo"
-                        />
-                    </div>
-                    <div class="magazine__item--rating">
-                        <img
-                            src="../assets/img/magazines/star.png"
-                            alt="Star img"
-                        />
-                        <span>4</span>
-                    </div>
-                </div>
-                <div class="magazine__item--description">
-                    Товары из категории Акции и скидки Товары из категории....
-                </div>
-                <div class="magazine__item__img__box">
-                    <div class="magazine__item__img--first">
-                        <img
-                            src="../assets/img/magazines/img-first.png"
-                            alt="Item img"
-                        />
+                        <img :src="magazine.image[0]" alt="Item img" />
                     </div>
                     <div class="magazine__item__img--second">
                         <div class="magazine__item__img--second--first">
@@ -140,14 +46,81 @@
                 </div>
             </div>
         </div>
-        <section class="container popular__container" id="btn__box">
-            <a href="#" class="popular__btn text-center">Показать ещё</a>
+        <section
+            class="container popular__container"
+            id="btn__box"
+            v-if="limit > magazines.length"
+        >
+            <a
+                href="#"
+                class="popular__btn text-center"
+                @click.prevent="updateMagazineLimit"
+                >Показать ещё</a
+            >
         </section>
     </section>
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            magazineCount: 0,
+            increaseBy: 0,
+            magazines: [],
+            limit: 0
+        };
+    },
+    beforeMount() {
+        console.log("windows", window.innerWidth);
+        const winWidth = window.innerWidth;
+        if (winWidth <= 530) {
+            this.magazineCount = this.increaseBy = 2;
+        } else {
+            this.magazineCount = this.increaseBy = 3;
+        }
+        console.log("windows", window.innerWidth, this.magazineCount);
+    },
+
+    methods: {
+        async fetchMagazines() {
+            const page = 1;
+            const limit = this.magazineCount;
+            const response = await this.$axios
+                .$get("shop/all/filter?page=" + page + "&limit=" + limit)
+                .then(res => {
+                    if (!!res.success) {
+                        return res;
+                    } else {
+                        throw new Error("Couldn't fetcg data");
+                    }
+                })
+                .catch(error => console.error(error));
+            return response;
+        },
+
+        async updateMagazineLimit() {
+            this.magazineCount += this.increaseBy;
+            const data = await this.fetchMagazines();
+            this.magazines = data.data[0].data;
+        },
+
+        //  go to magazine on click card of magazine
+        goToMagazine(slug) {
+            this.$router.push({
+                name: "magazine-id",
+                params: { id: slug }
+            });
+        }
+    },
+
+    async mounted() {
+        const data = await this.fetchMagazines();
+        this.magazines = data.data[0].data;
+        this.limit = data.data[0].count;
+        console.log("magazine", data);
+    }
+};
 </script>
 
 <style lang="scss">
@@ -207,7 +180,6 @@ export default {};
 
                 padding: 5px 0;
 
-                // overflow: hidden;
                 // text-overflow: hidden;
                 // overflow: scroll;
 
@@ -215,8 +187,11 @@ export default {};
                 font-family: Roboto, sans-serif;
                 font-weight: 500;
                 font-size: 14px;
-                line-height: 1.2em;
+                line-height: 100%;
                 color: #000000;
+
+                height: 2em;
+                overflow: hidden;
             }
 
             .magazine__item__img__box {
