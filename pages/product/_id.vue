@@ -616,14 +616,16 @@
                 </div>
             </div>
 
-            <section class="container popular__container">
+            <section
+                class="container popular__container"
+                v-if="productsInMagazine.data.length > 0"
+            >
                 <div class="popular__heading">В магазине</div>
                 <div class="popular__item-box">
                     <div
                         class="popular__items"
                         v-for="product in productsInMagazine.data"
                         :key="product._id"
-                        v-if="product._id !== selectedProduct._id"
                         @click="goToProduct(product.slug)"
                     >
                         <img
@@ -680,21 +682,23 @@
                     class="popular__btn"
                     v-if="
                         productsInMagazine.data.length >=
-                            productsInMagazine.limit
+                            productsInMagazine.limit - 1
                     "
                     @click.prevent="updateMagazineLimit"
                     >Показать ещё</a
                 >
             </section>
 
-            <section class="container popular__container">
+            <section
+                class="container popular__container"
+                v-if="productsByCategory.data.length > 0"
+            >
                 <div class="popular__heading">Похожие товари</div>
                 <div class="popular__item-box">
                     <div
                         class="popular__items"
                         v-for="product in productsByCategory.data"
                         :key="product._id"
-                        v-if="product._id !== selectedProduct._id"
                         @click="goToProduct(product.slug)"
                     >
                         <img
@@ -751,7 +755,7 @@
                     class="popular__btn"
                     v-if="
                         productsByCategory.data.length >=
-                            productsByCategory.limit
+                            productsByCategory.limit - 1
                     "
                     @click.prevent="updateCategoryLimit"
                     >Показать ещё</a
@@ -1471,7 +1475,7 @@ export default {
             // this.isGet = false;
             this.productsByCategory.limit += 10;
             const search = await this.searchProductByCategory();
-            this.productsByCategory.data = search.data;
+            this.updateCategoryData(search.data);
             // this.isGet = true;
         },
 
@@ -1479,8 +1483,31 @@ export default {
             // this.isGet = false;
             this.productsInMagazine.limit += 10;
             const search = await this.searchProductByMagazine();
-            this.productsInMagazine.data = search.data;
+            this.updateMagazineData(search.data);
             // this.isGet = true;
+        },
+
+        updateMagazineData(data) {
+            const limit = this.productsInMagazine.limit - 1;
+            let result = data.filter(
+                res => res._id !== this.selectedProduct._id
+            );
+            console.log("filter result", result);
+            if (result.length > limit) {
+                result.pop();
+            }
+            this.productsInMagazine.data = result;
+        },
+
+        updateCategoryData(data) {
+            const limit = this.productsByCategory.limit;
+            const result = data.filter(
+                res => res._id !== this.selectedProduct._id
+            );
+            if (result.length > limit) {
+                result.pop();
+            }
+            this.productsByCategory.data = result;
         }
     },
 
@@ -1521,8 +1548,8 @@ export default {
             this.searchProductByMagazine(),
             this.searchProductByCategory()
         ]);
-        this.productsInMagazine.data = productsInMagazine.data;
-        this.productsByCategory.data = productsByCategory.data;
+        this.updateMagazineData(productsInMagazine.data);
+        this.updateCategoryData(productsByCategory.data);
         console.log("product", this.selectedProduct);
         console.log("products in magazine", this.productsInMagazine.data);
         console.log("products by category", this.productsByCategory);

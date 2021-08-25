@@ -95,10 +95,11 @@
                             <span>Номер</span>
                             <input
                                 type="text"
-                                placeholder="Ваш номер"
                                 id="Number"
                                 name="Number"
                                 v-model="order.address.phone"
+                                placeholder="+998 (__) ___ -__-__"
+                                v-mask="'+998 (##) ###-##-##'"
                             />
                         </div>
                     </div>
@@ -362,6 +363,7 @@ export default {
         // ------------------------------------- go to payment create order ----------------
         // main function
         async fetchOrder() {
+            // let windowReference = window.open();
             // this.isGet = false;
             this.warningMessage = this.errorrMessage = false;
             const add = {
@@ -395,7 +397,8 @@ export default {
                 if (!!result) {
                     this.base64Data = result.data;
                     const link = this.redirectToPayMe();
-                    window.open(link, "_blank");
+                    // window.open(link, "_blank");
+                    // windowReference.location = link;
                 } else {
                     // this.isGet = true;
                     this.errorrMessage = true;
@@ -429,6 +432,15 @@ export default {
             //     path: base64
             // });\
             const link = "https://checkout.paycom.uz/" + base64;
+
+            // create element for iphone problem
+            let a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display:none";
+            a.href = link;
+            a.target = "_blank";
+            a.click();
+
             return link;
             //     this.$router.beforeEnter(to, from, next, {
             // 		        // Put the full page URL including the protocol http(s) below

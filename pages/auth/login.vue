@@ -71,7 +71,8 @@
                         v-model="user.phone"
                         name="number"
                         id="number"
-                        placeholder="Ваш номер"
+                        placeholder="+998 (__) ___ -__-__"
+                        v-mask="'+998 (##) ###-##-##'"
                     />
                 </div>
 
