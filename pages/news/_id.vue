@@ -5,11 +5,11 @@
             <div class="title-box">
                 <ul>
                     <li>
-                        <nuxt-link to="/">Главная страница</nuxt-link>
+                        <nuxt-link to="/">{{$t('last')}}</nuxt-link>
                         /
                     </li>
                     <li>
-                        <nuxt-link to="#">Новости подробно</nuxt-link>
+                        <nuxt-link to="#">{{$t('allNew')}}</nuxt-link>
                     </li>
                 </ul>
             </div>
@@ -37,7 +37,7 @@
                 ></div>
             </div>
             <div class="news__up__to__date" v-if="newsAll != null">
-                <h2>Последние новости</h2>
+                <h2>{{$t('last')}}</h2>
                 <div class="news__box__container">
                     <div
                         class="news__box"
@@ -69,7 +69,7 @@
                                 }"
                                 class="news__box--btn"
                             >
-                                Подробно
+                                {{$t('full')}}
                             </nuxt-link>
                             <span class="news__box--date">
                                 {{ getDate(newsAll[index].createdAt) }}</span

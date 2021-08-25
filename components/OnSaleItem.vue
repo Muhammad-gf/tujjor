@@ -5,11 +5,14 @@
         <section class="container popular__container" v-if="isGet">
             <div class="popular__heading">{{$t('skidka')}}</div>
             <div class="popular__item-box">
-                <div
+                <nuxt-link
                     class="popular__items"
                     v-for="product in onSaleProducts.data"
                     :key="product._id"
-                    @click="goToProduct(product.slug)"
+                    :to="{
+                        name: `product-id___${$i18n.locale}`,
+                        params: { id: product.slug }
+                    }"
                 >
                     <img
                         class="popular__items__img"
@@ -19,10 +22,10 @@
                     />
                     <div class="popular__items__desription">
                         <span class="popular__items__desription--name">
-                            {{ product.category.uz }}
+                            {{ product.category[$i18n.locale] }}
                         </span>
                         <h4 class="popular__items__desription--categorie">
-                            {{ product.name.uz }}
+                            {{ product.name[$i18n.locale] }}
                         </h4>
 
                         <span
@@ -49,7 +52,7 @@
                             сум
                         </span>
                     </div>
-                </div>
+                </nuxt-link>
             </div>
 
             <a
