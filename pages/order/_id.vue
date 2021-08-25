@@ -6,12 +6,12 @@
                 <div class="title-box">
                     <ul>
                         <li>
-                            <nuxt-link to="/">{{$t('home')}} </nuxt-link>
+                            <nuxt-link to="/">{{ $t("home") }} </nuxt-link>
                             /
                         </li>
 
                         <li>
-                            <nuxt-link to="#">{{$t('oformit')}} </nuxt-link>
+                            <nuxt-link to="#">{{ $t("oformit") }} </nuxt-link>
                         </li>
                     </ul>
                 </div>
@@ -20,7 +20,7 @@
             <section class="favourite__is__empty" v-if="isGet && noData">
                 <section class="container popular__container">
                     <div class="popular__heading">
-                        {{$t('noof')}}
+                        {{ $t("noof") }}
                     </div>
                 </section>
             </section>
@@ -30,24 +30,24 @@
                 v-if="isGet && !noData"
             >
                 <div class="checkout__order__heading">
-                    <h2>{{$t('oformit')}}</h2>
+                    <h2>{{ $t("oformit") }}</h2>
                 </div>
 
                 <form v-on:submit.prevent class="checkout__box">
                     <div class="person__home">
-                        <h4>{{$t('danni')}}</h4>
+                        <h4>{{ $t("danni") }}</h4>
 
                         <div class="person__home--description">
-                            <span>{{$t('city')}}</span>
+                            <span>{{ $t("city") }}</span>
                             <select
                                 name="region"
                                 id="region"
                                 v-model="selectedAdress.region"
                                 @change="giveCity()"
                             >
-                                <option value="" disabled selected
-                                    >{{$t('myCity')}}</option
-                                >
+                                <option value="" disabled selected>{{
+                                    $t("myCity")
+                                }}</option>
                                 <option
                                     v-for="region in allRegions"
                                     :key="region._id"
@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="person__home--description">
-                            <span>{{$t('ray')}}</span>
+                            <span>{{ $t("ray") }}</span>
 
                             <select
                                 name="village"
@@ -67,9 +67,9 @@
                                 v-model="selectedAdress.district"
                                 @change="giveDistrict()"
                             >
-                                <option value="" disabled selected
-                                    >{{$t('myRay')}}</option
-                                >
+                                <option value="" disabled selected>{{
+                                    $t("myRay")
+                                }}</option>
                                 <option
                                     v-for="district in selectedCityDistricts"
                                     :key="district._id"
@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="person__home--description">
-                            <span>{{$t('address')}}</span>
+                            <span>{{ $t("address") }}</span>
                             <input
                                 type="text"
                                 :placeholder="$t('address')"
@@ -92,57 +92,62 @@
                         </div>
 
                         <div class="person__home--description">
-                            <span>{{$t('tel')}}</span>
+                            <span>{{ $t("tel") }}</span>
                             <input
                                 type="text"
                                 :placeholder="$t('tel')"
                                 id="Number"
                                 name="Number"
                                 v-model="order.address.phone"
+                                v-mask="'+998 (##) ###-##-##'"
                             />
                         </div>
                     </div>
 
                     <div class="person__checkout">
-                        <span>{{$t('vzakaz')}}</span>
+                        <span>{{ $t("vzakaz") }}</span>
                         <div class="span__container">
-                            <span>{{$t('tovar')}} ({{ orderAll.products.length }})</span>
+                            <span
+                                >{{ $t("tovar") }} ({{
+                                    orderAll.products.length
+                                }})</span
+                            >
                             <span class="primary">
                                 {{
                                     !!updatePriceFormat(orderAll.amount)
                                         ? updatePriceFormat(orderAll.amount)
                                         : 0
                                 }}
-                                {{$t('sum')}}</span
+                                {{ $t("sum") }}</span
                             >
                         </div>
 
                         <div class="span__container">
-                            <span>{{$t('sales')}}</span>
+                            <span>{{ $t("sales") }}</span>
                             <span class="secondary"
                                 >{{
                                     orderAll.amount.length
                                         ? orderAll.amount.length
                                         : 0
                                 }}
-                                 {{$t('sum')}}</span
+                                {{ $t("sum") }}</span
                             >
                         </div>
 
                         <div class="span__container">
-                            <span>{{$t('dostavka')}}</span>
+                            <span>{{ $t("dostavka") }}</span>
                             <span class="tritary"
                                 >{{
                                     orderAll.amount.length
                                         ? orderAll.amount.length
                                         : 0
                                 }}
-                                 {{$t('sum')}}</span
+                                {{ $t("sum") }}</span
                             >
                         </div>
 
                         <div class="span__container span__container--last ">
-                            <span>{{$t('allsum')}}:</span>
+                            <span>{{ $t("allsum") }}:</span>
                             <span class="tertiary">
                                 {{ updatePriceFormat(orderAll.amount) }} cум
                             </span>
@@ -153,13 +158,13 @@
                             target="_blank"
                             @click="fetchOrder()"
                         >
-                            {{$t('zakazat')}}
+                            {{ $t("zakazat") }}
                         </a>
                     </div>
                 </form>
 
                 <section class="checkout__order__section">
-                    <h2 class="header">{{$t('vzakaz')}}</h2>
+                    <h2 class="header">{{ $t("vzakaz") }}</h2>
                     <div
                         class="checkout__order__item__box"
                         v-for="item in orderAll.products"
@@ -182,22 +187,22 @@
                         </div>
                         <div class="checkout__order__item--secondary">
                             <div class="checkout__order__item--number">
-                                <span>{{$t(kol)}}:</span>
+                                <span>{{ $t(kol) }}:</span>
 
                                 <span class="number"> {{ item.count }} шт</span>
                             </div>
                             <div class="checkout__order__item--price">
                                 <span
                                     >{{ updatePrice(item.amount, item.count) }}
-                                    {{$t('sum')}}
+                                    {{ $t("sum") }}
                                 </span>
                                 <span v-if="''"
                                     >{{ updatePrice(item.amount, item.count) }}
-                                    {{$t('sum')}}
+                                    {{ $t("sum") }}
                                 </span>
                             </div>
                             <div class="checkout__order__item--color">
-                                <span>{{$t('color')}}:</span>
+                                <span>{{ $t("color") }}:</span>
                                 <img
                                     :src="$store.state.uploads + item.color"
                                     alt="Color image"
@@ -208,12 +213,10 @@
 
                     <div class="checkout__order__price">
                         <div class="checkout__order__price--total">
-                            <span>{{$t('allsum')}}:</span>
+                            <span>{{ $t("allsum") }}:</span>
                             <span class="all__price"
-                                >{{
-                                    updatePriceFormat(this.orderAll.amount)
-                                }}
-                                {{$t('sum')}}</span
+                                >{{ updatePriceFormat(this.orderAll.amount) }}
+                                {{ $t("sum") }}</span
                             >
                         </div>
                     </div>
@@ -362,6 +365,7 @@ export default {
         // ------------------------------------- go to payment create order ----------------
         // main function
         async fetchOrder() {
+            // let windowReference = window.open();
             // this.isGet = false;
             this.warningMessage = this.errorrMessage = false;
             const add = {
@@ -395,7 +399,8 @@ export default {
                 if (!!result) {
                     this.base64Data = result.data;
                     const link = this.redirectToPayMe();
-                    window.open(link, "_blank");
+                    // window.open(link, "_blank");
+                    // windowReference.location = link;
                 } else {
                     // this.isGet = true;
                     this.errorrMessage = true;
@@ -429,6 +434,15 @@ export default {
             //     path: base64
             // });\
             const link = "https://checkout.paycom.uz/" + base64;
+
+            // create element for iphone problem
+            let a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display:none";
+            a.href = link;
+            a.target = "_blank";
+            a.click();
+
             return link;
             //     this.$router.beforeEnter(to, from, next, {
             // 		        // Put the full page URL including the protocol http(s) below

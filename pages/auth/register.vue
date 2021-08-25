@@ -3,12 +3,11 @@
         <div
             class="login-page d-flex flex-column justify-content-center align-items-center"
         >
-
             <div class="login-page-box d-flex flex-column ">
                 <div
                     class="d-flex flex-column justify-content-center input__box form-floating"
                 >
-                    <label for="floatingInput">{{$t('name')}}</label>
+                    <label for="floatingInput">{{ $t("name") }}</label>
                     <input
                         type="text"
                         class="form-control"
@@ -22,7 +21,7 @@
                 <div
                     class="d-flex flex-column justify-content-center input__box form-floating"
                 >
-                    <label for="floatingInput">{{$t('tel')}}</label>
+                    <label for="floatingInput">{{ $t("tel") }}</label>
                     <input
                         type="text"
                         class="form-control"
@@ -30,6 +29,7 @@
                         name="phone"
                         id="phone"
                         :placeholder="$t('tel')"
+                        v-mask="'+998 (##) ###-##-##'"
                     />
                 </div>
 
@@ -50,7 +50,7 @@
                 <div
                     class="d-flex flex-column justify-content-center input__box form-floating"
                 >
-                    <label for="floatingInput">{{$t('pass')}}</label>
+                    <label for="floatingInput">{{ $t("pass") }}</label>
                     <input
                         type="password"
                         class="form-control"
@@ -77,14 +77,14 @@
                 <!-- <recaptcha id="recaptcha" /> -->
 
                 <a class="button__links" @click="registerUserMainFunc">
-                    {{$t('reg')}}
+                    {{ $t("reg") }}
                 </a>
                 <div class="hot__link__box d-flex   align-items-baseline">
                     <span>
-                        {{$t('reg1')}}
+                        {{ $t("reg1") }}
                     </span>
                     <nuxt-link to="/auth/login" class="hot__links">
-                        {{$t('log_in')}}</nuxt-link
+                        {{ $t("log_in") }}</nuxt-link
                     >
                 </div>
             </div>

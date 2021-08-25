@@ -3,12 +3,11 @@
         <div
             class="login-page d-flex flex-column justify-content-center align-items-center"
         >
-
             <div class="login-page-box d-flex flex-column ">
                 <div
                     class="d-flex flex-column justify-content-center input__box form-floating"
                 >
-                    <label for="floatingInput">{{$t('tel')}}</label>
+                    <label for="floatingInput">{{ $t("tel") }}</label>
                     <input
                         type="text"
                         class="form-control"
@@ -16,13 +15,14 @@
                         name="number"
                         id="number"
                         :placeholder="$t('tel')"
+                        v-mask="'+998 (##) ###-##-##'"
                     />
                 </div>
 
                 <div
                     class="d-flex flex-column justify-content-center input__box form-floating"
                 >
-                    <label for="floatingInput">{{$t('password')}}</label>
+                    <label for="floatingInput">{{ $t("password") }}</label>
                     <input
                         type="password"
                         class="form-control"
@@ -34,7 +34,7 @@
                 </div>
 
                 <a class="button__links" @click="loginUser">
-                    {{$t('log_in')}}
+                    {{ $t("log_in") }}
                 </a>
 
                 <div
@@ -44,7 +44,7 @@
                     Забыли пароль?
                 </a> -->
                     <nuxt-link to="/auth/register" class="hot__links">
-                        {{$t('noAcc')}}
+                        {{ $t("noAcc") }}
                     </nuxt-link>
                 </div>
                 <!-- <nuxt-link to="/auth/register" class="button__links">
@@ -130,6 +130,9 @@ export default {
                 });
             }
         }
+    },
+    mounted() {
+        console.log("router", this.$router, this.$route);
     }
 };
 </script>

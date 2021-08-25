@@ -8,7 +8,7 @@
                 style="height: 50vh"
             >
                 <div class="popular__heading">
-                    {{$t('err4')}}
+                    {{ $t("err4") }}
                 </div>
             </section>
         </div>
@@ -121,12 +121,17 @@
                             <div class="row">
                                 <div class="col-md-6  price__col">
                                     <div class="__price">
-                                        <b v-text="productPrice + ` ${$t('sum')}`"> </b>
+                                        <b
+                                            v-text="
+                                                productPrice + ` ${$t('sum')}`
+                                            "
+                                        >
+                                        </b>
                                     </div>
                                 </div>
                             </div>
 
-                            <h4>{{$t('color')}}:</h4>
+                            <h4>{{ $t("color") }}:</h4>
                             <div class="select__image">
                                 <div
                                     class="select__option"
@@ -157,7 +162,8 @@
                                 </div>
                             </div>
                             <h4 class="heading__size">
-                                {{$t('size')}}: <span v-text="productSize"> </span>
+                                {{ $t("size") }}:
+                                <span v-text="productSize"> </span>
                             </h4>
                             <div class="select__size">
                                 <div
@@ -186,7 +192,7 @@
                             <h4
                                 class="heading__size d-flex align-items-center mt-0 mb-1 pb-2 border__bottom"
                             >
-                                {{$t('kol')}}:
+                                {{ $t("kol") }}:
                                 <div class="product-count pl-2 mb-0 mt-1">
                                     <div class="count__input">
                                         <button
@@ -210,7 +216,6 @@
                                 </div>
                             </h4>
 
-
                             <div class="row ">
                                 <div
                                     class="product__info--txt col-md-6 col-sm-6 col-6"
@@ -222,7 +227,7 @@
                                 <div
                                     class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
-                                    {{$t('brand')}}:
+                                    {{ $t("brand") }}:
                                     <Span>
                                         {{ selectedProduct.brand.name }}
                                     </Span>
@@ -231,7 +236,7 @@
                                 <div
                                     class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
-                                    {{$t('rating')}}:
+                                    {{ $t("rating") }}:
                                     <Span>
                                         <star-rating
                                             class="star__rating "
@@ -249,7 +254,7 @@
                                 <div
                                     class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
-                                   {{$t('like')}}:
+                                    {{ $t("like") }}:
                                     <Span>
                                         <svg
                                             class="favourite__icon "
@@ -287,7 +292,7 @@
                                         class="btn btn--buy"
                                         @click.prevent="goToOrder"
                                     >
-                                        {{$t('sale')}}
+                                        {{ $t("sale") }}
                                     </a>
 
                                     <a
@@ -295,7 +300,7 @@
                                         class="btn btn--basket"
                                         @click.prevent="toggleBasket"
                                     >
-                                        {{$t('bag')}}
+                                        {{ $t("bag") }}
                                     </a>
                                 </div>
                             </div>
@@ -314,13 +319,12 @@
                                     alt="Product img"
                                 />
                             </div>
-
                         </div>
                     </div>
 
                     <div class="col-lg-12 clients__review__container">
                         <h4 class="clients__review__header ">
-                            {{$t('comments')}}
+                            {{ $t("comments") }}
                             <span>
                                 {{comments.length}}
                             </span>
@@ -387,22 +391,20 @@
                         </div>
 
                     </div>
-
                 </div>
             </div>
 
             <section class="container popular__container">
-                <div class="popular__heading">{{$t('mag')}}</div>
+                <div class="popular__heading">{{ $t("mag") }}</div>
                 <div class="popular__item-box">
                     <nuxt-link
                         class="popular__items"
                         v-for="product in productsInMagazine.data"
                         :key="product._id"
-                        v-if="product._id !== selectedProduct._id"
                         :to="{
-                        name: `product-id___${$i18n.locale}`,
-                        params: { id: product.slug }
-                    }"
+                            name: `product-id___${$i18n.locale}`,
+                            params: { id: product.slug }
+                        }"
                     >
                         <img
                             class="popular__items__img"
@@ -429,26 +431,20 @@
                             <span
                                 class="popular__items__desription--price"
                                 v-if="!product.discount"
-                                >{{
-                                    updatePriceFormat(product.price)
-                                }}
-                                {{$t('sum')}}</span
+                                >{{ updatePriceFormat(product.price) }}
+                                {{ $t("sum") }}</span
                             >
                             <span
                                 class="popular__items__desription--price"
                                 v-if="!!product.discount"
-                                >{{
-                                    updatePriceFormat(product.discount)
-                                }}
-                                {{$t('sum')}}</span
+                                >{{ updatePriceFormat(product.discount) }}
+                                {{ $t("sum") }}</span
                             >
                             <span
                                 class="popular__items__desription--price popular__items__desription--old--price hidden"
                                 v-if="!!product.discount"
-                                >{{
-                                    updatePriceFormat(product.price)
-                                }}
-                                {{$t('sum')}}</span
+                                >{{ updatePriceFormat(product.price) }}
+                                {{ $t("sum") }}</span
                             >
                         </div>
                     </nuxt-link>
@@ -458,25 +454,24 @@
                     class="popular__btn"
                     v-if="
                         productsInMagazine.data.length >=
-                            productsInMagazine.limit
+                            productsInMagazine.limit - 1
                     "
                     @click.prevent="updateMagazineLimit"
-                    >{{$t('all')}}</a
+                    >{{ $t("all") }}</a
                 >
             </section>
 
             <section class="container popular__container">
-                <div class="popular__heading">{{$t('red')}}</div>
+                <div class="popular__heading">{{ $t("red") }}</div>
                 <div class="popular__item-box">
                     <nuxt-link
                         class="popular__items"
                         v-for="product in productsByCategory.data"
                         :key="product._id"
-                        v-if="product._id !== selectedProduct._id"
                         :to="{
-                        name: `product-id___${$i18n.locale}`,
-                        params: { id: product.slug }
-                    }"
+                            name: `product-id___${$i18n.locale}`,
+                            params: { id: product.slug }
+                        }"
                     >
                         <img
                             class="popular__items__img"
@@ -503,26 +498,20 @@
                             <span
                                 class="popular__items__desription--price"
                                 v-if="!product.discount"
-                                >{{
-                                    updatePriceFormat(product.price)
-                                }}
-                                {{$t('sum')}}</span
+                                >{{ updatePriceFormat(product.price) }}
+                                {{ $t("sum") }}</span
                             >
                             <span
                                 class="popular__items__desription--price"
                                 v-if="!!product.discount"
-                                >{{
-                                    updatePriceFormat(product.discount)
-                                }}
-                                {{$t('sum')}}</span
+                                >{{ updatePriceFormat(product.discount) }}
+                                {{ $t("sum") }}</span
                             >
                             <span
                                 class="popular__items__desription--price popular__items__desription--old--price hidden"
                                 v-if="!!product.discount"
-                                >{{
-                                    updatePriceFormat(product.price)
-                                }}
-                                {{$t('sum')}}</span
+                                >{{ updatePriceFormat(product.price) }}
+                                {{ $t("sum") }}</span
                             >
                         </div>
                     </nuxt-link>
@@ -532,10 +521,10 @@
                     class="popular__btn"
                     v-if="
                         productsByCategory.data.length >=
-                            productsByCategory.limit
+                            productsByCategory.limit - 1
                     "
                     @click.prevent="updateCategoryLimit"
-                    >{{$t('all')}}</a
+                    >{{ $t("all") }}</a
                 >
             </section>
 
@@ -604,7 +593,7 @@
                         class="navbar__bottom__button button__to__basket  d-flex justify-content-center align-items-center"
                         @click.prevent="toggleBasket"
                     >
-                        {{$t('bag')}}
+                        {{ $t("bag") }}
                     </a>
 
                     <a
@@ -612,7 +601,7 @@
                         class="navbar__bottom__button button__buy__now d-flex justify-content-center align-items-center"
                         @click.prevent="goToOrder"
                     >
-                        {{$t('sale')}}
+                        {{ $t("sale") }}
                     </a>
                 </div>
             </section>
@@ -620,10 +609,7 @@
             <!-- /////////////////////////////////////////////
             modals on event -->
             <!-- modal favourite -->
-            <modal-success
-                v-show="favouriteObj.add"
-                :post-title="$t('upr5')"
-            >
+            <modal-success v-show="favouriteObj.add" :post-title="$t('upr5')">
             </modal-success>
 
             <modal-success
@@ -634,22 +620,13 @@
 
             <!-- modal basket -->
 
-            <modal-success
-                v-show="basketObj.added"
-                :post-title="$t('upr6')"
-            >
+            <modal-success v-show="basketObj.added" :post-title="$t('upr6')">
             </modal-success>
 
-            <modal-success
-                v-show="basketObj.updated"
-                :post-title="$t('upr')"
-            >
+            <modal-success v-show="basketObj.updated" :post-title="$t('upr')">
             </modal-success>
 
-            <modal-success
-                v-if="basketObj.inBasket"
-                :post-title="$t('upr7')"
-            >
+            <modal-success v-if="basketObj.inBasket" :post-title="$t('upr7')">
             </modal-success>
         </div>
     </div>
@@ -1064,7 +1041,7 @@ export default {
                 }
             } else {
                 this.$router.push({
-                    name: "auth-login"
+                    path: "/auth/login"
                 });
             }
         },
@@ -1143,7 +1120,7 @@ export default {
                 }, 1800);
             } else {
                 this.$router.push({
-                    name: "auth-login"
+                    path: "/auth/login"
                 });
             }
         },
@@ -1183,12 +1160,12 @@ export default {
                 products.push(obj);
                 this.updateOrderProduct({ products, amount });
                 this.$router.push({
-                    name: "order-id",
+                    path: "/order/_id",
                     params: { id: product.slug }
                 });
             } else {
                 this.$router.push({
-                    name: "auth-login"
+                    path: "/auth/login"
                 });
             }
         },
@@ -1217,7 +1194,7 @@ export default {
         //  go to product on click card of product
         goToProduct(slug) {
             this.$router.push({
-                name: "product-id",
+                path: "/product/_id",
                 params: { id: slug }
             });
         },
@@ -1252,7 +1229,7 @@ export default {
             // this.isGet = false;
             this.productsByCategory.limit += 10;
             const search = await this.searchProductByCategory();
-            this.productsByCategory.data = search.data;
+            this.updateCategoryData(search.data);
             // this.isGet = true;
         },
 
@@ -1260,8 +1237,31 @@ export default {
             // this.isGet = false;
             this.productsInMagazine.limit += 10;
             const search = await this.searchProductByMagazine();
-            this.productsInMagazine.data = search.data;
+            this.updateMagazineData(search.data);
             // this.isGet = true;
+        },
+
+        updateMagazineData(data) {
+            const limit = this.productsInMagazine.limit - 1;
+            let result = data.filter(
+                res => res._id !== this.selectedProduct._id
+            );
+            console.log("filter result", result);
+            if (result.length > limit) {
+                result.pop();
+            }
+            this.productsInMagazine.data = result;
+        },
+
+        updateCategoryData(data) {
+            const limit = this.productsByCategory.limit;
+            const result = data.filter(
+                res => res._id !== this.selectedProduct._id
+            );
+            if (result.length > limit) {
+                result.pop();
+            }
+            this.productsByCategory.data = result;
         }
     },
 
@@ -1303,8 +1303,8 @@ export default {
             this.searchProductByMagazine(),
             this.searchProductByCategory()
         ]);
-        this.productsInMagazine.data = productsInMagazine.data;
-        this.productsByCategory.data = productsByCategory.data;
+        this.updateMagazineData(productsInMagazine.data);
+        this.updateCategoryData(productsByCategory.data);
         console.log("product", this.selectedProduct);
         console.log("products in magazine", this.productsInMagazine.data);
         console.log("products by category", this.productsByCategory);
