@@ -20,17 +20,17 @@
                     />
                     <div class="news__box--description">
                         <span class="news__box--description--header">
-                            {{ news[index].title.uz }}
+                            {{ news[index].title[$i18n.locale] }}
                         </span>
                         <div
                             class="news__box--description--p"
-                            v-html="news[index].description.uz"
+                            v-html="news[index].description[$i18n.locale]"
                         ></div>
                     </div>
                     <div class="data__box">
                         <nuxt-link
                             :to="{
-                                name: 'news-id',
+                                name: 'news-id___'+$i18n.locale,
                                 params: { id: news[index].slug }
                             }"
                             class="data__box--btn text-center"

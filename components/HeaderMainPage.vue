@@ -562,7 +562,7 @@
                         @mouseenter="doActiveCategory(category)"
                         @click="doActiveCategory(category)"
                     >
-                        {{ category.name.uz }}
+                        {{ category.name[$i18n.locale] }}
                     </button>
                 </div>
 
@@ -581,7 +581,7 @@
                                 searchByCategory(children), doVisibleCategory()
                             "
                         >
-                            <b> {{ children.name.uz }} </b>
+                            <b> {{ children.name[$i18n.locale] }} </b>
 
                             <span
                                 class="category-dropdown__child"
@@ -592,17 +592,10 @@
                                         doVisibleCategory()
                                 "
                             >
-                                {{ child.name.uz }}
+                                {{ child.name[$i18n.locale] }}
                             </span>
                         </span>
 
-                        <!-- <span
-                            class="category-dropdown__children--txt "
-                            v-for="category in childCategory"
-                            :key="category._id"
-                        >
-                            {{ category.name.uz }} - {{ category._id }}
-                        </span> -->
                     </div>
                 </div>
             </div>

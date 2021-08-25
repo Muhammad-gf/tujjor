@@ -85,11 +85,6 @@
                 <div class="container">
                     <div class="title-box">
                         <ul>
-                            <li>
-                                <nuxt-link to="/">{{ $t("search") }}</nuxt-link>
-                                /
-                            </li>
-
                             <li v-if="linksForTitle.length > 0">
                                 <nuxt-link :to="linksForTitle">
                                     {{ linksForTitle }}
@@ -103,7 +98,7 @@
                                 :key="title._id"
                             >
                                 <nuxt-link :to="title._id">
-                                    {{ title.name.uz }}
+                                    {{ title.name[$i18n.locale] }}
                                 </nuxt-link>
                                 /
                             </li>

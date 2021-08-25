@@ -18,7 +18,7 @@
             <div class="news__about__box">
                 <div class="news__about--heading">
                     <h2>
-                        {{ news.title.uz }}
+                        {{ news.title[$i18n.locale] }}
                     </h2>
                 </div>
 
@@ -54,17 +54,17 @@
                         </div>
                         <div class="news__box--heading">
                             <h4>
-                                {{ newsAll[index].title.uz }}
+                                {{ newsAll[index].title[$i18n.locale] }}
                             </h4>
                         </div>
                         <div
                             class="news__box--p"
-                            v-html="newsAll[index].description.uz"
+                            v-html="newsAll[index].description[$i18n.locale]"
                         ></div>
                         <div class="news__box--data">
                             <nuxt-link
                                 :to="{
-                                    name: 'news-id',
+                                    name: 'news-id___'+$i18n.locale,
                                     params: { id: newsAll[index].slug }
                                 }"
                                 class="news__box--btn"
