@@ -3,7 +3,7 @@
         <base-loading v-if="!isGet"></base-loading>
 
         <section class="container popular__container" v-if="isGet">
-            <div class="popular__heading">{{$t('popular')}}</div>
+            <div class="popular__heading">{{ $t("popular") }}</div>
             <div class="popular__item-box">
                 <nuxt-link
                     class="popular__items"
@@ -33,7 +33,7 @@
                             v-if="!!product.discount"
                         >
                             {{ updatePriceFormat(product.discount) }}
-                            {{$t('sum')}}
+                            {{ $t("sum") }}
                         </span>
 
                         <span
@@ -41,7 +41,7 @@
                             class="popular__items__desription--price popular__items__desription--old--price hidden"
                         >
                             {{ updatePriceFormat(product.price) }}
-                             {{$t('sum')}}
+                            {{ $t("sum") }}
                         </span>
 
                         <span
@@ -49,7 +49,7 @@
                             v-if="!product.discount"
                         >
                             {{ updatePriceFormat(product.price) }}
-                            {{$t('sum')}}
+                            {{ $t("sum") }}
                         </span>
                     </div>
                 </nuxt-link>
@@ -60,7 +60,7 @@
                 class="popular__btn text-center"
                 v-if="popularProducts.data.length >= popularProducts.limit"
                 @click.prevent="updatePopularLimit"
-                >{{$t('all')}}</a
+                >{{ $t("all") }}</a
             >
         </section>
     </section>
@@ -155,7 +155,7 @@ export default {
         font-weight: 500;
         font-size: 48px;
         color: #f7931e;
-        margin-bottom: 40px;
+        margin-bottom: 5px !important;
         text-shadow: 0px 0px 3px rgba(247, 147, 30, 0.3);
         display: inline-block;
     }
@@ -281,7 +281,7 @@ export default {
 
 @media only screen and (max-width: 1200px) and (min-width: 765px) {
     .popular__container {
-        margin-top: 25px !important;
+        margin-top: 10px !important;
         padding: 20px;
         .popular__item-box {
             .popular__items {
@@ -301,7 +301,7 @@ export default {
 @media only screen and (max-width: 765px) {
     .popular__container {
         padding: 16px;
-        margin-top: 25px !important;
+        margin-top: 10px !important;
         .popular__heading {
             font-size: 22px;
             margin-bottom: 28px;

@@ -14,7 +14,8 @@
                     src="../assets/img/other/logo-men.png"
                     alt="Logo rectangle men"
                 />
-            </div>``
+            </div>
+            ``
         </div>
     </section>
 </template>
@@ -28,7 +29,7 @@ export default {};
 </style>
 <style lang="scss">
 .logo__rectangle {
-    margin: 220px 0 60px;
+    margin: 80px 0 10px;
     padding: 0;
     &--rectangle {
         position: relative;
@@ -68,7 +69,6 @@ export default {};
 
 @media only screen and (max-width: 1200px) and (min-width: 765px) {
     .logo__rectangle {
-        margin-top: 150px;
         &--rectangle {
             &--header {
                 left: 35%;
@@ -85,7 +85,7 @@ export default {};
 
 @media only screen and (max-width: 764px) {
     .logo__rectangle {
-        margin: 40px 0 0;
+        margin: 30px 0 0;
         &--rectangle {
             height: 164px;
             &--header {

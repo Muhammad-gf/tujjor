@@ -1,7 +1,7 @@
 <template>
     <section class="magazines__main__page">
         <section class="container popular__container">
-            <div class="popular__heading">{{$t('magazine')}}</div>
+            <div class="popular__heading">{{ $t("magazine") }}</div>
         </section>
         <div class="magazines__box container">
             <div
@@ -55,7 +55,7 @@
                 href="#"
                 class="popular__btn text-center"
                 @click.prevent="updateMagazineLimit"
-                >{{$t('all')}}</a
+                >{{ $t("all") }}</a
             >
         </section>
     </section>
@@ -107,8 +107,9 @@ export default {
 
         //  go to magazine on click card of magazine
         goToMagazine(slug) {
+            console.log("magazine slug", slug);
             this.$router.push({
-                name: "magazine-id",
+                path: "/magazine/" + slug,
                 params: { id: slug }
             });
         }
