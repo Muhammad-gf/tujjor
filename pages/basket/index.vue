@@ -7,12 +7,12 @@
                 <div class="title-box">
                     <ul>
                         <li>
-                            <nuxt-link to="/">Главная страница </nuxt-link>
+                            <nuxt-link to="/">{{$t('home')}} </nuxt-link>
                             /
                         </li>
 
                         <li>
-                            <nuxt-link to="#">Корзина покупателя </nuxt-link>
+                            <nuxt-link to="#">{{$t('korzina')}} </nuxt-link>
                         </li>
                     </ul>
                 </div>
@@ -21,14 +21,14 @@
             <section class="favourite__is__empty" v-if="isGet && noData">
                 <section class="container popular__container">
                     <div class="popular__heading">
-                        У вас нет продукта в корзины!
+                        {{$t('nokorzina')}}
                     </div>
                 </section>
             </section>
 
             <main class="basket__container container" v-if="isGet && !noData">
                 <div class="basket__heading">
-                    <h2>Корзина покупателя</h2>
+                    <h2>{{$t('korzina')}}</h2>
                 </div>
 
                 <div
@@ -47,13 +47,13 @@
                                 {{ item.product.description.uz }}
                             </p>
                             <p class="p-second">
-                                <span>Размер:</span>{{ item.size.size }}
+                                <span>{{$t('size')}}:</span>{{ item.size.size }}
                             </p>
                         </div>
                     </div>
                     <div class="basket__item--secondary">
                         <div class="basket__item--btn">
-                            <span>Количество:</span>
+                            <span>{{$t('kol')}}:</span>
                             <div class="btn__box">
                                 <a
                                     class="btn--primary"
@@ -67,7 +67,7 @@
                                 >
                                     _
                                 </a>
-                                <span> {{ item.count }} шт</span>
+                                <span> {{ item.count }} {{$t('sht')}}</span>
                                 <a
                                     class="btn--secondary"
                                     v-on:click="
@@ -88,7 +88,7 @@
                         >
                             <span
                                 >{{ updatePrice(item.count, item.size.price) }}
-                                cум
+                                {{$t('sum')}}
                             </span>
                         </div>
 
@@ -100,11 +100,11 @@
                                 >{{
                                     updatePrice(item.count, item.size.discount)
                                 }}
-                                cум
+                                {{$t('sum')}}
                             </span>
                         </div>
                         <div class="basket__item--color">
-                            <span>Цвет:</span>
+                            <span>{{$t('color')}}:</span>
                             <img
                                 :src="$store.state.uploads + item.param.image"
                                 alt="Color image"
@@ -116,7 +116,7 @@
                                 class="item__btn btn--submit"
                                 @click="goToOrder(item)"
                             >
-                                Оформить заказ
+                                {{$t('oformit')}}
                             </a>
 
                             <a
@@ -126,7 +126,7 @@
                                     openRemoveModal(item._id, index)
                                 "
                             >
-                                Стереть
+                                {{$t('del')}}
                             </a>
                         </div>
                     </div>
@@ -134,9 +134,9 @@
 
                 <div class="basket__price">
                     <div class="basket__price--total">
-                        <span>Общая сумма:</span>
+                        <span>{{$t('allsum')}}:</span>
                         <span class="all__price"
-                            >{{ updatePriceAll() }} cум</span
+                            >{{ updatePriceAll() }} {{$t('sum')}}</span
                         >
                     </div>
 
@@ -146,14 +146,14 @@
                             class="activity__btn btn--submit"
                             @click.prevent="orderAllProducts()"
                         >
-                            Оформить все заказы
+                            {{$t('allOrder')}}
                         </a>
                         <a
                             href="#"
                             class="activity__btn btn--reject"
                             @click.prevent="openRemoveModal('rm/all', 0)"
                         >
-                            Стереть все заказы
+                            {{$t('viewAllOrder')}}
                         </a>
                     </div>
                 </div>
@@ -172,7 +172,7 @@
                 <div v-if="basketObj.removeModal.showContent">
                     <div class="d-block text-center">
                         <h3>
-                            Вы хотите удалить этот продукт из корзины???
+                            {{$t('ud')}}
                         </h3>
                     </div>
                     <b-button
@@ -180,14 +180,14 @@
                         variant="warning"
                         block
                         @click="closeRemoveModal()"
-                        >Нет</b-button
+                        >{{$t('no')}}</b-button
                     >
                     <b-button
                         class="b-button"
                         variant="danger"
                         block
                         @click="deleteFromBasket()"
-                        >Да!</b-button
+                        >{{$t('yes')}}!</b-button
                     >
                 </div>
                 <div
@@ -271,18 +271,18 @@
             modals on event -->
             <modal-success
                 v-if="basketObj.updatedModal"
-                post-title="Продукт успешно обновлён!"
+                :post-title="$t('upr')"
             >
             </modal-success>
             <warning-message
                 v-if="basketObj.updatedBlockedModal"
-                post-title="Количество продукта не может быть меньше одного!"
+                :post-title="$t('upr2')"
             ></warning-message>
 
             <!-- deleted successfully modal -->
             <modal-success
                 v-show="basketObj.removeModal.deletedSuccess"
-                post-title="Продукт успешно удалён из корзины!"
+                :post-title="$t('upr3')"
             >
             </modal-success>
         </section>

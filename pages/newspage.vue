@@ -48,7 +48,7 @@
                     <div class="data__box">
                         <nuxt-link
                             :to="{
-                                name: 'news-id',
+                                name: 'news-id___' + $i18n.locale,
                                 params: { id: newsItem.slug }
                             }"
                             class="data__box--btn text-center"

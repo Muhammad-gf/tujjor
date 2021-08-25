@@ -19,6 +19,7 @@
                         :key="index"
                         class="b-carousel-slide"
                         :img-src="$store.state.uploads + item.image"
+
                     ></b-carousel-slide>
 
                     <!-- Slide with blank fluid image to maintain slide aspect ratio -->

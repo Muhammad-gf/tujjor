@@ -96,9 +96,25 @@ export default {
         "@nuxtjs/style-resources",
         "@nuxtjs/axios",
         "@nuxtjs/auth-next",
-        "@nuxtjs/recaptcha"
+        "@nuxtjs/recaptcha",
+        '@nuxtjs/i18n'
     ],
-
+    i18n: {
+        locales: [
+            {
+                code: "uz",
+                file: "uz.js"
+            },
+            {
+                code: "ru",
+                file: "ru.js"
+            }
+        ],
+        lazy: true,
+        langDir: "lang/",
+        strategy: "prefix_except_default",
+        defaultLocale: "ru"
+    },
     recaptcha: {
         hideBadge: true, // Boolean Hide badge element
         siteKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", // Site key for requests,

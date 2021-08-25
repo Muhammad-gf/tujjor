@@ -8,7 +8,7 @@
                     <div class="title-box">
                         <ul>
                             <li>
-                                <nuxt-link to="/">Поиск...</nuxt-link>
+                                <nuxt-link to="/">{{$t('search')}}</nuxt-link>
                                 /
                             </li>
 
@@ -75,7 +75,7 @@
 
             <section class="container popular__container search__noData">
                 <div class="popular__heading">
-                    Не найдено не одного продукта по этому запросу!
+                    {{$t(notPro)}}
                 </div>
             </section>
         </div>
@@ -86,7 +86,7 @@
                     <div class="title-box">
                         <ul>
                             <li>
-                                <nuxt-link to="/">Поиск...</nuxt-link>
+                                <nuxt-link to="/">{{$t('search')}}</nuxt-link>
                                 /
                             </li>
 
@@ -165,14 +165,14 @@
                             @change="filterBySort()"
                         >
                             <option value="" disabled selected
-                                >Сортировка по</option
+                                >{{$t('sortBy')}}</option
                             >
-                            <option value="new"> По новинкам</option>
+                            <option value="new"> {{$t('sortNew')}}</option>
                             <option value="popular">
-                                По популярности
+                                {{$t('sortPop')}}
                             </option>
-                            <option value="priceDown"> По убыванию</option>
-                            <option value="priceUp"> По возрастанию</option>
+                            <option value="priceDown"> {{$t('sortUb')}}</option>
+                            <option value="priceUp"> {{$t('sortVoz')}}</option>
                         </select>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
                             class="filtraiton__header"
                             v-if="!isSliderPricesEqual"
                         >
-                            Диапазон цена
+                            {{$t('sortPrice')}}
                         </h5>
 
                         <div class="input__range" v-if="!isSliderPricesEqual">
@@ -208,7 +208,7 @@
                             class="filtraiton__header"
                             v-if="brandsOnPage.length > 1"
                         >
-                            Филтр по брендам
+                            {{$t('sortBrand')}}
                         </h5>
 
                         <div
@@ -281,7 +281,7 @@
                                         {{
                                             updatePriceFormat(product.discount)
                                         }}
-                                        сум
+                                        {{$t('sum')}}
                                     </span>
 
                                     <span
@@ -289,7 +289,7 @@
                                         class="popular__items__desription--price popular__items__desription--old--price hidden"
                                     >
                                         {{ updatePriceFormat(product.price) }}
-                                        сум
+                                        {{$t('sum')}}
                                     </span>
 
                                     <span
@@ -297,7 +297,7 @@
                                         v-if="!product.discount"
                                     >
                                         {{ updatePriceFormat(product.price) }}
-                                        сум
+                                        {{$t('sum')}}
                                     </span>
                                 </div>
                             </div>
@@ -308,7 +308,7 @@
                             class="popular__btn"
                             v-if="products.length >= limit"
                             @click.prevent="showProductMore"
-                            >Показать ещё</a
+                            >{{$t('all')}}</a
                         >
                     </section>
                 </div>

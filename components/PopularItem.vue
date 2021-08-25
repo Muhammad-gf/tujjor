@@ -3,13 +3,16 @@
         <base-loading v-if="!isGet"></base-loading>
 
         <section class="container popular__container" v-if="isGet">
-            <div class="popular__heading">Популярные товары</div>
+            <div class="popular__heading">{{$t('popular')}}</div>
             <div class="popular__item-box">
-                <div
+                <nuxt-link
                     class="popular__items"
                     v-for="product in popularProducts.data"
                     :key="product._id"
-                    @click="goToProduct(product.slug)"
+                    :to="{
+                        name: `product-id___${$i18n.locale}`,
+                        params: { id: product.slug }
+                    }"
                 >
                     <img
                         class="popular__items__img"
@@ -19,10 +22,10 @@
                     />
                     <div class="popular__items__desription">
                         <span class="popular__items__desription--name">
-                            {{ product.category.uz }}
+                            {{ product.category[$i18n.locale] }}
                         </span>
                         <h4 class="popular__items__desription--categorie">
-                            {{ product.name.uz }}
+                            {{ product.name[$i18n.locale] }}
                         </h4>
 
                         <span
@@ -30,7 +33,7 @@
                             v-if="!!product.discount"
                         >
                             {{ updatePriceFormat(product.discount) }}
-                            сум
+                            {{$t('sum')}}
                         </span>
 
                         <span
@@ -38,7 +41,7 @@
                             class="popular__items__desription--price popular__items__desription--old--price hidden"
                         >
                             {{ updatePriceFormat(product.price) }}
-                            сум
+                             {{$t('sum')}}
                         </span>
 
                         <span
@@ -46,10 +49,10 @@
                             v-if="!product.discount"
                         >
                             {{ updatePriceFormat(product.price) }}
-                            сум
+                            {{$t('sum')}}
                         </span>
                     </div>
-                </div>
+                </nuxt-link>
             </div>
 
             <a
@@ -57,7 +60,7 @@
                 class="popular__btn text-center"
                 v-if="popularProducts.data.length >= popularProducts.limit"
                 @click.prevent="updatePopularLimit"
-                >Показать ещё</a
+                >{{$t('all')}}</a
             >
         </section>
     </section>

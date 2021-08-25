@@ -6,12 +6,12 @@
                 <div class="title-box title__about__us">
                     <ul>
                         <li>
-                            <nuxt-link to="/">Главная страница </nuxt-link>
+                            <nuxt-link to="/">{{$t('home')}}</nuxt-link>
                             /
                         </li>
 
                         <li>
-                            <nuxt-link to="#">О нас </nuxt-link>
+                            <nuxt-link to="#">{{$t('about')}} </nuxt-link>
                         </li>
                     </ul>
                 </div>
@@ -21,7 +21,7 @@
                 id="about__section"
             >
                 <div class="popular__heading about__heading" id="about__head">
-                    О нас
+                    {{$t('about')}}
                 </div>
                 <div
                     class="about__us__box"

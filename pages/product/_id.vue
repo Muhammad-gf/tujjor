@@ -8,29 +8,13 @@
                 style="height: 50vh"
             >
                 <div class="popular__heading">
-                    Продукт не найден!
+                    {{ $t("err4") }}
                 </div>
             </section>
         </div>
 
         <div v-if="isGet && !noData" class="product-show">
             <div class="container">
-                <!-- <div class="title-box">
-                    <ul>
-                        <li>
-                            <nuxt-link to="/">Главная страница</nuxt-link>
-                            /
-                        </li>
-                        <li>
-                            <nuxt-link to="/rubashki">Рубашки</nuxt-link>
-                            /
-                        </li>
-                        <li>{{ product.category.name.uz }}</li>
-                    </ul>
-                </div> -->
-
-                <!-- <h1 class="name_product">{{ product.category.name.uz }}</h1> -->
-
                 <div class="row">
                     <div class="image__product__container col-md-6 d-flex">
                         <div class="image__product row">
@@ -130,49 +114,24 @@
                     <div class="col-md-6 ">
                         <div class="col-md-12 product__name">
                             <h2>
-                                {{ product.name.uz }}
+                                {{ product.name[$i18n.locale] }}
                             </h2>
                         </div>
                         <div class="product-info">
                             <div class="row">
                                 <div class="col-md-6  price__col">
                                     <div class="__price">
-                                        <!-- <h6>
-                                            Цена:
-                                        </h6> -->
-                                        <b v-text="productPrice + ' сум'"> </b>
+                                        <b
+                                            v-text="
+                                                productPrice + ` ${$t('sum')}`
+                                            "
+                                        >
+                                        </b>
                                     </div>
                                 </div>
-
-                                <!-- <div class="col-md-6  ">
-                                    <div class="product-count">
-                                        <h3>
-                                            Количество:
-                                        </h3>
-                                        <div class="count__input">
-                                            <button
-                                                class="minus"
-                                                @click.prevent="changeCount(-1)"
-                                            >
-                                                -
-                                            </button>
-                                            <input
-                                                type="text"
-                                                disabled="disabled"
-                                                :value="productCount"
-                                            />
-                                            <button
-                                                class="plus"
-                                                @click.prevent="changeCount(1)"
-                                            >
-                                                +
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
 
-                            <h4>Цвет:</h4>
+                            <h4>{{ $t("color") }}:</h4>
                             <div class="select__image">
                                 <div
                                     class="select__option"
@@ -203,7 +162,8 @@
                                 </div>
                             </div>
                             <h4 class="heading__size">
-                                Размер: <span v-text="productSize"> </span>
+                                {{ $t("size") }}:
+                                <span v-text="productSize"> </span>
                             </h4>
                             <div class="select__size">
                                 <div
@@ -232,7 +192,7 @@
                             <h4
                                 class="heading__size d-flex align-items-center mt-0 mb-1 pb-2 border__bottom"
                             >
-                                Количество:
+                                {{ $t("kol") }}:
                                 <div class="product-count pl-2 mb-0 mt-1">
                                     <div class="count__input">
                                         <button
@@ -256,33 +216,6 @@
                                 </div>
                             </h4>
 
-                            <!-- <div class="col-md-6 pl-0 pr-0 ">
-                                <div class="product-count">
-                                    <h3>
-                                        Количество:
-                                    </h3>
-                                    <div class="count__input">
-                                        <button
-                                            class="minus"
-                                            @click.prevent="changeCount(-1)"
-                                        >
-                                            -
-                                        </button>
-                                        <input
-                                            type="text"
-                                            disabled="disabled"
-                                            :value="productCount"
-                                        />
-                                        <button
-                                            class="plus"
-                                            @click.prevent="changeCount(1)"
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                </div>
-                            </div> -->
-
                             <div class="row ">
                                 <div
                                     class="product__info--txt col-md-6 col-sm-6 col-6"
@@ -294,7 +227,7 @@
                                 <div
                                     class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
-                                    Бренд:
+                                    {{ $t("brand") }}:
                                     <Span>
                                         {{ selectedProduct.brand.name }}
                                     </Span>
@@ -303,7 +236,7 @@
                                 <div
                                     class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
-                                    Рейтинг:
+                                    {{ $t("rating") }}:
                                     <Span>
                                         <star-rating
                                             class="star__rating "
@@ -321,7 +254,7 @@
                                 <div
                                     class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
-                                    В избранное:
+                                    {{ $t("like") }}:
                                     <Span>
                                         <svg
                                             class="favourite__icon "
@@ -347,12 +280,7 @@
                             </div>
 
                             <p class="product__info--description">
-                                {{ selectedProduct.description.uz }}
-                                <!-- Рубашка с контрастным дизайном Свитшот из
-                                мягкого футера. Довольно свободная модель с
-                                заниженной линией плеча. Рельефная трикотажная
-                                резинка по горловине, низу рукавов и нижнему
-                                краю. -->
+                                {{ selectedProduct.description[$i18n.locale] }}
                             </p>
 
                             <div class="row navi__buttons">
@@ -364,7 +292,7 @@
                                         class="btn btn--buy"
                                         @click.prevent="goToOrder"
                                     >
-                                        Купить
+                                        {{ $t("sale") }}
                                     </a>
 
                                     <a
@@ -372,7 +300,7 @@
                                         class="btn btn--basket"
                                         @click.prevent="toggleBasket"
                                     >
-                                        В корзину
+                                        {{ $t("bag") }}
                                     </a>
                                 </div>
                             </div>
@@ -391,32 +319,12 @@
                                     alt="Product img"
                                 />
                             </div>
-
-                            <!-- <div class="d-flex flex-wrap align-items-stretch">
-                                <div
-                                    class="col-md-5 col-sm-12 product__image--img img--flex"
-                                >
-                                    <img
-                                        src="../../assets/img/product show/exp-2.png"
-                                        alt="Product img"
-                                    />
-                                </div>
-
-                                <div
-                                    class="col-md-7 col-sm-12 product__image--img img--flex"
-                                >
-                                    <img
-                                        src="../../assets/img/product show/exp-3.png"
-                                        alt="Product img"
-                                    />
-                                </div>
-                            </div> -->
                         </div>
                     </div>
 
                     <div class="col-lg-12 clients__review__container">
                         <h4 class="clients__review__header ">
-                            Отзывы покупателей
+                            {{ $t("comments") }}
                             <span>
                                 (24)
                             </span>
@@ -582,51 +490,20 @@
                             Показать больше комментариев
                         </a>
                     </div>
-
-                    <!-- <div class="col-lg-4 customer__review__container">
-                        <div class="customer__review__box row">
-                            <h4 class="customer__review__header col-sm-12">
-                                Оставьте ваш отзыв
-                            </h4>
-
-                            <input
-                                type="text"
-                                placeholder="Ваше имя"
-                                class="customer__review__input col-sm-12"
-                            />
-
-                            <input
-                                type="text"
-                                placeholder="Ваш e-mail"
-                                class="customer__review__input col-sm-12"
-                            />
-
-                            <textarea
-                                name="review"
-                                class="customer__review__input customer__review__txt col-sm-12"
-                                placeholder="Ваш отзыв"
-                            >
-                            </textarea>
-
-                            <a href="#" class="customer__review__send--btn ">
-                                Отправить отзыв
-                            </a>
-                        </div>
-                    </div> -->
                 </div>
             </div>
 
-            <section
-                class="container popular__container"
-                v-if="productsInMagazine.data.length > 0"
-            >
-                <div class="popular__heading">В магазине</div>
+            <section class="container popular__container">
+                <div class="popular__heading">{{ $t("mag") }}</div>
                 <div class="popular__item-box">
-                    <div
+                    <nuxt-link
                         class="popular__items"
                         v-for="product in productsInMagazine.data"
                         :key="product._id"
-                        @click="goToProduct(product.slug)"
+                        :to="{
+                            name: `product-id___${$i18n.locale}`,
+                            params: { id: product.slug }
+                        }"
                     >
                         <img
                             class="popular__items__img"
@@ -637,7 +514,7 @@
                         <div class="popular__items__desription">
                             <div class="name__rating">
                                 <span class="popular__items__desription--name">
-                                    {{ product.category.uz }}
+                                    {{ product.category[$i18n.locale] }}
                                 </span>
 
                                 <div class="magazine__item--rating">
@@ -648,34 +525,28 @@
                                 </div>
                             </div>
                             <h4 class="popular__items__desription--categorie">
-                                {{ product.name.uz }}
+                                {{ product.name[$i18n.locale] }}
                             </h4>
                             <span
                                 class="popular__items__desription--price"
                                 v-if="!product.discount"
-                                >{{
-                                    updatePriceFormat(product.price)
-                                }}
-                                сум</span
+                                >{{ updatePriceFormat(product.price) }}
+                                {{ $t("sum") }}</span
                             >
                             <span
                                 class="popular__items__desription--price"
                                 v-if="!!product.discount"
-                                >{{
-                                    updatePriceFormat(product.discount)
-                                }}
-                                сум</span
+                                >{{ updatePriceFormat(product.discount) }}
+                                {{ $t("sum") }}</span
                             >
                             <span
                                 class="popular__items__desription--price popular__items__desription--old--price hidden"
                                 v-if="!!product.discount"
-                                >{{
-                                    updatePriceFormat(product.price)
-                                }}
-                                сум</span
+                                >{{ updatePriceFormat(product.price) }}
+                                {{ $t("sum") }}</span
                             >
                         </div>
-                    </div>
+                    </nuxt-link>
                 </div>
                 <a
                     href="#"
@@ -685,21 +556,21 @@
                             productsInMagazine.limit - 1
                     "
                     @click.prevent="updateMagazineLimit"
-                    >Показать ещё</a
+                    >{{ $t("all") }}</a
                 >
             </section>
 
-            <section
-                class="container popular__container"
-                v-if="productsByCategory.data.length > 0"
-            >
-                <div class="popular__heading">Похожие товари</div>
+            <section class="container popular__container">
+                <div class="popular__heading">{{ $t("red") }}</div>
                 <div class="popular__item-box">
-                    <div
+                    <nuxt-link
                         class="popular__items"
                         v-for="product in productsByCategory.data"
                         :key="product._id"
-                        @click="goToProduct(product.slug)"
+                        :to="{
+                            name: `product-id___${$i18n.locale}`,
+                            params: { id: product.slug }
+                        }"
                     >
                         <img
                             class="popular__items__img"
@@ -710,7 +581,7 @@
                         <div class="popular__items__desription">
                             <div class="name__rating">
                                 <span class="popular__items__desription--name">
-                                    {{ product.category.uz }}
+                                    {{ product.category[$i18n.locale] }}
                                 </span>
 
                                 <div class="magazine__item--rating">
@@ -721,34 +592,28 @@
                                 </div>
                             </div>
                             <h4 class="popular__items__desription--categorie">
-                                {{ product.name.uz }}
+                                {{ product.name[$i18n.locale] }}
                             </h4>
                             <span
                                 class="popular__items__desription--price"
                                 v-if="!product.discount"
-                                >{{
-                                    updatePriceFormat(product.price)
-                                }}
-                                сум</span
+                                >{{ updatePriceFormat(product.price) }}
+                                {{ $t("sum") }}</span
                             >
                             <span
                                 class="popular__items__desription--price"
                                 v-if="!!product.discount"
-                                >{{
-                                    updatePriceFormat(product.discount)
-                                }}
-                                сум</span
+                                >{{ updatePriceFormat(product.discount) }}
+                                {{ $t("sum") }}</span
                             >
                             <span
                                 class="popular__items__desription--price popular__items__desription--old--price hidden"
                                 v-if="!!product.discount"
-                                >{{
-                                    updatePriceFormat(product.price)
-                                }}
-                                сум</span
+                                >{{ updatePriceFormat(product.price) }}
+                                {{ $t("sum") }}</span
                             >
                         </div>
-                    </div>
+                    </nuxt-link>
                 </div>
                 <a
                     href="#"
@@ -758,7 +623,7 @@
                             productsByCategory.limit - 1
                     "
                     @click.prevent="updateCategoryLimit"
-                    >Показать ещё</a
+                    >{{ $t("all") }}</a
                 >
             </section>
 
@@ -827,7 +692,7 @@
                         class="navbar__bottom__button button__to__basket  d-flex justify-content-center align-items-center"
                         @click.prevent="toggleBasket"
                     >
-                        Корзину
+                        {{ $t("bag") }}
                     </a>
 
                     <a
@@ -835,7 +700,7 @@
                         class="navbar__bottom__button button__buy__now d-flex justify-content-center align-items-center"
                         @click.prevent="goToOrder"
                     >
-                        Купить
+                        {{ $t("sale") }}
                     </a>
                 </div>
             </section>
@@ -843,36 +708,24 @@
             <!-- /////////////////////////////////////////////
             modals on event -->
             <!-- modal favourite -->
-            <modal-success
-                v-show="favouriteObj.add"
-                post-title="Продукт успешно добавлен в список избранных!"
-            >
+            <modal-success v-show="favouriteObj.add" :post-title="$t('upr5')">
             </modal-success>
 
             <modal-success
                 v-show="favouriteObj.remove"
-                post-title="Продукт успешно удалён из списка избранных!"
+                :post-title="$t('upr5')"
             >
             </modal-success>
 
             <!-- modal basket -->
 
-            <modal-success
-                v-show="basketObj.added"
-                post-title="Продукт успешно добавлен в корзину!"
-            >
+            <modal-success v-show="basketObj.added" :post-title="$t('upr6')">
             </modal-success>
 
-            <modal-success
-                v-show="basketObj.updated"
-                post-title="Продукт успешно обновлён!"
-            >
+            <modal-success v-show="basketObj.updated" :post-title="$t('upr')">
             </modal-success>
 
-            <modal-success
-                v-if="basketObj.inBasket"
-                post-title="Продукт находится в корзине!"
-            >
+            <modal-success v-if="basketObj.inBasket" :post-title="$t('upr7')">
             </modal-success>
         </div>
     </div>

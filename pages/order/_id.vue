@@ -6,12 +6,12 @@
                 <div class="title-box">
                     <ul>
                         <li>
-                            <nuxt-link to="/">Главная страница </nuxt-link>
+                            <nuxt-link to="/">{{ $t("home") }} </nuxt-link>
                             /
                         </li>
 
                         <li>
-                            <nuxt-link to="#">Оформить заказ </nuxt-link>
+                            <nuxt-link to="#">{{ $t("oformit") }} </nuxt-link>
                         </li>
                     </ul>
                 </div>
@@ -20,7 +20,7 @@
             <section class="favourite__is__empty" v-if="isGet && noData">
                 <section class="container popular__container">
                     <div class="popular__heading">
-                        У вас нет продукта для оформления!
+                        {{ $t("noof") }}
                     </div>
                 </section>
             </section>
@@ -30,24 +30,24 @@
                 v-if="isGet && !noData"
             >
                 <div class="checkout__order__heading">
-                    <h2>Оформить заказ</h2>
+                    <h2>{{ $t("oformit") }}</h2>
                 </div>
 
                 <form v-on:submit.prevent class="checkout__box">
                     <div class="person__home">
-                        <h4>Укажите ваши данные</h4>
+                        <h4>{{ $t("danni") }}</h4>
 
                         <div class="person__home--description">
-                            <span>Город</span>
+                            <span>{{ $t("city") }}</span>
                             <select
                                 name="region"
                                 id="region"
                                 v-model="selectedAdress.region"
                                 @change="giveCity()"
                             >
-                                <option value="" disabled selected
-                                    >Ваш Город</option
-                                >
+                                <option value="" disabled selected>{{
+                                    $t("myCity")
+                                }}</option>
                                 <option
                                     v-for="region in allRegions"
                                     :key="region._id"
@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="person__home--description">
-                            <span>Район</span>
+                            <span>{{ $t("ray") }}</span>
 
                             <select
                                 name="village"
@@ -67,9 +67,9 @@
                                 v-model="selectedAdress.district"
                                 @change="giveDistrict()"
                             >
-                                <option value="" disabled selected
-                                    >Ваш Район</option
-                                >
+                                <option value="" disabled selected>{{
+                                    $t("myRay")
+                                }}</option>
                                 <option
                                     v-for="district in selectedCityDistricts"
                                     :key="district._id"
@@ -81,10 +81,10 @@
                         </div>
 
                         <div class="person__home--description">
-                            <span>Адрес</span>
+                            <span>{{ $t("address") }}</span>
                             <input
                                 type="text"
-                                placeholder="Введите адрес"
+                                :placeholder="$t('address')"
                                 id="Adress"
                                 name="Adress"
                                 v-model="order.address.address"
@@ -92,58 +92,62 @@
                         </div>
 
                         <div class="person__home--description">
-                            <span>Номер</span>
+                            <span>{{ $t("tel") }}</span>
                             <input
                                 type="text"
+                                :placeholder="$t('tel')"
                                 id="Number"
                                 name="Number"
                                 v-model="order.address.phone"
-                                placeholder="+998 (__) ___ -__-__"
                                 v-mask="'+998 (##) ###-##-##'"
                             />
                         </div>
                     </div>
 
                     <div class="person__checkout">
-                        <span>Ваш заказ</span>
+                        <span>{{ $t("vzakaz") }}</span>
                         <div class="span__container">
-                            <span>Товары ({{ orderAll.products.length }})</span>
+                            <span
+                                >{{ $t("tovar") }} ({{
+                                    orderAll.products.length
+                                }})</span
+                            >
                             <span class="primary">
                                 {{
                                     !!updatePriceFormat(orderAll.amount)
                                         ? updatePriceFormat(orderAll.amount)
                                         : 0
                                 }}
-                                cум</span
+                                {{ $t("sum") }}</span
                             >
                         </div>
 
                         <div class="span__container">
-                            <span>Скидка</span>
+                            <span>{{ $t("sales") }}</span>
                             <span class="secondary"
                                 >{{
                                     orderAll.amount.length
                                         ? orderAll.amount.length
                                         : 0
                                 }}
-                                cум</span
+                                {{ $t("sum") }}</span
                             >
                         </div>
 
                         <div class="span__container">
-                            <span>Доставка</span>
+                            <span>{{ $t("dostavka") }}</span>
                             <span class="tritary"
                                 >{{
                                     orderAll.amount.length
                                         ? orderAll.amount.length
                                         : 0
                                 }}
-                                cум</span
+                                {{ $t("sum") }}</span
                             >
                         </div>
 
                         <div class="span__container span__container--last ">
-                            <span>Общая сумма:</span>
+                            <span>{{ $t("allsum") }}:</span>
                             <span class="tertiary">
                                 {{ updatePriceFormat(orderAll.amount) }} cум
                             </span>
@@ -154,13 +158,13 @@
                             target="_blank"
                             @click="fetchOrder()"
                         >
-                            Заказать
+                            {{ $t("zakazat") }}
                         </a>
                     </div>
                 </form>
 
                 <section class="checkout__order__section">
-                    <h2 class="header">Ваш заказ</h2>
+                    <h2 class="header">{{ $t("vzakaz") }}</h2>
                     <div
                         class="checkout__order__item__box"
                         v-for="item in orderAll.products"
@@ -183,22 +187,22 @@
                         </div>
                         <div class="checkout__order__item--secondary">
                             <div class="checkout__order__item--number">
-                                <span>Количество:</span>
+                                <span>{{ $t(kol) }}:</span>
 
                                 <span class="number"> {{ item.count }} шт</span>
                             </div>
                             <div class="checkout__order__item--price">
                                 <span
                                     >{{ updatePrice(item.amount, item.count) }}
-                                    cум
+                                    {{ $t("sum") }}
                                 </span>
                                 <span v-if="''"
                                     >{{ updatePrice(item.amount, item.count) }}
-                                    cум
+                                    {{ $t("sum") }}
                                 </span>
                             </div>
                             <div class="checkout__order__item--color">
-                                <span>Цвет:</span>
+                                <span>{{ $t("color") }}:</span>
                                 <img
                                     :src="$store.state.uploads + item.color"
                                     alt="Color image"
@@ -209,12 +213,10 @@
 
                     <div class="checkout__order__price">
                         <div class="checkout__order__price--total">
-                            <span>Общая сумма:</span>
+                            <span>{{ $t("allsum") }}:</span>
                             <span class="all__price"
-                                >{{
-                                    updatePriceFormat(this.orderAll.amount)
-                                }}
-                                cум</span
+                                >{{ updatePriceFormat(this.orderAll.amount) }}
+                                {{ $t("sum") }}</span
                             >
                         </div>
                     </div>
@@ -224,10 +226,10 @@
 
         <warning-message
             v-if="warningMessage"
-            post-title="Пополните пустые поле!"
+            :post-title="$t('err1')"
         ></warning-message>
 
-        <warning-message v-if="errorrMessage" post-title="Произошло ошибка!">
+        <warning-message v-if="errorrMessage" :post-title="$t('oshibka')">
         </warning-message>
     </section>
 </template>
