@@ -16,7 +16,7 @@
                                 : ''
                         "
                     >
-                        <nuxt-link to="/">
+                        <nuxt-link :to="{ name: 'index___' + $i18n.locale }">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="141"
@@ -313,7 +313,7 @@
                         <button
                             type="button"
                             class="language__russian"
-                            v-if="!activeLanguage"
+                            v-if="$i18n.locale == 'ru'"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -349,7 +349,7 @@
                                     />
                                 </defs>
                             </svg>
-                            <span v-if="$i18n.locale == 'ru'">ру</span>
+                            <span>ру</span>
                         </button>
 
                         <button class="language__uzbek" v-else>
@@ -411,7 +411,7 @@
                                     ></path>
                                 </g>
                             </svg>
-                            <span v-if="$i18n.locale == 'uz'">uz</span>
+                            <span>uz</span>
                         </button>
 
                         <div
@@ -422,7 +422,8 @@
                             <button
                                 type="button"
                                 class="language__russian"
-                                v-if="activeLanguage"
+                                v-if="$i18n.locale == 'uz'"
+                                @click.prevent="$i18n.setLocale('ru')"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -461,7 +462,11 @@
                                 <b>ру</b>
                             </button>
 
-                            <button class="language__uzbek" v-else>
+                            <button
+                                class="language__uzbek"
+                                v-else
+                                @click.prevent="$i18n.setLocale('uz')"
+                            >
                                 <svg
                                     width="43"
                                     height="28"
@@ -595,7 +600,6 @@
                                 {{ child.name[$i18n.locale] }}
                             </span>
                         </span>
-
                     </div>
                 </div>
             </div>
