@@ -1140,7 +1140,7 @@ export default {
                 }
             } else {
                 this.$router.push({
-                    name: "auth-login"
+                    path: "/auth/login"
                 });
             }
         },
@@ -1219,7 +1219,7 @@ export default {
                 }, 1800);
             } else {
                 this.$router.push({
-                    name: "auth-login"
+                    path: "/auth/login"
                 });
             }
         },
@@ -1259,12 +1259,12 @@ export default {
                 products.push(obj);
                 this.updateOrderProduct({ products, amount });
                 this.$router.push({
-                    name: "order-id",
+                    path: "/order/_id",
                     params: { id: product.slug }
                 });
             } else {
                 this.$router.push({
-                    name: "auth-login"
+                    path: "/auth/login"
                 });
             }
         },
@@ -1293,7 +1293,7 @@ export default {
         //  go to product on click card of product
         goToProduct(slug) {
             this.$router.push({
-                name: "product-id",
+                path: "/product/_id",
                 params: { id: slug }
             });
         },

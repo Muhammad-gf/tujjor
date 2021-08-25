@@ -15,6 +15,7 @@
                         name="number"
                         id="number"
                         :placeholder="$t('tel')"
+                        v-mask="'+998 (##) ###-##-##'"
                     />
                 </div>
 
@@ -129,6 +130,9 @@ export default {
                 });
             }
         }
+    },
+    mounted() {
+        console.log("router", this.$router, this.$route);
     }
 };
 </script>

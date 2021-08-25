@@ -29,6 +29,7 @@
                         name="phone"
                         id="phone"
                         :placeholder="$t('tel')"
+                        v-mask="'+998 (##) ###-##-##'"
                     />
                 </div>
 
