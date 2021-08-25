@@ -3,7 +3,6 @@
         class="header"
         :class="stickNavbar.isSticky ? stickNavbar.stickyClass : ''"
     >
-
         <div class="header-bottom ">
             <div
                 class="container d-flex justify-content-between w-100 container-bottom"
@@ -742,11 +741,12 @@ export default {
         },
 
         // function for animation search poly
-        windowCLicked(target) {
-            console.log(target);
+        windowCLicked(event) {
+            const pathObj = event.composedPath();
+            console.log("window clicked", event, pathObj);
             if (
-                target.path[0].nodeName.toLowerCase() === "input" &&
-                target.path[1].classList[0] === "header-search"
+                pathObj[0].nodeName.toLowerCase() === "input" &&
+                pathObj[1].classList[0] === "header-search"
             ) {
                 console.log("true");
                 this.searchActive.active = true;
