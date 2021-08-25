@@ -128,7 +128,7 @@
                                     />
                                 </svg>
                             </span>
-                            <b>Категории</b>
+                            <b>{{$t('cat')}}</b>
                             <span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +157,7 @@
                     >
                         <input
                             type="search"
-                            placeholder="Поиск..."
+                            :placeholder="$t('search')"
                             v-model="searchTxt"
                         />
                         <button @click="searchByTxt">
@@ -289,13 +289,18 @@
                             </div>
 
                             <div class="person__logOut" v-else>
-                                <nuxt-link to="/auth/register" class="links">
+                                <nuxt-link :to="{
+                                    name: `auth-register___${$i18n.locale}`,
+
+                                }" class="links">
                                     <button class="button_register">
-                                        Регистратция
+                                        {{$t('regis')}}
                                     </button>
                                 </nuxt-link>
-                                <nuxt-link to="/auth/login" class="links">
-                                    <button class="button_auth">Вход</button>
+                                <nuxt-link :to="{
+                                      name: `auth-login___${$i18n.locale}`,
+                                }" class="links">
+                                    <button class="button_auth">{{$t('log_in')}}</button>
                                 </nuxt-link>
                             </div>
                         </div>

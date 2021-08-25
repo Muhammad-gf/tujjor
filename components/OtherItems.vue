@@ -4,13 +4,6 @@
 
         <section class="container popular__container" v-if="isGet">
             <div class="container other__item__banner">
-                <!-- <div class="other__item__banner--carousel">
-                                <img
-                                        class="banner--carousel--img"
-                                        src="../assets/img/other/banner-3.png"
-                                        alt="Banner photo"
-                                />
-                        </div> -->
                 <div class=" other__item__banner--carousel">
                     <b-carousel
                         class="b-carousel"

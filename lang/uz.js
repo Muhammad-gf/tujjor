@@ -22,7 +22,7 @@ export default {
     aksiya: "Aksiyalar",
     news:"Yangiliklar",
     paySys: "To'lov turlari",
-    sapge: "Sahifalar",
+    spage: "Sahifalar",
     partner: "Hamkorlik",
     address: "Adres",
     addr: "Toshkent sh, Chilonzor t, Gavhar 52",
@@ -86,6 +86,9 @@ export default {
     sortBrand: "Brendlar bo'yicha filtr",
     sortPrice: "Narx oralig'ida",
     noComment: "Izohlar yo'q",
-    allComment: "Yana izohlarni ko'rsatish"
+    allComment: "Yana izohlarni ko'rsatish",
+    cat: "Bo'limlar",
+    lang: "O'zbekiston bo'ylab yetkazib berish",
+    regis: "Ro'yhatdan o'tish"
 }
 

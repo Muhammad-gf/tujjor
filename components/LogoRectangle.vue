@@ -7,7 +7,7 @@
             />
 
             <h4 class="logo__rectangle--rectangle--header">
-                Доставка по всему узбекистану
+                {{$t('lang')}}
             </h4>
             <div class="logo__rectangle--rectangle--men">
                 <img
