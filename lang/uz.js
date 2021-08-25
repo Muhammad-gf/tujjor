@@ -84,6 +84,8 @@ export default {
     sortUb:"Buyurtmalar bo'yicha",
     sortVoz:"O'sish tartibida",
     sortBrand: "Brendlar bo'yicha filtr",
-    sortPrice: "Narx oralig'ida"
+    sortPrice: "Narx oralig'ida",
+    noComment: "Izohlar yo'q",
+    allComment: "Yana izohlarni ko'rsatish"
 }
 

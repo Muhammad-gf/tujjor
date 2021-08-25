@@ -4,11 +4,14 @@
             <div class="popular__heading">{{ $t("magazine") }}</div>
         </section>
         <div class="magazines__box container">
-            <div
+            <nuxt-link
                 class="magazine__item__box"
                 v-for="magazine in magazines"
                 :key="magazine.slug"
-                @click="goToMagazine(magazine.slug)"
+                :to="{
+                        name: `magazine-id___${$i18n.locale}`,
+                        params: { id: magazine.slug }
+                    }"
             >
                 <div class="magazine__item--logo__box">
                     <div class="magazine__item--logo">
@@ -22,7 +25,7 @@
                     </div>
                 </div>
                 <div class="magazine__item--description">
-                    <span v-text="magazine.description.uz"></span>
+                    <span v-text="magazine.description[$i18n.locale]"></span>
                 </div>
                 <div class="magazine__item__img__box">
                     <div class="magazine__item__img--first">
@@ -44,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </nuxt-link>
         </div>
         <section
             class="container popular__container"

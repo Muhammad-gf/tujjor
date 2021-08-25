@@ -254,11 +254,14 @@
                         v-if="filter.isGetData && products.length > 0"
                     >
                         <div class="popular__item-box">
-                            <div
+                            <nuxt-link
                                 class="popular__items"
                                 v-for="product in products"
                                 :key="product._id"
-                                @click.prevent="goToProduct(product.slug)"
+                                :to="{
+                        name: `product-id___${$i18n.locale}`,
+                        params: { id: product.slug }
+                    }"
                             >
                                 <img
                                     class="popular__items__img"
@@ -270,12 +273,12 @@
                                     <span
                                         class="popular__items__desription--name"
                                     >
-                                        {{ product.category.uz }}
+                                        {{ product.category[$i18n.locale] }}
                                     </span>
                                     <h4
                                         class="popular__items__desription--categorie"
                                     >
-                                        {{ product.name.uz }}
+                                        {{ product.name[$i18n.locale] }}
                                     </h4>
 
                                     <span
@@ -304,7 +307,7 @@
                                         {{ $t("sum") }}
                                     </span>
                                 </div>
-                            </div>
+                            </nuxt-link>
                         </div>
 
                         <a

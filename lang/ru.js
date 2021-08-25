@@ -84,6 +84,8 @@ export default {
     sortUb:"По убыванию",
     sortVoz:"По возрастанию",
     sortBrand: "Филтр по брендам",
-    sortPrice: "Диапазон цена"
+    sortPrice: "Диапазон цена",
+    noComment: "Нет комментарии",
+    allComment: "Показать больше комментариев"
 }
 
