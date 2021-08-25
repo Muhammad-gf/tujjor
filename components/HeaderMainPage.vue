@@ -781,7 +781,9 @@ export default {
         this.loggedIn = this.$auth.loggedIn;
         this.personName = this.$auth.user?.name;
         window.addEventListener("scroll", this.handleScroll);
-        window.addEventListener("click", this.windowCLicked);
+        if (window.innerWidth <= 770) {
+            window.addEventListener("click", this.windowCLicked);
+        }
     },
 
     beforeDestroy() {
@@ -885,7 +887,6 @@ export default {
             align-items: center;
 
             .logo-tujjor {
-                flex-grow: 1;
                 padding-right: 15px;
             }
             .dropdown-language {
