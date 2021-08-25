@@ -2,8 +2,8 @@
     <section>
         <banner-on-main-page />
         <catalog-magazines-main-page />
-        <Popular-item />
-        <Other-items />
+        <popular-item />
+        <other-items />
         <logo-rectangle />
         <on-sale-item />
         <brands />

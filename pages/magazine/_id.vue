@@ -8,7 +8,7 @@
                     <div class="title-box">
                         <ul>
                             <li>
-                                <nuxt-link to="/">{{$t('search')}}</nuxt-link>
+                                <nuxt-link to="/">{{ $t("search") }}</nuxt-link>
                                 /
                             </li>
 
@@ -75,7 +75,7 @@
 
             <section class="container popular__container search__noData">
                 <div class="popular__heading">
-                    {{$t(notPro)}}
+                    {{ $t(notPro) }}
                 </div>
             </section>
         </div>
@@ -86,7 +86,7 @@
                     <div class="title-box">
                         <ul>
                             <li>
-                                <nuxt-link to="/">{{$t('search')}}</nuxt-link>
+                                <nuxt-link to="/">{{ $t("search") }}</nuxt-link>
                                 /
                             </li>
 
@@ -164,15 +164,19 @@
                             v-model="filter.sort"
                             @change="filterBySort()"
                         >
-                            <option value="" disabled selected
-                                >{{$t('sortBy')}}</option
-                            >
-                            <option value="new"> {{$t('sortNew')}}</option>
+                            <option value="" disabled selected>{{
+                                $t("sortBy")
+                            }}</option>
+                            <option value="new"> {{ $t("sortNew") }}</option>
                             <option value="popular">
-                                {{$t('sortPop')}}
+                                {{ $t("sortPop") }}
                             </option>
-                            <option value="priceDown"> {{$t('sortUb')}}</option>
-                            <option value="priceUp"> {{$t('sortVoz')}}</option>
+                            <option value="priceDown">
+                                {{ $t("sortUb") }}</option
+                            >
+                            <option value="priceUp">
+                                {{ $t("sortVoz") }}</option
+                            >
                         </select>
                     </div>
                 </div>
@@ -185,7 +189,7 @@
                             class="filtraiton__header"
                             v-if="!isSliderPricesEqual"
                         >
-                            {{$t('sortPrice')}}
+                            {{ $t("sortPrice") }}
                         </h5>
 
                         <div class="input__range" v-if="!isSliderPricesEqual">
@@ -208,7 +212,7 @@
                             class="filtraiton__header"
                             v-if="brandsOnPage.length > 1"
                         >
-                            {{$t('sortBrand')}}
+                            {{ $t("sortBrand") }}
                         </h5>
 
                         <div
@@ -284,7 +288,7 @@
                                         {{
                                             updatePriceFormat(product.discount)
                                         }}
-                                        {{$t('sum')}}
+                                        {{ $t("sum") }}
                                     </span>
 
                                     <span
@@ -292,7 +296,7 @@
                                         class="popular__items__desription--price popular__items__desription--old--price hidden"
                                     >
                                         {{ updatePriceFormat(product.price) }}
-                                        {{$t('sum')}}
+                                        {{ $t("sum") }}
                                     </span>
 
                                     <span
@@ -300,7 +304,7 @@
                                         v-if="!product.discount"
                                     >
                                         {{ updatePriceFormat(product.price) }}
-                                        {{$t('sum')}}
+                                        {{ $t("sum") }}
                                     </span>
                                 </div>
                             </nuxt-link>
@@ -311,7 +315,7 @@
                             class="popular__btn"
                             v-if="products.length >= limit"
                             @click.prevent="showProductMore"
-                            >{{$t('all')}}</a
+                            >{{ $t("all") }}</a
                         >
                     </section>
                 </div>
@@ -478,8 +482,7 @@ export default {
         //  go to product on click card of product
         goToProduct(slug) {
             this.$router.push({
-                name: "product-id",
-                params: { id: slug }
+                path: "/product/" + slug
             });
         },
 
@@ -512,10 +515,10 @@ export default {
             this.limit += 12;
             const limit = this.limit;
             const page = this.page;
-            this.filter.isGetData = false;
+            // this.filter.isGetData = false;
             const search = await this.searchProduct({ page, limit });
             this.products = search.data;
-            this.filter.isGetData = true;
+            // this.filter.isGetData = true;
         },
 
         async fetchMagazine() {
