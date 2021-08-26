@@ -17,7 +17,7 @@ export default {
     about: "Biz haqimizda",
     brands: "Brendlar",
     magazine: "Bizning do'konlar",
-    all:"Yana ko'rsatish",
+    all:"Ko'proq ko'rsatish",
     sitemap: "Sayt xaritasi",
     aksiya: "Aksiyalar",
     news:"Yangiliklar",

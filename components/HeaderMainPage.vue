@@ -695,7 +695,7 @@ export default {
                 const txt = this.searchTxt;
                 this.setSearchTxt(txt);
                 this.$router.push({
-                    name: "search-id",
+                    name: "search-id___"+ this.$i18n.locale,
                     params: { id: txt }
                 });
             }
@@ -725,7 +725,7 @@ export default {
             }
 
             this.$router.push({
-                name: "search-id",
+                name: "search-id___"+ this.$i18n.locale,
                 params: { id: obj._id }
             });
         },
