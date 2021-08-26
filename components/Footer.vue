@@ -64,19 +64,19 @@
                     </h2>
                     <ul class="footer">
                         <li>
-                            <nuxt-link to="/">{{$t('home')}}</nuxt-link>
+                            <nuxt-link :to="{name: 'index___'+$i18n.locale}">{{$t('home')}}</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link to="/about_us">{{$t('about')}}</nuxt-link>
+                            <nuxt-link :to="{name: 'about_us___'+$i18n.locale}">{{$t('about')}}</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link to="/">{{$t('aksiya')}}</nuxt-link>
+                            <nuxt-link  :to="{name: 'index___'+$i18n.locale}">{{$t('aksiya')}}</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link to="/news__page">{{$t('news')}}</nuxt-link>
+                            <nuxt-link :to="{name: 'index___'+$i18n.locale}">{{$t('news')}}</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link to="/faq">FAQ</nuxt-link>
+                            <nuxt-link :to="{name: 'faq___'+$i18n.locale}">FAQ</nuxt-link>
                         </li>
                     </ul>
                 </div>
@@ -136,10 +136,10 @@
                     </h2>
                     <ul class="footer">
                         <li>
-                            <nuxt-link to="/about_us">{{$t('about')}}</nuxt-link>
+                            <nuxt-link :to="{name: 'about_us___'+$i18n.locale}">{{$t('about')}}</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link to="/business">
+                            <nuxt-link :to="{name: 'business___'+$i18n.locale}">
                                 {{$t('partner')}}
                             </nuxt-link>
                         </li>
