@@ -67,13 +67,10 @@
                             <nuxt-link :to="{name: 'index___'+$i18n.locale}">{{$t('home')}}</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link :to="{name: 'about_us___'+$i18n.locale}">{{$t('about')}}</nuxt-link>
-                        </li>
-                        <li>
                             <nuxt-link  :to="{name: 'index___'+$i18n.locale}">{{$t('aksiya')}}</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link :to="{name: 'index___'+$i18n.locale}">{{$t('news')}}</nuxt-link>
+                            <nuxt-link :to="{name: 'news___'+$i18n.locale}">{{$t('news')}}</nuxt-link>
                         </li>
                         <li>
                             <nuxt-link :to="{name: 'faq___'+$i18n.locale}">FAQ</nuxt-link>
@@ -136,7 +133,7 @@
                     </h2>
                     <ul class="footer">
                         <li>
-                            <nuxt-link :to="{name: 'about_us___'+$i18n.locale}">{{$t('about')}}</nuxt-link>
+                            <nuxt-link :to="{name: 'about___'+$i18n.locale}">{{$t('about')}}</nuxt-link>
                         </li>
                         <li>
                             <nuxt-link :to="{name: 'business___'+$i18n.locale}">

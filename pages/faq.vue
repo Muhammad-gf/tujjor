@@ -6,12 +6,8 @@
                 <div class="title-box title__about__us">
                     <ul>
                         <li>
-                            <nuxt-link to="/">Главная страница </nuxt-link>
+                            <nuxt-link :to="{name:'index___'+$i18n.locale}">{{$t('home')}} </nuxt-link>
                             /
-                        </li>
-
-                        <li>
-                            <nuxt-link to="#">FAQ</nuxt-link>
                         </li>
                     </ul>
                 </div>
@@ -19,7 +15,7 @@
 
             <section class="container faq__container">
                 <div class="faq__heading">
-                    Часто задаемевый вопросы
+                    {{$t('vop')}}
                 </div>
 
                 <div class="row container mx-0 px-0">
@@ -27,8 +23,8 @@
                         <faq-questions
                             v-for="faqBox in faqArray"
                             :key="faqBox._id"
-                            :faq-question="faqBox.title.uz"
-                            :faq-description="faqBox.description.uz"
+                            :faq-question="faqBox.title[$i18n.locale]"
+                            :faq-description="faqBox.description[$i18n.locale]"
                         >
                         </faq-questions>
                     </div>
@@ -36,7 +32,7 @@
                     <div class="col-lg-4 px-0">
                         <form class="customer__question__box row">
                             <h4 class="customer__question__header col-sm-12">
-                                У вас есть вопросы
+                                {{$t('vop1')}}
                             </h4>
 
                             <input
@@ -44,14 +40,14 @@
                                 id="name"
                                 type="text"
                                 v-model="question.name"
-                                placeholder="Ваше имя"
+                                :placeholder="$t('name')"
                                 class="customer__question__input col-sm-12"
                             />
                             <label
                                 v-show="labelDanger.name"
                                 for="name"
                                 class="text-danger ml-1 mb-0 mt-1 customer__question__label"
-                                >Iltimos ismingizni to'ldiring!</label
+                                >{{$t('err1')}}</label
                             >
 
                             <input
@@ -59,14 +55,14 @@
                                 id="email"
                                 type="email"
                                 v-model="question.email"
-                                placeholder="Ваш e-mail"
+                                placeholder="E-mail"
                                 class="customer__question__input col-sm-12"
                             />
                             <label
                                 v-show="labelDanger.email"
                                 for="email"
                                 class="text-danger ml-1 mb-0 mt-1 customer__question__label"
-                                >Iltimos pochtangizni kiriting!</label
+                                >{{$t('err1')}}</label
                             >
 
                             <textarea
@@ -74,14 +70,14 @@
                                 id="question"
                                 v-model="question.question"
                                 class="customer__question__input customer__question__txt col-sm-12"
-                                placeholder="Ваш вопрос"
+                                :placeholder="$t('vop4')"
                             >
                             </textarea>
                             <label
                                 v-show="labelDanger.question"
                                 for="question"
                                 class="text-danger ml-1 mb-0 mt-1 customer__question__label"
-                                >Iltimos savolingizni kiriting!</label
+                                >{{$t('err1')}}</label
                             >
 
                             <button
@@ -89,7 +85,7 @@
                                 class="customer__question__send--btn text-center "
                                 @click.prevent="sendQuest"
                             >
-                                Отправить вопрос
+                                {{$t('vop2')}}
                             </button>
                         </form>
 
@@ -104,12 +100,12 @@
                             class="b-modal"
                         >
                             <div class="d-block text-center ">
-                                <h3>Ваш запрос успешно отправлен.</h3>
+                                <h3>{{$t('vop3')}}</h3>
                             </div>
                             <b-button
                                 variant="primary"
                                 block
-                                @click="$router.push('/')"
+                                @click="$router.push('index___'+$i18n.locale)"
                                 class="b-button"
                                 >ОК!</b-button
                             >

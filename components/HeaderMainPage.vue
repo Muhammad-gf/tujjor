@@ -193,7 +193,7 @@
                                 : ''
                         "
                     >
-                        <nuxt-link to="/favourite" class="header__item basket">
+                        <nuxt-link :to="{name: 'favourite___'+$i18n.locale}" class="header__item basket">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -216,7 +216,7 @@
                                 : ''
                         "
                     >
-                        <nuxt-link to="/basket" class=" header__item basket">
+                        <nuxt-link :to="{name: 'basket___'+$i18n.locale}" class=" header__item basket">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="21"

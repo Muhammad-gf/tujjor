@@ -43,7 +43,7 @@
                     <!-- <a class="hot__links remember__password">
                     Забыли пароль?
                 </a> -->
-                    <nuxt-link to="/auth/register" class="hot__links">
+                    <nuxt-link :to="{name: 'auth-register___'+$i18n.locale}" class="hot__links">
                         {{ $t("noAcc") }}
                     </nuxt-link>
                 </div>
@@ -109,7 +109,7 @@ export default {
                         }
                     })
                     .then(res => {
-                        this.$router.push("/");
+                        this.$router.push("index___"+this.$i18n.locale);
                         return res;
                     })
                     .catch(err => {

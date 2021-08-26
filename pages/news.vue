@@ -5,12 +5,12 @@
             <div class="title-box">
                 <ul>
                     <li>
-                        <nuxt-link to="/">Главная страница </nuxt-link>
+                        <nuxt-link :to="{name: 'index___'+$i18n.locale}">{{$t('home')}} </nuxt-link>
                         /
                     </li>
 
                     <li>
-                        <nuxt-link to="#">Новости </nuxt-link>
+                        <p>{{$t('news')}} </p>
                     </li>
                 </ul>
             </div>
@@ -21,7 +21,7 @@
                 class="container popular__container news__section__heading "
             >
                 <div class="popular__heading">
-                    Новости
+                    {{$t('news')}}
                 </div>
             </section>
 
@@ -38,11 +38,11 @@
                     />
                     <div class="news__box--description">
                         <span class="news__box--description--header">
-                            {{ newsItem.title.uz }}
+                            {{ newsItem.title[$i18n.locale] }}
                         </span>
                         <div
                             class="news__box--description--p"
-                            v-html="newsItem.description.uz"
+                            v-html="newsItem.description[$i18n.locale]"
                         ></div>
                     </div>
                     <div class="data__box">
@@ -53,7 +53,7 @@
                             }"
                             class="data__box--btn text-center"
                         >
-                            Подробно
+                            {{$t('full')}}
                         </nuxt-link>
 
                         <p class="data__box--date">
@@ -62,85 +62,6 @@
                     </div>
                 </div>
 
-                <div class=" news__box--item">
-                    <img
-                        class="news__box--item--img"
-                         src="../assets/img/magazine description/bg.png"
-                        alt="News"
-                    />
-                    <div class="news__box--description">
-                        <span class="news__box--description--header"
-                            >В AliExpress представили портрет типичного
-                            покупателя в регионах
-                        </span>
-                        <div class="news__box--description--p">
-                            Петербуржцы закупаются пляжными сабо, омички —
-                            теплыми тапочками, а в Нижнем Новгороде заказывают
-                            жилеты с подогревом.
-                        </div>
-                    </div>
-                    <div class="data__box">
-                        <a href="#" class="data__box--btn text-center"
-                            >Подробно</a
-                        >
-                        <p class="data__box--date">
-                            24.04.2021
-                        </p>
-                    </div>
-                </div>
-                <div class=" news__box--item">
-                    <img
-                        class="news__box--item--img"
-                          src="../assets/img/magazine description/bg.png"
-                        alt="News"
-                    />
-                    <div class="news__box--description">
-                        <span class="news__box--description--header"
-                            >Аналитики AliExpress показали типичный облик
-                            жителей российских городов
-                        </span>
-                        <div class="news__box--description--p">
-                            В AliExpress проанализировали запросы пользователей
-                            из семи городов России и составили портрет их
-                            жителей по их предпочтениям в одежде и товарам ...
-                        </div>
-                    </div>
-                    <div class="data__box">
-                        <a href="#" class="data__box--btn text-center"
-                            >Подробно</a
-                        >
-                        <p class="data__box--date">
-                            24.04.2021
-                        </p>
-                    </div>
-                </div>
-
-                <div class=" news__box--item">
-                    <img
-                        class="news__box--item--img"
-                         src="../assets/img/magazine description/bg.png"
-                        alt="News"
-                    />
-                    <div class="news__box--description">
-                        <span class="news__box--description--header"
-                            >«Почта России» ответила на предложение о сборе за
-                            покупки из-за рубежа
-                        </span>
-                        <div class="news__box--description--p">
-                            В «Почте России» прокомментировали предложение
-                            ретейлеров заменить пошлины на дорогостоящие посылки
-                            из-за рубежа единым сбором в 15%.
-                        </div>
-                    </div>
-                    <div class="data__box">
-                        <a href="#" class="data__box--btn text-center"
-                            >Подробно</a
-                        >
-                        <p class="data__box--date">
-                            24.04.2021
-                        </p>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -150,7 +71,7 @@
         >
             <section class="container popular__container">
                 <div class="popular__heading">
-                    Видео новости
+                    {{$t('vnews')}}
                 </div>
             </section>
 
@@ -168,16 +89,16 @@
                         <div class="video__about__box">
                             <div class="video__about--description">
                                 <span class="video__about--description--header">
-                                    {{ newsVideo[0].title.uz }}
+                                    {{ newsVideo[0].title[$i18n.locale] }}
                                 </span>
                                 <div class="video__about--description--p">
-                                    {{ newsVideo[0].description.uz }}
+                                    {{ newsVideo[0].description[$i18n.locale] }}
                                 </div>
                                 <div class="video__about--data__box">
                                     <a
                                         href="#"
                                         class="video__about--data__box--btn text-center"
-                                        >Подробно</a
+                                        >{{$t('full')}}</a
                                     >
                                     <p class="video__about--data__box--date">
                                         {{ getDate(newsVideo[0].createdAt) }}
@@ -188,73 +109,73 @@
                     </div>
                 </div>
 
-                <div class="video__box--second">
-                    <div class="video__box--item">
-                        <img
-                            class="video__box--item--img"
-                            src="../assets/img/magazine description/bg.png"
-                            alt="News"
-                        />
-                        <div class="video__about__box">
-                            <div class="video__about--description">
-                                <span class="video__about--description--header"
-                                    >В топ-10 российских онлайн-магазинов
-                                    впервые вошла интернет-аптека
-                                </span>
-                                <div class="video__about--description--p">
-                                    OВ десятку крупнейших интернет-магазинов
-                                    России по версии аналитического агентства
-                                    Data Insight впервые вошла онлайн-аптека –
-                                    apteka.ru. По итогам 2019 г. она поднялась с
-                                    13-го на 7-е место.
-                                </div>
-                                <div class="video__about--data__box">
-                                    <a
-                                        href="#"
-                                        class="video__about--data__box--btn text-center"
-                                        >Подробно</a
-                                    >
-                                    <p class="video__about--data__box--date">
-                                        24.04.2021
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!--                <div class="video__box&#45;&#45;second">-->
+<!--                    <div class="video__box&#45;&#45;item">-->
+<!--                        <img-->
+<!--                            class="video__box&#45;&#45;item&#45;&#45;img"-->
+<!--                            src="../assets/img/magazine description/bg.png"-->
+<!--                            alt="News"-->
+<!--                        />-->
+<!--                        <div class="video__about__box">-->
+<!--                            <div class="video__about&#45;&#45;description">-->
+<!--                                <span class="video__about&#45;&#45;description&#45;&#45;header"-->
+<!--                                    >В топ-10 российских онлайн-магазинов-->
+<!--                                    впервые вошла интернет-аптека-->
+<!--                                </span>-->
+<!--                                <div class="video__about&#45;&#45;description&#45;&#45;p">-->
+<!--                                    OВ десятку крупнейших интернет-магазинов-->
+<!--                                    России по версии аналитического агентства-->
+<!--                                    Data Insight впервые вошла онлайн-аптека –-->
+<!--                                    apteka.ru. По итогам 2019 г. она поднялась с-->
+<!--                                    13-го на 7-е место.-->
+<!--                                </div>-->
+<!--                                <div class="video__about&#45;&#45;data__box">-->
+<!--                                    <a-->
+<!--                                        href="#"-->
+<!--                                        class="video__about&#45;&#45;data__box&#45;&#45;btn text-center"-->
+<!--                                        >Подробно</a-->
+<!--                                    >-->
+<!--                                    <p class="video__about&#45;&#45;data__box&#45;&#45;date">-->
+<!--                                        24.04.2021-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                    <div class="video__box--item">
-                        <img
-                            class="video__box--item--img"
-                              src="../assets/img/magazine description/bg.png"
-                            alt="News"
-                        />
-                        <div class="video__about__box">
-                            <div class="video__about--description">
-                                <span class="video__about--description--header"
-                                    >Глава китайского Alibaba обсудил с Трампом
-                                    создание рабочих мест в США
-                                </span>
-                                <div class="video__about--description--p">
-                                    Глава китайской компании Alibaba обсудил с
-                                    Дональдом Трампом создание миллиона новых
-                                    рабочих мест, ранее китайский интернет-рынок
-                                    TaoBao был внесен в черный список за
-                                    поддельные товары на своем сайте
-                                </div>
-                                <div class="video__about--data__box">
-                                    <a
-                                        href="#"
-                                        class="video__about--data__box--btn"
-                                        >Подробно</a
-                                    >
-                                    <p class="video__about--data__box--date">
-                                        24.04.2021
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                    <div class="video__box&#45;&#45;item">-->
+<!--                        <img-->
+<!--                            class="video__box&#45;&#45;item&#45;&#45;img"-->
+<!--                              src="../assets/img/magazine description/bg.png"-->
+<!--                            alt="News"-->
+<!--                        />-->
+<!--                        <div class="video__about__box">-->
+<!--                            <div class="video__about&#45;&#45;description">-->
+<!--                                <span class="video__about&#45;&#45;description&#45;&#45;header"-->
+<!--                                    >Глава китайского Alibaba обсудил с Трампом-->
+<!--                                    создание рабочих мест в США-->
+<!--                                </span>-->
+<!--                                <div class="video__about&#45;&#45;description&#45;&#45;p">-->
+<!--                                    Глава китайской компании Alibaba обсудил с-->
+<!--                                    Дональдом Трампом создание миллиона новых-->
+<!--                                    рабочих мест, ранее китайский интернет-рынок-->
+<!--                                    TaoBao был внесен в черный список за-->
+<!--                                    поддельные товары на своем сайте-->
+<!--                                </div>-->
+<!--                                <div class="video__about&#45;&#45;data__box">-->
+<!--                                    <a-->
+<!--                                        href="#"-->
+<!--                                        class="video__about&#45;&#45;data__box&#45;&#45;btn"-->
+<!--                                        >Подробно</a-->
+<!--                                    >-->
+<!--                                    <p class="video__about&#45;&#45;data__box&#45;&#45;date">-->
+<!--                                        24.04.2021-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </section>
         </section>
     </div>

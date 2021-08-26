@@ -89,6 +89,12 @@ export default {
     allComment: "Yana izohlarni ko'rsatish",
     cat: "Bo'limlar",
     lang: "O'zbekiston bo'ylab yetkazib berish",
-    regis: "Ro'yhatdan o'tish"
+    regis: "Ro'yhatdan o'tish",
+    vop: "Savol javoblar",
+    vop1: "Bizga savol yo`llang",
+    vop2: "Savolni yuborish",
+    vop3: "Sizning savolingiz jo'natildi.",
+    vop4: "Sizning savolingiz",
+    vnews:"Video yangiliklar"
 }
 
