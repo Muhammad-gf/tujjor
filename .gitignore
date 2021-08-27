@@ -90,3 +90,5 @@ sw.*
 *.swp
 .vscode
 package-lock.json
+dist.rar
+dist.zip

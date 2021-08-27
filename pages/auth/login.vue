@@ -120,7 +120,7 @@ export default {
                                 path: link
                             });
                         } else {
-                            this.$router.push("index___" + this.$i18n.locale);
+                            this.$router.push({name: 'index___' + this.$i18n.locale});
                         }
                         return res;
                     })
