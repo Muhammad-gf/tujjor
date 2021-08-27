@@ -187,7 +187,7 @@
                         </div>
                         <div class="checkout__order__item--secondary">
                             <div class="checkout__order__item--number">
-                                <span>{{ $t(kol) }}:</span>
+                                <span>{{ $t("kol") }}:</span>
 
                                 <span class="number"> {{ item.count }} шт</span>
                             </div>
@@ -291,7 +291,8 @@ export default {
         "orderProducts",
         "allRegions",
         "allInBasket",
-        "orderAll"
+        "orderAll",
+        "orderAllProducts"
     ]),
 
     methods: {
@@ -378,7 +379,7 @@ export default {
             console.log("order all", this.orderAll, add);
             const amount = this.orderAll.amount;
             const address = this.orderAll.address;
-            const products = this.orderAll.products;
+            let products = [...this.orderAllProducts];
             const token = this.user.token;
             console.log(token, amount, address, products);
             console.log("window", window);
@@ -452,7 +453,7 @@ export default {
     },
 
     async mounted() {
-        console.log("this router", this.$router);
+        console.log("this orderall", this.orderAllProducts);
         const token = this.user.token;
         const router = this.$route.params.id;
         if (router === "order-all") {

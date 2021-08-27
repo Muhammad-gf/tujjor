@@ -43,7 +43,10 @@
                     <!-- <a class="hot__links remember__password">
                     Забыли пароль?
                 </a> -->
-                    <nuxt-link :to="{name: 'auth-register___'+$i18n.locale}" class="hot__links">
+                    <nuxt-link
+                        :to="{ name: 'auth-register___' + $i18n.locale }"
+                        class="hot__links"
+                    >
                         {{ $t("noAcc") }}
                     </nuxt-link>
                 </div>
@@ -66,7 +69,7 @@
 <script>
 import WarningMessage from "../../components/Modals/WarningMessage.vue";
 import DangerMessage from "../../components/Modals/DangerMessage.vue";
-
+import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
     components: { WarningMessage, DangerMessage },
 
@@ -82,6 +85,8 @@ export default {
     },
 
     middleware: "auth",
+
+    computed: mapGetters(["redirectArray"]),
 
     data() {
         return {
@@ -109,7 +114,14 @@ export default {
                         }
                     })
                     .then(res => {
-                        this.$router.push("index___"+this.$i18n.locale);
+                        const link = this.redirectArray[1];
+                        if (link.length > 0) {
+                            this.$router.push({
+                                path: link
+                            });
+                        } else {
+                            this.$router.push("index___" + this.$i18n.locale);
+                        }
                         return res;
                     })
                     .catch(err => {
@@ -133,6 +145,7 @@ export default {
     },
     mounted() {
         console.log("router", this.$router, this.$route);
+        console.log("redirect array", this.redirectArray[1]);
     }
 };
 </script>

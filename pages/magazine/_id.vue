@@ -254,9 +254,9 @@
                                 v-for="product in products"
                                 :key="product._id"
                                 :to="{
-                        name: `product-id___${$i18n.locale}`,
-                        params: { id: product.slug }
-                    }"
+                                    name: `product-id___${$i18n.locale}`,
+                                    params: { id: product.slug }
+                                }"
                             >
                                 <img
                                     class="popular__items__img"
@@ -550,6 +550,8 @@ export default {
 
         // add to router link on the top of page
         this.addLinksOnTheTopPage();
+
+        console.log("brands via search and all brands", brands, Allbrands);
 
         if (search.data.length === 1) {
             this.isProductOnlyOne = true;

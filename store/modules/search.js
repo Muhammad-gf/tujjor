@@ -36,9 +36,9 @@ export default {
                     shop: ctx.state.searchBody.shopId
                 })
                 .then(response => {
-                    console.log("brand", response);
+                    console.log("brand via serach", response);
                     if (response.success) {
-                        console.log("brand", response);
+                        console.log("brand via search", response);
                         return response;
                     } else {
                         throw new Error("Could not save data!");

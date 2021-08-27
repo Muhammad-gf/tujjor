@@ -7,12 +7,12 @@
                 <div class="title-box">
                     <ul>
                         <li>
-                            <nuxt-link to="/">{{$t('home')}} </nuxt-link>
+                            <nuxt-link to="/">{{ $t("home") }} </nuxt-link>
                             /
                         </li>
 
                         <li>
-                            <nuxt-link to="#">{{$t('korzina')}} </nuxt-link>
+                            <nuxt-link to="#">{{ $t("korzina") }} </nuxt-link>
                         </li>
                     </ul>
                 </div>
@@ -21,14 +21,14 @@
             <section class="favourite__is__empty" v-if="isGet && noData">
                 <section class="container popular__container">
                     <div class="popular__heading">
-                        {{$t('nokorzina')}}
+                        {{ $t("nokorzina") }}
                     </div>
                 </section>
             </section>
 
             <main class="basket__container container" v-if="isGet && !noData">
                 <div class="basket__heading">
-                    <h2>{{$t('korzina')}}</h2>
+                    <h2>{{ $t("korzina") }}</h2>
                 </div>
 
                 <div
@@ -47,13 +47,14 @@
                                 {{ item.product.description.uz }}
                             </p>
                             <p class="p-second">
-                                <span>{{$t('size')}}:</span>{{ item.size.size }}
+                                <span>{{ $t("size") }}:</span
+                                >{{ item.size.size }}
                             </p>
                         </div>
                     </div>
                     <div class="basket__item--secondary">
                         <div class="basket__item--btn">
-                            <span>{{$t('kol')}}:</span>
+                            <span>{{ $t("kol") }}:</span>
                             <div class="btn__box">
                                 <a
                                     class="btn--primary"
@@ -67,7 +68,7 @@
                                 >
                                     _
                                 </a>
-                                <span> {{ item.count }} {{$t('sht')}}</span>
+                                <span> {{ item.count }} {{ $t("sht") }}</span>
                                 <a
                                     class="btn--secondary"
                                     v-on:click="
@@ -88,7 +89,7 @@
                         >
                             <span
                                 >{{ updatePrice(item.count, item.size.price) }}
-                                {{$t('sum')}}
+                                {{ $t("sum") }}
                             </span>
                         </div>
 
@@ -100,11 +101,11 @@
                                 >{{
                                     updatePrice(item.count, item.size.discount)
                                 }}
-                                {{$t('sum')}}
+                                {{ $t("sum") }}
                             </span>
                         </div>
                         <div class="basket__item--color">
-                            <span>{{$t('color')}}:</span>
+                            <span>{{ $t("color") }}:</span>
                             <img
                                 :src="$store.state.uploads + item.param.image"
                                 alt="Color image"
@@ -116,7 +117,7 @@
                                 class="item__btn btn--submit"
                                 @click="goToOrder(item)"
                             >
-                                {{$t('oformit')}}
+                                {{ $t("oformit") }}
                             </a>
 
                             <a
@@ -126,7 +127,7 @@
                                     openRemoveModal(item._id, index)
                                 "
                             >
-                                {{$t('del')}}
+                                {{ $t("del") }}
                             </a>
                         </div>
                     </div>
@@ -134,9 +135,9 @@
 
                 <div class="basket__price">
                     <div class="basket__price--total">
-                        <span>{{$t('allsum')}}:</span>
+                        <span>{{ $t("allsum") }}:</span>
                         <span class="all__price"
-                            >{{ updatePriceAll() }} {{$t('sum')}}</span
+                            >{{ updatePriceAll() }} {{ $t("sum") }}</span
                         >
                     </div>
 
@@ -146,14 +147,14 @@
                             class="activity__btn btn--submit"
                             @click.prevent="orderAllProducts()"
                         >
-                            {{$t('allOrder')}}
+                            {{ $t("allOrder") }}
                         </a>
                         <a
                             href="#"
                             class="activity__btn btn--reject"
                             @click.prevent="openRemoveModal('rm/all', 0)"
                         >
-                            {{$t('viewAllOrder')}}
+                            {{ $t("viewAllOrder") }}
                         </a>
                     </div>
                 </div>
@@ -172,7 +173,7 @@
                 <div v-if="basketObj.removeModal.showContent">
                     <div class="d-block text-center">
                         <h3>
-                            {{$t('ud')}}
+                            {{ $t("ud") }}
                         </h3>
                     </div>
                     <b-button
@@ -180,14 +181,14 @@
                         variant="warning"
                         block
                         @click="closeRemoveModal()"
-                        >{{$t('no')}}</b-button
+                        >{{ $t("no") }}</b-button
                     >
                     <b-button
                         class="b-button"
                         variant="danger"
                         block
                         @click="deleteFromBasket()"
-                        >{{$t('yes')}}!</b-button
+                        >{{ $t("yes") }}!</b-button
                     >
                 </div>
                 <div
@@ -349,6 +350,7 @@ export default {
             "changeCountItem",
             "updateOrder",
             "updateOrderProduct",
+            "updateOrderAllProducts",
             "decreaseCountBasket",
             "updateCountBasket"
         ]),
@@ -507,23 +509,36 @@ export default {
                     brand: item.product.brand
                 }
             ];
+
+            const products2 = [
+                {
+                    product: item.product._id,
+                    param: item.param._id,
+                    size: item.size._id,
+                    amount: item.size.price,
+                    count: item.count
+                }
+            ];
+
             if (!!item.size.discount) {
                 products[0].amount = item.size.discount;
+                products2[0].amount = item.size.discount;
             }
             const amount = item.count * products[0].amount;
 
             this.updateOrderProduct({ products, amount });
+            this.updateOrderAllProducts({ products2 });
             console.log(this.orderAll);
 
             this.$router.push({
-                name: "order-id",
-                params: { id: item.product.slug }
+                path: "/order/" + item.product.slug
             });
         },
 
         orderAllProducts() {
             console.log(this.allInBasket);
             const products = [];
+            const products2 = [];
             let amount = 0;
             this.allInBasket.forEach(item => {
                 console.log("item", item);
@@ -548,23 +563,33 @@ export default {
                     category: item.product.category,
                     brand: item.product.brand
                 };
+
+                const obj2 = {
+                    product: item.product._id,
+                    param: item.param._id,
+                    size: item.size._id,
+                    amount: item.size.price,
+                    count: item.count
+                };
                 if (!!item.size.discount) {
                     obj.amount = item.size.discount;
+                    obj2.amount = item.size.discount;
                 }
 
                 amount += item.count * obj.amount;
 
                 products.push(obj);
+                products2.push(obj2);
             });
 
             console.log("obj", products, amount);
 
             this.updateOrderProduct({ products, amount });
+            this.updateOrderAllProducts({ products2 });
             console.log(this.orderAll);
 
             this.$router.push({
-                name: "order-id",
-                params: { id: "order-all" }
+                path: "/order/all"
             });
         }
     },

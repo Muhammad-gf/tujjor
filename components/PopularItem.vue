@@ -222,6 +222,8 @@ export default {
                 }
 
                 &--price {
+                    flex-basis: 80% !important;
+                    width: 80% !important;
                     font-family: Roboto;
                     font-weight: 700;
                     font-size: 20px;

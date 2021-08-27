@@ -59,6 +59,10 @@ export default {
             state.order.amount = amount;
         },
 
+        updateOrderAllProducts(state, { products2 }) {
+            state.orderAllProducts = products2;
+        },
+
         updateOrderAddress(state, { add }) {
             state.order.address = add;
         }
@@ -77,6 +81,8 @@ export default {
                 products: []
             },
 
+            orderAllProducts: ["0"],
+
             regions: {}
         };
     },
@@ -92,6 +98,10 @@ export default {
 
         orderProducts(state) {
             return state.order.products;
+        },
+
+        orderAllProducts(state) {
+            return state.orderAllProducts;
         },
 
         orderAll(state) {

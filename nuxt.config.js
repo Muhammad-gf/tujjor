@@ -11,7 +11,8 @@ export default {
             { charset: "utf-8" },
             {
                 name: "viewport",
-                content: "width=device-width, initial-scale=1"
+                content:
+                    "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
             },
             {
                 hid: "description",
@@ -97,7 +98,7 @@ export default {
         "@nuxtjs/axios",
         "@nuxtjs/auth-next",
         "@nuxtjs/recaptcha",
-        '@nuxtjs/i18n'
+        "@nuxtjs/i18n"
     ],
     i18n: {
         locales: [

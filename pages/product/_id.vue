@@ -326,11 +326,16 @@
                         <h4 class="clients__review__header ">
                             {{ $t("comments") }}
                             <span>
-                                {{comments.length}}
+                                {{ comments.length }}
                             </span>
                         </h4>
 
-                        <div class="client__review__box row" v-if="comments != null" v-for="(item,index) in comments">
+                        <div
+                            class="client__review__box row"
+                            v-if="comments != null"
+                            v-for="(item, index) in comments"
+                            :key="item"
+                        >
                             <div
                                 class="client__review__heading  col-lg-6 col-sm-8 col-12  d-flex justify-content-between align-items-start"
                             >
@@ -382,14 +387,21 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="clients__review__btn" v-if="comments.length != 0">
-                            {{$t('allComment')}}
+                        <a
+                            href="#"
+                            class="clients__review__btn"
+                            v-if="comments.length != 0"
+                        >
+                            {{ $t("allComment") }}
                         </a>
 
-                        <div class="alert alert-warning" v-if="comments.length == 0" role="alert">
-                          {{$t('noComment')}}
+                        <div
+                            class="alert alert-warning"
+                            v-if="comments.length == 0"
+                            role="alert"
+                        >
+                            {{ $t("noComment") }}
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -752,7 +764,8 @@ export default {
         "allFavouritesId",
         "allInBasket",
         "isInBasket",
-        "countBasket"
+        "countBasket",
+        "redirectArray"
     ]),
 
     methods: {
@@ -771,7 +784,10 @@ export default {
             "pushFavouritesId",
             "deleteFavouritesId",
             "basketFilter",
-            "updateOrderProduct"
+            "updateOrderProduct",
+            "updateOrderAllProducts",
+            "setRedirect",
+            "resetRedirect"
         ]),
 
         // ----------------------------------------------------------
@@ -1040,6 +1056,9 @@ export default {
                     this.removeFavourite(event);
                 }
             } else {
+                const index = 1;
+                const link = this.$route.fullPath;
+                this.setRedirect({ link, index });
                 this.$router.push({
                     path: "/auth/login"
                 });
@@ -1119,6 +1138,9 @@ export default {
                     this.resetBasketSetts();
                 }, 1800);
             } else {
+                const index = 1;
+                const link = this.$route.fullPath;
+                this.setRedirect({ link, index });
                 this.$router.push({
                     path: "/auth/login"
                 });
@@ -1129,6 +1151,7 @@ export default {
             if (!!this.$auth.user) {
                 const product = this.selectedProduct;
                 const products = [];
+                const products2 = [];
                 let amount = 0;
                 const obj = {
                     productId: product._id,
@@ -1152,18 +1175,31 @@ export default {
                     brand: product.brand._id
                 };
 
+                const obj2 = {
+                    product: product._id,
+                    param: product.params._id,
+                    size: product.size._id,
+                    amount: product.size.price,
+                    count: this.productCount
+                };
+
                 if (!!product.size.discount) {
                     obj.amount = product.size.discount;
+                    obj2.amount = product.size.discount;
                 }
 
                 amount += obj.count * obj.amount;
                 products.push(obj);
+                products2.push(obj2);
                 this.updateOrderProduct({ products, amount });
+                this.updateOrderAllProducts({ products2 });
                 this.$router.push({
-                    path: "/order/_id",
-                    params: { id: product.slug }
+                    path: "/order/" + product._id
                 });
             } else {
+                const index = 1;
+                const link = this.$route.fullPath;
+                this.setRedirect({ link, index });
                 this.$router.push({
                     path: "/auth/login"
                 });
@@ -1266,6 +1302,7 @@ export default {
     },
 
     async mounted() {
+        console.log("router asasasa", this.$route);
         const token = this.user.token;
         if (!!this.$auth.user) {
             await Promise.all([
@@ -1281,7 +1318,7 @@ export default {
             .then(response => {
                 if (response.success && response.data.length > 0) {
                     this.product = response.data[0];
-                    this.comments = response.comments
+                    this.comments = response.comments;
                     this.updateProduct(this.product);
                     this.noData = false;
                     // Give element  width to img carousel
