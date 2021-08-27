@@ -325,10 +325,6 @@ export default {
             console.log(result[0]._id);
         },
 
-        collectInfo() {
-            console.log(this.order);
-        },
-
         async getProduct() {
             await this.$axios
                 .$get("/product/403685-iphone-11-pro")

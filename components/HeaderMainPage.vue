@@ -128,7 +128,7 @@
                                     />
                                 </svg>
                             </span>
-                            <b>{{$t('cat')}}</b>
+                            <b>{{ $t("cat") }}</b>
                             <span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -193,7 +193,10 @@
                                 : ''
                         "
                     >
-                        <nuxt-link :to="{name: 'favourite___'+$i18n.locale}" class="header__item basket">
+                        <nuxt-link
+                            :to="{ name: 'favourite___' + $i18n.locale }"
+                            class="header__item basket"
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -216,7 +219,10 @@
                                 : ''
                         "
                     >
-                        <nuxt-link :to="{name: 'basket___'+$i18n.locale}" class=" header__item basket">
+                        <nuxt-link
+                            :to="{ name: 'basket___' + $i18n.locale }"
+                            class=" header__item basket"
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="21"
@@ -277,7 +283,7 @@
 
                                     <span> {{ personName }} </span>
                                 </div>
-                                <nuxt-link to="/" class="links">
+                                <nuxt-link to="/profile" class="links">
                                     <span>> Профиль</span>
                                 </nuxt-link>
                                 <nuxt-link to="/my__orders" class="links">
@@ -289,18 +295,25 @@
                             </div>
 
                             <div class="person__logOut" v-else>
-                                <nuxt-link :to="{
-                                    name: `auth-register___${$i18n.locale}`,
-
-                                }" class="links">
+                                <nuxt-link
+                                    :to="{
+                                        name: `auth-register___${$i18n.locale}`
+                                    }"
+                                    class="links"
+                                >
                                     <button class="button_register">
-                                        {{$t('regis')}}
+                                        {{ $t("regis") }}
                                     </button>
                                 </nuxt-link>
-                                <nuxt-link :to="{
-                                      name: `auth-login___${$i18n.locale}`,
-                                }" class="links">
-                                    <button class="button_auth">{{$t('log_in')}}</button>
+                                <nuxt-link
+                                    :to="{
+                                        name: `auth-login___${$i18n.locale}`
+                                    }"
+                                    class="links"
+                                >
+                                    <button class="button_auth">
+                                        {{ $t("log_in") }}
+                                    </button>
                                 </nuxt-link>
                             </div>
                         </div>
@@ -695,7 +708,7 @@ export default {
                 const txt = this.searchTxt;
                 this.setSearchTxt(txt);
                 this.$router.push({
-                    name: "search-id___"+ this.$i18n.locale,
+                    name: "search-id___" + this.$i18n.locale,
                     params: { id: txt }
                 });
             }
@@ -725,7 +738,7 @@ export default {
             }
 
             this.$router.push({
-                name: "search-id___"+ this.$i18n.locale,
+                name: "search-id___" + this.$i18n.locale,
                 params: { id: obj._id }
             });
         },
