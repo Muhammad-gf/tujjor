@@ -1,111 +1,121 @@
 <template>
     <section>
-        <form v-on:submit.prevent class="checkout__box">
-            <div class="person__home">
-                <h4>{{ $t("danni") }}</h4>
+        <div class="container">
+            <form v-on:submit.prevent class="checkout__box">
+                <div class="person__home">
+                    <h4>{{ $t("danni") }}</h4>
 
-                <div class="person__home--description">
-                    <span>Загрузка изображения</span>
-                    <input
-                        type="file"
-                        accept="image/png, image/gif, image/jpeg"
-                        placeholder="загрузить"
-                        id="photo"
-                        name="photo"
-                    />
-                </div>
+                    <div class="person__home--description">
+                        <span>Загрузка изображения</span>
+                        <input
+                            type="file"
+                            accept="image/png, image/gif, image/jpeg"
+                            placeholder="загрузить"
+                            id="photo"
+                            name="photo"
+                        />
 
-                <div class="person__home--description">
-                    <span>Имя</span>
-                    <input
-                        type="text"
-                        placeholder="Имя"
-                        id="name"
-                        name="name"
-                    />
-                </div>
+                        <label for="photo">
+                            <span>
+                                Загрузить
+                            </span>
+                            <span class="plus">
+                                +
+                            </span>
+                        </label>
+                    </div>
 
-                <div class="person__home--description">
-                    <span>Фамиля</span>
-                    <input
-                        type="text"
-                        placeholder="Фамиля"
-                        id="surName"
-                        name="surName"
-                    />
-                </div>
+                    <div class="person__home--description">
+                        <span>Имя</span>
+                        <input
+                            type="text"
+                            placeholder="Имя"
+                            id="name"
+                            name="name"
+                        />
+                    </div>
 
-                <div class="person__home--description">
-                    <span>{{ $t("tel") }}</span>
-                    <input
-                        type="text"
-                        :placeholder="$t('tel')"
-                        id="Number"
-                        name="Number"
-                        v-mask="'+998 (##) ###-##-##'"
-                    />
-                </div>
+                    <div class="person__home--description">
+                        <span>Фамиля</span>
+                        <input
+                            type="text"
+                            placeholder="Фамиля"
+                            id="surName"
+                            name="surName"
+                        />
+                    </div>
 
-                <div class="person__home--description">
-                    <span>{{ $t("city") }}</span>
-                    <select
-                        name="region"
-                        id="region"
-                        v-model="selectedAdress.region"
-                        @change="giveCity()"
-                    >
-                        <option value="" disabled selected>{{
-                            $t("myCity")
-                        }}</option>
-                        <option
-                            v-for="region in allRegions"
-                            :key="region._id"
-                            :value="region.name.uz"
+                    <div class="person__home--description">
+                        <span>{{ $t("tel") }}</span>
+                        <input
+                            type="text"
+                            :placeholder="$t('tel')"
+                            id="Number"
+                            name="Number"
+                            v-mask="'+998 (##) ###-##-##'"
+                        />
+                    </div>
+
+                    <div class="person__home--description">
+                        <span>{{ $t("city") }}</span>
+                        <select
+                            name="region"
+                            id="region"
+                            v-model="selectedAdress.region"
+                            @change="giveCity()"
                         >
-                            {{ region.name.uz }}</option
+                            <option value="" disabled selected>{{
+                                $t("myCity")
+                            }}</option>
+                            <option
+                                v-for="region in allRegions"
+                                :key="region._id"
+                                :value="region.name.uz"
+                            >
+                                {{ region.name.uz }}</option
+                            >
+                        </select>
+                    </div>
+
+                    <div class="person__home--description">
+                        <span>{{ $t("ray") }}</span>
+                        <select
+                            name="village"
+                            id="village"
+                            v-model="selectedAdress.district"
+                            @change="giveDistrict()"
                         >
-                    </select>
+                            <option value="" disabled selected>{{
+                                $t("myRay")
+                            }}</option>
+                            <option
+                                v-for="district in selectedCityDistricts"
+                                :key="district._id"
+                                :value="district.name.uz"
+                            >
+                                {{ district.name.uz }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="person__home--description">
+                        <span>{{ $t("address") }}</span>
+                        <input
+                            type="text"
+                            :placeholder="$t('address')"
+                            id="Adress"
+                            name="Adress"
+                        />
+                    </div>
                 </div>
 
-                <div class="person__home--description">
-                    <span>{{ $t("ray") }}</span>
-
-                    <select
-                        name="village"
-                        id="village"
-                        v-model="selectedAdress.district"
-                        @change="giveDistrict()"
-                    >
-                        <option value="" disabled selected>{{
-                            $t("myRay")
-                        }}</option>
-                        <option
-                            v-for="district in selectedCityDistricts"
-                            :key="district._id"
-                            :value="district.name.uz"
-                        >
-                            {{ district.name.uz }}
-                        </option>
-                    </select>
+                <div class="person__checkout">
+                    <a class="checkout__you__order submit" target="_blank">
+                        Cохранить
+                    </a>
                 </div>
-
-                <div class="person__home--description">
-                    <span>{{ $t("address") }}</span>
-                    <input
-                        type="text"
-                        :placeholder="$t('address')"
-                        id="Adress"
-                        name="Adress"
-                    />
-                </div>
-            </div>
-
-            <div class="person__checkout">
-                <a class="checkout__you__order submit" target="_blank">
-                    Cохранить
-                </a>
-            </div>
-        </form>
+            </form>
+        </div>
     </section>
 </template>
 
@@ -162,16 +172,12 @@ export default {
 <style lang="scss" scoped>
 .checkout__box {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0;
 
     .person__home {
-        flex: 2;
-        margin-right: 20px;
-        padding: 30px 30px 46px;
-        background: #ffffff;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-        border-radius: 5px;
-
+        padding: 30px 0 46px;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -189,7 +195,8 @@ export default {
 
         .person__home--description {
             margin-top: 16px;
-            flex-basis: 47%;
+            flex-basis: 30%;
+            padding: 0 10px;
             display: flex;
             flex-direction: column;
 
@@ -203,7 +210,8 @@ export default {
             }
 
             input,
-            select {
+            select,
+            label {
                 // border: ;
                 border: 1.16px solid #f7931e;
                 outline: none;
@@ -225,6 +233,22 @@ export default {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+
+                span {
+                    text-align: left;
+                    font-family: Roboto, sans-serif;
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 28px;
+                    /* identical to box height, or 168% */
+                    color: #666666;
+                }
+
+                .plus {
+                    color: #f7931e;
+                    font-weight: 500;
+                    font-size: 20px;
+                }
             }
 
             input::-webkit-outer-spin-button,
@@ -236,6 +260,15 @@ export default {
             /* Firefox */
             input[type="number"] {
                 -moz-appearance: textfield;
+            }
+
+            input[type="file"] {
+                display: none;
+            }
+
+            label:hover,
+            select:hover {
+                cursor: pointer;
             }
 
             select {
@@ -251,99 +284,14 @@ export default {
     }
 
     .person__checkout {
-        flex: 1;
-        background: #ffffff;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-        border-radius: 5px;
-        padding: 20px 20px 30px;
+        padding: 20px 0 30px;
         display: flex;
-        flex-direction: column;
-
-        span {
-            font-family: Roboto;
-            font-weight: 500;
-            font-size: 22px;
-            line-height: 100%;
-            /* or 22px */
-
-            color: #023047;
-            display: inline-block;
-            margin-bottom: 22px;
-        }
-
-        .span__container {
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-
-            span {
-                margin-bottom: 0;
-                font-family: Roboto;
-                font-size: 18px;
-                line-height: 100%;
-                /* or 18px */
-
-                color: #666666;
-            }
-
-            .primary {
-                font-family: Roboto;
-                font-weight: 900;
-                font-size: 20px;
-                line-height: 100%;
-                /* or 20px */
-                /* asosiy */
-
-                color: #f7931e;
-            }
-
-            .secondary {
-                font-family: Roboto;
-                font-weight: 900;
-                font-size: 20px;
-                line-height: 100%;
-                /* or 20px */
-
-                text-align: right;
-
-                /* Red */
-
-                color: #eb5757;
-            }
-
-            .tritary {
-                font-family: Roboto;
-                font-weight: 900;
-                font-size: 20px;
-                line-height: 100%;
-                /* or 20px */
-                /* Green 2 */
-                color: #27ae60;
-            }
-
-            .tertiary {
-                font-family: Roboto;
-                font-weight: 900;
-                font-size: 20px;
-                line-height: 100%;
-                /* or 20px */
-
-                text-align: right;
-
-                /* dark blue */
-
-                color: #023047;
-            }
-
-            &--last {
-                margin-top: 10px;
-                padding: 10px 0;
-                border-top: 1px solid #dddddd;
-            }
-        }
+        justify-content: center;
+        align-items: center;
 
         .checkout__you__order {
-            flex-basis: 100%;
+            flex-basis: auto;
+            width: auto;
             outline: none;
             border: none;
 
@@ -357,7 +305,7 @@ export default {
             font-weight: 500;
             font-size: 16px;
             /* or 147% */
-            padding: 18px 0;
+            padding: 10px 50px;
             text-align: center;
 
             color: #fcf6f6;
@@ -365,6 +313,26 @@ export default {
             &:hover {
                 opacity: 0.85;
                 cursor: pointer;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .checkout__box {
+        .person__home {
+            .person__home--description {
+                flex-basis: 49%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .checkout__box {
+        .person__home {
+            .person__home--description {
+                flex-basis: 100%;
             }
         }
     }
