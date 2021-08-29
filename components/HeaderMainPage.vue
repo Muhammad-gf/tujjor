@@ -81,7 +81,7 @@
                         "
                         @click="doVisibleCategory"
                     >
-                        <button type="button">
+                        <button type="button" id="categoryButton">
                             <span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -159,6 +159,7 @@
                             type="search"
                             :placeholder="$t('search')"
                             v-model="searchTxt"
+                            id="search-id"
                         />
                         <button @click="searchByTxt">
                             <svg
@@ -250,20 +251,25 @@
                         "
                         @click="doVisiblePerson"
                     >
-                        <span class="header__item ">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="25"
-                                viewBox="0 0 24 25"
-                                fill="none"
-                            >
-                                <path
-                                    d="M5.9215 5.92105C5.9215 9.18553 8.53228 11.8421 11.7405 11.8421C14.9487 11.8421 17.5594 9.18553 17.5594 5.92105C17.5594 2.65658 14.9487 0 11.7405 0C8.53228 0 5.9215 2.65658 5.9215 5.92105ZM22.0853 25H23.3784V23.6842C23.3784 18.6066 19.3168 14.4737 14.3267 14.4737H9.15426C4.16288 14.4737 0.102539 18.6066 0.102539 23.6842V25H22.0853Z"
-                                    fill="#FB8500"
-                                />
-                            </svg>
-                        </span>
+                        <button
+                            style="border:none; outline:none; background-color:inherit"
+                            id="personBox"
+                        >
+                            <span class="header__item ">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="25"
+                                    viewBox="0 0 24 25"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M5.9215 5.92105C5.9215 9.18553 8.53228 11.8421 11.7405 11.8421C14.9487 11.8421 17.5594 9.18553 17.5594 5.92105C17.5594 2.65658 14.9487 0 11.7405 0C8.53228 0 5.9215 2.65658 5.9215 5.92105ZM22.0853 25H23.3784V23.6842C23.3784 18.6066 19.3168 14.4737 14.3267 14.4737H9.15426C4.16288 14.4737 0.102539 18.6066 0.102539 23.6842V25H22.0853Z"
+                                        fill="#FB8500"
+                                    />
+                                </svg>
+                            </span>
+                        </button>
 
                         <div class="person__dropdown" v-if="isVisiblePerson">
                             <div class="person__logIn" v-if="loggedIn">
@@ -327,6 +333,7 @@
                                 : ''
                         "
                         @click="doVisibleLanguage"
+                        id="dropdownBox"
                     >
                         <button
                             type="button"
@@ -434,7 +441,7 @@
 
                         <div
                             class="dropdown__list__box"
-                            v-show="isVibibleDropdownList"
+                            v-show="isVisibleDropdownList"
                             @click="changeLanguage"
                         >
                             <button
@@ -564,7 +571,7 @@
                             aria-controls="navbarToggleExternalContent"
                             aria-expanded="false"
                             aria-label="Toggle navigation"
-                            @click="doVisibleCategory"
+                            @click.stop="doVisibleCategory"
                         >
                             <span class="navbar-toggler-icon"> </span>
                         </button>
@@ -580,6 +587,7 @@
                 >
                     <button
                         class="category-dropdown__main--txt"
+                        id="categoryButtonSecond"
                         v-for="category in categoryArray"
                         :key="category._id"
                         @mouseenter="doActiveCategory(category)"
@@ -634,7 +642,7 @@ export default {
             visibleCategory: false,
             categoryArray: [],
             activeLanguage: false,
-            isVibibleDropdownList: false,
+            isVisibleDropdownList: false,
             loggedIn: null,
             isVisiblePerson: false,
             personName: "",
@@ -681,7 +689,7 @@ export default {
         },
 
         doVisibleLanguage() {
-            this.isVibibleDropdownList = !this.isVibibleDropdownList;
+            this.isVisibleDropdownList = !this.isVisibleDropdownList;
         },
 
         changeLanguage() {
@@ -758,17 +766,61 @@ export default {
         // function for animation search poly
         windowCLicked(event) {
             const pathObj = event.composedPath();
-            console.log("window clicked", event, pathObj);
+            console.log("window clicked", pathObj);
+
             if (
-                pathObj[0].nodeName.toLowerCase() === "input" &&
-                pathObj[1].classList[0] === "header-search"
+                pathObj[0].id !== "categoryButton" &&
+                pathObj[1].id !== "categoryButton" &&
+                pathObj[0].id !== "categoryButtonSecond" &&
+                this.visibleCategory === true
             ) {
-                console.log("true");
-                this.searchActive.active = true;
-            } else {
-                console.log(false);
-                this.searchActive.active = false;
+                this.doVisibleCategory();
             }
+
+            if (
+                pathObj[1].id !== "personBox" &&
+                pathObj[2].id !== "personBox" &&
+                pathObj[3].id !== "personBox" &&
+                this.isVisiblePerson === true
+            ) {
+                this.doVisiblePerson();
+            }
+
+            if (
+                pathObj[1].id !== "dropdownBox" &&
+                pathObj[2].id !== "dropdownBox" &&
+                pathObj[3].id !== "dropdownBox" &&
+                pathObj[4].id !== "dropdownBox" &&
+                this.isVisibleDropdownList === true
+            ) {
+                this.doVisibleLanguage();
+            }
+            // if (
+            //     pathObj[0].nodeName.toLowerCase() === "input" &&
+            //     pathObj[1].classList[0] === "header-search"
+            // ) {
+            //     console.log("true");
+            //     this.searchActive.active = true;
+            // } else {
+            //     console.log(false);
+            //     this.searchActive.active = false;
+            // }
+        },
+
+        // window key pressed
+        windowPressed(event) {
+            const pathObj = event.composedPath();
+            console.log("window pressed", event, pathObj);
+        },
+
+        // window key pressed
+        focusOutedFromSearch() {
+            this.searchActive.active = false;
+        },
+
+        // window key pressed
+        focusInToSearch() {
+            this.searchActive.active = true;
         },
 
         fetchCategory() {
@@ -795,15 +847,26 @@ export default {
         this.categoryArray = res.data;
         this.loggedIn = this.$auth.loggedIn;
         this.personName = this.$auth.user?.name;
+
         window.addEventListener("scroll", this.handleScroll);
+        window.addEventListener("click", this.windowCLicked);
         if (window.innerWidth <= 770) {
-            window.addEventListener("click", this.windowCLicked);
+            // search animations
+            const searchInput = document.getElementById("search-id");
+            searchInput.addEventListener("focusin", this.focusInToSearch);
+            searchInput.addEventListener("focusout", this.focusOutedFromSearch);
         }
     },
 
     beforeDestroy() {
         window.removeEventListener("scroll", this.handleScroll);
-        window.removeEventListener("click", this.windowCLicked);
+        if (window.innerWidth <= 770) {
+            searchInput.removeEventListener("focusin", this.focusInToSearch);
+            searchInput.removeEventListener(
+                "focusout",
+                this.focusOutedFromSearch
+            );
+        }
     }
 };
 </script>

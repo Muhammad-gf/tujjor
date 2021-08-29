@@ -8,8 +8,8 @@
                         src="../../assets/img/magazines/9/2.png"
                         alt="Profile photo"
                     />
-                    <h3 id="profile-title">Javohir Akramjonov</h3>
-                    <h5 id="profile-id">ID 12345678</h5>
+                    <h3 id="profile-title" v-text="userMe.name"></h3>
+                    <h5 id="profile-id">ID {{ userMe._id }}</h5>
                 </div>
                 <nuxt-link to="/profile/edit" class="edit-link">
                     Редактировать профиль
@@ -22,7 +22,6 @@
                     active-nav-item-class="font-weight-bold "
                     active-tab-class="font-weight-bold text-success"
                     align="center"
-                    justified="true"
                 >
                     <b-tab title="КУПЛЕНО" active lazy>
                         <template #title>
@@ -107,6 +106,15 @@
                             </div>
                             <h3 id="svg-title">КУПЛЕНО</h3>
                         </template>
+
+                        <section class="favourite__is__empty">
+                            <section class="container popular__container">
+                                <div class="popular__heading">
+                                    {{ $t("noof") }}
+                                </div>
+                            </section>
+                        </section>
+
                         <div class="container">
                             <div class="checkout__order__item__box">
                                 <div class="checkout__order__item--header">
@@ -395,6 +403,14 @@
                             </div>
                             <h3 id="svg-title">В ДОРОГЕ</h3>
                         </template>
+
+                        <section class="favourite__is__empty">
+                            <section class="container popular__container">
+                                <div class="popular__heading">
+                                    {{ $t("noof") }}
+                                </div>
+                            </section>
+                        </section>
 
                         <div class="container">
                             <div class="checkout__order__item__box">
@@ -709,6 +725,15 @@
                             </div>
                             <h3 id="svg-title">ДОСТАВЛЕНО</h3>
                         </template>
+
+                        <section class="favourite__is__empty">
+                            <section class="container popular__container">
+                                <div class="popular__heading">
+                                    {{ $t("noof") }}
+                                </div>
+                            </section>
+                        </section>
+
                         <div class="container">
                             <div class="checkout__order__item__box">
                                 <div class="checkout__order__item--header">
@@ -1070,7 +1095,108 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            user: {
+                token: this.$auth.strategy.token.get()
+            },
+
+            productsPayed: [],
+            productsOnTheWay: [],
+            productsDelivered: [],
+            userMe: {}
+        };
+    },
+
+    methods: {
+        async fetchPayedProducts() {
+            const token = this.user.token;
+            this.$axios
+                .$get("order/me?status=payed", {
+                    headers: {
+                        token: token
+                    }
+                })
+                .then(response => {
+                    if (response.success) {
+                        console.log("products Payed", response);
+                        this.productsPayed = response.data;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
+        },
+
+        async fetchOnTheWayProducts() {
+            const token = this.user.token;
+            this.$axios
+                .$get("order/me?status=onTheWay", {
+                    headers: {
+                        token: token
+                    }
+                })
+                .then(response => {
+                    if (response.success) {
+                        console.log("products OnTheWay", response);
+                        this.productsOnTheWay = response.data;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
+        },
+
+        async fetchDeliveredProducts() {
+            const token = this.user.token;
+            this.$axios
+                .$get("order/me?status=delivered", {
+                    headers: {
+                        token: token
+                    }
+                })
+                .then(response => {
+                    if (response.success) {
+                        console.log("products Delivered", response);
+                        this.productsDelivered = response.data;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
+        },
+
+        async fetchUserMe() {
+            const token = this.user.token;
+            this.$axios
+                .$get("user/me", {
+                    headers: {
+                        token: token
+                    }
+                })
+                .then(response => {
+                    if (response.success) {
+                        console.log("user me", response);
+                        this.userMe = response.data;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
+        }
+    },
+
+    async mounted() {
+        console.log("started");
+        await Promise.all([
+            this.fetchPayedProducts(),
+            this.fetchOnTheWayProducts(),
+            this.fetchDeliveredProducts(),
+            this.fetchUserMe()
+        ]);
+    }
+};
 </script>
 
 <style lang="scss" scoped>

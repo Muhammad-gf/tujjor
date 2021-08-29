@@ -3,19 +3,22 @@
         <div class="container">
             <form v-on:submit.prevent class="checkout__box">
                 <div class="person__home">
-                    <h4>{{ $t("danni") }}</h4>
+                    <h4>Персональные данные</h4>
+                    <h6>* — Поля, обязательные для заполнения</h6>
 
                     <div class="person__home--description">
                         <span>Загрузка изображения</span>
                         <input
-                            type="file"
                             accept="image/png, image/gif, image/jpeg"
                             placeholder="загрузить"
-                            id="photo"
-                            name="photo"
+                            id="photoInput"
+                            name="photoInput"
+                            type="file"
+                            ref="photoInput"
+                            @change="handlePhotoInput"
                         />
 
-                        <label for="photo">
+                        <label for="photoInput">
                             <span>
                                 Загрузить
                             </span>
@@ -32,6 +35,7 @@
                             placeholder="Имя"
                             id="name"
                             name="name"
+                            v-model="userUpdateData.name"
                         />
                     </div>
 
@@ -42,6 +46,7 @@
                             placeholder="Фамиля"
                             id="surName"
                             name="surName"
+                            v-model="userUpdateData.surName"
                         />
                     </div>
 
@@ -53,6 +58,7 @@
                             id="Number"
                             name="Number"
                             v-mask="'+998 (##) ###-##-##'"
+                            v-model="userUpdateData.phone"
                         />
                     </div>
 
@@ -105,12 +111,17 @@
                             :placeholder="$t('address')"
                             id="Adress"
                             name="Adress"
+                            v-model="userUpdateData.address"
                         />
                     </div>
                 </div>
 
                 <div class="person__checkout">
-                    <a class="checkout__you__order submit" target="_blank">
+                    <a
+                        class="checkout__you__order submit"
+                        target=""
+                        @click="PutUserData"
+                    >
                         Cохранить
                     </a>
                 </div>
@@ -124,12 +135,24 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
     data() {
         return {
+            token: this.$auth.strategy.token.get(),
+
             selectedAdress: {
                 region: "",
                 district: ""
             },
 
-            selectedCityDistricts: []
+            selectedCityDistricts: [],
+
+            userUpdateData: {
+                name: "",
+                surName: "",
+                image: "",
+                phone: "",
+                address: "",
+                region: "",
+                district: ""
+            }
         };
     },
     computed: mapGetters(["allRegions"]),
@@ -140,30 +163,76 @@ export default {
         ...mapActions(["fetchRegion"]),
 
         giveCity() {
-            // select region and find districts depends on in
-            this.order.address.district = this.selectedAdress.district = "";
+            // select region and find districts depends on it
+            this.selectedAdress.district = "";
             const region = this.selectedAdress.region;
             const result = this.allRegions.filter(arr => {
                 return arr.name.uz == region || arr.name.ru == region;
             });
             this.selectedCityDistricts = result[0].districts;
-            this.order.address.region = result[0];
-            console.log(result);
+            this.userUpdateData.region = result[0]._id;
+            console.log(result, this.userUpdateData.region);
         },
 
         giveDistrict() {
             const district = this.selectedAdress.district;
-            const result = this.order.address.region.districts.filter(arr => {
+
+            const result = this.selectedCityDistricts.filter(arr => {
                 return arr.name.uz === district || arr.name.ru === district;
             });
+            this.userUpdateData.district = result[0]._id;
+            console.log(result, this.userUpdateData.district);
+        },
 
-            this.order.address.district = result[0]._id;
-            console.log(result[0]._id);
+        handlePhotoInput() {
+            const file = this.$refs.photoInput.files[0];
+            this.userUpdateData.image = file;
+        },
+
+        createFormData() {
+            const formData = new FormData();
+            const phone = this.userUpdateData.phone.replace(/[^0-9]/g, "");
+            formData.append("name", this.userUpdateData.name);
+            formData.append("image", this.userUpdateData.image);
+            formData.append("address[region]", this.userUpdateData.image);
+            formData.append("address[district]", this.userUpdateData.image);
+            formData.append("address[address]", this.userUpdateData.image);
+            return formData;
+        },
+
+        async PutUserData() {
+            console.log(this.userUpdateData);
+            const token = this.token;
+            const formData = this.createFormData();
+            await this.$axios
+                .$put("user/update", formData, {
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Methods":
+                            "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                        "Access-Control-Allow-Headers":
+                            "Origin, Content-Type, X-Auth-Token",
+                        token: token
+                    }
+                })
+                .then(response => {
+                    if (response.success) {
+                        this.loadSpinner = false;
+                        this.shopCreate.sendReqModal = true;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(error => {
+                    this.loadSpinner = false;
+                    // handle error
+                    console.log(error);
+                });
         }
     },
 
     async mounted() {
-        const token = this.$auth.strategy.token.get();
+        const token = this.token;
         await this.fetchRegion(token);
     }
 };
@@ -191,6 +260,10 @@ export default {
             line-height: 100%;
             /* identical to box height, or 24px */
             color: #f7931f;
+        }
+
+        h6 {
+            flex-basis: 100%;
         }
 
         .person__home--description {

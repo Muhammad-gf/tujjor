@@ -171,11 +171,14 @@
                         v-if="filter.isGetData && products.length > 0"
                     >
                         <div class="popular__item-box">
-                            <div
+                            <nuxt-link
                                 class="popular__items"
                                 v-for="product in products"
                                 :key="product._id"
-                                @click.prevent="goToProduct(product.slug)"
+                                :to="{
+                                    name: `product-id___${$i18n.locale}`,
+                                    params: { id: product.slug }
+                                }"
                             >
                                 <img
                                     class="popular__items__img"
@@ -221,7 +224,7 @@
                                         сум
                                     </span>
                                 </div>
-                            </div>
+                            </nuxt-link>
                         </div>
 
                         <a

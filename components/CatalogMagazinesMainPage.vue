@@ -9,9 +9,9 @@
                 v-for="magazine in magazines"
                 :key="magazine.slug"
                 :to="{
-                        name: `magazine-id___${$i18n.locale}`,
-                        params: { id: magazine.slug }
-                    }"
+                    name: `magazine-id___${$i18n.locale}`,
+                    params: { id: magazine.slug }
+                }"
             >
                 <div class="magazine__item--logo__box">
                     <div class="magazine__item--logo">
@@ -29,7 +29,7 @@
                 </div>
                 <div class="magazine__item__img__box">
                     <div class="magazine__item__img--first">
-                        <img :src="magazine.image[0]" alt="Item img" />
+                        <img :src="magazine.image" alt="Item img" />
                     </div>
                     <div class="magazine__item__img--second">
                         <div class="magazine__item__img--second--first">
@@ -122,7 +122,7 @@ export default {
         const data = await this.fetchMagazines();
         this.magazines = data.data[0].data;
         this.limit = data.data[0].count;
-        console.log("magazine", data);
+        console.log("magazine", this.magazines);
     }
 };
 </script>

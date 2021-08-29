@@ -60,26 +60,37 @@
                 </div>
                 <div class="footer__item footer__item--2">
                     <h2 class="footer__title">
-                        {{$t('sitemap')}}
+                        {{ $t("sitemap") }}
                     </h2>
                     <ul class="footer">
                         <li>
-                            <nuxt-link :to="{name: 'index___'+$i18n.locale}">{{$t('home')}}</nuxt-link>
+                            <nuxt-link
+                                :to="{ name: 'index___' + $i18n.locale }"
+                                >{{ $t("home") }}</nuxt-link
+                            >
                         </li>
                         <li>
-                            <nuxt-link  :to="{name: 'index___'+$i18n.locale}">{{$t('aksiya')}}</nuxt-link>
+                            <nuxt-link
+                                :to="{ name: 'index___' + $i18n.locale }"
+                                >{{ $t("aksiya") }}</nuxt-link
+                            >
                         </li>
                         <li>
-                            <nuxt-link :to="{name: 'news___'+$i18n.locale}">{{$t('news')}}</nuxt-link>
+                            <nuxt-link
+                                :to="{ name: 'news___' + $i18n.locale }"
+                                >{{ $t("news") }}</nuxt-link
+                            >
                         </li>
                         <li>
-                            <nuxt-link :to="{name: 'faq___'+$i18n.locale}">FAQ</nuxt-link>
+                            <nuxt-link :to="{ name: 'faq___' + $i18n.locale }"
+                                >FAQ</nuxt-link
+                            >
                         </li>
                     </ul>
                 </div>
                 <div class="footer__item footer__item--3">
                     <h2 class="footer__title">
-                        {{$t('paySys')}}
+                        {{ $t("paySys") }}
                     </h2>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -129,22 +140,40 @@
                 </div>
                 <div class="footer__item footer__item--4">
                     <h2 class="footer__title">
-                        {{$t('spage')}}
+                        {{ $t("spage") }}
                     </h2>
                     <ul class="footer">
                         <li>
-                            <nuxt-link :to="{name: 'about___'+$i18n.locale}">{{$t('about')}}</nuxt-link>
+                            <nuxt-link
+                                :to="{ name: 'about___' + $i18n.locale }"
+                                >{{ $t("about") }}</nuxt-link
+                            >
                         </li>
                         <li>
-                            <nuxt-link :to="{name: 'business___'+$i18n.locale}">
-                                {{$t('partner')}}
+                            <nuxt-link
+                                :to="{ name: 'business___' + $i18n.locale }"
+                            >
+                                {{ $t("partner") }}
                             </nuxt-link>
                         </li>
                     </ul>
+
+                    <h2 class="footer__title">
+                        Язык
+                    </h2>
+                    <select
+                        name="language"
+                        id="language"
+                        v-model="selectedLanguage"
+                        @change="changeLanguage()"
+                    >
+                        <option value="Русский"> Русский </option>
+                        <option value="Узбекский"> Узбекский</option>
+                    </select>
                 </div>
                 <div class="footer__item footer__item--5">
                     <h2 class="footer__title">
-                        {{$t('address')}}
+                        {{ $t("address") }}
                     </h2>
 
                     <div class="info__item">
@@ -163,7 +192,7 @@
                             </svg>
                         </span>
                         <h5>
-                            {{$t('addr')}}
+                            {{ $t("addr") }}
                         </h5>
                     </div>
                     <div class="info__item">
@@ -254,16 +283,26 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <h1>
-                    Copyright tujjor 2021 {{$t('copywrite')}}.
-                </h1>
+                <h1>Copyright tujjor 2021 {{ $t("copywrite") }}.</h1>
             </div>
         </div>
     </footer>
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            selectedLanguage: ""
+        };
+    },
+
+    methods: {
+        changeLanguage() {
+            console.log(this.selectedLanguage);
+        }
+    }
+};
 </script>
 
 <style lang="scss">
@@ -328,6 +367,40 @@ footer {
         }
         div.footer__item {
             width: 20%;
+
+            select {
+                // border: ;
+                border: 1.4px solid #ffffff;
+                outline: none;
+                background-color: transparent;
+                padding: 3px 10px;
+                border-radius: 5px;
+
+                /* asosiy */
+
+                text-align: left;
+                font-family: Roboto, sans-serif;
+                color: #ffffff;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 28px;
+
+                // To center vector png
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                // -webkit-appearance: none;
+                // -moz-appearance: none;
+                // appearance: none;
+
+                // background-color: black;
+                // background-position: 97% 50%;
+            }
+
+            select:focus {
+                background-color: #023047;
+            }
 
             &--5 {
                 ul {
