@@ -5,14 +5,14 @@
         <div class="container">
             <form v-on:submit.prevent class="checkout__box">
                 <div class="person__home">
-                    <h4>Персональные данные</h4>
-                    <h6>* — Поля, обязательные для заполнения</h6>
+                    <h4>{{ $t("personData") }}</h4>
+                    <h6>{{ $t("requstToFill") }}</h6>
 
                     <div class="person__home--description">
-                        <span>Имя</span>
+                        <span>{{ $t("yourName") }}</span>
                         <input
                             type="text"
-                            placeholder="Имя"
+                            :placeholder="$t('yourName')"
                             id="name"
                             name="name"
                             v-model="userMe.name"
@@ -21,10 +21,10 @@
                     </div>
 
                     <div class="person__home--description">
-                        <span>Фамиля</span>
+                        <span v-text="$t('surName')"></span>
                         <input
                             type="text"
-                            placeholder="Фамиля"
+                            :placeholder="$t('surName')"
                             id="surName"
                             name="surName"
                             v-model="userMe.name"
@@ -46,10 +46,10 @@
                     </div>
 
                     <div class="person__home--description">
-                        <span>Загрузка изображения *</span>
+                        <span>{{ $t("uploadImg") }} *</span>
                         <input
                             accept="image/png, image/gif, image/jpeg"
-                            placeholder="загрузить"
+                            :placeholder="$t('upload')"
                             id="photoInput"
                             name="photoInput"
                             type="file"
@@ -130,7 +130,7 @@
                         @click="putUserData"
                         v-else
                     >
-                        Cохранить
+                        {{ $t("save") }}
                     </a>
                 </div>
             </form>
