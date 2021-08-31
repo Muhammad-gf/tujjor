@@ -160,6 +160,7 @@
                         >Да!</b-button
                     >
                 </div>
+
                 <div
                     v-if="dangerModal.showLoading"
                     class="text-center  d-flex justify-content-center align-items-center loading__spinner"

@@ -861,6 +861,7 @@ export default {
     beforeDestroy() {
         window.removeEventListener("scroll", this.handleScroll);
         if (window.innerWidth <= 770) {
+            const searchInput = document.getElementById("search-id");
             searchInput.removeEventListener("focusin", this.focusInToSearch);
             searchInput.removeEventListener(
                 "focusout",

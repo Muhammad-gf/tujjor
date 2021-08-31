@@ -418,18 +418,7 @@ export default {
 
             const base64 = btoa(str);
             console.log("base64", base64, str);
-            // this.$router.beforeEnter({
-            //     location: "https://checkout.paycom.uz/"
-            // }),
-            // this.$router.push({
-            //     // beforeEnter(to, from, next) {
-            //     //     // Put the full page URL including the protocol http(s) below
-            //     //     // window.location.replace("https://checkout.paycom.uz/");
-            //     // },
-            //     // location: "https://checkout.paycom.uz/",
-            //     location: "https://checkout.paycom.uz/",
-            //     path: base64
-            // });\
+
             const link = "https://checkout.paycom.uz/" + base64;
 
             // create element for iphone problem
@@ -441,10 +430,6 @@ export default {
             a.click();
 
             return link;
-            //     this.$router.beforeEnter(to, from, next, {
-            // 		        // Put the full page URL including the protocol http(s) below
-            // window.location.replace("https://example.com")
-            // 	});
         }
     },
 

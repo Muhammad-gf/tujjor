@@ -1,32 +1,12 @@
 <template>
     <section>
+        <base-loading v-if="!isGet"></base-loading>
+
         <div class="container">
             <form v-on:submit.prevent class="checkout__box">
                 <div class="person__home">
                     <h4>Персональные данные</h4>
                     <h6>* — Поля, обязательные для заполнения</h6>
-
-                    <div class="person__home--description">
-                        <span>Загрузка изображения</span>
-                        <input
-                            accept="image/png, image/gif, image/jpeg"
-                            placeholder="загрузить"
-                            id="photoInput"
-                            name="photoInput"
-                            type="file"
-                            ref="photoInput"
-                            @change="handlePhotoInput"
-                        />
-
-                        <label for="photoInput">
-                            <span>
-                                Загрузить
-                            </span>
-                            <span class="plus">
-                                +
-                            </span>
-                        </label>
-                    </div>
 
                     <div class="person__home--description">
                         <span>Имя</span>
@@ -35,7 +15,8 @@
                             placeholder="Имя"
                             id="name"
                             name="name"
-                            v-model="userUpdateData.name"
+                            v-model="userMe.name"
+                            disabled
                         />
                     </div>
 
@@ -46,7 +27,8 @@
                             placeholder="Фамиля"
                             id="surName"
                             name="surName"
-                            v-model="userUpdateData.surName"
+                            v-model="userMe.name"
+                            disabled
                         />
                     </div>
 
@@ -58,12 +40,33 @@
                             id="Number"
                             name="Number"
                             v-mask="'+998 (##) ###-##-##'"
-                            v-model="userUpdateData.phone"
+                            v-model="userMe.phone"
+                            disabled
                         />
                     </div>
 
                     <div class="person__home--description">
-                        <span>{{ $t("city") }}</span>
+                        <span>Загрузка изображения *</span>
+                        <input
+                            accept="image/png, image/gif, image/jpeg"
+                            placeholder="загрузить"
+                            id="photoInput"
+                            name="photoInput"
+                            type="file"
+                            ref="photoInput"
+                            @change="handlePhotoInput"
+                        />
+
+                        <label for="photoInput">
+                            <span v-text="inputMsg.span"> </span>
+                            <span class="plus">
+                                +
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="person__home--description">
+                        <span>{{ $t("city") }} *</span>
                         <select
                             name="region"
                             id="region"
@@ -84,7 +87,7 @@
                     </div>
 
                     <div class="person__home--description">
-                        <span>{{ $t("ray") }}</span>
+                        <span>{{ $t("ray") }} *</span>
                         <select
                             name="village"
                             id="village"
@@ -105,7 +108,7 @@
                     </div>
 
                     <div class="person__home--description">
-                        <span>{{ $t("address") }}</span>
+                        <span>{{ $t("address") }} *</span>
                         <input
                             type="text"
                             :placeholder="$t('address')"
@@ -117,24 +120,39 @@
                 </div>
 
                 <div class="person__checkout">
+                    <b-spinner
+                        variant="warning"
+                        v-if="modals.putLoading"
+                    ></b-spinner>
                     <a
                         class="checkout__you__order submit"
                         target=""
-                        @click="PutUserData"
+                        @click="putUserData"
+                        v-else
                     >
                         Cохранить
                     </a>
                 </div>
             </form>
         </div>
+
+        <modal-success
+            v-show="modals.putedSuccess"
+            post-title="Данные успешно обновлены!"
+        >
+        </modal-success>
     </section>
 </template>
 
 <script>
+import ModalSuccess from "../../components/Modals/SuccessModal.vue";
+import BaseLoading from "../../components/UI/BaseLoading.vue";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
+    components: { BaseLoading, ModalSuccess },
     data() {
         return {
+            isGet: false,
             token: this.$auth.strategy.token.get(),
 
             selectedAdress: {
@@ -152,6 +170,17 @@ export default {
                 address: "",
                 region: "",
                 district: ""
+            },
+
+            userMe: {},
+
+            inputMsg: {
+                span: "Загрузить"
+            },
+
+            modals: {
+                putLoading: false,
+                putedSuccess: false
             }
         };
     },
@@ -184,24 +213,34 @@ export default {
             console.log(result, this.userUpdateData.district);
         },
 
-        handlePhotoInput() {
+        handlePhotoInput(event) {
+            const target = event.composedPath();
+            const photoName = target[0].files[0].name;
+            this.$nextTick(() => {
+                this.inputMsg.span = photoName;
+            });
             const file = this.$refs.photoInput.files[0];
             this.userUpdateData.image = file;
         },
 
         createFormData() {
             const formData = new FormData();
-            const phone = this.userUpdateData.phone.replace(/[^0-9]/g, "");
-            formData.append("name", this.userUpdateData.name);
+            // const phone = this.userUpdateData.phone.replace(/[^0-9]/g, "");
+            // formData.append("name", this.userUpdateData.name);
             formData.append("image", this.userUpdateData.image);
-            formData.append("address[region]", this.userUpdateData.image);
-            formData.append("address[district]", this.userUpdateData.image);
-            formData.append("address[address]", this.userUpdateData.image);
+            formData.append("address['region']", this.userUpdateData.region);
+            formData.append(
+                "address['district']",
+                this.userUpdateData.district
+            );
+            formData.append("address['address']", this.userUpdateData.address);
             return formData;
         },
 
-        async PutUserData() {
-            console.log(this.userUpdateData);
+        async putUserData() {
+            this.$nextTick(() => {
+                this.modals.putLoading = true;
+            });
             const token = this.token;
             const formData = this.createFormData();
             await this.$axios
@@ -217,8 +256,12 @@ export default {
                 })
                 .then(response => {
                     if (response.success) {
-                        this.loadSpinner = false;
-                        this.shopCreate.sendReqModal = true;
+                        console.log("put", response);
+                        this.$nextTick(() => {
+                            this.modals.putedSuccess = true;
+                            this.modals.putLoading = false;
+                        });
+                        return response;
                     } else {
                         throw new Error("Could not save data!");
                     }
@@ -228,12 +271,41 @@ export default {
                     // handle error
                     console.log(error);
                 });
+            this.$nextTick(() => {
+                this.modals.putLoading = false;
+            });
+        },
+
+        async fetchUserMe() {
+            const token = this.token;
+            return await this.$axios
+                .$get("user/me", {
+                    headers: {
+                        token: token
+                    }
+                })
+                .then(response => {
+                    if (response.success) {
+                        console.log("user me", response);
+                        return response;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(err => console.error(err));
         }
     },
 
     async mounted() {
         const token = this.token;
-        await this.fetchRegion(token);
+        const [region, userMe] = await Promise.all([
+            this.fetchRegion(token),
+            this.fetchUserMe()
+        ]);
+        this.userMe = userMe.data;
+        console.log("user me", this.userMe);
+
+        this.isGet = true;
     }
 };
 </script>

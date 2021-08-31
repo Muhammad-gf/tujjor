@@ -1,11 +1,13 @@
 <template>
     <section class="main-section">
+        <base-loading v-if="!isGet"></base-loading>
+
         <section class="profile-section ">
             <div class="profile-box">
                 <div class="profile">
                     <img
                         id="profile-photo"
-                        src="../../assets/img/magazines/9/2.png"
+                        :src="$store.state.uploads + userMe.image"
                         alt="Profile photo"
                     />
                     <h3 id="profile-title" v-text="userMe.name"></h3>
@@ -115,7 +117,7 @@
                             </section>
                         </section>
 
-                        <div class="container">
+                        <!-- <div class="container">
                             <div class="checkout__order__item__box">
                                 <div class="checkout__order__item--header">
                                     <img
@@ -247,7 +249,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </b-tab>
 
                     <b-tab title="В ДОРОГЕ" lazy>
@@ -412,7 +414,7 @@
                             </section>
                         </section>
 
-                        <div class="container">
+                        <!-- <div class="container">
                             <div class="checkout__order__item__box">
                                 <div class="checkout__order__item--header">
                                     <img
@@ -588,7 +590,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </b-tab>
 
                     <b-tab title="ДОСТАВЛЕНО" lazy>
@@ -734,7 +736,7 @@
                             </section>
                         </section>
 
-                        <div class="container">
+                        <!-- <div class="container">
                             <div class="checkout__order__item__box">
                                 <div class="checkout__order__item--header">
                                     <img
@@ -1086,7 +1088,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </b-tab>
                 </b-tabs>
             </div>
@@ -1095,9 +1097,14 @@
 </template>
 
 <script>
+import BaseLoading from "../../components/UI/BaseLoading.vue";
 export default {
+    components: { BaseLoading },
+
     data() {
         return {
+            isGet: false,
+
             user: {
                 token: this.$auth.strategy.token.get()
             },
@@ -1188,13 +1195,14 @@ export default {
     },
 
     async mounted() {
-        console.log("started");
         await Promise.all([
             this.fetchPayedProducts(),
             this.fetchOnTheWayProducts(),
             this.fetchDeliveredProducts(),
             this.fetchUserMe()
         ]);
+
+        this.isGet = true;
     }
 };
 </script>
