@@ -108,5 +108,8 @@ export default {
     buyed: "Sotib olingan",
     onTheWay: "Yo'lda",
     delivered: "Yetkazilgan",
-    updateProfile: "Profil ma'lumotlari"
+    updateProfile: "Profil ma'lumotlari",
+    uz: "O'zbek tili",
+    ru: "Rus tili",
+    language: "Dastur tili"
 };

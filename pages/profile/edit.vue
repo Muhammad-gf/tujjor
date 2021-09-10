@@ -254,14 +254,18 @@ export default {
                         token: token
                     }
                 })
-                .then(response => {
-                    if (response.success) {
-                        console.log("put", response);
+                .then(res => {
+                    if (res.success) {
+                        console.log("put", res);
                         this.$nextTick(() => {
                             this.modals.putedSuccess = true;
                             this.modals.putLoading = false;
                         });
-                        return response;
+
+                        setTimeout(() => {
+                            this.modals.putedSuccess = false;
+                        }, 2000);
+                        return res;
                     } else {
                         throw new Error("Could not save data!");
                     }

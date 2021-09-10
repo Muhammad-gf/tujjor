@@ -17,12 +17,12 @@
                     <div class="magazine__item--logo">
                         <span v-text="magazine.shopName"></span>
                     </div>
-                    <div class="magazine__item--rating">
+                    <!-- <div class="magazine__item--rating">
                         <img
                             src="../assets/img/magazines/star.png"
                             alt="Star img"
                         /><span>4</span>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="magazine__item--description">
                     <span v-text="magazine.description[$i18n.locale]"></span>
@@ -31,7 +31,7 @@
                     <div class="magazine__item__img--first">
                         <img :src="magazine.image" alt="Item img" />
                     </div>
-                    <div class="magazine__item__img--second">
+                    <!-- <div class="magazine__item__img--second">
                         <div class="magazine__item__img--second--first">
                             <img
                                 src="../assets/img/magazines/img-second.png"
@@ -45,7 +45,7 @@
                                 alt="Item img"
                             />
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </nuxt-link>
         </div>
@@ -75,14 +75,12 @@ export default {
         };
     },
     beforeMount() {
-        console.log("windows", window.innerWidth);
         const winWidth = window.innerWidth;
         if (winWidth <= 530) {
             this.magazineCount = this.increaseBy = 2;
         } else {
             this.magazineCount = this.increaseBy = 3;
         }
-        console.log("windows", window.innerWidth, this.magazineCount);
     },
 
     methods: {
@@ -110,7 +108,6 @@ export default {
 
         //  go to magazine on click card of magazine
         goToMagazine(slug) {
-            console.log("magazine slug", slug);
             this.$router.push({
                 path: "/magazine/" + slug,
                 params: { id: slug }
@@ -142,7 +139,7 @@ export default {
             flex-basis: 32.6%;
             background-color: #f1efed;
             border-radius: 5px;
-            padding: 15px;
+            padding: 10px;
 
             display: flex;
             flex-direction: column;
@@ -199,18 +196,21 @@ export default {
             }
 
             .magazine__item__img__box {
-                flex-basis: 63%;
                 padding: 5px 0 0;
+                height: 140px;
+                overflow: hidden;
 
                 display: flex;
                 justify-content: space-between;
 
                 .magazine__item__img--first {
-                    flex-basis: 49%;
+                    flex-basis: 100%;
+                    padding: 2px;
 
                     img {
                         width: 100%;
                         height: 100%;
+                        object-fit: cover;
                     }
                 }
 

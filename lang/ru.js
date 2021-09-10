@@ -107,5 +107,8 @@ export default {
     buyed: "Куплено",
     onTheWay: "В дороге",
     delivered: "Доставлено",
-    updateProfile: "Редактировать профиль"
+    updateProfile: "Редактировать профиль",
+    uz: "Узбекский",
+    ru: "Русский",
+    language: "Язык"
 };

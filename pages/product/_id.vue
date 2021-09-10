@@ -672,7 +672,7 @@ export default {
     data() {
         return {
             isGet: false,
-            noData: null,
+            noData: false,
             // rating options default
             rating: "No Rating Selected",
             currentRating: "No Rating",
@@ -792,7 +792,6 @@ export default {
 
         // ----------------------------------------------------------
         onResize() {
-            console.log("resize");
             this.setBoxHeight();
             this.setImgWidth();
             this.setImgHeight();
@@ -820,8 +819,6 @@ export default {
 
         // add active class to li on hover or click
         addClassActive(event) {
-            console.log("clicked on class event", event);
-            console.log("composed path", event.composedPath());
             const pathObj = event.composedPath();
             for (let i = 0; i < pathObj[3].children.length; i++) {
                 pathObj[3].children[i].classList.remove("active");
@@ -831,8 +828,6 @@ export default {
 
         // checkbox give sizes on  select param
         selectProductParam(event, param) {
-            console.log("clicked produc param", event);
-            console.log("composed path", event.composedPath());
             const oldSize = this.selectedProduct.size.size;
             const obj = this.product.params.reduce((arr, item) =>
                 item._id === param._id ? (arr = item) : arr
@@ -852,9 +847,7 @@ export default {
 
         // checkbox give price on select size
         selectProductSize(event, oldSize) {
-            console.log("clicked product size", event, oldSize, !!event);
             if (!!event) {
-                console.log("composed path", event.composedPath());
                 const pathObj = event.composedPath();
                 const obj = this.selectedProduct.params.sizes.reduce(
                     (obj, param) =>
@@ -924,7 +917,6 @@ export default {
         // update product size
         updateSize() {
             this.productSize = this.selectedProduct.size.size;
-            console.log("product size", this.productSize);
         },
 
         // favourite settings -----------------------------------------------
@@ -991,7 +983,6 @@ export default {
             const [array] = this.allFavouritesId.filter(
                 el => el.product === this.selectedProduct._id
             );
-            console.log("favourite", array);
             if (!!array) {
                 this.favouriteObj.favouriteId = array._id;
                 this.favouriteObj.status = true;
@@ -1011,7 +1002,6 @@ export default {
                         this.favouriteObj.status = false;
                         this.setFavouriteChanges(event);
                         this.deleteFavouritesId(this.favouriteObj.favouriteId);
-                        console.log("id", this.allFavouritesId);
                     } else {
                         throw new Error("Could not save data!");
                     }
@@ -1030,7 +1020,6 @@ export default {
                 })
                 .then(response => {
                     if (response.success) {
-                        console.log("res", response);
                         this.favouriteObj.status = true;
                         this.favouriteObj.favouriteId = response.data._id;
                         this.setFavouriteChanges(event);
@@ -1038,7 +1027,6 @@ export default {
                             product: response.data.product,
                             _id: response.data._id
                         });
-                        console.log("id", this.allFavouritesId);
                     } else {
                         throw new Error("Could not save data!");
                     }
@@ -1048,7 +1036,6 @@ export default {
 
         // toggle favourite main function for favourite
         toggleFavourite(event) {
-            console.log("clicked toggle favourite", event);
             if (!!this.$auth.user) {
                 if (!this.favouriteObj.status) {
                     this.setFavourite(event);
@@ -1223,7 +1210,6 @@ export default {
                     }
                 })
                 .catch(err => console.error(err));
-            console.log(res);
             return res;
         },
 
@@ -1250,9 +1236,7 @@ export default {
                     sort: ""
                 })
                 .then(response => {
-                    console.log("searc", response);
                     if (response.success) {
-                        console.log("search", response);
                         return response;
                     } else {
                         throw new Error("Could not save data!");
@@ -1282,7 +1266,6 @@ export default {
             let result = data.filter(
                 res => res._id !== this.selectedProduct._id
             );
-            console.log("filter result", result);
             if (result.length > limit) {
                 result.pop();
             }
@@ -1298,11 +1281,35 @@ export default {
                 result.pop();
             }
             this.productsByCategory.data = result;
+        },
+
+        resSuccessFunction(response) {
+            this.product = response.data[0];
+            this.comments = response.comments;
+            this.updateProduct(this.product);
+        },
+
+        async fetchProduct() {
+            const slug = this.$route.params.id;
+            const response = await this.$axios
+                .$get("/product/" + slug)
+                .then(res => {
+                    if (res.success && res.data.length > 0) {
+                        return res;
+                    } else {
+                        throw new Error("Could not save data!");
+                    }
+                })
+                .catch(error => {
+                    if (error?.response?.status === 404) {
+                        this.isGet = this.noData = true;
+                    }
+                });
+            return response;
         }
     },
 
     async mounted() {
-        console.log("router asasasa", this.$route);
         const token = this.user.token;
         if (!!this.$auth.user) {
             await Promise.all([
@@ -1312,56 +1319,37 @@ export default {
             ]);
         }
         // await this.fetchCounBasket(token);
-        const slug = this.$route.params.id;
-        await this.$axios
-            .$get("/product/" + slug)
-            .then(response => {
-                if (response.success && response.data.length > 0) {
-                    this.product = response.data[0];
-                    this.comments = response.comments;
-                    this.updateProduct(this.product);
-                    this.noData = false;
-                    // Give element  width to img carousel
-                    this.onResize();
-                    console.log("selected product", this.selectedProduct);
-                } else {
-                    this.noData = true;
-                    throw new Error("Could not save data!");
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
 
-        this.productsInMagazine.id = this.product.shop._id;
-        this.productsByCategory.id = this.product.category._id;
+        const data = await this.fetchProduct();
+        if (!!data) {
+            this.resSuccessFunction(data);
+            this.productsInMagazine.id = this.product.shop._id;
+            this.productsByCategory.id = this.product.category._id;
 
-        const [productsInMagazine, productsByCategory] = await Promise.all([
-            this.searchProductByMagazine(),
-            this.searchProductByCategory()
-        ]);
-        this.updateMagazineData(productsInMagazine.data);
-        this.updateCategoryData(productsByCategory.data);
-        console.log("product", this.selectedProduct);
-        console.log("products in magazine", this.productsInMagazine.data);
-        console.log("products by category", this.productsByCategory);
-        // is product favourite?
-        if (!!this.$auth.user && !!this.product) {
-            await this.isFavourite();
+            const [productsInMagazine, productsByCategory] = await Promise.all([
+                this.searchProductByMagazine(),
+                this.searchProductByCategory()
+            ]);
+            this.updateMagazineData(productsInMagazine.data);
+            this.updateCategoryData(productsByCategory.data);
+            // is product favourite?
+            if (!!this.$auth.user && !!this.product) {
+                await this.isFavourite();
+            }
+
+            // Register an event listener when the Vue component is ready
+            window.addEventListener("resize", this.onResize);
+
+            const interval = setInterval(() => {
+                this.onResize();
+            }, 1000);
+            setTimeout(() => {
+                (function() {
+                    clearInterval(interval);
+                })();
+            }, 5000);
+            this.isGet = true;
         }
-
-        // Register an event listener when the Vue component is ready
-        window.addEventListener("resize", this.onResize);
-
-        this.isGet = true;
-        const interval = setInterval(() => {
-            this.onResize();
-        }, 1000);
-        setTimeout(() => {
-            (function() {
-                clearInterval(interval);
-            })();
-        }, 5000);
     },
 
     beforeDestroy() {

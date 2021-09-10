@@ -1,6 +1,6 @@
 <template>
     <div class="layout">
-        <div class="header_back"></div>
+        <div class="header_back" id="header__back"></div>
         <Header-main-page />
 
         <Nuxt />

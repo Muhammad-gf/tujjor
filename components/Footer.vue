@@ -158,17 +158,22 @@
                         </li>
                     </ul>
 
-                    <h2 class="footer__title">
-                        Язык
+                    <h2 class="footer__title lang">
+                        {{ $t("language") }}
                     </h2>
                     <select
                         name="language"
-                        id="language"
-                        v-model="selectedLanguage"
-                        @change="changeLanguage()"
+                        id="select-lang"
+                        @change="changeLanguage"
                     >
-                        <option value="Русский"> Русский </option>
-                        <option value="Узбекский"> Узбекский</option>
+                        <option disabled selected>
+                            {{ $t("language") }}
+                        </option>
+
+                        <option value="ru">
+                            {{ $t("ru") }}
+                        </option>
+                        <option value="uz"> {{ $t("uz") }}</option>
                     </select>
                 </div>
                 <div class="footer__item footer__item--5">
@@ -293,14 +298,27 @@
 export default {
     data() {
         return {
-            selectedLanguage: ""
+            selectedLanguage: this.$i18n.locale,
+            langChanging: false
         };
     },
 
     methods: {
-        changeLanguage() {
-            console.log(this.selectedLanguage);
+        changeLanguage(event) {
+            const lang = event.target.value;
+            console.log("change language to", lang);
+            if (lang === "ru") {
+                this.$i18n.setLocale("ru");
+            }
+            if (lang === "uz") {
+                this.$i18n.setLocale("uz");
+            }
         }
+    },
+
+    beforeUpdate() {
+        this.selectedLanguage = this.$i18n.locale;
+        console.log("lang", this.$i18n.locale, this.selectedLanguage);
     }
 };
 </script>
@@ -365,6 +383,15 @@ footer {
             margin-bottom: 22px;
             color: #ffffff;
         }
+
+        h2.lang {
+            margin-bottom: 10px;
+        }
+
+        #select-lang:hover {
+            cursor: pointer;
+        }
+
         div.footer__item {
             width: 20%;
 

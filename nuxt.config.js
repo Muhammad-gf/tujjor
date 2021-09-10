@@ -123,7 +123,29 @@ export default {
     },
 
     router: {
-        // middleware: ["auth"]
+        // middleware: ["auth"],
+
+        scrollBehavior(to, from, savedPosition) {
+            console.log("saved position", savedPosition);
+            if (savedPosition) {
+                const { x, y } = savedPosition;
+                const interval = setInterval(() => {
+                    window.scrollTo({
+                        top: y,
+                        left: x,
+                        behavior: "smooth"
+                    });
+                    console.log("set timeout ended ", x, y);
+                }, 500);
+
+                setTimeout(() => {
+                    clearInterval(interval);
+                    return savedPosition;
+                }, 5000);
+            } else {
+                return { x: 0, y: 0 };
+            }
+        }
     },
 
     auth: {
@@ -157,7 +179,7 @@ export default {
     },
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
-        baseURL: "http://cdn.tujjor.org/api",
+        baseURL: "https://cdn.tujjor.org/api",
         proxyHeaders: false,
         credentials: false
     },

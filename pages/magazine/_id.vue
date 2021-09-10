@@ -2,36 +2,20 @@
     <section class="magazine__section">
         <base-loading v-if="!isGet"></base-loading>
 
-        <div class="filtr__section" v-if="isGet && noData">
+        <div v-if="isGet && noData">
+            <section
+                class="container popular__container search__noData d-flex justify-content-center align-items-center"
+                style="height: 50vh"
+            >
+                <div class="popular__heading">
+                    {{ $t("err4") }}
+                </div>
+            </section>
+        </div>
+
+        <div class="filtr__section" v-if="isGet && noProduts">
             <div class="product-show">
                 <div class="container">
-                    <div class="title-box">
-                        <ul>
-                            <li>
-                                <nuxt-link to="/">{{ $t("search") }}</nuxt-link>
-                                /
-                            </li>
-
-                            <li v-if="linksForTitle.length > 0">
-                                <nuxt-link :to="linksForTitle">
-                                    {{ linksForTitle }}
-                                </nuxt-link>
-                                /
-                            </li>
-
-                            <li
-                                v-if="categoryLinksForTitle.length > 0"
-                                v-for="title in categoryLinksForTitle"
-                                :key="title._id"
-                            >
-                                <nuxt-link :to="title._id">
-                                    {{ title.name.uz }}
-                                </nuxt-link>
-                                /
-                            </li>
-                        </ul>
-                    </div>
-
                     <div class="container magazine__description__box">
                         <div class="magazine__description__logo__text">
                             <img
@@ -41,7 +25,7 @@
                             />
                             <p
                                 class="magazine__description--text"
-                                v-text="magazine.description.uz"
+                                v-text="magazine.description[$i18n.locale]"
                             ></p>
                         </div>
                         <div class="magazine__description__img">
@@ -80,31 +64,9 @@
             </section>
         </div>
 
-        <div class="filtr__section" v-if="isGet && !noData">
+        <div class="filtr__section" v-if="isGet && !noProduts">
             <div class="product-show">
                 <div class="container">
-                    <div class="title-box">
-                        <ul>
-                            <li v-if="linksForTitle.length > 0">
-                                <nuxt-link :to="linksForTitle">
-                                    {{ linksForTitle }}
-                                </nuxt-link>
-                                /
-                            </li>
-
-                            <li
-                                v-if="categoryLinksForTitle.length > 0"
-                                v-for="title in categoryLinksForTitle"
-                                :key="title._id"
-                            >
-                                <nuxt-link :to="title._id">
-                                    {{ title.name[$i18n.locale] }}
-                                </nuxt-link>
-                                /
-                            </li>
-                        </ul>
-                    </div>
-
                     <div class="container magazine__description__box">
                         <div class="magazine__description__logo__text">
                             <img
@@ -115,10 +77,15 @@
 
                             <p
                                 class="magazine__description--text"
-                                v-text="magazine.description.uz"
+                                v-text="magazine.description[$i18n.locale]"
                             ></p>
                         </div>
-                        <div class="magazine__description__img">
+                        <div
+                            class="magazine__description__img"
+                            :style="{
+                                backgroundImage: `url('${magazine.image}')`
+                            }"
+                        >
                             <div class="magazine__description__img--box">
                                 <img
                                     src="../../assets/img/magazine description/icon/Vector-1.png"
@@ -149,7 +116,7 @@
 
             <section
                 class="container popular__container catalog__page__filtr__box"
-                v-if="!noData"
+                v-if="!noProduts"
             >
                 <div class="popular__dropdown__box">
                     <div class="person__home--description">
@@ -350,6 +317,7 @@ export default {
 
             isGet: false,
             noData: false,
+            noProduts: false,
 
             filter: {
                 sort: "",
@@ -419,6 +387,14 @@ export default {
                     }
                 });
             }
+
+            console.log(
+                "all brands",
+                brands,
+                data,
+                "filtered brands",
+                this.brandsOnPage
+            );
         },
 
         // filter max end min value in search product and show
@@ -494,9 +470,7 @@ export default {
                     shop: shopId
                 })
                 .then(response => {
-                    console.log("searc", response);
                     if (response.success) {
-                        console.log("search", response);
                         return response;
                     } else {
                         throw new Error("Could not save data!");
@@ -524,10 +498,14 @@ export default {
                     if (!!res.success) {
                         return res;
                     } else {
-                        throw new Error("Couldn't fetcg data");
+                        throw new Error("Couldn't fetch data");
                     }
                 })
-                .catch(error => console.error(error));
+                .catch(error => {
+                    if (error?.response?.status === 404) {
+                        this.noData = this.isGet = true;
+                    }
+                });
             return response;
         }
     },
@@ -536,35 +514,33 @@ export default {
         const page = this.page;
         const limit = this.limit;
         const data = await this.fetchMagazine();
-        console.log("magazine,", data);
-        this.magazine = data.data;
-        this.setSearchShopId(data.data._id);
-        console.log("body search", this.searchBody);
-        let [brands, Allbrands, search] = await Promise.all([
-            this.productCount(),
-            this.fetchAllBrands(),
-            this.searchProduct({ page, limit })
-        ]);
-        this.products = search.data;
-        this.filter.isGetData = this.isGet = true;
+        console.log("data", data);
+        if (!!data) {
+            this.magazine = data.data;
+            this.setSearchShopId(data.data._id);
+            let [brands, Allbrands, search] = await Promise.all([
+                this.productCount(),
+                this.fetchAllBrands(),
+                this.searchProduct({ page, limit })
+            ]);
+            this.products = search.data;
+            this.filter.isGetData = this.isGet = true;
 
-        // add to router link on the top of page
-        this.addLinksOnTheTopPage();
+            // add to router link on the top of page
+            this.addLinksOnTheTopPage();
 
-        console.log("brands via search and all brands", brands, Allbrands);
+            if (search.data.length === 1) {
+                this.isProductOnlyOne = true;
+            } else {
+                // filter brands for page to show
+                this.filterBrandForShowOnPage(brands, Allbrands);
 
-        if (search.data.length === 1) {
-            this.isProductOnlyOne = true;
-        } else {
-            // filter brands for page to show
-            this.filterBrandForShowOnPage(brands, Allbrands);
+                //     // filter max end min value in search product and show
+                this.filterMaxAndMin(search);
+            }
 
-            //     // filter max end min value in search product and show
-            this.filterMaxAndMin(search);
+            if (search.data.length === 0) this.noProduts = true;
         }
-
-        if (search.data.length === 0) this.noData = true;
-        console.log(this.products);
     }
 };
 </script>
@@ -582,6 +558,9 @@ export default {
             flex-grow: 0;
             img {
                 margin-bottom: 20px;
+                height: 154px;
+                width: 200px;
+                object-fit: cover;
             }
 
             .magazine__description--text {
@@ -845,7 +824,7 @@ export default {
         .magazine__description__box {
             display: flex;
             flex-direction: column;
-            margin-top: 40px;
+            margin-top: 20px;
             margin-bottom: 50px;
 
             .magazine__description__logo__text {
@@ -948,6 +927,20 @@ export default {
 }
 
 @media only screen and (max-width: 395px) {
+    .product-show {
+        div {
+            padding: 0;
+
+            .magazine__description__box {
+                .magazine__description__logo__text {
+                    img {
+                        margin-bottom: 5px;
+                    }
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
     .catalog__container {
         .catalog__page__about {
             .popular__item-box {
