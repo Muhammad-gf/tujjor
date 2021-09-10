@@ -84,17 +84,17 @@ export default {
     },
     methods: {
         async updatePopularLimit() {
-            this.isGet = false;
+            this.popularProducts.page += 1;
             this.popularProducts.limit += 10;
             const products = await this.fetchProduct();
-            this.popularProducts.data = products.data;
-            this.isGet = true;
+            products.data.forEach(arr => {
+                this.popularProducts.data.push(arr);
+            });
         },
         async fetchProduct() {
             const page = this.popularProducts.page;
-            const limit = this.popularProducts.limit;
             const res = await this.$axios
-                .$post("product/filter?page=" + page + "&limit=" + limit, {
+                .$post("product/filter?page=" + page + "&limit=" + 10, {
                     category: [],
                     brand: [],
                     search: "",

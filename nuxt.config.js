@@ -126,22 +126,30 @@ export default {
         // middleware: ["auth"],
 
         scrollBehavior(to, from, savedPosition) {
-            console.log("saved position", savedPosition);
             if (savedPosition) {
                 const { x, y } = savedPosition;
+                let scrollY, winInnerHieght;
+
                 const interval = setInterval(() => {
-                    window.scrollTo({
-                        top: y,
-                        left: x,
-                        behavior: "smooth"
-                    });
-                    console.log("set timeout ended ", x, y);
+                    scrollY = window.scrollY;
+                    winInnerHieght = document.body.clientHeight;
+                    if (y <= winInnerHieght) {
+                        window.scrollTo({
+                            top: y,
+                            left: x,
+                            behavior: "smooth"
+                        });
+
+                        if (scrollY <= y + 150 && scrollY >= y - 150) {
+                            clearInterval(interval);
+                        }
+                    }
                 }, 500);
 
-                setTimeout(() => {
+                return setTimeout(() => {
                     clearInterval(interval);
                     return savedPosition;
-                }, 5000);
+                }, 30000);
             } else {
                 return { x: 0, y: 0 };
             }

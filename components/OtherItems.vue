@@ -79,7 +79,7 @@
                             {{ product.category[$i18n.locale] }}
                         </span>
                         <h4 class="popular__items__desription--categorie">
-                            {{ product.name[$i18n.locale]}}
+                            {{ product.name[$i18n.locale] }}
                         </h4>
 
                         <span
@@ -114,7 +114,7 @@
                 class="popular__btn text-center"
                 v-if="allProducts.data.length >= allProducts.limit"
                 @click.prevent="updateFetchLimit"
-                >{{$t('all')}}</a
+                >{{ $t("all") }}</a
             >
         </section>
     </section>
@@ -147,17 +147,18 @@ export default {
     },
     methods: {
         async updateFetchLimit() {
-            this.isGet = false;
             this.allProducts.limit += 10;
+            this.allProducts.page += 1;
             const products = await this.fetchProduct();
-            this.allProducts.data = products.data;
-            this.isGet = true;
+            products.data.forEach(item => {
+                this.allProducts.data.push(item);
+            });
         },
+
         async fetchProduct() {
             const page = this.allProducts.page;
-            const limit = this.allProducts.limit;
             const res = await this.$axios
-                .$post("product/filter?page=" + page + "&limit=" + limit, {
+                .$post("product/filter?page=" + page + "&limit=" + 10, {
                     category: [],
                     brand: [],
                     search: "",
@@ -204,7 +205,6 @@ export default {
     async mounted() {
         const products = await this.fetchProduct();
         this.allProducts.data = products.data;
-        console.log(products);
         this.isGet = true;
 
         // banner options
