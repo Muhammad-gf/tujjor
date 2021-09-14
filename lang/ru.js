@@ -110,5 +110,7 @@ export default {
     updateProfile: "Редактировать профиль",
     uz: "Узбекский",
     ru: "Русский",
-    language: "Язык"
+    language: "Язык",
+    day: "день",
+    deliverTime: "Время доставки"
 };

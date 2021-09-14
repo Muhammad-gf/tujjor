@@ -360,7 +360,7 @@ export default {
             ];
 
             const page = this.page;
-            const limit = this.limit;
+            const limit = 12;
 
             this.setSearchPriceStart(start);
             this.setSearchPriceEnd(end);
@@ -374,8 +374,7 @@ export default {
         // sort products
         async filterBySort() {
             const page = this.page;
-            const limit = this.limit;
-
+            const limit = 12;
             this.setSearchSort(this.filter.sort);
             this.filter.isGetData = false;
             const search = await this.searchProduct({ page, limit });
@@ -397,39 +396,21 @@ export default {
             return form.replaceAll(",", " ");
         },
 
-        // fetch products by magazine
-        async searchProductByMagazine(shopId) {
-            const res = await this.$axios
-                .$post("product/filter?page=" + page + "&limit=" + limit, {
-                    shop: shopId
-                })
-                .then(response => {
-                    console.log("searc", response);
-                    if (response.success) {
-                        console.log("search", response);
-                        return response;
-                    } else {
-                        throw new Error("Could not save data!");
-                    }
-                })
-                .catch(err => console.error(err));
-            return res;
-        },
-
         async showProductMore() {
             this.limit += 12;
-            const limit = this.limit;
+            this.page += 1;
             const page = this.page;
-            this.filter.isGetData = false;
+            const limit = 12;
             const search = await this.searchProduct({ page, limit });
-            this.products = search.data;
-            this.filter.isGetData = true;
+            search.data.forEach(item => {
+                this.products.push(item);
+            });
         }
     },
 
     async mounted() {
         const page = this.page;
-        const limit = this.limit;
+        const limit = 12;
         let [brands, Allbrands, search] = await Promise.all([
             this.productCount(),
             this.fetchAllBrands(),
@@ -452,7 +433,6 @@ export default {
         }
 
         if (search.data.length === 0) this.noData = true;
-        console.log(this.products);
     }
 };
 </script>

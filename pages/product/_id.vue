@@ -254,6 +254,18 @@
                                 <div
                                     class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
+                                    {{ $t("deliverTime") }}:
+                                    <Span>
+                                        {{ selectedProduct.deliver.from }}-{{
+                                            selectedProduct.deliver.to
+                                        }}
+                                        {{ $t("day") }}
+                                    </Span>
+                                </div>
+
+                                <div
+                                    class="product__info--txt col-md-6 col-sm-6 col-6"
+                                >
                                     {{ $t("like") }}:
                                     <Span>
                                         <svg
@@ -1197,7 +1209,7 @@ export default {
         async searchProductByMagazine() {
             const shopId = this.productsInMagazine.id;
             const page = this.productsInMagazine.page;
-            const limit = this.productsInMagazine.limit;
+            const limit = 11;
             const res = await this.$axios
                 .$post("product/filter?page=" + page + "&limit=" + limit, {
                     shop: shopId
@@ -1224,7 +1236,7 @@ export default {
         // fetch products by magazine
         async searchProductByCategory() {
             const categoryId = this.productsByCategory.id;
-            const limit = this.productsByCategory.limit;
+            const limit = 11;
             const page = this.productsByCategory.page;
             const res = await this.$axios
                 .$post("product/filter?page=" + page + "&limit=" + limit, {
@@ -1247,7 +1259,8 @@ export default {
         },
         async updateCategoryLimit() {
             // this.isGet = false;
-            this.productsByCategory.limit += 10;
+            this.productsByCategory.limit += 11;
+            this.productsByCategory.page += 1;
             const search = await this.searchProductByCategory();
             this.updateCategoryData(search.data);
             // this.isGet = true;
@@ -1255,9 +1268,11 @@ export default {
 
         async updateMagazineLimit() {
             // this.isGet = false;
-            this.productsInMagazine.limit += 10;
+            this.productsInMagazine.limit += 11;
+            this.productsInMagazine.page += 1;
             const search = await this.searchProductByMagazine();
             this.updateMagazineData(search.data);
+
             // this.isGet = true;
         },
 
@@ -1269,7 +1284,9 @@ export default {
             if (result.length > limit) {
                 result.pop();
             }
-            this.productsInMagazine.data = result;
+            result.forEach(item => {
+                this.productsInMagazine.data.push(item);
+            });
         },
 
         updateCategoryData(data) {
@@ -1280,7 +1297,9 @@ export default {
             if (result.length > limit) {
                 result.pop();
             }
-            this.productsByCategory.data = result;
+            result.forEach(item => {
+                this.productsByCategory.data.push(item);
+            });
         },
 
         resSuccessFunction(response) {
@@ -1321,6 +1340,7 @@ export default {
         // await this.fetchCounBasket(token);
 
         const data = await this.fetchProduct();
+        console.log("product", data);
         if (!!data) {
             this.resSuccessFunction(data);
             this.productsInMagazine.id = this.product.shop._id;

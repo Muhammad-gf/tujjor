@@ -111,5 +111,7 @@ export default {
     updateProfile: "Profil ma'lumotlari",
     uz: "O'zbek tili",
     ru: "Rus tili",
-    language: "Dastur tili"
+    language: "Dastur tili",
+    day: "kun",
+	deliverTime: 'Yetkzaib berish vaqti'
 };

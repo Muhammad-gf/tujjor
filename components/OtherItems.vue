@@ -147,7 +147,7 @@ export default {
     },
     methods: {
         async updateFetchLimit() {
-            this.allProducts.limit += 10;
+            this.allProducts.limit += 20;
             this.allProducts.page += 1;
             const products = await this.fetchProduct();
             products.data.forEach(item => {
@@ -158,7 +158,7 @@ export default {
         async fetchProduct() {
             const page = this.allProducts.page;
             const res = await this.$axios
-                .$post("product/filter?page=" + page + "&limit=" + 10, {
+                .$post("product/filter?page=" + page + "&limit=" + 20, {
                     category: [],
                     brand: [],
                     search: "",
@@ -167,7 +167,6 @@ export default {
                     end: null
                 })
                 .then(response => {
-                    console.log("searc", response);
                     if (response.success) {
                         console.log("search", response);
                         return response;
