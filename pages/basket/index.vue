@@ -352,7 +352,8 @@ export default {
             "updateOrderProduct",
             "updateOrderAllProducts",
             "decreaseCountBasket",
-            "updateCountBasket"
+            "updateCountBasket",
+            "orderProduct"
         ]),
         // --------------------- modal settings --------------------------
         resetAllModals() {
@@ -485,123 +486,58 @@ export default {
 
         // -------------------------------- order settings -------------------------
         goToOrder(item) {
-            console.log(item);
-            const products = [
-                {
-                    productId: item.product._id,
-                    paramId: item.param._id,
-                    sizeId: item.size._id,
-                    shop: item.product.shop._id,
-                    amount: item.size.price,
-                    size: item.size.size,
-                    count: item.count,
-                    color: item.param.image,
-                    image: item.product.image,
-                    name: {
-                        uz: item.product.name.uz,
-                        ru: item.product.name.ru
-                    },
-                    description: {
-                        uz: item.product.description.uz,
-                        ru: item.product.description.ru
-                    },
-                    category: item.product.category,
-                    brand: item.product.brand
-                }
-            ];
+            let basket = [];
 
-            const products2 = [
-                {
-                    product: item.product._id,
-                    param: item.param._id,
-                    size: item.size._id,
-                    amount: item.size.price,
-                    count: item.count
-                }
-            ];
+            basket.push({
+                image: item.product.image,
+                name: item.product.name,
+                count: item.count,
+                param: item.param,
+                size: item.size,
+                shop: item.product.shop,
+                description: item.product.description,
+                product: item.product._id
+            });
 
-            if (!!item.size.discount) {
-                products[0].amount = item.size.discount;
-                products2[0].amount = item.size.discount;
-            }
-            const amount = item.count * products[0].amount;
-
-            this.updateOrderProduct({ products, amount });
-            this.updateOrderAllProducts({ products2 });
-            console.log(this.orderAll);
+            console.log("alll", basket);
+            this.orderProduct(basket);
 
             this.$router.push({
-                path: "/order/" + item.product.slug
+                name: `order-id___${this.$i18n.locale}`,
+                params: { id: "all" }
             });
         },
 
         orderAllProducts() {
             console.log(this.allInBasket);
-            const products = [];
-            const products2 = [];
-            let amount = 0;
+
+            let basket = [];
+
             this.allInBasket.forEach(item => {
-                console.log("item", item);
-                const obj = {
-                    productId: item.product._id,
-                    paramId: item.param._id,
-                    sizeId: item.size._id,
-                    shop: item.product.shop._id,
-                    amount: item.size.price,
-                    size: item.size.size,
-                    count: item.count,
-                    color: item.param.image,
+                basket.push({
                     image: item.product.image,
-                    name: {
-                        uz: item.product.name.uz,
-                        ru: item.product.name.ru
-                    },
-                    description: {
-                        uz: item.product.description.uz,
-                        ru: item.product.description.ru
-                    },
-                    category: item.product.category,
-                    brand: item.product.brand
-                };
-
-                const obj2 = {
-                    product: item.product._id,
-                    param: item.param._id,
-                    size: item.size._id,
-                    amount: item.size.price,
-                    count: item.count
-                };
-                if (!!item.size.discount) {
-                    obj.amount = item.size.discount;
-                    obj2.amount = item.size.discount;
-                }
-
-                amount += item.count * obj.amount;
-
-                products.push(obj);
-                products2.push(obj2);
+                    name: item.product.name,
+                    count: item.count,
+                    param: item.param,
+                    size: item.size,
+                    shop: item.product.shop,
+                    description: item.product.description,
+                    product: item.product._id
+                });
             });
 
-            console.log("obj", products, amount);
-
-            this.updateOrderProduct({ products, amount });
-            this.updateOrderAllProducts({ products2 });
-            console.log(this.orderAll);
+            console.log("alll", basket);
+            this.orderProduct(basket);
+            // this.$store.dispatch("orderProduct", basket);
 
             this.$router.push({
-                path: "/order/all"
+                name: `order-id___${this.$i18n.locale}`,
+                params: { id: "all" }
             });
         }
     },
 
     async mounted(token = this.user.token) {
-        // const [obj, count] = await Promise.all([
-        //     this.fetchBasket(token),
-        //     this.fetchCountBasket(token)
-        // ]);
-
-        // console.log("promise", obj, count);
-
         const res = await this.fetchBasket(token);
         console.log("basket", res);
 

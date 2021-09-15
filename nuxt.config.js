@@ -80,7 +80,8 @@ export default {
         { src: "@/plugins/vue-slick-carousel.js" },
         { src: "@/plugins/vue-slider-component.js", ssr: false },
         { src: "@/plugins/vue-star-rating.js", mode: "client", ssr: false },
-        { src: "@plugins/v-mask.js" }
+        { src: "@plugins/v-mask.js" },
+        { src: "@plugins/persistedState.js", ssr: false }
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components

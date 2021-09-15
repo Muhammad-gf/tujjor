@@ -65,6 +65,9 @@ export default {
 
         updateOrderAddress(state, { add }) {
             state.order.address = add;
+        },
+        orderProduct(state, data) {
+            state.allProduct = data;
         }
     },
 
@@ -83,7 +86,8 @@ export default {
 
             orderAllProducts: ["0"],
 
-            regions: {}
+            regions: {},
+            allProduct: null
         };
     },
 
@@ -99,7 +103,9 @@ export default {
         orderProducts(state) {
             return state.order.products;
         },
-
+        allProduct(state) {
+            return state.allProduct;
+        },
         orderAllProducts(state) {
             return state.orderAllProducts;
         },

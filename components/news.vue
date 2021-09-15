@@ -1,9 +1,9 @@
 <template>
     <section>
-        <div class="news" v-if="news != null">
+        <div class="news" v-if="news != null && news.length > 0">
             <section class="container popular__container  ">
                 <div class="popular__heading">
-                    {{$t('news')}}
+                    {{ $t("news") }}
                 </div>
             </section>
 
@@ -30,11 +30,11 @@
                     <div class="data__box">
                         <nuxt-link
                             :to="{
-                                name: 'news-id___'+$i18n.locale,
+                                name: 'news-id___' + $i18n.locale,
                                 params: { id: news[index].slug }
                             }"
                             class="data__box--btn text-center"
-                            >{{ $t('full') }}</nuxt-link
+                            >{{ $t("full") }}</nuxt-link
                         >
                         <p class="data__box--date">
                             {{ getDate(news[index].createdAt) }}
@@ -78,7 +78,9 @@ export default {
     },
     async mounted() {
         let n = await this.$axios.$get("/news/all");
-        this.news = n.data;
+        this.news = n;
+
+        console.log("newsss", this.news);
     }
 };
 </script>

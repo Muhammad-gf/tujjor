@@ -23,7 +23,8 @@
         "vue-slick-carousel": "^1.0.6",
         "vue-slider-component": "^3.2.11",
         "vue-star-rating": "^1.7.0",
-        "vue-vertical-carousel": "^0.1.1"
+        "vue-vertical-carousel": "^0.1.1",
+        "vuex-persistedstate": "^4.0.0"
     },
     "devDependencies": {
         "@nuxtjs/style-resources": "^1.0.0",
