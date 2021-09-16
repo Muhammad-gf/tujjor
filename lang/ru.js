@@ -112,5 +112,8 @@ export default {
     ru: "Русский",
     language: "Язык",
     day: "день",
-    deliverTime: "Время доставки"
+    deliverTime: "Время доставки",
+    resumeSendPin: "Код активации:",
+    pin: "Пин",
+    approve: "Проверить"
 };

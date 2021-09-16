@@ -113,5 +113,8 @@ export default {
     ru: "Rus tili",
     language: "Dastur tili",
     day: "kun",
-	deliverTime: 'Yetkzaib berish vaqti'
+    deliverTime: "Yetkzaib berish vaqti",
+    resumeSendPin: "Tasdiqlash kodi:",
+    pin: "Pin",
+	approve: "Tekshirish"
 };

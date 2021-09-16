@@ -3,7 +3,7 @@
         <div
             class="login-page d-flex flex-column justify-content-center align-items-center"
         >
-            <div class="login-page-box d-flex flex-column ">
+            <div class="login-page-box d-flex flex-column" v-if="!codeBox">
                 <div
                     class="d-flex flex-column justify-content-center input__box form-floating"
                 >
@@ -88,6 +88,31 @@
                     >
                 </div>
             </div>
+
+            <div class="login-page-box d-flex flex-column" v-if="codeBox">
+                <div
+                    class="d-flex flex-column justify-content-center input__box form-floating"
+                >
+                    <h5>{{ $t("resumeSendPin") }}</h5>
+                </div>
+
+                <div
+                    class="d-flex flex-column justify-content-center input__box form-floating"
+                >
+                    <input
+                        type="text"
+                        class="form-control"
+                        v-model="userData.pin"
+                        name="number"
+                        id="number"
+                        :placeholder="$t('pin')"
+                    />
+                </div>
+
+                <a class="button__links" @click="checkCode">
+                    {{ $t("approve") }}
+                </a>
+            </div>
         </div>
 
         <warning-message
@@ -128,8 +153,16 @@ export default {
                 email: ""
             },
 
+            userData: {
+                phone: "",
+                password: "",
+                pin: ""
+            },
+
             messageNoData: false,
-            messageDuplicate: false
+            messageDuplicate: false,
+
+            codeBox: false
         };
     },
     methods: {
@@ -163,15 +196,49 @@ export default {
             }
         },
 
+        async checkCode() {
+            await this.$axios
+                .$post("user/checkCode", {
+                    phone: this.userData.phone,
+                    code: this.userData.pin
+                })
+                .then(res => {
+                    if (!!res.success && !!res.token) {
+                        this.loginUser();
+                        return res;
+                    } else {
+                        throw new Error("Couldn't login in!");
+                    }
+                })
+                .catch(err => console.error(err));
+        },
+
+        async sendPin() {
+            await this.$axios
+                .$post("user/getCode", {
+                    phone: this.userData.phone
+                })
+                .then(res => {
+                    if (!!res.success && !!res.message) {
+                        console.log(res);
+                        return res;
+                    } else {
+                        throw new Error("Couldn't send pin!");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        },
+
         async registerUser() {
             let phone = this.user.phone.replace(/[^0-9]/g, "");
-            this.user.phone = phone;
             const data = await this.$axios
                 .$post("/user/create", this.user)
                 .then(res => {
+                    this.loginUser();
                     if (!!res.token) {
-                        // console.log("register send", res);
-                        this.loginUser();
+                        // console.log("register send", res
                         return res;
                     } else if (!res.success && res.err.code === 11000) {
                         this.$nextTick(() => {
@@ -182,6 +249,12 @@ export default {
                             //     this.messageDuplicate
                             // );
                         });
+                        return res;
+                    } else if (res.success && !!res.phone) {
+                        this.userData.phone = res.phone;
+                        this.userData.password = this.user.password;
+                        this.codeBoxActive();
+                        this.sendPin();
                         return res;
                     } else {
                         this.$nextTick(() => {
@@ -214,7 +287,7 @@ export default {
             try {
                 let response = await this.$auth.loginWith("local", {
                     data: {
-                        phone: this.user.phone,
+                        phone: this.userData.phone,
                         password: this.user.password
                     }
                 });
@@ -223,6 +296,10 @@ export default {
             } catch (err) {
                 console.error(err);
             }
+        },
+
+        codeBoxActive() {
+            this.codeBox = !this.codeBox;
         }
     }
 };
