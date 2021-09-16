@@ -102,6 +102,20 @@
                                 v-mask="'+998 (##) ###-##-##'"
                             />
                         </div>
+                        <div class="person__home--description">
+                            <div class="to-home">
+                                <label for="tohome">
+                                    <input
+                                        id="tohome"
+                                        type="checkbox"
+                                        name=""
+                                        v-model="tohome"
+                                        @change="changeHome"
+                                    />
+                                    Uygacha yetkazib berish
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="person__checkout">
@@ -109,15 +123,11 @@
                         <div class="span__container">
                             <span
                                 >{{ $t("tovar") }} ({{
-                                    orderAll.products.length
+                                    allProduct.length
                                 }})</span
                             >
                             <span class="primary">
-                                {{
-                                    !!updatePriceFormat(orderAll.amount)
-                                        ? updatePriceFormat(orderAll.amount)
-                                        : 0
-                                }}
+                                {{ updatePriceFormat(allPriceProduct) }}
                                 {{ $t("sum") }}</span
                             >
                         </div>
@@ -125,11 +135,7 @@
                         <div class="span__container">
                             <span>{{ $t("sales") }}</span>
                             <span class="secondary"
-                                >{{
-                                    orderAll.amount.length
-                                        ? orderAll.amount.length
-                                        : 0
-                                }}
+                                >{{ updatePriceFormat(allPriceSale) }}
                                 {{ $t("sum") }}</span
                             >
                         </div>
@@ -138,9 +144,9 @@
                             <span>{{ $t("dostavka") }}</span>
                             <span class="tritary"
                                 >{{
-                                    orderAll.amount.length
-                                        ? orderAll.amount.length
-                                        : 0
+                                    updatePriceFormat(
+                                        delivery * orderProds.length
+                                    )
                                 }}
                                 {{ $t("sum") }}</span
                             >
@@ -149,7 +155,7 @@
                         <div class="span__container span__container--last ">
                             <span>{{ $t("allsum") }}:</span>
                             <span class="tertiary">
-                                {{ updatePriceFormat(orderAll.amount) }} cум
+                                {{ updatePriceFormat(allPricePay) }} cум
                             </span>
                         </div>
 
@@ -163,51 +169,77 @@
                     </div>
                 </form>
 
-                <section class="checkout__order__section">
+                <section
+                    class="checkout__order__section"
+                    v-if="orderProds.length > 0"
+                >
                     <h2 class="header">{{ $t("vzakaz") }}</h2>
+
                     <div
-                        class="checkout__order__item__box"
-                        v-for="item in orderAll.products"
-                        :key="item.size"
+                        class="order-one-shop"
+                        v-for="(item, index) in orderProds"
+                        :key="index"
                     >
-                        <div class="checkout__order__item--header">
-                            <img
-                                :src="$store.state.uploads + item.image"
-                                alt="Item image"
-                            />
-                            <div class="checkout__order__item__description">
-                                <h3>{{ item.name.uz }}</h3>
-                                <p class="p-first">
-                                    {{ item.description.uz }}
-                                </p>
-                                <p class="p-second">
-                                    <span>Размер:</span> {{ item.size }}
-                                </p>
+                        <h5>
+                            Do'kon: <b>{{ item.name }}</b>
+                        </h5>
+                        <div
+                            class="checkout__order__item__box"
+                            v-for="(product, i) in item.products"
+                            :key="i"
+                        >
+                            <div class="checkout__order__item--header">
+                                <img
+                                    :src="$store.state.uploads + product.image"
+                                    alt="Item image"
+                                />
+                                <div class="checkout__order__item__description">
+                                    <h3>{{ product.name[$i18n.locale] }}</h3>
+                                    <p class="p-first">
+                                        {{ product.description[$i18n.locale] }}
+                                    </p>
+                                    <p class="p-second">
+                                        <span>Размер:</span>
+                                        {{ product.size.size }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="checkout__order__item--secondary">
+                                <div class="checkout__order__item--number">
+                                    <span>{{ $t("kol") }}:</span>
+
+                                    <span class="number">
+                                        {{ product.count }} шт</span
+                                    >
+                                </div>
+                                <div class="checkout__order__item--price">
+                                    <span>
+                                        {{
+                                            updatePriceFormat(
+                                                product.size.price *
+                                                    product.count
+                                            )
+                                        }}
+                                        {{ $t("sum") }}
+                                    </span>
+                                </div>
+                                <div class="checkout__order__item--color">
+                                    <span>{{ $t("color") }}:</span>
+                                    <img
+                                        :src="
+                                            $store.state.uploads +
+                                                product.param.image
+                                        "
+                                        alt="Color image"
+                                    />
+                                </div>
                             </div>
                         </div>
-                        <div class="checkout__order__item--secondary">
-                            <div class="checkout__order__item--number">
-                                <span>{{ $t("kol") }}:</span>
 
-                                <span class="number"> {{ item.count }} шт</span>
-                            </div>
-                            <div class="checkout__order__item--price">
-                                <span
-                                    >{{ updatePrice(item.amount, item.count) }}
-                                    {{ $t("sum") }}
-                                </span>
-                                <span v-if="''"
-                                    >{{ updatePrice(item.amount, item.count) }}
-                                    {{ $t("sum") }}
-                                </span>
-                            </div>
-                            <div class="checkout__order__item--color">
-                                <span>{{ $t("color") }}:</span>
-                                <img
-                                    :src="$store.state.uploads + item.color"
-                                    alt="Color image"
-                                />
-                            </div>
+                        <div class="deliver-bottom" v-if="tohome">
+                            <h6>Dostavka</h6>
+
+                            <h3>{{ updatePriceFormat(delivery) }} so'm</h3>
                         </div>
                     </div>
 
@@ -215,7 +247,12 @@
                         <div class="checkout__order__price--total">
                             <span>{{ $t("allsum") }}:</span>
                             <span class="all__price"
-                                >{{ updatePriceFormat(this.orderAll.amount) }}
+                                >{{
+                                    updatePriceFormat(
+                                        allPriceProduct +
+                                            delivery * orderProds.length
+                                    )
+                                }}
                                 {{ $t("sum") }}</span
                             >
                         </div>
@@ -265,7 +302,7 @@ export default {
                 region: "",
                 district: ""
             },
-
+            tohome: false,
             selectedCityDistricts: [],
 
             order: {
@@ -282,20 +319,60 @@ export default {
             errorrMessage: false,
             isGet: false,
             noData: false,
-            base64Data: ""
+            base64Data: "",
+            orderProds: [],
+            delivery: 0
         };
     },
-    computed: mapGetters([
-        "orderAmount",
-        "orderAddress",
-        "orderProducts",
-        "allRegions",
-        "allInBasket",
-        "orderAll",
-        "orderAllProducts"
-    ]),
+    computed: {
+        ...mapGetters([
+            "orderAmount",
+            "orderAddress",
+            "orderProducts",
+            "allRegions",
+            "allInBasket",
+            "orderAll",
+            "orderAllProducts",
+            "allProduct"
+        ]),
+
+        allPriceProduct() {
+            let s = 0;
+            this.allProduct.forEach(item => {
+                s = s + item.size.price * item.count;
+            });
+
+            return s;
+        },
+
+        allPriceSale() {
+            let s = 0;
+            this.allProduct.forEach(item => {
+                if (item.size.discount) {
+                    s = s + (item.size.price - item.size.discount) * item.count;
+                }
+            });
+
+            return s;
+        },
+
+        allPricePay() {
+            return (
+                this.allPriceProduct -
+                this.allPriceSale +
+                this.delivery * this.orderProds.length
+            );
+        }
+    },
 
     methods: {
+        changeHome() {
+            if (this.tohome) {
+                this.delivery = 20000;
+            } else {
+                this.delivery = 0;
+            }
+        },
         ...mapMutations([
             "resetOrderSetts",
             "setRegions",
@@ -362,8 +439,6 @@ export default {
         // ------------------------------------- go to payment create order ----------------
         // main function
         async fetchOrder() {
-            // let windowReference = window.open();
-            // this.isGet = false;
             this.warningMessage = this.errorrMessage = false;
             const add = {
                 region: this.order.address.region._id,
@@ -372,38 +447,61 @@ export default {
                 phone: this.order.address.phone
             };
             await this.updateOrderAddress({ add });
-            console.log("order all", this.orderAll, add);
-            const amount = this.orderAll.amount;
             const address = this.orderAll.address;
-            let products = [...this.orderAllProducts];
-            const token = this.user.token;
-            console.log(token, amount, address, products);
-            console.log("window", window);
+
             if (
                 !!address.address &&
                 !!address.district &&
                 !!address.phone &&
                 !!address.region
             ) {
-                const result = await this.createOrder({
-                    token,
-                    amount,
-                    address,
-                    products
+                console.log("111", address);
+
+                let prod = [];
+
+                this.allProduct.forEach(item => {
+                    let price;
+                    if (item.size.discount) {
+                        price = item.size.discount;
+                    } else {
+                        price = item.size.price;
+                    }
+
+                    prod.push({
+                        product: item.product,
+                        param: item.param._id,
+                        size: item.size._id,
+                        count: item.count,
+                        amount: price
+                    });
                 });
-                console.log("result", result);
-                // this.isGet = true;
-                if (!!result) {
-                    this.base64Data = result.data;
-                    const link = this.redirectToPayMe();
-                    // window.open(link, "_blank");
-                    // windowReference.location = link;
-                } else {
-                    // this.isGet = true;
-                    this.errorrMessage = true;
-                }
+
+                await this.$axios
+                    .$post("order/create", {
+                        amount: this.allPricePay,
+                        address: address,
+                        toMyHouse: this.tohome,
+                        products: prod
+                    })
+                    .then(res => {
+                        console.log(res);
+                        let href = `https://checkout.paycom.uz/${btoa(
+                            `m=6113b418754e932e68fd87ad;ac.order=${
+                                res.data.orderId
+                            };a=${res.data.amount * 100}`
+                        )};c=https://tujjor.org`;
+
+                        let a = document.createElement("a");
+
+                        document.body.appendChild(a);
+
+                        a.style = "display:none";
+                        a.href = href;
+                        a.target = "_blank";
+
+                        a.click();
+                    });
             } else {
-                // this.isGet = true;
                 this.warningMessage = true;
             }
         },
@@ -434,33 +532,113 @@ export default {
     },
 
     async mounted() {
+        await this.$store.dispatch("fetchRegion");
         console.log("this orderall", this.orderAllProducts);
-        const token = this.user.token;
         const router = this.$route.params.id;
-        if (router === "order-all") {
-            const [basket, region] = await Promise.all([
-                this.fetchBasket(token),
-                this.fetchRegion(token)
-            ]);
-            console.log("basket", basket, "orderAll", this.orderAll);
+        if (router == "all") {
+            console.log("zafar", this.allProduct);
+
+            let shopList = [];
+
+            this.allProduct.forEach(item => {
+                let shopid = item.shop._id;
+
+                let find = shopList.find(i => i._id == shopid);
+
+                if (!find) {
+                    shopList.push(item.shop);
+                }
+            });
+
+            console.log("shopList", shopList);
+
+            shopList.forEach(item => {
+                let products = this.allProduct.filter(
+                    i => item._id == i.shop._id
+                );
+
+                this.orderProds.push({
+                    name: item.name,
+                    products: products
+                });
+            });
+
+            console.log("endidone", this.orderProds);
+
             this.isGet = true;
-            if (!this.orderAll.amount) this.noData = true;
         }
 
-        if (router !== "order-all") {
-            const [basket, region] = await Promise.all([
-                this.fetchBasket(token),
-                this.fetchRegion(token)
-            ]);
-            console.log("basket", basket, "orderAll", this.orderAll);
-            this.isGet = true;
-            if (!this.orderAll.amount) this.noData = true;
-        }
+        // if (router === "order-all") {
+        //     const [basket, region] = await Promise.all([
+        //         this.fetchBasket(token),
+        //         this.fetchRegion(token)
+        //     ]);
+        //     console.log("basket", basket, "orderAll", this.orderAll);
+        //     this.isGet = true;
+        //     if (!this.orderAll.amount) this.noData = true;
+        // }
+
+        // if (router !== "order-all") {
+        //     const [basket, region] = await Promise.all([
+        //         this.fetchBasket(token),
+        //         this.fetchRegion(token)
+        //     ]);
+        //     console.log("basket", basket, "orderAll", this.orderAll);
+
+        //     if (!this.orderAll.amount) this.noData = true;
+        // }
+
+        console.log("list-oreder", this.orderAll.products);
     }
 };
 </script>
 
 <style lang="scss">
+.to-home {
+    label {
+        font-size: 16px;
+        color: #333;
+        display: inline-flex;
+        cursor: pointer;
+        align-items: center;
+        input {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    }
+}
+.order-one-shop {
+    margin-top: 40px;
+    // border-top: 2px solid #ccc;
+    padding: 15px;
+    background-color: rgb(250, 250, 250);
+    border-radius: 5px;
+    h5 {
+        font-size: 16px;
+        color: #666;
+        b {
+            color: #f7931e;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+    }
+
+    div.deliver-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+        h6 {
+            font-size: 16px;
+            color: #666;
+        }
+        h3 {
+            color: #f7931e;
+            font-size: 18px;
+        }
+    }
+}
 .checkout__order__container {
     .checkout__order__heading {
         h2 {
@@ -476,6 +654,7 @@ export default {
     .checkout__box {
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
 
         .person__home {
             flex: 2;
@@ -684,10 +863,9 @@ export default {
     }
 
     .checkout__order__section {
-        padding: 30px 0;
+        padding: 40px 0px 30px 0;
 
         .header {
-            padding-left: 20px;
             font-family: Roboto;
             font-size: 32px;
             font-weight: 500;
@@ -699,14 +877,14 @@ export default {
         }
 
         .checkout__order__item__box {
-            margin: 20px 15px 0;
+            margin: 20px 0px 0;
             padding: 20px;
             background: #ffffff;
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
             &:last-child {
-                margin-bottom: 70px;
+                // margin-bottom: 70px;
                 border-bottom: 1px solid #dddddd;
             }
 

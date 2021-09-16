@@ -1,12 +1,8 @@
 export default {
     actions: {
-        async fetchRegion(ctx, { token }) {
+        async fetchRegion(ctx) {
             const regions = await this.$axios
-                .$get("region/all", {
-                    haeders: {
-                        token: token
-                    }
-                })
+                .$get("region/all")
                 .then(response => {
                     if (response.success) {
                         return response;
@@ -15,6 +11,8 @@ export default {
                     }
                 })
                 .catch(err => console.error(err));
+
+            console.log("regions", regions);
             ctx.commit("setRegions", regions.data);
             return regions;
         },
@@ -65,6 +63,9 @@ export default {
 
         updateOrderAddress(state, { add }) {
             state.order.address = add;
+        },
+        orderProduct(state, data) {
+            state.allProduct = data;
         }
     },
 
@@ -83,7 +84,8 @@ export default {
 
             orderAllProducts: ["0"],
 
-            regions: {}
+            regions: {},
+            allProduct: null
         };
     },
 
@@ -99,7 +101,9 @@ export default {
         orderProducts(state) {
             return state.order.products;
         },
-
+        allProduct(state) {
+            return state.allProduct;
+        },
         orderAllProducts(state) {
             return state.orderAllProducts;
         },

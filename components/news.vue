@@ -1,6 +1,6 @@
 <template>
-    <section v-if="news.length > 0">
-        <div class="news">
+    <section>
+        <div class="news" v-if="news != null && news.length > 0">
             <section class="container popular__container  ">
                 <div class="popular__heading">
                     {{ $t("news") }}
@@ -78,7 +78,9 @@ export default {
     },
     async mounted() {
         let n = await this.$axios.$get("/news/all");
-        this.news = n.data;
+        this.news = n;
+
+        console.log("newsss", this.news);
     }
 };
 </script>

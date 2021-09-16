@@ -799,7 +799,8 @@ export default {
             "updateOrderProduct",
             "updateOrderAllProducts",
             "setRedirect",
-            "resetRedirect"
+            "resetRedirect",
+            "orderProduct"
         ]),
 
         // ----------------------------------------------------------
@@ -1149,51 +1150,25 @@ export default {
         goToOrder() {
             if (!!this.$auth.user) {
                 const product = this.selectedProduct;
-                const products = [];
-                const products2 = [];
-                let amount = 0;
-                const obj = {
-                    productId: product._id,
-                    paramId: product.params._id,
-                    shop: product.shop._id,
-                    sizeId: product.size._id,
-                    size: product.size.size,
-                    amount: product.size.price,
-                    count: this.productCount,
-                    color: product.params.image,
+                let basket = [];
+
+                basket.push({
                     image: product.image,
-                    name: {
-                        uz: product.name.uz,
-                        ru: product.name.ru
-                    },
-                    description: {
-                        uz: product.description.uz,
-                        ru: product.description.ru
-                    },
-                    category: product.category._id,
-                    brand: product.brand._id
-                };
+                    name: product.name,
+                    count: this.productCount,
+                    param: product.params,
+                    size: product.size,
+                    shop: product.shop,
+                    description: product.description,
+                    product: product._id
+                });
 
-                const obj2 = {
-                    product: product._id,
-                    param: product.params._id,
-                    size: product.size._id,
-                    amount: product.size.price,
-                    count: this.productCount
-                };
+                console.log("alll", basket);
+                this.orderProduct(basket);
 
-                if (!!product.size.discount) {
-                    obj.amount = product.size.discount;
-                    obj2.amount = product.size.discount;
-                }
-
-                amount += obj.count * obj.amount;
-                products.push(obj);
-                products2.push(obj2);
-                this.updateOrderProduct({ products, amount });
-                this.updateOrderAllProducts({ products2 });
                 this.$router.push({
-                    path: "/order/" + product._id
+                    name: `order-id___${this.$i18n.locale}`,
+                    params: { id: "all" }
                 });
             } else {
                 const index = 1;
