@@ -532,8 +532,8 @@ export default {
     },
 
     async mounted() {
+        await this.$store.dispatch("fetchRegion");
         console.log("this orderall", this.orderAllProducts);
-        const token = this.user.token;
         const router = this.$route.params.id;
         if (router == "all") {
             console.log("zafar", this.allProduct);

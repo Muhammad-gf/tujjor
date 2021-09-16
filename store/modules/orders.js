@@ -1,12 +1,8 @@
 export default {
     actions: {
-        async fetchRegion(ctx, { token }) {
+        async fetchRegion(ctx) {
             const regions = await this.$axios
-                .$get("region/all", {
-                    haeders: {
-                        token: token
-                    }
-                })
+                .$get("region/all")
                 .then(response => {
                     if (response.success) {
                         return response;
@@ -15,6 +11,8 @@ export default {
                     }
                 })
                 .catch(err => console.error(err));
+
+            console.log("regions", regions);
             ctx.commit("setRegions", regions.data);
             return regions;
         },
