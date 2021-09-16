@@ -883,10 +883,6 @@ export default {
             this.searchActive.active = true;
         },
 
-        fetchCategory() {
-            return this.$axios.$get("http://cdn.tujjor.org/api/category/all");
-        },
-
         setWinHeight() {
             this.winInnerHeight = window.innerHeight;
         },
@@ -907,11 +903,6 @@ export default {
     async mounted() {
         const res = await this.$axios.$get("category/all");
         const token = this.$auth.strategy.token.get();
-        // const [res, count] = await Promise.all([
-        //     this.fetchCategory(),
-        //     this.fetchCountBasket(token)
-        // ]);
-        // const res = this.fetchCategory();
 
         if (!!token) {
             const count = await this.fetchCountBasket(token);
