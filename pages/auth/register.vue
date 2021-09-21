@@ -80,7 +80,7 @@
                     {{ $t("reg") }}
                 </a>
                 <div class="hot__link__box d-flex   align-items-baseline">
-                    <span>
+                    <span class="mr-1">
                         {{ $t("reg1") }}
                     </span>
                     <nuxt-link to="/auth/login" class="hot__links">
@@ -90,10 +90,10 @@
             </div>
 
             <div class="login-page-box d-flex flex-column" v-if="codeBox">
-                <div
-                    class="d-flex flex-column justify-content-center input__box form-floating"
-                >
-                    <h5>{{ $t("resumeSendPin") }}</h5>
+                <div class="d-flex flex-row input__box form-floating">
+                    <h5 class="mb-0">
+                        {{ $t("resumeSendPin") }}
+                    </h5>
                 </div>
 
                 <div
@@ -102,7 +102,7 @@
                     <input
                         type="text"
                         class="form-control"
-                        v-model="userData.pin"
+                        v-model="pin"
                         name="number"
                         id="number"
                         :placeholder="$t('pin')"
@@ -112,6 +112,15 @@
                 <a class="button__links" @click="checkCode">
                     {{ $t("approve") }}
                 </a>
+
+                <div class="hot__link__box d-flex   align-items-baseline">
+                    <span class="mr-1">
+                        {{ $t("dontRecievePin") }}
+                    </span>
+                    <a class="hot__links" @click="sendPin(false)">
+                        {{ $t("resendPin") }}
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -120,18 +129,24 @@
             :post-title="$t('err1')"
         ></warning-message>
 
-        <danger-message
-            v-if="messageDuplicate"
-            :post-title="$t('err2')"
-        ></danger-message>
+        <danger-message v-if="messageDuplicate" :post-title="$t('err2')">
+        </danger-message>
+
+        <modal-success v-if="resendPin" :post-title="$t('upr8')">
+        </modal-success>
+
+        <modal-success v-if="pinSended" :post-title="$t('upr9')">
+        </modal-success>
     </section>
 </template>
 
 <script>
+import ModalSuccess from "../../components/Modals/SuccessModal.vue";
 import WarningMessage from "../../components/Modals/WarningMessage.vue";
 import DangerMessage from "../../components/Modals/DangerMessage.vue";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
-    components: { WarningMessage, DangerMessage },
+    components: { WarningMessage, DangerMessage, ModalSuccess },
     head: {
         title: "Регистрация — Tujjor. Низкие цены и широкий ассортимент!",
         meta: [
@@ -159,15 +174,21 @@ export default {
                 pin: ""
             },
 
+            pin: "",
+
             messageNoData: false,
             messageDuplicate: false,
+            resendPin: false,
+            pinSended: false,
 
             codeBox: false
         };
     },
     methods: {
+        ...mapMutations(["updateLoggedIn"]),
+
         resetModals() {
-            this.messageNoData = this.messageDuplicate = false;
+            this.messageNoData = this.messageDuplicate = this.resendPin = this.pinSended = false;
         },
 
         async registerUserMainFunc() {
@@ -200,7 +221,7 @@ export default {
             await this.$axios
                 .$post("user/checkCode", {
                     phone: this.userData.phone,
-                    code: this.userData.pin
+                    code: this.pin
                 })
                 .then(res => {
                     if (!!res.success && !!res.token) {
@@ -213,13 +234,15 @@ export default {
                 .catch(err => console.error(err));
         },
 
-        async sendPin() {
+        async sendPin(a) {
+            this.resetModals();
             await this.$axios
                 .$post("user/getCode", {
                     phone: this.userData.phone
                 })
                 .then(res => {
                     if (!!res.success && !!res.message) {
+                        !!a ? (this.pinSended = true) : (this.resendPin = true);
                         console.log(res);
                         return res;
                     } else {
@@ -233,12 +256,12 @@ export default {
 
         async registerUser() {
             let phone = this.user.phone.replace(/[^0-9]/g, "");
+            this.userData = { ...this.user };
+            this.userData.phone = phone;
             const data = await this.$axios
-                .$post("/user/create", this.user)
+                .$post("/user/create", this.userData)
                 .then(res => {
-                    this.loginUser();
                     if (!!res.token) {
-                        // console.log("register send", res
                         return res;
                     } else if (!res.success && res.err.code === 11000) {
                         this.$nextTick(() => {
@@ -251,10 +274,8 @@ export default {
                         });
                         return res;
                     } else if (res.success && !!res.phone) {
-                        this.userData.phone = res.phone;
-                        this.userData.password = this.user.password;
                         this.codeBoxActive();
-                        this.sendPin();
+                        this.sendPin(true);
                         return res;
                     } else {
                         this.$nextTick(() => {
@@ -279,8 +300,7 @@ export default {
                     });
                     return err;
                 });
-
-            console.log("register data", data);
+            this.updateLoggedIn();
         },
 
         async loginUser() {
@@ -288,11 +308,11 @@ export default {
                 let response = await this.$auth.loginWith("local", {
                     data: {
                         phone: this.userData.phone,
-                        password: this.user.password
+                        password: this.userData.password
                     }
                 });
-                // console.log("login sets", response);
                 this.$router.push("/");
+                this.updateLoggedIn();
             } catch (err) {
                 console.error(err);
             }

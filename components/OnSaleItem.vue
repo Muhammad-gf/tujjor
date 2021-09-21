@@ -3,7 +3,7 @@
         <base-loading v-if="!isGet"></base-loading>
 
         <section class="container popular__container" v-if="isGet">
-            <div class="popular__heading">{{$t('skidka')}}</div>
+            <div class="popular__heading">{{ $t("skidka") }}</div>
             <div class="popular__item-box">
                 <nuxt-link
                     class="popular__items"
@@ -60,7 +60,7 @@
                 class="popular__btn text-center"
                 v-if="onSaleProducts.data.length >= onSaleProducts.limit"
                 @click.prevent="updateSaleLimit"
-                >{{$t('all')}}</a
+                >{{ $t("all") }}</a
             >
         </section>
     </section>
@@ -84,12 +84,11 @@ export default {
     },
     methods: {
         async updateSaleLimit() {
-            this.isGet = false;
             this.onSaleProducts.limit += 10;
             const products = await this.fetchProduct();
             this.onSaleProducts.data = products.data;
-            this.isGet = true;
         },
+
         async fetchProduct() {
             const page = this.onSaleProducts.page;
             const limit = this.onSaleProducts.limit;

@@ -115,5 +115,10 @@ export default {
     deliverTime: "Время доставки",
     resumeSendPin: "Код активации:",
     pin: "Пин",
-    approve: "Проверить"
+    approve: "Проверить",
+    dontRecievePin: "Не полуичили смс?",
+    resendPin: "Отправить заново",
+
+    upr8: "Смс отрпавлен заново!",
+    upr9: "Смс отрпавлен!"
 };

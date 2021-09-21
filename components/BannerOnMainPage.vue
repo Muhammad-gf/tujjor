@@ -1,46 +1,57 @@
 <template>
-    <section class="container banner__container">
-        <div class="banner__box">
-            <div class="banner__box--large--img">
-                <b-carousel
-                    class="b-carousel"
-                    id="carousel-1"
-                    v-model="slide"
-                    :interval="3000"
-                    indicators
-                    background="#ababab"
-                    style="text-shadow: 1px 1px 2px #333;"
-                    @sliding-start="onSlideStart"
-                    @sliding-end="onSlideEnd"
-                >
-                    <!-- Text slides with image -->
-                    <b-carousel-slide
-                        v-for="(item, index) in slider"
-                        :key="index"
-                        class="b-carousel-slide"
-                        :img-src="$store.state.uploads + item.image"
-                    ></b-carousel-slide>
+    <section>
+        <base-loading v-if="!isGet"></base-loading>
+        <section class="container banner__container" v-if="isGet">
+            <div class="banner__box">
+                <div class="banner__box--large--img">
+                    <b-carousel
+                        class="b-carousel"
+                        id="carousel-1"
+                        v-model="slide"
+                        :interval="3000"
+                        indicators
+                        background="#ababab"
+                        style="text-shadow: 1px 1px 2px #333;"
+                        @sliding-start="onSlideStart"
+                        @sliding-end="onSlideEnd"
+                    >
+                        <!-- Text slides with image -->
+                        <b-carousel-slide
+                            v-for="(item, index) in slider"
+                            :key="index"
+                            class="b-carousel-slide"
+                            :img-src="$store.state.uploads + item.image"
+                        ></b-carousel-slide>
 
-                    <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-                </b-carousel>
-            </div>
-            <!-- <div class="banner__box--large--img">
+                        <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+                    </b-carousel>
+                </div>
+                <!-- <div class="banner__box--large--img">
                 <img
                     src="../assets/img/banner/banner-large.png"
                     alt="Banner photo"
                 />
             </div> -->
-            <div class="banner__box--small--img">
-                <img src="../assets/img/other/banner.png" alt="Banner photo" />
+                <div class="banner__box--small--img">
+                    <img
+                        src="../assets/img/other/banner.png"
+                        alt="Banner photo"
+                    />
+                </div>
             </div>
-        </div>
+        </section>
     </section>
 </template>
 
 <script>
+import BaseLoading from "../components/UI/BaseLoading.vue";
+
 export default {
+    components: { BaseLoading },
+
     data() {
         return {
+            isGet: false,
             slider: [],
             slide: 0,
             sliding: null,
@@ -48,9 +59,14 @@ export default {
         };
     },
     async mounted() {
-        let slider = await this.$axios.get("/slider/all");
-        console.log("slider", slider);
+        let slider = await this.$axios.get("/slider/all").then(res => {
+            if (res.success) {
+                return res;
+            }
+            return res;
+        });
         this.slider = slider.data.data;
+        this.isGet = true;
     },
     methods: {
         onSlideStart(slide) {

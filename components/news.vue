@@ -1,48 +1,51 @@
 <template>
     <section>
-        <div class="news" v-if="news != null && news.length > 0">
-            <section class="container popular__container  ">
-                <div class="popular__heading">
-                    {{ $t("news") }}
-                </div>
-            </section>
-
-            <div class="news__box container">
-                <div
-                    v-for="(item, index) in 3"
-                    :key="index"
-                    class=" news__box--item"
-                >
-                    <img
-                        class="news__box--item--img"
-                        :src="$store.state.uploads + news[index].file"
-                        alt="News"
-                    />
-                    <div class="news__box--description">
-                        <span class="news__box--description--header">
-                            {{ news[index].title[$i18n.locale] }}
-                        </span>
-                        <div
-                            class="news__box--description--p"
-                            v-html="news[index].description[$i18n.locale]"
-                        ></div>
+        <base-loading v-if="!isGet"></base-loading>
+        <section v-if="isGet">
+            <div class="news" v-if="news != null && news.length > 0">
+                <section class="container popular__container  ">
+                    <div class="popular__heading">
+                        {{ $t("news") }}
                     </div>
-                    <div class="data__box">
-                        <nuxt-link
-                            :to="{
-                                name: 'news-id___' + $i18n.locale,
-                                params: { id: news[index].slug }
-                            }"
-                            class="data__box--btn text-center"
-                            >{{ $t("full") }}</nuxt-link
-                        >
-                        <p class="data__box--date">
-                            {{ getDate(news[index].createdAt) }}
-                        </p>
+                </section>
+
+                <div class="news__box container">
+                    <div
+                        v-for="(item, index) in 3"
+                        :key="index"
+                        class=" news__box--item"
+                    >
+                        <img
+                            class="news__box--item--img"
+                            :src="$store.state.uploads + news[index].file"
+                            alt="News"
+                        />
+                        <div class="news__box--description">
+                            <span class="news__box--description--header">
+                                {{ news[index].title[$i18n.locale] }}
+                            </span>
+                            <div
+                                class="news__box--description--p"
+                                v-html="news[index].description[$i18n.locale]"
+                            ></div>
+                        </div>
+                        <div class="data__box">
+                            <nuxt-link
+                                :to="{
+                                    name: 'news-id___' + $i18n.locale,
+                                    params: { id: news[index].slug }
+                                }"
+                                class="data__box--btn text-center"
+                                >{{ $t("full") }}</nuxt-link
+                            >
+                            <p class="data__box--date">
+                                {{ getDate(news[index].createdAt) }}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </section>
 </template>
 
@@ -52,7 +55,8 @@ export default {
     components: { BaseLoading },
     data() {
         return {
-            news: []
+            news: [],
+            isGet: false
         };
     },
 
@@ -80,7 +84,7 @@ export default {
         let n = await this.$axios.$get("/news/all");
         this.news = n;
 
-        console.log("newsss", this.news);
+        this.isGet = true;
     }
 };
 </script>

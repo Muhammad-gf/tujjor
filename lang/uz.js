@@ -116,5 +116,9 @@ export default {
     deliverTime: "Yetkzaib berish vaqti",
     resumeSendPin: "Tasdiqlash kodi:",
     pin: "Pin",
-	approve: "Tekshirish"
+    approve: "Tasdiqlash",
+    dontRecievePin: "Sms xabar kelmadimi?",
+    resendPin: "Qayta yuborish",
+    upr8: "Sms xabar qayta yuborildi!",
+    upr9: "Sms xabar yuborildi!"
 };

@@ -1,37 +1,41 @@
 <template>
-    <section class="magazines__main__page">
-        <section class="container popular__container">
-            <div class="popular__heading">{{ $t("magazine") }}</div>
-        </section>
-        <div class="magazines__box container">
-            <nuxt-link
-                class="magazine__item__box"
-                v-for="magazine in magazines"
-                :key="magazine.slug"
-                :to="{
-                    name: `magazine-id___${$i18n.locale}`,
-                    params: { id: magazine.slug }
-                }"
-            >
-                <div class="magazine__item--logo__box">
-                    <div class="magazine__item--logo">
-                        <span v-text="magazine.shopName"></span>
-                    </div>
-                    <!-- <div class="magazine__item--rating">
+    <section>
+        <base-loading v-if="!isGet"></base-loading>
+        <section class="magazines__main__page" v-if="isGet">
+            <section class="container popular__container">
+                <div class="popular__heading">{{ $t("magazine") }}</div>
+            </section>
+            <div class="magazines__box container">
+                <nuxt-link
+                    class="magazine__item__box"
+                    v-for="magazine in magazines"
+                    :key="magazine.slug"
+                    :to="{
+                        name: `magazine-id___${$i18n.locale}`,
+                        params: { id: magazine.slug }
+                    }"
+                >
+                    <div class="magazine__item--logo__box">
+                        <div class="magazine__item--logo">
+                            <span v-text="magazine.shopName"></span>
+                        </div>
+                        <!-- <div class="magazine__item--rating">
                         <img
                             src="../assets/img/magazines/star.png"
                             alt="Star img"
                         /><span>4</span>
                     </div> -->
-                </div>
-                <div class="magazine__item--description">
-                    <span v-text="magazine.description[$i18n.locale]"></span>
-                </div>
-                <div class="magazine__item__img__box">
-                    <div class="magazine__item__img--first">
-                        <img :src="magazine.image" alt="Item img" />
                     </div>
-                    <!-- <div class="magazine__item__img--second">
+                    <div class="magazine__item--description">
+                        <span
+                            v-text="magazine.description[$i18n.locale]"
+                        ></span>
+                    </div>
+                    <div class="magazine__item__img__box">
+                        <div class="magazine__item__img--first">
+                            <img :src="magazine.image" alt="Item img" />
+                        </div>
+                        <!-- <div class="magazine__item__img--second">
                         <div class="magazine__item__img--second--first">
                             <img
                                 src="../assets/img/magazines/img-second.png"
@@ -46,28 +50,34 @@
                             />
                         </div>
                     </div> -->
-                </div>
-            </nuxt-link>
-        </div>
-        <section
-            class="container popular__container"
-            id="btn__box"
-            v-if="limit > magazines.length"
-        >
-            <a
-                href="#"
-                class="popular__btn text-center"
-                @click.prevent="updateMagazineLimit"
-                >{{ $t("all") }}</a
+                    </div>
+                </nuxt-link>
+            </div>
+            <section
+                class="container popular__container"
+                id="btn__box"
+                v-if="limit > magazines.length"
             >
+                <a
+                    href="#"
+                    class="popular__btn text-center"
+                    @click.prevent="updateMagazineLimit"
+                    >{{ $t("all") }}</a
+                >
+            </section>
         </section>
     </section>
 </template>
 
 <script>
+import BaseLoading from "./UI/BaseLoading.vue";
+
 export default {
+    components: { BaseLoading },
+
     data() {
         return {
+            isGet: false,
             magazineCount: 0,
             increaseBy: 0,
             magazines: [],
@@ -120,6 +130,7 @@ export default {
         this.magazines = data.data[0].data;
         this.limit = data.data[0].count;
         console.log("magazine", this.magazines);
+        this.isGet = true;
     }
 };
 </script>

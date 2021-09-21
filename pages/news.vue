@@ -1,184 +1,198 @@
 <template>
-    <div>
+    <section>
         <base-loading v-if="!isGet"></base-loading>
-        <div v-else class="container">
-            <div class="title-box">
-                <ul>
-                    <li>
-                        <nuxt-link :to="{name: 'index___'+$i18n.locale}">{{$t('home')}} </nuxt-link>
-                        /
-                    </li>
+        <section v-if="isGet">
+            <div class="container">
+                <div class="title-box">
+                    <ul>
+                        <li>
+                            <nuxt-link :to="{ name: 'index___' + $i18n.locale }"
+                                >{{ $t("home") }}
+                            </nuxt-link>
+                            /
+                        </li>
 
-                    <li>
-                        <p>{{$t('news')}} </p>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="news">
-            <section
-                class="container popular__container news__section__heading "
-            >
-                <div class="popular__heading">
-                    {{$t('news')}}
+                        <li>
+                            <p>{{ $t("news") }}</p>
+                        </li>
+                    </ul>
                 </div>
-            </section>
+            </div>
 
-            <div class="news__box container">
-                <div
-                    class=" news__box--item"
-                    v-for="(newsItem, index) in newsImage"
-                    :key="index"
+            <div class="news">
+                <section
+                    class="container popular__container news__section__heading "
                 >
-                    <img
-                        class="news__box--item--img"
-                        :src="'http://cdn.tujjor.org' + newsItem.file"
-                        alt="News"
-                    />
-                    <div class="news__box--description">
-                        <span class="news__box--description--header">
-                            {{ newsItem.title[$i18n.locale] }}
-                        </span>
-                        <div
-                            class="news__box--description--p"
-                            v-html="newsItem.description[$i18n.locale]"
-                        ></div>
+                    <div class="popular__heading">
+                        {{ $t("news") }}
                     </div>
-                    <div class="data__box">
-                        <nuxt-link
-                            :to="{
-                                name: 'news-id___' + $i18n.locale,
-                                params: { id: newsItem.slug }
-                            }"
-                            class="data__box--btn text-center"
-                        >
-                            {{$t('full')}}
-                        </nuxt-link>
+                </section>
 
-                        <p class="data__box--date">
-                            {{ getDate(newsItem.createdAt) }}
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <section
-            class="news__video__section"
-            v-if="newsVideo && newsVideo.length > 0"
-        >
-            <section class="container popular__container">
-                <div class="popular__heading">
-                    {{$t('vnews')}}
-                </div>
-            </section>
-
-            <section class="video__box__container container">
-                <div class="video__box--first">
-                    <div class="video__box--item">
-                        <div class="video__img__container">
-                            <video
-                                :src="
-                                    'http://cdn.tujjor.org' + newsVideo[0].file
-                                "
-                                controls="controls"
-                            ></video>
+                <div class="news__box container">
+                    <div
+                        class=" news__box--item"
+                        v-for="(newsItem, index) in newsImage"
+                        :key="index"
+                    >
+                        <img
+                            class="news__box--item--img"
+                            :src="'http://cdn.tujjor.org' + newsItem.file"
+                            alt="News"
+                        />
+                        <div class="news__box--description">
+                            <span class="news__box--description--header">
+                                {{ newsItem.title[$i18n.locale] }}
+                            </span>
+                            <div
+                                class="news__box--description--p"
+                                v-html="newsItem.description[$i18n.locale]"
+                            ></div>
                         </div>
-                        <div class="video__about__box">
-                            <div class="video__about--description">
-                                <span class="video__about--description--header">
-                                    {{ newsVideo[0].title[$i18n.locale] }}
-                                </span>
-                                <div class="video__about--description--p">
-                                    {{ newsVideo[0].description[$i18n.locale] }}
-                                </div>
-                                <div class="video__about--data__box">
-                                    <a
-                                        href="#"
-                                        class="video__about--data__box--btn text-center"
-                                        >{{$t('full')}}</a
+                        <div class="data__box">
+                            <nuxt-link
+                                :to="{
+                                    name: 'news-id___' + $i18n.locale,
+                                    params: { id: newsItem.slug }
+                                }"
+                                class="data__box--btn text-center"
+                            >
+                                {{ $t("full") }}
+                            </nuxt-link>
+
+                            <p class="data__box--date">
+                                {{ getDate(newsItem.createdAt) }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section
+                class="news__video__section"
+                v-if="newsVideo && newsVideo.length > 0"
+            >
+                <section class="container popular__container">
+                    <div class="popular__heading">
+                        {{ $t("vnews") }}
+                    </div>
+                </section>
+
+                <section class="video__box__container container">
+                    <div class="video__box--first">
+                        <div class="video__box--item">
+                            <div class="video__img__container">
+                                <video
+                                    :src="
+                                        'http://cdn.tujjor.org' +
+                                            newsVideo[0].file
+                                    "
+                                    controls="controls"
+                                ></video>
+                            </div>
+                            <div class="video__about__box">
+                                <div class="video__about--description">
+                                    <span
+                                        class="video__about--description--header"
                                     >
-                                    <p class="video__about--data__box--date">
-                                        {{ getDate(newsVideo[0].createdAt) }}
-                                    </p>
+                                        {{ newsVideo[0].title[$i18n.locale] }}
+                                    </span>
+                                    <div class="video__about--description--p">
+                                        {{
+                                            newsVideo[0].description[
+                                                $i18n.locale
+                                            ]
+                                        }}
+                                    </div>
+                                    <div class="video__about--data__box">
+                                        <a
+                                            href="#"
+                                            class="video__about--data__box--btn text-center"
+                                            >{{ $t("full") }}</a
+                                        >
+                                        <p
+                                            class="video__about--data__box--date"
+                                        >
+                                            {{
+                                                getDate(newsVideo[0].createdAt)
+                                            }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-<!--                <div class="video__box&#45;&#45;second">-->
-<!--                    <div class="video__box&#45;&#45;item">-->
-<!--                        <img-->
-<!--                            class="video__box&#45;&#45;item&#45;&#45;img"-->
-<!--                            src="../assets/img/magazine description/bg.png"-->
-<!--                            alt="News"-->
-<!--                        />-->
-<!--                        <div class="video__about__box">-->
-<!--                            <div class="video__about&#45;&#45;description">-->
-<!--                                <span class="video__about&#45;&#45;description&#45;&#45;header"-->
-<!--                                    >В топ-10 российских онлайн-магазинов-->
-<!--                                    впервые вошла интернет-аптека-->
-<!--                                </span>-->
-<!--                                <div class="video__about&#45;&#45;description&#45;&#45;p">-->
-<!--                                    OВ десятку крупнейших интернет-магазинов-->
-<!--                                    России по версии аналитического агентства-->
-<!--                                    Data Insight впервые вошла онлайн-аптека –-->
-<!--                                    apteka.ru. По итогам 2019 г. она поднялась с-->
-<!--                                    13-го на 7-е место.-->
-<!--                                </div>-->
-<!--                                <div class="video__about&#45;&#45;data__box">-->
-<!--                                    <a-->
-<!--                                        href="#"-->
-<!--                                        class="video__about&#45;&#45;data__box&#45;&#45;btn text-center"-->
-<!--                                        >Подробно</a-->
-<!--                                    >-->
-<!--                                    <p class="video__about&#45;&#45;data__box&#45;&#45;date">-->
-<!--                                        24.04.2021-->
-<!--                                    </p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <!--                <div class="video__box&#45;&#45;second">-->
+                    <!--                    <div class="video__box&#45;&#45;item">-->
+                    <!--                        <img-->
+                    <!--                            class="video__box&#45;&#45;item&#45;&#45;img"-->
+                    <!--                            src="../assets/img/magazine description/bg.png"-->
+                    <!--                            alt="News"-->
+                    <!--                        />-->
+                    <!--                        <div class="video__about__box">-->
+                    <!--                            <div class="video__about&#45;&#45;description">-->
+                    <!--                                <span class="video__about&#45;&#45;description&#45;&#45;header"-->
+                    <!--                                    >В топ-10 российских онлайн-магазинов-->
+                    <!--                                    впервые вошла интернет-аптека-->
+                    <!--                                </span>-->
+                    <!--                                <div class="video__about&#45;&#45;description&#45;&#45;p">-->
+                    <!--                                    OВ десятку крупнейших интернет-магазинов-->
+                    <!--                                    России по версии аналитического агентства-->
+                    <!--                                    Data Insight впервые вошла онлайн-аптека –-->
+                    <!--                                    apteka.ru. По итогам 2019 г. она поднялась с-->
+                    <!--                                    13-го на 7-е место.-->
+                    <!--                                </div>-->
+                    <!--                                <div class="video__about&#45;&#45;data__box">-->
+                    <!--                                    <a-->
+                    <!--                                        href="#"-->
+                    <!--                                        class="video__about&#45;&#45;data__box&#45;&#45;btn text-center"-->
+                    <!--                                        >Подробно</a-->
+                    <!--                                    >-->
+                    <!--                                    <p class="video__about&#45;&#45;data__box&#45;&#45;date">-->
+                    <!--                                        24.04.2021-->
+                    <!--                                    </p>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
 
-<!--                    <div class="video__box&#45;&#45;item">-->
-<!--                        <img-->
-<!--                            class="video__box&#45;&#45;item&#45;&#45;img"-->
-<!--                              src="../assets/img/magazine description/bg.png"-->
-<!--                            alt="News"-->
-<!--                        />-->
-<!--                        <div class="video__about__box">-->
-<!--                            <div class="video__about&#45;&#45;description">-->
-<!--                                <span class="video__about&#45;&#45;description&#45;&#45;header"-->
-<!--                                    >Глава китайского Alibaba обсудил с Трампом-->
-<!--                                    создание рабочих мест в США-->
-<!--                                </span>-->
-<!--                                <div class="video__about&#45;&#45;description&#45;&#45;p">-->
-<!--                                    Глава китайской компании Alibaba обсудил с-->
-<!--                                    Дональдом Трампом создание миллиона новых-->
-<!--                                    рабочих мест, ранее китайский интернет-рынок-->
-<!--                                    TaoBao был внесен в черный список за-->
-<!--                                    поддельные товары на своем сайте-->
-<!--                                </div>-->
-<!--                                <div class="video__about&#45;&#45;data__box">-->
-<!--                                    <a-->
-<!--                                        href="#"-->
-<!--                                        class="video__about&#45;&#45;data__box&#45;&#45;btn"-->
-<!--                                        >Подробно</a-->
-<!--                                    >-->
-<!--                                    <p class="video__about&#45;&#45;data__box&#45;&#45;date">-->
-<!--                                        24.04.2021-->
-<!--                                    </p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                    <!--                    <div class="video__box&#45;&#45;item">-->
+                    <!--                        <img-->
+                    <!--                            class="video__box&#45;&#45;item&#45;&#45;img"-->
+                    <!--                              src="../assets/img/magazine description/bg.png"-->
+                    <!--                            alt="News"-->
+                    <!--                        />-->
+                    <!--                        <div class="video__about__box">-->
+                    <!--                            <div class="video__about&#45;&#45;description">-->
+                    <!--                                <span class="video__about&#45;&#45;description&#45;&#45;header"-->
+                    <!--                                    >Глава китайского Alibaba обсудил с Трампом-->
+                    <!--                                    создание рабочих мест в США-->
+                    <!--                                </span>-->
+                    <!--                                <div class="video__about&#45;&#45;description&#45;&#45;p">-->
+                    <!--                                    Глава китайской компании Alibaba обсудил с-->
+                    <!--                                    Дональдом Трампом создание миллиона новых-->
+                    <!--                                    рабочих мест, ранее китайский интернет-рынок-->
+                    <!--                                    TaoBao был внесен в черный список за-->
+                    <!--                                    поддельные товары на своем сайте-->
+                    <!--                                </div>-->
+                    <!--                                <div class="video__about&#45;&#45;data__box">-->
+                    <!--                                    <a-->
+                    <!--                                        href="#"-->
+                    <!--                                        class="video__about&#45;&#45;data__box&#45;&#45;btn"-->
+                    <!--                                        >Подробно</a-->
+                    <!--                                    >-->
+                    <!--                                    <p class="video__about&#45;&#45;data__box&#45;&#45;date">-->
+                    <!--                                        24.04.2021-->
+                    <!--                                    </p>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                </div>-->
+                </section>
             </section>
         </section>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -226,7 +240,6 @@ export default {
             .$get("http://cdn.tujjor.org/api/news/all")
             .then(response => {
                 if (response.success) {
-                    this.isGet = true;
                     return response;
                 } else {
                     throw new Error("Could not save data!");
@@ -237,7 +250,6 @@ export default {
                 console.log(error);
                 this.error = error.message;
             });
-        this.a;
         this.newsArray = ip.data;
         for (let i = 0; i < this.newsArray.length; i++) {
             if (this.newsArray[i].type === "video") {
@@ -247,6 +259,7 @@ export default {
                 this.newsImage.push(this.newsArray[i]);
             }
         }
+        this.isGet = true;
     }
 };
 </script>

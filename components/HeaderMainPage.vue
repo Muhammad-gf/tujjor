@@ -300,7 +300,7 @@
                                 </a>
                             </div>
 
-                            <div class="person__logOut" v-else>
+                            <div class="person__logOut" v-if="!loggedIn">
                                 <nuxt-link
                                     :to="{
                                         name: `auth-register___${$i18n.locale}`
@@ -689,7 +689,6 @@ export default {
             categoryArray: [],
             activeLanguage: false,
             isVisibleDropdownList: false,
-            loggedIn: null,
             isVisiblePerson: false,
             personName: "",
             childCategory: [],
@@ -722,7 +721,9 @@ export default {
             "setSearchMainCategory",
             "setSearchChildCategory",
             "resetSearchSettings",
-            "resetSearchCategory"
+            "resetSearchCategory",
+            "updateCountBasket",
+            "updateLoggedIn"
         ]),
 
         doVisibleCategory() {
@@ -751,8 +752,8 @@ export default {
 
         async logOut() {
             await this.$auth.logout();
-            this.loggedIn = this.$auth.loggedIn;
-
+            this.updateLoggedIn();
+            this.updateCountBasket(0);
             this.personName = this.$auth.user?.name;
         },
 
@@ -855,24 +856,6 @@ export default {
             }
         },
 
-        // // window navigate to position back
-        // navigateBack(event) {
-        //     const route = this.$route.path;
-        //     const routeIs = this.positionData.get(route);
-        //     const postionY = window.scrollY;
-        //     console.log("postion", route, routeIs, postionY);
-        //     if (!routeIs) {
-        //         this.positionData.set(route, postionY);
-        //     }
-        //     if (!!routeIs) {
-        //         window.scrollTo({
-        //             top: routeIs,
-        //             left: 0,
-        //             behavior: "smooth"
-        //         });
-        //     }
-        // },
-
         // window key pressed
         focusOutedFromSearch() {
             this.searchActive.active = false;
@@ -897,20 +880,19 @@ export default {
     },
 
     computed: {
-        ...mapGetters(["searchBody", "countBasket"])
+        ...mapGetters(["searchBody", "countBasket", "loggedIn"])
     },
 
     async mounted() {
         const res = await this.$axios.$get("category/all");
         const token = this.$auth.strategy.token.get();
-
+        this.updateLoggedIn();
         if (!!token) {
             const count = await this.fetchCountBasket(token);
             this.basketCount = count.count;
         }
 
         this.categoryArray = res.data;
-        this.loggedIn = this.$auth.loggedIn;
         this.personName = this.$auth.user?.name;
 
         this.setWinHeight();

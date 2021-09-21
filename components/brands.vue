@@ -1,20 +1,26 @@
 <template>
     <section>
-        <div class="brands">
-            <section class="container popular__container  ">
-                <div class="popular__heading">
-                    {{$t('brands')}}
-                </div>
-            </section>
-            <!-- <div class="brands__box"> -->
+        <base-loading v-if="!isGet"></base-loading>
+        <section v-if="isGet">
+            <div class="brands">
+                <section class="container popular__container  ">
+                    <div class="popular__heading">
+                        {{ $t("brands") }}
+                    </div>
+                </section>
+                <!-- <div class="brands__box"> -->
 
-            <slick v-if="brand.length > 0" :options="slickOptions">
-                <div class="img__box" v-for="item in brand" :key="item._id">
-                    <img :src="$store.state.uploads + item.image" alt="Brand" />
-                </div>
-            </slick>
-            <!-- </div> -->
-        </div>
+                <slick v-if="brand.length > 0" :options="slickOptions">
+                    <div class="img__box" v-for="item in brand" :key="item._id">
+                        <img
+                            :src="$store.state.uploads + item.image"
+                            alt="Brand"
+                        />
+                    </div>
+                </slick>
+                <!-- </div> -->
+            </div>
+        </section>
     </section>
 </template>
 
@@ -24,7 +30,11 @@
 // // optional style for arrows & dots
 // import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 
+import BaseLoading from "./UI/BaseLoading.vue";
+
 export default {
+    components: { BaseLoading },
+
     data() {
         return {
             brand: [],
@@ -42,7 +52,8 @@ export default {
                         }
                     }
                 ]
-            }
+            },
+            isGet: false
         };
     },
 
@@ -53,8 +64,7 @@ export default {
         let b = await this.$axios.get("/brand/all");
 
         this.brand = b.data.data;
-
-        // this.slickOptions.slidesToShow = this.brand.length;
+        this.isGet = true;
     }
 };
 </script>

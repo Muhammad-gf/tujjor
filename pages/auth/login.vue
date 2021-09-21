@@ -100,9 +100,11 @@ export default {
         };
     },
     methods: {
+        ...mapActions(["fetchCountBasket"]),
+        ...mapMutations(["updateLoggedIn"]),
+
         async loginUser() {
             this.messageNoData = this.messageDuplicate = false;
-
             let phone = this.user.phone.replace(/[^0-9]/g, "");
             // console.log(!!phone, !!this.user.password, "message");
             if (!!phone && !!this.user.password) {
@@ -114,13 +116,17 @@ export default {
                         }
                     })
                     .then(res => {
+                        console.log("Next tick", res.token);
+                        this.fetchCountBasket();
                         const link = this.redirectArray[1];
                         if (link.length > 0) {
                             this.$router.push({
                                 path: link
                             });
                         } else {
-                            this.$router.push({name: 'index___' + this.$i18n.locale});
+                            this.$router.push({
+                                name: "index___" + this.$i18n.locale
+                            });
                         }
                         return res;
                     })
@@ -141,12 +147,11 @@ export default {
                     this.messageNoData = true;
                 });
             }
+
+            this.updateLoggedIn();
         }
     },
-    mounted() {
-        console.log("router", this.$router, this.$route);
-        console.log("redirect array", this.redirectArray[1]);
-    }
+    mounted() {}
 };
 </script>
 

@@ -21,13 +21,9 @@ export default {
             return res;
         },
 
-        async fetchCountBasket(ctx, token) {
+        async fetchCountBasket(ctx) {
             const res = await this.$axios
-                .$get("/basket/count", {
-                    headers: {
-                        token: token
-                    }
-                })
+                .$get("/basket/count")
                 .then(response => {
                     if (response.success) {
                         return response;
