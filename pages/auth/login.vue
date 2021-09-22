@@ -7,13 +7,13 @@
                 <div
                     class="d-flex flex-column justify-content-center input__box form-floating"
                 >
-                    <label for="floatingInput">{{ $t("tel") }}</label>
+                    <label for="email">{{ $t("tel") }}</label>
                     <input
                         type="text"
                         class="form-control"
                         v-model="user.phone"
-                        name="number"
-                        id="number"
+                        name="email"
+                        id="email"
                         :placeholder="$t('tel')"
                         v-mask="'+998 (##) ###-##-##'"
                     />
@@ -22,7 +22,7 @@
                 <div
                     class="d-flex flex-column justify-content-center input__box form-floating"
                 >
-                    <label for="floatingInput">{{ $t("password") }}</label>
+                    <label for="password">{{ $t("password") }}</label>
                     <input
                         type="password"
                         class="form-control"
