@@ -537,18 +537,15 @@ export default {
         }
     },
 
-    async mounted(token = this.user.token) {
-        const res = await this.fetchBasket(token);
-        console.log("basket", res);
+    async mounted() {
+        const res = await this.fetchBasket();
 
-        if (res.success) {
+        if (res[0].success) {
             this.isGet = true;
         }
-        if (res.data.length === 0) {
+        if (res[0].data.length === 0) {
             this.noData = true;
         }
-
-        console.log("all in basket", this.allInBasket);
     }
 };
 </script>

@@ -1,12 +1,8 @@
 export default {
     actions: {
-        async fetchBasket(ctx, token) {
+        async fetchBasket(ctx) {
             const res = await this.$axios
-                .$get("/basket/all", {
-                    headers: {
-                        token: token
-                    }
-                })
+                .$get("/basket/all")
                 .then(response => {
                     if (response.success) {
                         return response;
