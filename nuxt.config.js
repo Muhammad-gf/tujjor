@@ -1,5 +1,6 @@
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
+    ssr: false,
     head: {
         title:
             "Интернет-платформа  Tujjor —  низкие цены и широкий ассортимент! | Tujjor",
@@ -81,14 +82,22 @@ export default {
         { src: "@/plugins/vue-slider-component.js", ssr: false },
         { src: "@/plugins/vue-star-rating.js", mode: "client", ssr: false },
         { src: "@plugins/v-mask.js" },
-        { src: "@plugins/persistedState.js", ssr: false }
+        { src: "@plugins/persistedState.js", ssr: false },
+        { src: "@plugins/vuelidate.js", ssr: false }
     ],
+    fontawesome: {
+        component: "fa",
+        icons: {
+            solid: true,
+            brands: true
+        }
+    },
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-    buildModules: [],
+    buildModules: ["@nuxtjs/fontawesome"],
 
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [

@@ -156,7 +156,7 @@
                         @keypress="searchByTxt"
                     >
                         <input
-                            type="search"
+                            type="text"
                             :placeholder="$t('search')"
                             v-model="searchTxt"
                             id="search-id"
@@ -906,6 +906,10 @@ export default {
             searchInput.addEventListener("focusin", this.focusInToSearch);
             searchInput.addEventListener("focusout", this.focusOutedFromSearch);
         }
+
+        const some_id = document.getElementById("search-id");
+        some_id.type = "text";
+        some_id.removeAttribute("autocomplete");
     },
 
     beforeDestroy() {

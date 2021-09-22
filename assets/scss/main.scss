@@ -18,7 +18,15 @@ $gc: f7931e;
         transform: translateX(360deg);
     }
 }
-
+h6.error-text {
+    font-size: 12px;
+    color: red;
+    margin-bottom: 0px;
+}
+h1.title-form {
+    font-size: 24px;
+    text-align: center;
+}
 //////////////////////////////////
 // MIXINS
 @mixin main__heading {

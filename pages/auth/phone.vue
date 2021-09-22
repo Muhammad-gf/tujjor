@@ -4,6 +4,7 @@
             class="login-page d-flex flex-column justify-content-center align-items-center"
         >
             <div class="login-page-box d-flex flex-column ">
+                <h1 class="title-form">{{ $t("vostparol") }}</h1>
                 <div
                     class="d-flex flex-column justify-content-center input__box form-floating"
                 >
@@ -16,36 +17,34 @@
                         id="number"
                         :placeholder="$t('tel')"
                         v-mask="'+998 (##) ###-##-##'"
+                        @change="setPhone($event.target.value)"
                     />
+                    <h6
+                        class="error-text"
+                        v-if="!$v.user.phone.required && check"
+                    >
+                        {{ $t("tolshart") }}
+                    </h6>
+
+                    <h6
+                        class="error-text"
+                        v-if="!$v.user.phone.minLength && check"
+                    >
+                        {{ $t("toldir") }}
+                    </h6>
+
+                    <h6 v-if="notUser" class="error-text">
+                        {{ $t("notuser") }}
+                    </h6>
                 </div>
 
-                <div
-                    class="d-flex flex-column justify-content-center input__box form-floating"
-                >
-                    <label for="floatingInput">{{ $t("password") }}</label>
-                    <input
-                        type="password"
-                        class="form-control"
-                        v-model="user.password"
-                        name="password"
-                        id="password"
-                        :placeholder="$t('password')"
-                    />
-                </div>
-
-                <a class="button__links" @click="loginUser">
-                    {{ $t("log_in") }}
+                <a class="button__links" @click="sendNumber">
+                    {{ $t("polkod") }}
                 </a>
 
                 <div
                     class="hot__link__box d-flex  justify-content-between align-items-baseline"
                 >
-                    <nuxt-link
-                        :to="{ name: `auth-phone___${$i18n.locale}` }"
-                        class="hot__links remember__password"
-                    >
-                        {{ $t("zabilparol") }}
-                    </nuxt-link>
                     <nuxt-link
                         :to="{ name: 'auth-register___' + $i18n.locale }"
                         class="hot__links"
@@ -58,21 +57,13 @@
             </nuxt-link> -->
             </div>
         </div>
-        <warning-message
-            v-if="messageNoData"
-            :post-title="$t('err1')"
-        ></warning-message>
-        <danger-message
-            v-if="messageDuplicate"
-            :post-title="$t('err3')"
-        ></danger-message>
     </section>
 </template>
 
 <script>
 import WarningMessage from "../../components/Modals/WarningMessage.vue";
 import DangerMessage from "../../components/Modals/DangerMessage.vue";
-import { mapGetters, mapActions, mapMutations } from "vuex";
+import { required, minLength, between } from "vuelidate/lib/validators";
 export default {
     components: { WarningMessage, DangerMessage },
 
@@ -87,71 +78,50 @@ export default {
         ]
     },
 
-    middleware: "auth",
-
-    computed: mapGetters(["redirectArray"]),
-
     data() {
         return {
+            notUser: false,
+            check: false,
             user: {
-                phone: "+998",
-                password: ""
-            },
-
-            messageNoData: false,
-            messageDuplicate: false
+                phone: "+998"
+            }
         };
     },
+    validations: {
+        user: {
+            phone: {
+                required,
+                minLength: minLength(19)
+            }
+        }
+    },
     methods: {
-        ...mapActions(["fetchCountBasket"]),
-        ...mapMutations(["updateLoggedIn"]),
+        setPhone(value) {
+            this.user.phone = value;
+            this.$v.user.phone.$touch();
+        },
+        async sendNumber() {
+            this.$v.user.$touch();
+            this.check = true;
+            if (!this.$v.user.$invalid) {
+                let phone = this.user.phone.replace(/[^0-9]/g, "");
 
-        async loginUser() {
-            this.messageNoData = this.messageDuplicate = false;
-            let phone = this.user.phone.replace(/[^0-9]/g, "");
-            // console.log(!!phone, !!this.user.password, "message");
-            if (!!phone && !!this.user.password) {
-                await this.$auth
-                    .loginWith("local", {
-                        data: {
-                            phone: phone,
-                            password: this.user.password
-                        }
+                this.$axios
+                    .$post("/user/getCode", {
+                        phone: phone
                     })
                     .then(res => {
-                        console.log("Next tick", res.token);
-                        this.fetchCountBasket();
-                        const link = this.redirectArray[1];
-                        if (link.length > 0) {
+                        if (res.success) {
                             this.$router.push({
-                                path: link
-                            });
-                        } else {
-                            this.$router.push({
-                                name: "index___" + this.$i18n.locale
+                                name: `auth-code___${this.$i18n.locale}`,
+                                query: { phone: phone }
                             });
                         }
-                        return res;
                     })
                     .catch(err => {
-                        this.$nextTick(() => {
-                            this.messageDuplicate = true;
-                            // console.log(
-                            //     "message start",
-                            //     this.messageNoData,
-                            //     this.messageDuplicate
-                            // );
-                        });
-                        return err;
+                        this.notUser = true;
                     });
-                // console.log("login sets", response);
-            } else {
-                this.$nextTick(() => {
-                    this.messageNoData = true;
-                });
             }
-
-            this.updateLoggedIn();
         }
     },
     mounted() {}

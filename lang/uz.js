@@ -120,5 +120,17 @@ export default {
     dontRecievePin: "Sms xabar kelmadimi?",
     resendPin: "Qayta yuborish",
     upr8: "Sms xabar qayta yuborildi!",
-    upr9: "Sms xabar yuborildi!"
+    upr9: "Sms xabar yuborildi!",
+
+    zabilparol: "Parolni unutdingizmi?",
+    polkod: "Kodni olish",
+    tolshart: "To'liq to'ldiring",
+    toldir: "To'ldiring",
+    vostparol: "Parolni tiklash",
+    notuser: "Foydalanuvchi topilmadi",
+    kood: "Tasdiqlash kodi",
+    podkod: "Kodni tasdiqlash",
+    invalidcode: "Kod noto'g'ri",
+    newparol: "Yangi parol",
+    enternew: "Yangi parolni kiriting"
 };

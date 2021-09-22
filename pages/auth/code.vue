@@ -4,75 +4,44 @@
             class="login-page d-flex flex-column justify-content-center align-items-center"
         >
             <div class="login-page-box d-flex flex-column ">
+                <h1 class="title-form">{{ $t("vostparol") }}</h1>
                 <div
                     class="d-flex flex-column justify-content-center input__box form-floating"
                 >
-                    <label for="floatingInput">{{ $t("tel") }}</label>
+                    <label for="floatingInput">{{ $t("kood") }}</label>
                     <input
                         type="text"
                         class="form-control"
-                        v-model="user.phone"
+                        v-model="user.code"
                         name="number"
                         id="number"
-                        :placeholder="$t('tel')"
-                        v-mask="'+998 (##) ###-##-##'"
+                        placeholder="-----"
                     />
+
+                    <h6 v-if="isError" class="error-text">
+                        {{ $t("invalidcode") }}
+                    </h6>
                 </div>
 
-                <div
-                    class="d-flex flex-column justify-content-center input__box form-floating"
-                >
-                    <label for="floatingInput">{{ $t("password") }}</label>
-                    <input
-                        type="password"
-                        class="form-control"
-                        v-model="user.password"
-                        name="password"
-                        id="password"
-                        :placeholder="$t('password')"
-                    />
-                </div>
-
-                <a class="button__links" @click="loginUser">
-                    {{ $t("log_in") }}
+                <a class="button__links" @click="sendCode">
+                    {{ $t("podkod") }}
                 </a>
 
                 <div
                     class="hot__link__box d-flex  justify-content-between align-items-baseline"
-                >
-                    <nuxt-link
-                        :to="{ name: `auth-phone___${$i18n.locale}` }"
-                        class="hot__links remember__password"
-                    >
-                        {{ $t("zabilparol") }}
-                    </nuxt-link>
-                    <nuxt-link
-                        :to="{ name: 'auth-register___' + $i18n.locale }"
-                        class="hot__links"
-                    >
-                        {{ $t("noAcc") }}
-                    </nuxt-link>
-                </div>
+                ></div>
                 <!-- <nuxt-link to="/auth/register" class="button__links">
                 Регистрация
             </nuxt-link> -->
             </div>
         </div>
-        <warning-message
-            v-if="messageNoData"
-            :post-title="$t('err1')"
-        ></warning-message>
-        <danger-message
-            v-if="messageDuplicate"
-            :post-title="$t('err3')"
-        ></danger-message>
     </section>
 </template>
 
 <script>
 import WarningMessage from "../../components/Modals/WarningMessage.vue";
 import DangerMessage from "../../components/Modals/DangerMessage.vue";
-import { mapGetters, mapActions, mapMutations } from "vuex";
+import { required, minLength, between } from "vuelidate/lib/validators";
 export default {
     components: { WarningMessage, DangerMessage },
 
@@ -87,74 +56,49 @@ export default {
         ]
     },
 
-    middleware: "auth",
-
-    computed: mapGetters(["redirectArray"]),
-
     data() {
         return {
+            isError: false,
             user: {
-                phone: "+998",
-                password: ""
-            },
-
-            messageNoData: false,
-            messageDuplicate: false
+                code: ""
+            }
         };
     },
+
     methods: {
-        ...mapActions(["fetchCountBasket"]),
-        ...mapMutations(["updateLoggedIn"]),
-
-        async loginUser() {
-            this.messageNoData = this.messageDuplicate = false;
-            let phone = this.user.phone.replace(/[^0-9]/g, "");
-            // console.log(!!phone, !!this.user.password, "message");
-            if (!!phone && !!this.user.password) {
-                await this.$auth
-                    .loginWith("local", {
-                        data: {
-                            phone: phone,
-                            password: this.user.password
-                        }
-                    })
-                    .then(res => {
-                        console.log("Next tick", res.token);
-                        this.fetchCountBasket();
-                        const link = this.redirectArray[1];
-                        if (link.length > 0) {
-                            this.$router.push({
-                                path: link
-                            });
-                        } else {
-                            this.$router.push({
-                                name: "index___" + this.$i18n.locale
-                            });
-                        }
-                        return res;
-                    })
-                    .catch(err => {
-                        this.$nextTick(() => {
-                            this.messageDuplicate = true;
-                            // console.log(
-                            //     "message start",
-                            //     this.messageNoData,
-                            //     this.messageDuplicate
-                            // );
+        async sendCode() {
+            this.$axios
+                .$post("/user/reset/checkCode", {
+                    phone: this.$route.query.phone,
+                    code: this.user.code
+                })
+                .then(res => {
+                    if (res.success) {
+                        this.$router.push({
+                            name: `auth-newpassword___${this.$i18n.locale}`,
+                            query: {
+                                phone: this.$route.query.phone,
+                                hash: res.data.hash
+                            }
                         });
-                        return err;
-                    });
-                // console.log("login sets", response);
-            } else {
-                this.$nextTick(() => {
-                    this.messageNoData = true;
+                    }
+                })
+                .catch(err => {
+                    this.isError = true;
                 });
-            }
-
-            this.updateLoggedIn();
+        },
+        pushIndex(event) {
+            this.$router.push("/");
         }
     },
-    mounted() {}
+    mounted() {
+        // register, i.e. in a `mounted` hook
+        window.addEventListener("beforeunload", this.pushIndex);
+    },
+    beforeDestroy() {
+        // register, i.e. in a `beforeDestroy` hook
+        window.removeEventListener("beforeunload", this.pushIndex);
+    }
 };
 </script>
 
