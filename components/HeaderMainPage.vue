@@ -160,6 +160,9 @@
                             :placeholder="$t('search')"
                             v-model="searchTxt"
                             id="search-id"
+                            autocomplete="off"
+                            autocapitalize="off"
+                            aria-autocomplete="list"
                         />
                         <button @click="searchByTxt">
                             <svg
