@@ -44,6 +44,9 @@
                         name="email"
                         id="email"
                         placeholder="Email"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        aria-autocomplete="button"
                     />
                 </div>
 
