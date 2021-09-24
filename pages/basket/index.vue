@@ -31,14 +31,23 @@
                     <h2>{{ $t("korzina") }}</h2>
                 </div>
 
-                <div
+                <label
                     class="basket__item__box"
                     v-for="(item, index) in allInBasket"
                     :key="item._id"
+                    @click="clickItem(index)"
+                    :for="'input' + index"
                 >
                     <div class="basket__item--header">
                         <div class="checkbox-box">
-                            <input type="checkbox" />
+                            <input
+                                type="checkbox"
+                                :id="'input' + index"
+                                :ref="'input' + index"
+                                :value="item._id"
+                                v-model="checkBasket"
+                                name="chec"
+                            />
                         </div>
 
                         <img
@@ -62,7 +71,7 @@
                             <div class="btn__box">
                                 <a
                                     class="btn--primary"
-                                    v-on:click="
+                                    v-on:click.prevent="
                                         decreaseCount(
                                             index,
                                             item.count,
@@ -75,7 +84,7 @@
                                 <span> {{ item.count }} {{ $t("sht") }}</span>
                                 <a
                                     class="btn--secondary"
-                                    v-on:click="
+                                    v-on:click.prevent="
                                         increaseCount(
                                             index,
                                             item.count,
@@ -116,15 +125,15 @@
                             />
                         </div>
                         <div class="backet__item--activity">
-                            <a
+                            <span
                                 href="#"
                                 class="item__btn btn--submit"
-                                @click="goToOrder(item)"
+                                @click.prevent="goToOrder(item)"
                             >
                                 {{ $t("oformit") }}
-                            </a>
+                            </span>
 
-                            <a
+                            <span
                                 href="#"
                                 class="item__btn btn--reject"
                                 @click.prevent="
@@ -132,10 +141,10 @@
                                 "
                             >
                                 {{ $t("del") }}
-                            </a>
+                            </span>
                         </div>
                     </div>
-                </div>
+                </label>
 
                 <div class="basket__price">
                     <div class="basket__price--total">
@@ -146,20 +155,20 @@
                     </div>
 
                     <div class="backet__price--activity">
-                        <a
+                        <span
                             href="#"
                             class="activity__btn btn--submit"
                             @click.prevent="orderAllProducts()"
                         >
                             {{ $t("allOrder") }}
-                        </a>
-                        <a
+                        </span>
+                        <span
                             href="#"
                             class="activity__btn btn--reject"
                             @click.prevent="openRemoveModal('rm/all', 0)"
                         >
                             {{ $t("viewAllOrder") }}
-                        </a>
+                        </span>
                     </div>
                 </div>
             </main>
@@ -341,12 +350,25 @@ export default {
                 }
             },
 
+            sendBasket: [],
+
+            checkBasket: [],
             isGet: false,
             noData: false
         };
     },
 
-    computed: mapGetters(["allInBasket", "countBasket", "orderAll"]),
+    computed: {
+        ...mapGetters(["allInBasket", "countBasket", "orderAll"]),
+
+        sendData() {
+            let res = [];
+            this.checkBasket.forEach(item => {
+                res.push(this.allInBasket.find(i => i._id == item));
+            });
+            return res;
+        }
+    },
 
     methods: {
         ...mapActions(["fetchBasket", "fetchCountBasket", "updateBasketCount"]),
@@ -371,6 +393,20 @@ export default {
             this.basketObj.removeModal.showContent = false;
             this.basketObj.removeModal.deletedSuccess = false;
             this.basketObj.removeModal.showLoading = true;
+        },
+
+        clickItem(index) {
+            let input = document.getElementById(`input${index}`);
+
+            // if (input.checked) {
+            //     input.checked = false;
+            // } else {
+            //     input.checked = true;
+            // }
+
+            console.log(this.checkBasket);
+
+            // this.updatePriceAll();
         },
 
         // show succes on the end of deleting
@@ -427,7 +463,7 @@ export default {
 
         updatePriceAll() {
             let amount = 0;
-            this.allInBasket.forEach(item => {
+            this.sendData.forEach(item => {
                 if (!!item.size.discount) {
                     const price = item.count * item.size.discount;
                     amount += price;
@@ -517,7 +553,7 @@ export default {
 
             let basket = [];
 
-            this.allInBasket.forEach(item => {
+            this.sendData.forEach(item => {
                 basket.push({
                     image: item.product.image,
                     name: item.product.name,
@@ -543,6 +579,10 @@ export default {
 
     async mounted() {
         const res = await this.fetchBasket();
+
+        this.allInBasket.forEach(item => {
+            this.checkBasket.push(item._id);
+        });
 
         if (res[0].success) {
             this.isGet = true;
@@ -584,8 +624,8 @@ export default {
         padding: 20px;
         background: #ffffff;
         border-radius: 5px;
+        cursor: pointer;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-
         font-family: Roboto, sans-serif;
 
         display: flex;
@@ -600,6 +640,10 @@ export default {
 
             div.checkbox-box {
                 margin-right: 20px;
+                input {
+                    width: 25px;
+                    height: 25px;
+                }
             }
             img {
                 margin-right: 18px;
@@ -778,6 +822,7 @@ export default {
 
             .backet__item--activity {
                 .item__btn {
+                    cursor: pointer;
                     &:hover {
                         opacity: 0.85;
                     }
@@ -836,6 +881,7 @@ export default {
 
         .backet__price--activity {
             .activity__btn {
+                cursor: pointer;
                 &:not(:last-child) {
                     margin-right: 20px;
                 }
