@@ -83,7 +83,8 @@ export default {
         { src: "@/plugins/vue-star-rating.js", mode: "client", ssr: false },
         { src: "@plugins/v-mask.js" },
         { src: "@plugins/persistedState.js", ssr: false },
-        { src: "@plugins/vuelidate.js", ssr: false }
+        { src: "@plugins/vuelidate.js", ssr: false },
+        { src: "@plugins/pdf.js", ssr: false }
     ],
     fontawesome: {
         component: "fa",
