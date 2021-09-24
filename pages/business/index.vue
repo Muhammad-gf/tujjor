@@ -1334,7 +1334,10 @@ export default {
             this.check2 = true;
             if (!this.$v.shopCreate.$invalid) {
                 this.shopCreate.user = this.$auth.user._id;
-
+                this.shopCreate.phone = this.shopCreate.phone.replace(
+                    /[^0-9]/g,
+                    ""
+                );
                 this.$axios
                     .$post("/shop/temp/create", this.shopCreate)
                     .then(res => {

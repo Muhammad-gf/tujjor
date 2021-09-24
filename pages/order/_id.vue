@@ -444,7 +444,7 @@ export default {
                 region: this.order.address.region._id,
                 district: this.order.address.district,
                 address: this.order.address.address,
-                phone: this.order.address.phone
+                phone: this.order.address.phone.replace(/[^0-9]/g, "")
             };
             await this.updateOrderAddress({ add });
             const address = this.orderAll.address;

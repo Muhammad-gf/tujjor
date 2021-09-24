@@ -37,6 +37,10 @@
                     :key="item._id"
                 >
                     <div class="basket__item--header">
+                        <div class="checkbox-box">
+                            <input type="checkbox" />
+                        </div>
+
                         <img
                             :src="$store.state.uploads + item.product.image"
                             alt="Item image"
@@ -588,11 +592,15 @@ export default {
         justify-content: space-between;
 
         .basket__item--header {
-            flex-basis: 340px;
+            flex-basis: 370px;
             flex-grow: 0;
             display: flex;
-            margin-right: 100px;
+            margin-right: 70px;
+            align-items: center;
 
+            div.checkbox-box {
+                margin-right: 20px;
+            }
             img {
                 margin-right: 18px;
                 max-height: 100%;
