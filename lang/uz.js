@@ -132,5 +132,6 @@ export default {
     podkod: "Kodni tasdiqlash",
     invalidcode: "Kod noto'g'ri",
     newparol: "Yangi parol",
-    enternew: "Yangi parolni kiriting"
+    enternew: "Yangi parolni kiriting",
+    sendComment: "Kommentariya yozish"
 };
