@@ -49,6 +49,7 @@ export default {
     yes: "Xa",
     upr: "Maxsulot yangilandi!",
     upr2: "Maxsulot soni 1 dan kam bo'lmasligi lozim!",
+    upr7: "Kamida bitta mahsulotni tanlash kerak",
     upr3: "Maxsulot savatdan o'chirildi!",
 
     err4: "Maxsulot topilmadi!",

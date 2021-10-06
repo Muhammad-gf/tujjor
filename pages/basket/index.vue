@@ -293,6 +293,11 @@
                 :post-title="$t('upr2')"
             ></warning-message>
 
+            <warning-message
+                v-if="basketObj.selectModal"
+                :post-title="$t('upr7')"
+            ></warning-message>
+
             <!-- deleted successfully modal -->
             <modal-success
                 v-show="basketObj.removeModal.deletedSuccess"
@@ -336,6 +341,7 @@ export default {
             basketObj: {
                 updatedModal: false,
                 updatedBlockedModal: false,
+                selectModal: false,
                 removeModal: {
                     showModal: false,
                     showContent: false,
@@ -385,6 +391,7 @@ export default {
         resetAllModals() {
             this.basketObj.updatedModal = false;
             this.basketObj.updatedBlockedModal = false;
+            this.basketObj.selectModal = false;
             this.basketObj.removeModal.showModal = this.basketObj.removeModal.showContent = this.basketObj.removeModal.showLoading = this.basketObj.removeModal.showSuccess = false;
         },
 
@@ -414,6 +421,7 @@ export default {
             this.basketObj.removeModal.showLoading = false;
             this.basketObj.removeModal.showSuccess = true;
             this.basketObj.removeModal.deletedSuccess = true;
+            this.basketObj.removeModal.selectModal = true;
             setTimeout(() => {
                 this.basketObj.removeModal.showModal = false;
             }, 1000);
@@ -551,29 +559,33 @@ export default {
         orderAllProducts() {
             console.log(this.allInBasket);
 
-            let basket = [];
+            if (this.checkBasket.length > 0) {
+                let basket = [];
 
-            this.sendData.forEach(item => {
-                basket.push({
-                    image: item.product.image,
-                    name: item.product.name,
-                    count: item.count,
-                    param: item.param,
-                    size: item.size,
-                    shop: item.product.shop,
-                    description: item.product.description,
-                    product: item.product._id
+                this.sendData.forEach(item => {
+                    basket.push({
+                        image: item.product.image,
+                        name: item.product.name,
+                        count: item.count,
+                        param: item.param,
+                        size: item.size,
+                        shop: item.product.shop,
+                        description: item.product.description,
+                        product: item.product._id
+                    });
                 });
-            });
 
-            console.log("alll", basket);
-            this.orderProduct(basket);
-            // this.$store.dispatch("orderProduct", basket);
+                console.log("alll", basket);
+                this.orderProduct(basket);
+                // this.$store.dispatch("orderProduct", basket);
 
-            this.$router.push({
-                name: `order-id___${this.$i18n.locale}`,
-                params: { id: "all" }
-            });
+                this.$router.push({
+                    name: `order-id___${this.$i18n.locale}`,
+                    params: { id: "all" }
+                });
+            } else {
+                this.basketObj.updatedModal = true;
+            }
         }
     },
 
