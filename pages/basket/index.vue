@@ -313,7 +313,6 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 
 import ModalSuccess from "../../components/Modals/SuccessModal.vue";
 import WarningMessage from "../../components/Modals/WarningMessage.vue";
-import PopularItemVue from "../../components/PopularItem.vue";
 import BaseLoading from "../../components/UI/BaseLoading.vue";
 
 export default {

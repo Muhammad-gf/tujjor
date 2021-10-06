@@ -134,5 +134,6 @@ export default {
     podkod: "Подтвердить код",
     invalidcode: "Неверный код",
     newparol: "Новый пароль",
-    enternew: "Введите новый пароль"
+    enternew: "Введите новый пароль",
+    sendComment: "Оставить отзыв"
 };
