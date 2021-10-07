@@ -2,10 +2,11 @@
     <section>
         <banner-on-main-page />
         <catalog-magazines-main-page />
-        <popular-item />
+        <on-sale-item />
+
         <other-items />
         <logo-rectangle />
-        <on-sale-item />
+        <popular-item />
         <brands />
         <news />
     </section>

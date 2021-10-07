@@ -1,5 +1,18 @@
 $gc: f7931e;
 
+// custom row col
+
+div.card-row {
+    display: flex;
+    margin: 0px -10px;
+    flex-wrap: wrap;
+}
+
+div.card-5 {
+    width: 20%;
+    padding: 0px 10px;
+}
+
 //////////////////////////////////
 // KEYFRAMES
 @-webkit-keyframes move__360 {

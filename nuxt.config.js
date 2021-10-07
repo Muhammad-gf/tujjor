@@ -1,6 +1,6 @@
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
-    ssr: false,
+    ssr: true,
     head: {
         title:
             "Интернет-платформа  Tujjor —  низкие цены и широкий ассортимент! | Tujjor",

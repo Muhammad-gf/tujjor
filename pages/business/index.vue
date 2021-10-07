@@ -1383,6 +1383,8 @@ export default {
         },
 
         sendApplication() {
+            this.shopAccess.user = this.$auth.user._id;
+
             this.$axios
                 .$post("application/create", this.shopAccess)
                 .then(response => {
