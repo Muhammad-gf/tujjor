@@ -84,7 +84,7 @@
                             <span>{{ $t("address") }}</span>
                             <input
                                 type="text"
-                                :placeholder="$t('address')"
+                                :placeholder="$t('addressSecondary')"
                                 id="Adress"
                                 name="Adress"
                                 v-model="order.address.address"
@@ -389,7 +389,6 @@ export default {
             });
             this.selectedCityDistricts = result[0].districts;
             this.order.address.region = result[0];
-            console.log(result);
         },
 
         giveDistrict() {
@@ -399,7 +398,6 @@ export default {
             });
 
             this.order.address.district = result[0]._id;
-            console.log(result[0]._id);
         },
 
         async getProduct() {
@@ -407,21 +405,15 @@ export default {
                 .$get("/product/403685-iphone-11-pro")
                 .then(response => {
                     if (response.success) {
-                        console.log("product", response);
                         this.isGet = true;
                         this.product = response.data[0];
                         this.updateProduct(this.product);
-                        console.log(
-                            "selected",
-                            this.selectedProduct,
-                            this.product
-                        );
                     } else {
                         throw new Error("Could not save data!");
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.error(error);
                 });
         },
 
@@ -455,8 +447,6 @@ export default {
                 !!address.phone &&
                 !!address.region
             ) {
-                console.log("111", address);
-
                 let prod = [];
 
                 this.allProduct.forEach(item => {
@@ -476,7 +466,7 @@ export default {
                     });
                 });
 
-                await this.$axios
+                const result = await this.$axios
                     .$post("order/create", {
                         amount: this.allPricePay,
                         address: address,
@@ -484,34 +474,24 @@ export default {
                         products: prod
                     })
                     .then(res => {
-                        let href = `https://checkout.paycom.uz/${btoa(
-                            `m=6113b418754e932e68fd87ad;ac.order=${
-                                res.data.orderId
-                            };a=${res.data.amount * 100}`
-                        )};c=https://tujjor.org`;
-
-                        let a = document.createElement("a");
-
-                        document.body.appendChild(a);
-
-                        a.style = "display:none";
-                        a.href = href;
-                        a.target = "_blank";
-
-                        a.click();
+                        return res;
                     });
+
+                console.log("data", result);
+
+                if (!!result) {
+                    this.redirectToPayMe(result);
+                } else {
+                    this.warningMessage = true;
+                }
             } else {
                 this.warningMessage = true;
             }
         },
         // go to pay me
-        redirectToPayMe() {
-            const teene = this.base64Data.amount * 100;
-            const str =
-                "m=6113b418754e932e68fd87ad;ac.order=" +
-                this.base64Data.orderId +
-                ";a=" +
-                +teene;
+        redirectToPayMe(data) {
+            const teene = data.data.amount * 100;
+            const str = `m=6113b418754e932e68fd87ad;ac.order=${data.data.orderId};a=${teene};c=https://tujjor.org`;
 
             const base64 = btoa(str);
             console.log("base64", base64, str);
@@ -532,11 +512,8 @@ export default {
 
     async mounted() {
         await this.$store.dispatch("fetchRegion");
-        console.log("this orderall", this.orderAllProducts);
         const router = this.$route.params.id;
         if (router == "all") {
-            console.log("zafar", this.allProduct);
-
             let shopList = [];
 
             this.allProduct.forEach(item => {
@@ -549,8 +526,6 @@ export default {
                 }
             });
 
-            console.log("shopList", shopList);
-
             shopList.forEach(item => {
                 let products = this.allProduct.filter(
                     i => item._id == i.shop._id
@@ -562,32 +537,8 @@ export default {
                 });
             });
 
-            console.log("endidone", this.orderProds);
-
             this.isGet = true;
         }
-
-        // if (router === "order-all") {
-        //     const [basket, region] = await Promise.all([
-        //         this.fetchBasket(token),
-        //         this.fetchRegion(token)
-        //     ]);
-        //     console.log("basket", basket, "orderAll", this.orderAll);
-        //     this.isGet = true;
-        //     if (!this.orderAll.amount) this.noData = true;
-        // }
-
-        // if (router !== "order-all") {
-        //     const [basket, region] = await Promise.all([
-        //         this.fetchBasket(token),
-        //         this.fetchRegion(token)
-        //     ]);
-        //     console.log("basket", basket, "orderAll", this.orderAll);
-
-        //     if (!this.orderAll.amount) this.noData = true;
-        // }
-
-        console.log("list-oreder", this.orderAll.products);
     }
 };
 </script>

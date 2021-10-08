@@ -136,7 +136,7 @@
                             <span
                                 href="#"
                                 class="item__btn btn--reject"
-                                @click.prevent="
+                                @click.prevent.stop="
                                     openRemoveModal(item._id, index)
                                 "
                             >
@@ -165,7 +165,7 @@
                         <span
                             href="#"
                             class="activity__btn btn--reject"
-                            @click.prevent="openRemoveModal('rm/all', 0)"
+                            @click.prevent.stop="openRemoveModal('rm/all', 0)"
                         >
                             {{ $t("viewAllOrder") }}
                         </span>
@@ -173,6 +173,7 @@
                 </div>
             </main>
         </section>
+
         <section>
             <!-- modal on deleting -->
             <b-modal
@@ -364,15 +365,15 @@ export default {
     },
 
     computed: {
-        ...mapGetters(["allInBasket", "countBasket", "orderAll"]),
+        ...mapGetters(["allInBasket", "countBasket", "orderAll"])
 
-        sendData() {
-            let res = [];
-            this.checkBasket.forEach(item => {
-                res.push(this.allInBasket.find(i => i._id == item));
-            });
-            return res;
-        }
+        // sendData() {
+        //     let res = [];
+        //     this.checkBasket.forEach(item => {
+        //         res.push(this.allInBasket.find(i => i._id == item));
+        //     });
+        //     return res;
+        // }
     },
 
     methods: {
@@ -384,7 +385,8 @@ export default {
             "updateOrderAllProducts",
             "decreaseCountBasket",
             "updateCountBasket",
-            "orderProduct"
+            "orderProduct",
+            "updateBasket"
         ]),
         // --------------------- modal settings --------------------------
         resetAllModals() {
@@ -435,8 +437,6 @@ export default {
             this.changeCountItem({ index, count });
             await this.updateBasketCount({ token, id, count });
             this.basketObj.updatedModal = true;
-
-            console.log(this.allInBasket[index]);
         },
 
         async decreaseCount(index, resCount, id) {
@@ -470,15 +470,15 @@ export default {
 
         updatePriceAll() {
             let amount = 0;
-            this.sendData.forEach(item => {
-                if (!!item.size.discount) {
-                    const price = item.count * item.size.discount;
-                    amount += price;
-                } else {
-                    const price = item.count * item.size.price;
-                    amount += price;
-                }
-            });
+            // this.sendData.forEach(item => {
+            //     if (!!item.size.discount) {
+            //         const price = item.count * item.size.discount;
+            //         amount += price;
+            //     } else {
+            //         const price = item.count * item.size.price;
+            //         amount += price;
+            //     }
+            // });
             return this.updatePriceFormat(amount);
         },
 
@@ -488,6 +488,7 @@ export default {
         },
 
         openRemoveModal(id, index) {
+            console.log("removal", id, index);
             this.resetAllModals();
 
             this.basketObj.removeModal.showModal = true;
@@ -498,10 +499,9 @@ export default {
         },
 
         // main function for deleting
-        async deleteFromBasket(
-            token = this.user.token,
-            id = this.basketObj.removeObject.id
-        ) {
+        async deleteFromBasket() {
+            const token = this.user.token;
+            const id = this.basketObj.removeObject.id;
             this.deleteStarted();
 
             await this.$axios
@@ -513,7 +513,6 @@ export default {
                 .then(response => {
                     if (response.success) {
                         this.deleteEnded();
-                        console.log(response);
                         if (id === "rm/all") {
                             this.updateCountBasket(0);
                         }
@@ -524,8 +523,19 @@ export default {
                 })
                 .catch(error => console.error(error));
 
-            const response = await this.fetchBasket(token);
-            if (response.data.length === 0) this.noData = true;
+            // const response = await this.fetchBasket(token);
+            // this.allInBasket.forEach(item => {
+            //     this.checkBasket.push(item._id);
+            // });
+            // console.log(
+            //     "token basket",
+            //     response,
+            //     response?.data,
+            //     response?.data?.length
+            // );
+            // if (response?.data?.length === 0) this.noData = true;
+
+            this.filterAllInBasket(id);
 
             this.decreaseCountBasket();
             // this.fetchCountBasket(token)
@@ -561,18 +571,18 @@ export default {
             if (this.checkBasket.length > 0) {
                 let basket = [];
 
-                this.sendData.forEach(item => {
-                    basket.push({
-                        image: item.product.image,
-                        name: item.product.name,
-                        count: item.count,
-                        param: item.param,
-                        size: item.size,
-                        shop: item.product.shop,
-                        description: item.product.description,
-                        product: item.product._id
-                    });
-                });
+                // this.sendData.forEach(item => {
+                //     basket.push({
+                //         image: item.product.image,
+                //         name: item.product.name,
+                //         count: item.count,
+                //         param: item.param,
+                //         size: item.size,
+                //         shop: item.product.shop,
+                //         description: item.product.description,
+                //         product: item.product._id
+                //     });
+                // });
 
                 console.log("alll", basket);
                 this.orderProduct(basket);
@@ -584,6 +594,28 @@ export default {
                 });
             } else {
                 this.basketObj.updatedModal = true;
+            }
+        },
+
+        filterAllInBasket(id) {
+            this.isGet = false;
+            console.log("filter started", this.allInBasket.length, id);
+            if (id === "rm/all" || this.allInBasket.length === 1) {
+                const arr = [];
+                console.log("filter result", arr, this.allInBasket, id);
+                this.$nextTick(() => {
+                    this.updateBasket(arr);
+                    this.noData = true;
+                    this.isGet = true;
+                });
+            } else {
+                const copy = [...this.allInBasket];
+                const arr = copy.filter(item => item._id !== id);
+                console.log("filter result", arr, this.allInBasket, copy, id);
+                this.$nextTick(() => {
+                    this.updateBasket(arr);
+                    this.isGet = true;
+                });
             }
         }
     },
@@ -598,7 +630,7 @@ export default {
         if (res[0].success) {
             this.isGet = true;
         }
-        if (res[0].data.length === 0) {
+        if (res[0]?.data?.length === 0) {
             this.noData = true;
         }
     }
