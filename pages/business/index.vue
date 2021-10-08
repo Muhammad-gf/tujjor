@@ -1361,6 +1361,7 @@ export default {
 
             this.$v.shopAccess.$touch();
             this.check1 = true;
+
             if (!this.$v.shopAccess.$invalid) {
                 this.loadSpinner = true;
                 try {

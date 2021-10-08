@@ -32,6 +32,8 @@
                                 {{ product.price }} {{ $t("sum") }}
                             </h5>
                         </div>
+
+                        <button></button>
                     </div>
                 </div>
             </div>
