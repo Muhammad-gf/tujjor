@@ -1,3 +1,11 @@
+@media (max-width: 543px) {
+  .popular__container .img-fluid {
+    height: 230px !important;
+    -o-object-fit: cover !important;
+       object-fit: cover !important;
+  }
+}
+
 div.card-row {
   display: -webkit-box;
   display: -ms-flexbox;

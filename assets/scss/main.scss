@@ -1,7 +1,14 @@
 $gc: f7931e;
 
 // custom row col
-
+@media (max-width: 543px) {
+    .popular__container {
+        .img-fluid {
+            height: 230px !important;
+            object-fit: cover !important;
+        }
+    }
+}
 div.card-row {
     display: flex;
     margin: 0px -10px;
