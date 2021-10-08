@@ -112,7 +112,7 @@ export default {
 
     mutations: {
         updateBasket(state, data) {
-            state.basket.basket = data;
+            state.basket.basket = [...data];
         },
 
         updateCountBasket(state, data) {

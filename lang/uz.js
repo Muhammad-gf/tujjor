@@ -27,6 +27,7 @@ export default {
     spage: "Sahifalar",
     partner: "Hamkorlik",
     address: "Adres",
+    addressSecondary: "Mahalla, ko'cha, uy, mo'ljal",
     addr: "Toshkent sh, Chilonzor t, Gavhar 52",
     copywrite: "Barcha huquqlari ximoyalangan",
     full: "Batafsil",
