@@ -1,7 +1,7 @@
 <template>
     <section>
         <base-loading v-if="!isGet"></base-loading>
-
+        <pre> {{ $auth.user }} </pre>
         <div
             class="login-page d-flex flex-column justify-content-center align-items-center"
             v-if="!showSectionTwo"
@@ -1525,7 +1525,7 @@ export default {
         console.log("user", user);
         try {
             await this.$axios
-                .$get("application/" + user._id)
+                .$get("application/me")
                 .then(async response => {
                     if (!!response.data) {
                         this.modalShow = true;

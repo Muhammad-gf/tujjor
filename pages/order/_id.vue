@@ -484,7 +484,6 @@ export default {
                         products: prod
                     })
                     .then(res => {
-                        console.log(res);
                         let href = `https://checkout.paycom.uz/${btoa(
                             `m=6113b418754e932e68fd87ad;ac.order=${
                                 res.data.orderId

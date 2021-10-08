@@ -17,19 +17,21 @@
                     </div>
                     <h4>{{ product.name[$i18n.locale] }}</h4>
 
-                    <div v-if="product.discount != null">
-                        <h5 class="old-price">
-                            {{ product.price }} {{ $t("sum") }}
-                        </h5>
-                        <h5 class="price">
-                            {{ product.discount }} {{ $t("sum") }}
-                        </h5>
-                    </div>
+                    <div class="card-bottom">
+                        <div v-if="product.discount != null">
+                            <h5 class="old-price">
+                                {{ product.price }} {{ $t("sum") }}
+                            </h5>
+                            <h5 class="price">
+                                {{ product.discount }} {{ $t("sum") }}
+                            </h5>
+                        </div>
 
-                    <div v-else>
-                        <h5 class="price">
-                            {{ product.price }} {{ $t("sum") }}
-                        </h5>
+                        <div v-else>
+                            <h5 class="price">
+                                {{ product.price }} {{ $t("sum") }}
+                            </h5>
+                        </div>
                     </div>
                 </div>
             </div>

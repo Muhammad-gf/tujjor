@@ -4,6 +4,7 @@
 
         <section class="container popular__container" v-if="isGet">
             <div class="popular__heading">{{ $t("popular") }}</div>
+
             <div class="popular__item-box">
                 <nuxt-link
                     class="popular__items"

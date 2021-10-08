@@ -12,6 +12,11 @@ div.card-5 {
   padding: 0px 10px;
 }
 
+div.card-4 {
+  width: 25%;
+  padding: 0px 10px;
+}
+
 @-webkit-keyframes move__360 {
   0% {
     -webkit-transform: translateX(0deg);
