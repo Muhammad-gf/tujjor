@@ -889,7 +889,7 @@ export default {
     async mounted() {
         const res = await this.$axios.$get("category/all");
         const token = this.$auth.strategy.token.get();
-        this.updateLoggedIn();
+        await this.updateLoggedIn();
         if (!!token) {
             const count = await this.fetchCountBasket(token);
             this.basketCount = count.count;

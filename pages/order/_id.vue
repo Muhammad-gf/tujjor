@@ -506,7 +506,7 @@ export default {
             a.target = "_blank";
             a.click();
 
-            return link;
+            // return link;
         }
     },
 

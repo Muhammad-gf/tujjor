@@ -571,18 +571,18 @@ export default {
             if (this.checkBasket.length > 0) {
                 let basket = [];
 
-                // this.sendData.forEach(item => {
-                //     basket.push({
-                //         image: item.product.image,
-                //         name: item.product.name,
-                //         count: item.count,
-                //         param: item.param,
-                //         size: item.size,
-                //         shop: item.product.shop,
-                //         description: item.product.description,
-                //         product: item.product._id
-                //     });
-                // });
+                this.allInBasket.forEach(item => {
+                    basket.push({
+                        image: item.product.image,
+                        name: item.product.name,
+                        count: item.count,
+                        param: item.param,
+                        size: item.size,
+                        shop: item.product.shop,
+                        description: item.product.description,
+                        product: item.product._id
+                    });
+                });
 
                 console.log("alll", basket);
                 this.orderProduct(basket);

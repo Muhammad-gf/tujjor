@@ -19,16 +19,16 @@
 
                     <div v-if="product.discount != null">
                         <h5 class="old-price">
-                            {{ product.price }} {{ $t("sum") }}
+                            {{ beautySum(product.price) }} {{ $t("sum") }}
                         </h5>
                         <h5 class="price">
-                            {{ product.discount }} {{ $t("sum") }}
+                            {{ beautySum(product.discount) }} {{ $t("sum") }}
                         </h5>
                     </div>
 
                     <div v-else>
                         <h5 class="price">
-                            {{ product.price }} {{ $t("sum") }}
+                            {{ beautySum(product.price) }} {{ $t("sum") }}
                         </h5>
                     </div>
                 </div>

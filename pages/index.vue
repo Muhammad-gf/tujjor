@@ -3,7 +3,6 @@
         <banner-on-main-page />
         <catalog-magazines-main-page />
         <on-sale-item />
-
         <other-items />
         <logo-rectangle />
         <popular-item />
@@ -19,7 +18,8 @@ export default {
         return {
             seach: null
         };
-    }
+    },
+    mounted() {}
 };
 </script>
 

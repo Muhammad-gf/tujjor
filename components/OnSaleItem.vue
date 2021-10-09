@@ -133,6 +133,7 @@ export default {
     async mounted() {
         const products = await this.fetchProduct();
         this.onSaleProducts.data = products.data;
+        console.log("products->", products);
         console.log(products);
         this.isGet = true;
     }
