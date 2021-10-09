@@ -126,7 +126,7 @@
                                         </svg>
                                     </p>
                                 </div>
-                                0
+
                                 <span
                                     v-if="!!product.discount"
                                     class="popular__items__desription--price popular__items__desription--old--price hidden"

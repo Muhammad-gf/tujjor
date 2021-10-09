@@ -1,7 +1,6 @@
 <template>
     <section>
         <base-loading v-if="!isGet"></base-loading>
-        <pre> {{ $auth.user }} </pre>
         <div
             class="login-page d-flex flex-column justify-content-center align-items-center"
             v-if="!showSectionTwo"
