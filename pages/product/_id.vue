@@ -220,7 +220,7 @@
                                 <div
                                     class="product__info--txt col-md-6 col-sm-6 col-6"
                                 >
-                                    SKU:
+                                    {{ $t("nomtov") }}:
                                     <Span>{{ product.article }}</Span>
                                 </div>
 

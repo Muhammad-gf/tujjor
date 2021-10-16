@@ -95,15 +95,7 @@ export default {
         async fetchProduct() {
             const page = this.popularProducts.page;
             const res = await this.$axios
-                .$post("product/filter?page=" + page + "&limit=" + 10, {
-                    category: [],
-                    brand: [],
-                    search: "",
-                    sort: "",
-                    start: null,
-                    end: null,
-                    sort: "popular"
-                })
+                .$get("home/popular")
                 .then(response => {
                     console.log("searc", response);
                     if (response.success) {

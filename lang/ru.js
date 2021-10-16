@@ -136,5 +136,6 @@ export default {
     invalidcode: "Неверный код",
     newparol: "Новый пароль",
     enternew: "Введите новый пароль",
-    sendComment: "Оставить отзыв"
+    sendComment: "Оставить отзыв",
+    nomtov: "Номер продукта"
 };

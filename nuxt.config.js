@@ -1,6 +1,6 @@
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
-    ssr: true,
+    ssr: false,
     head: {
         title:
             "Интернет-платформа  Tujjor —  низкие цены и широкий ассортимент! | Tujjor",
@@ -199,9 +199,7 @@ export default {
     },
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
-        baseURL: "https://cdn.tujjor.org/api",
-        proxyHeaders: false,
-        credentials: false
+        baseURL: "https://cdn.tujjor.org/api"
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build

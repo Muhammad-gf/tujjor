@@ -135,5 +135,6 @@ export default {
     invalidcode: "Kod noto'g'ri",
     newparol: "Yangi parol",
     enternew: "Yangi parolni kiriting",
-    sendComment: "Kommentariya yozish"
+    sendComment: "Kommentariya yozish",
+    nomtov: "Mahsulot nomeri"
 };

@@ -94,7 +94,7 @@ export default {
     data() {
         return {
             user: {
-                phone: "+998",
+                phone: "",
                 password: ""
             },
 

@@ -104,15 +104,27 @@
                         </div>
                         <div class="person__home--description">
                             <div class="to-home">
-                                <label for="tohome">
+                                <label for="tohome1">
                                     <input
-                                        id="tohome"
-                                        type="checkbox"
-                                        name=""
+                                        id="tohome1"
+                                        type="radio"
+                                        name="deliver"
                                         v-model="tohome"
+                                        :value="true"
                                         @change="changeHome"
                                     />
                                     Uygacha yetkazib berish
+                                </label>
+                                <label for="tohome2">
+                                    <input
+                                        id="tohome2"
+                                        type="radio"
+                                        name="deliver"
+                                        v-model="tohome"
+                                        :value="false"
+                                        @change="changeHome"
+                                    />
+                                    Shahar markazigacha yetkazib berish
                                 </label>
                             </div>
                         </div>
@@ -321,7 +333,8 @@ export default {
             noData: false,
             base64Data: "",
             orderProds: [],
-            delivery: 0
+            delivery: 0,
+            base64Data: {}
         };
     },
     computed: {
@@ -480,7 +493,8 @@ export default {
                 console.log("data", result);
 
                 if (!!result) {
-                    this.redirectToPayMe(result);
+                    this.base64Data = result.data;
+                    const link = this.redirectToPayMe();
                 } else {
                     this.warningMessage = true;
                 }
@@ -489,24 +503,41 @@ export default {
             }
         },
         // go to pay me
-        redirectToPayMe(data) {
-            const teene = data.data.amount * 100;
-            const str = `m=6113b418754e932e68fd87ad;ac.order=${data.data.orderId};a=${teene};c=https://tujjor.org`;
-
+        redirectToPayMe() {
+            const teene = this.base64Data.amount * 100;
+            const str =
+                "m=6113b418754e932e68fd87ad;ac.order=" +
+                this.base64Data.orderId +
+                ";a=" +
+                +teene +
+                ";c=https://tujjor.org/profile";
             const base64 = btoa(str);
             console.log("base64", base64, str);
-
             const link = "https://checkout.paycom.uz/" + base64;
-
             // create element for iphone problem
-            let a = document.createElement("a");
-            document.body.appendChild(a);
-            a.style = "display:none";
-            a.href = link;
-            a.target = "_blank";
-            a.click();
+            // let a = document.createElement("a");
 
-            // return link;
+            // // a.style = "display:none";
+            // a.style = "font-size: 30px";
+            // a.innerHTML = "CLick";
+            // a.style = "position: fixed";
+            // a.style = "top: 30px";
+            // a.style = "left: 30px";
+            // a.style = "z-index: 21231232";
+            // a.href = link;
+            // a.target = "_blank";
+
+            // document.body.appendChild(a);
+            // setTimeout(() => {
+            //     a.click();
+            // }, 1500);
+
+            // let routeData = this.$router.resolve({
+            //     name: "index___uz"
+            // });
+            // window.open(routeData.link, "_blank");
+
+            window.location = link;
         }
     },
 
@@ -544,6 +575,13 @@ export default {
 </script>
 
 <style lang="scss">
+a.test {
+    font-size: 30px;
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    z-index: 322343;
+}
 .to-home {
     label {
         font-size: 16px;

@@ -93,7 +93,7 @@ export default {
             const page = this.onSaleProducts.page;
             const limit = this.onSaleProducts.limit;
             const res = await this.$axios
-                .$post("product/filter?page=" + page + "&limit=" + limit, {
+                .$get("home/discount?page=" + page + "&limit=" + limit, {
                     category: [],
                     brand: [],
                     search: "",
