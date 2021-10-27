@@ -5,9 +5,7 @@ import search from "./modules/search";
 import redirect from "./modules/redirect";
 import authSets from "./modules/auth";
 
-export const state = () => ({
-    uploads: "http://cdn.tujjor.org"
-});
+export const state = () => ({});
 export const mutations = {};
 export const actions = {};
 

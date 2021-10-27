@@ -17,7 +17,7 @@
                     >
                         <img
                             class="news__box--item--img"
-                            :src="$store.state.uploads + news[index].file"
+                            :src="$cdn + news[index].file"
                             alt="News"
                         />
                         <div class="news__box--description">

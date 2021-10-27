@@ -5,11 +5,11 @@
             <div class="title-box">
                 <ul>
                     <li>
-                        <nuxt-link to="/">{{$t('last')}}</nuxt-link>
+                        <nuxt-link to="/">{{ $t("last") }}</nuxt-link>
                         /
                     </li>
                     <li>
-                        <nuxt-link to="#">{{$t('allNew')}}</nuxt-link>
+                        <nuxt-link to="#">{{ $t("allNew") }}</nuxt-link>
                     </li>
                 </ul>
             </div>
@@ -23,10 +23,7 @@
                 </div>
 
                 <div class="news__about--first--img">
-                    <img
-                        :src="$store.state.uploads + news.file"
-                        alt="News image"
-                    />
+                    <img :src="$cdn + news.file" alt="News image" />
                     <span>
                         {{ getDate(news.createdAt) }}
                     </span>
@@ -37,7 +34,7 @@
                 ></div>
             </div>
             <div class="news__up__to__date" v-if="newsAll != null">
-                <h2>{{$t('last')}}</h2>
+                <h2>{{ $t("last") }}</h2>
                 <div class="news__box__container">
                     <div
                         class="news__box"
@@ -46,9 +43,7 @@
                     >
                         <div class="img">
                             <img
-                                :src="
-                                    $store.state.uploads + newsAll[index].file
-                                "
+                                :src="$cdn + newsAll[index].file"
                                 alt="News image"
                             />
                         </div>
@@ -64,12 +59,12 @@
                         <div class="news__box--data">
                             <nuxt-link
                                 :to="{
-                                    name: 'news-id___'+$i18n.locale,
+                                    name: 'news-id___' + $i18n.locale,
                                     params: { id: newsAll[index].slug }
                                 }"
                                 class="news__box--btn"
                             >
-                                {{$t('full')}}
+                                {{ $t("full") }}
                             </nuxt-link>
                             <span class="news__box--date">
                                 {{ getDate(newsAll[index].createdAt) }}</span

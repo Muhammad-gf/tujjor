@@ -8,7 +8,7 @@
         >
             <div class="product-card">
                 <div class="img">
-                    <img :src="$store.state.uploads + product.image" />
+                    <img :src="$cdn + product.image" />
                 </div>
 
                 <div class="product-info">
@@ -124,6 +124,49 @@ div.product-card {
             line-height: 100%;
             margin-bottom: 10px;
             color: #219ebc;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    div.product-card {
+        div.img {
+            img {
+                height: 164px;
+            }
+        }
+        div.product-info {
+            padding: 3px 10px;
+            div.brand {
+                margin-bottom: 6px;
+                h6 {
+                    font-size: 10px;
+                }
+            }
+
+            h4 {
+                height: 28px;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 15px;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 14px;
+            }
+
+            h5.old-price {
+                text-decoration: line-through;
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 100%;
+                margin-bottom: 10px;
+                text-decoration-color: #2e2e2e;
+                text-decoration-thickness: 1px;
+                color: #f7931e;
+            }
         }
     }
 }

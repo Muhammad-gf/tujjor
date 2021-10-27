@@ -8,7 +8,7 @@
         >
             <div class="product-card">
                 <div class="img">
-                    <img :src="$store.state.uploads + product.image" />
+                    <img :src="$cdn + product.image" />
                 </div>
 
                 <div class="product-info">

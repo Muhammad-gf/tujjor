@@ -6,52 +6,31 @@
                 <div class="popular__heading">{{ $t("magazine") }}</div>
             </section>
             <div class="magazines__box container">
-                <nuxt-link
-                    class="magazine__item__box"
-                    v-for="magazine in magazines"
-                    :key="magazine.slug"
-                    :to="{
-                        name: `magazine-id___${$i18n.locale}`,
-                        params: { id: magazine.slug }
-                    }"
-                >
-                    <div class="magazine__item--logo__box">
-                        <div class="magazine__item--logo">
-                            <span v-text="magazine.shopName"></span>
-                        </div>
-                        <!-- <div class="magazine__item--rating">
-                        <img
-                            src="../assets/img/magazines/star.png"
-                            alt="Star img"
-                        /><span>4</span>
-                    </div> -->
+                <div class="card-row ">
+                    <div
+                        class="card-3 "
+                        v-for="magazine in magazines"
+                        :key="magazine.slug"
+                    >
+                        <nuxt-link
+                            class=""
+                            :to="{
+                                name: `magazine-id___${$i18n.locale}`,
+                                params: { id: magazine.slug }
+                            }"
+                        >
+                            <div class="shops-card hover-shadow">
+                                <h1>{{ magazine.shopName }}</h1>
+                                <p>
+                                    {{ magazine.description[$i18n.locale] }}
+                                </p>
+                                <div class="shop-image">
+                                    <img :src="magazine.image" alt="" />
+                                </div>
+                            </div>
+                        </nuxt-link>
                     </div>
-                    <div class="magazine__item--description">
-                        <span
-                            v-text="magazine.description[$i18n.locale]"
-                        ></span>
-                    </div>
-                    <div class="magazine__item__img__box">
-                        <div class="magazine__item__img--first">
-                            <img :src="magazine.image" alt="Item img" />
-                        </div>
-                        <!-- <div class="magazine__item__img--second">
-                        <div class="magazine__item__img--second--first">
-                            <img
-                                src="../assets/img/magazines/img-second.png"
-                                alt="Item img"
-                            />
-                        </div>
-
-                        <div class="magazine__item__img--second--second">
-                            <img
-                                src="../assets/img/magazines/img-second-2.png"
-                                alt="Item img"
-                            />
-                        </div>
-                    </div> -->
-                    </div>
-                </nuxt-link>
+                </div>
             </div>
             <section
                 class="container popular__container"
@@ -87,7 +66,7 @@ export default {
     beforeMount() {
         const winWidth = window.innerWidth;
         if (winWidth <= 530) {
-            this.magazineCount = this.increaseBy = 2;
+            this.magazineCount = this.increaseBy = 4;
         } else {
             this.magazineCount = this.increaseBy = 3;
         }
@@ -136,210 +115,62 @@ export default {
 </script>
 
 <style lang="scss">
-.magazines__main__page {
-    .magazines__box {
-        display: flex;
-        justify-content: space-between;
-        align-items: stretch;
+div.shops-card {
+    width: 100%;
+    background: #f1efed;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    padding: 15px;
+    h1 {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    p {
+        height: 32px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 10px;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+        color: #000000;
+    }
+    div.shop-image {
+        img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+    }
+}
 
-        .magazine__item__box {
-            transition: all 0.2s;
-            @include hover__active--animation;
-            cursor: pointer;
-
-            flex-basis: 32.6%;
-            background-color: #f1efed;
-            border-radius: 5px;
-            padding: 10px;
-
-            display: flex;
-            flex-direction: column;
-
-            .magazine__item--logo__box {
-                flex-basis: 10%;
-                padding: 5px 0;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                .magazine__item--logo {
-                    img {
-                        height: 100%;
-                        width: auto;
-                    }
-                }
-
-                .magazine__item--rating {
-                    display: flex;
-                    justify-content: center;
-                    align-items: baseline;
-                    img {
-                        margin: 0 2px;
-                        width: 14px;
-                        height: 14px;
-                    }
-                    span {
-                        font-family: Roboto, sans-serif;
-                        font-weight: 500;
-                        font-size: 16px;
-                        line-height: 16px;
-                        color: #565656;
-                    }
-                }
-            }
-
-            .magazine__item--description {
-                flex-basis: 12%;
-
-                padding: 5px 0;
-
-                // text-overflow: hidden;
-                // overflow: scroll;
-
-                text-overflow: clip;
-                font-family: Roboto, sans-serif;
-                font-weight: 500;
-                font-size: 14px;
-                line-height: 100%;
-                color: #000000;
-
-                height: 2em;
-                overflow: hidden;
-            }
-
-            .magazine__item__img__box {
-                padding: 5px 0 0;
-                height: 140px;
-                overflow: hidden;
-
-                display: flex;
-                justify-content: space-between;
-
-                .magazine__item__img--first {
-                    flex-basis: 100%;
-                    padding: 2px;
-
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-                }
-
-                .magazine__item__img--second {
-                    flex-basis: 49%;
-
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-
-                    .magazine__item__img--second--first {
-                        flex-basis: 49%;
-
-                        img {
-                            height: 100%;
-                            width: 100%;
-                        }
-                    }
-
-                    .magazine__item__img--second--second {
-                        flex-basis: 49%;
-                        img {
-                            height: 100%;
-                            width: 100%;
-                        }
-                    }
-                }
+@media (max-width: 768px) {
+    div.shops-card {
+        margin-bottom: 10px;
+        div.shop-image {
+            img {
+                height: 127px;
             }
         }
     }
 }
 
-@media only screen and(max-width: 768px) {
-    .magazines__main__page {
-        .magazines__box {
-            .magazine__item__box {
-                padding: 9px;
-                .magazine__item--logo__box {
-                    .magazine__item--logo {
-                        img {
-                            height: 24px;
-                        }
-                    }
-
-                    .magazine__item--rating {
-                        img {
-                            width: 10px;
-                            height: 10px;
-                        }
-                        span {
-                            font-size: 12px;
-                        }
-                    }
-                }
-
-                .magazine__item--description {
-                    font-size: 9px;
-                }
-            }
+@media (max-width: 530px) {
+    div.shops-card {
+        margin-bottom: 15px;
+        h1 {
+            margin-bottom: 5px;
         }
-    }
-}
-
-@media only screen and(max-width: 560px) {
-    .magazines__main__page {
-        .popular__container {
-            margin-top: 25px;
-            padding-top: 0;
-            padding-bottom: 0;
+        p {
+            margin-bottom: 5px;
         }
-        .magazines__box {
-            flex-wrap: wrap;
-            .magazine__item__box {
-                margin: 0 0 10px;
-                padding: 9px;
-                flex-basis: 167px;
-
-                .magazine__item--logo__box {
-                    .magazine__item--logo {
-                        img {
-                            height: 24px;
-                        }
-                    }
-
-                    .magazine__item--rating {
-                        img {
-                            width: 10px;
-                            height: 10px;
-                        }
-                        span {
-                            font-size: 12px;
-                        }
-                    }
-                }
-
-                .magazine__item--description {
-                    font-size: 9px;
-                }
-            }
-        }
-
-        #btn__box {
-            margin-top: 15px;
-        }
-    }
-}
-
-@media only screen and(max-width: 370px) {
-    .magazines__main__page {
-        .magazines__box {
-            .magazine__item__box {
-                margin: 0 0 6px;
-                padding: 7px;
-                flex-basis: 140px;
-
-                .magazine__item--description {
-                    font-size: 8px;
-                }
+        div.shop-image {
+            img {
+                height: 90px;
             }
         }
     }

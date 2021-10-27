@@ -4,7 +4,6 @@
 
         <section class="container popular__container" v-if="isGet">
             <div class="popular__heading">{{ $t("popular") }}</div>
-
             <div class="popular__item-box">
                 <nuxt-link
                     class="popular__items"
@@ -17,7 +16,7 @@
                 >
                     <img
                         class="popular__items__img"
-                        :src="$store.state.uploads + product.image"
+                        :src="$cdn + product.image"
                         alt="Popular item photo"
                         type="photo/png"
                     />
@@ -95,7 +94,15 @@ export default {
         async fetchProduct() {
             const page = this.popularProducts.page;
             const res = await this.$axios
-                .$get("home/popular")
+                .$post("product/filter?page=" + page + "&limit=" + 10, {
+                    category: [],
+                    brand: [],
+                    search: "",
+                    sort: "",
+                    start: null,
+                    end: null,
+                    sort: "popular"
+                })
                 .then(response => {
                     console.log("searc", response);
                     if (response.success) {

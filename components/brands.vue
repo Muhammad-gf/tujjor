@@ -12,10 +12,7 @@
 
                 <slick v-if="brand.length > 0" :options="slickOptions">
                     <div class="img__box" v-for="item in brand" :key="item._id">
-                        <img
-                            :src="$store.state.uploads + item.image"
-                            alt="Brand"
-                        />
+                        <img :src="$cdn + item.image" alt="Brand" />
                     </div>
                 </slick>
                 <!-- </div> -->

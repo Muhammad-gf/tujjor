@@ -372,6 +372,10 @@ export default {
         this.products = search.data;
         this.filter.isGetData = this.isGet = true;
 
+        if (this.$route.query.sort) {
+            this.filter.sort = "popular";
+        }
+
         // add to router link on the top of page
         this.addLinksOnTheTopPage();
 

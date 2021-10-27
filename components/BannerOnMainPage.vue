@@ -20,7 +20,7 @@
                             v-for="(item, index) in slider"
                             :key="index"
                             class="b-carousel-slide"
-                            :img-src="$store.state.uploads + item.image"
+                            :img-src="$cdn + item.image"
                         ></b-carousel-slide>
 
                         <!-- Slide with blank fluid image to maintain slide aspect ratio -->
@@ -194,7 +194,7 @@ export default {
             margin-top: 20px;
             &--large--img {
                 border-radius: 0;
-                max-height: 180px;
+                max-height: 140px;
             }
         }
     }

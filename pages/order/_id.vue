@@ -202,7 +202,7 @@
                         >
                             <div class="checkout__order__item--header">
                                 <img
-                                    :src="$store.state.uploads + product.image"
+                                    :src="$cdn + product.image"
                                     alt="Item image"
                                 />
                                 <div class="checkout__order__item__description">
@@ -238,10 +238,7 @@
                                 <div class="checkout__order__item--color">
                                     <span>{{ $t("color") }}:</span>
                                     <img
-                                        :src="
-                                            $store.state.uploads +
-                                                product.param.image
-                                        "
+                                        :src="$cdn + product.param.image"
                                         alt="Color image"
                                     />
                                 </div>
@@ -511,31 +508,11 @@ export default {
                 ";a=" +
                 +teene +
                 ";c=https://tujjor.org/profile";
+
+                
             const base64 = btoa(str);
             console.log("base64", base64, str);
             const link = "https://checkout.paycom.uz/" + base64;
-            // create element for iphone problem
-            // let a = document.createElement("a");
-
-            // // a.style = "display:none";
-            // a.style = "font-size: 30px";
-            // a.innerHTML = "CLick";
-            // a.style = "position: fixed";
-            // a.style = "top: 30px";
-            // a.style = "left: 30px";
-            // a.style = "z-index: 21231232";
-            // a.href = link;
-            // a.target = "_blank";
-
-            // document.body.appendChild(a);
-            // setTimeout(() => {
-            //     a.click();
-            // }, 1500);
-
-            // let routeData = this.$router.resolve({
-            //     name: "index___uz"
-            // });
-            // window.open(routeData.link, "_blank");
 
             window.location = link;
         }

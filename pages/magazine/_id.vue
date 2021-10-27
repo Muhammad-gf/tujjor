@@ -227,7 +227,7 @@
                             >
                                 <img
                                     class="popular__items__img"
-                                    :src="$store.state.uploads + product.image"
+                                    :src="$cdn + product.image"
                                     alt="Popular item photo"
                                     type="photo/png"
                                 />

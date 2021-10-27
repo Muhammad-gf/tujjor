@@ -55,9 +55,7 @@
                         >
                             <img
                                 class="popular__items__img"
-                                :src="
-                                    $store.state.uploads + product.product.image
-                                "
+                                :src="$cdn + product.product.image"
                                 alt="Popular item photo"
                                 type="photo/png"
                             />

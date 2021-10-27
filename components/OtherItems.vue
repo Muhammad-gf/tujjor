@@ -21,7 +21,7 @@
                             v-for="(item, index) in bannerOne"
                             :key="index"
                             class="b-carousel-slide"
-                            :img-src="$store.state.uploads + item.image"
+                            :img-src="$cdn + item.image"
                         ></b-carousel-slide>
 
                         <!-- Slide with blank fluid image to maintain slide aspect ratio -->
@@ -34,7 +34,7 @@
                         v-if="bannerTwo.length > 0"
                     >
                         <img
-                            :src="$store.state.uploads + bannerTwo[0].image"
+                            :src="$cdn + bannerTwo[0].image"
                             alt="Other item photo"
                         />
                     </div>
@@ -43,7 +43,7 @@
                         v-if="bannerThree.length > 0"
                     >
                         <img
-                            :src="$store.state.uploads + bannerThree[0].image"
+                            :src="$cdn + bannerThree[0].image"
                             alt="Other item photo"
                         />
                     </div>
@@ -52,7 +52,7 @@
                         v-if="bannerFour.length > 0"
                     >
                         <img
-                            :src="$store.state.uploads + bannerFour[0].image"
+                            :src="$cdn + bannerFour[0].image"
                             alt="Other item photo"
                         />
                     </div>
@@ -70,7 +70,7 @@
                 >
                     <img
                         class="popular__items__img"
-                        :src="$store.state.uploads + product.image"
+                        :src="$cdn + product.image"
                         alt="Popular item photo"
                         type="photo/png"
                     />
@@ -255,8 +255,7 @@ export default {
                     width: 100% !important;
                     height: 100% !important;
                     img {
-                        width: 100%;
-                        height: 100%;
+                        width: 100% !important;
                         object-fit: cover;
                     }
                 }

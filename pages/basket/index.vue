@@ -51,13 +51,13 @@
                         </div>
 
                         <img
-                            :src="$store.state.uploads + item.product.image"
+                            :src="$cdn + item.product.image"
                             alt="Item image"
                         />
                         <div class="basket__item__description">
-                            <h3>{{ item.product.name.uz }}</h3>
+                            <h3>{{ item.product.name[$i18n.locale] }}</h3>
                             <p class="p-first">
-                                {{ item.product.description.uz }}
+                                {{ item.product.description[$i18n.locale] }}
                             </p>
                             <p class="p-second">
                                 <span>{{ $t("size") }}:</span
@@ -120,7 +120,7 @@
                         <div class="basket__item--color">
                             <span>{{ $t("color") }}:</span>
                             <img
-                                :src="$store.state.uploads + item.param.image"
+                                :src="$cdn + item.param.image"
                                 alt="Color image"
                             />
                         </div>
@@ -414,7 +414,7 @@ export default {
 
             console.log(this.checkBasket);
 
-            // this.updatePriceAll();
+            this.updatePriceAll();
         },
 
         // show succes on the end of deleting
@@ -470,15 +470,15 @@ export default {
 
         updatePriceAll() {
             let amount = 0;
-            // this.sendData.forEach(item => {
-            //     if (!!item.size.discount) {
-            //         const price = item.count * item.size.discount;
-            //         amount += price;
-            //     } else {
-            //         const price = item.count * item.size.price;
-            //         amount += price;
-            //     }
-            // });
+            this.allInBasket.forEach(item => {
+                if (!!item.size.discount) {
+                    const price = item.count * item.size.discount;
+                    amount += price;
+                } else {
+                    const price = item.count * item.size.price;
+                    amount += price;
+                }
+            });
             return this.updatePriceFormat(amount);
         },
 

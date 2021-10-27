@@ -215,7 +215,7 @@
                                 />
                             </svg>
                         </span>
-                        <h5>info@tujjor.uz</h5>
+                        <h5>info.tujjor@gmail.com</h5>
                     </div>
                     <div class="info__item">
                         <span>
@@ -232,7 +232,7 @@
                                 />
                             </svg>
                         </span>
-                        <h5>+998 (90) 123 45 67</h5>
+                        <h5>+99833 485 20 10</h5>
                     </div>
 
                     <ul class="social-links">
@@ -329,7 +329,7 @@ footer {
     background: #023047;
     div.footer-top {
         display: flex;
-        padding: 50px 0px;
+        padding: 50px 0px 80px 0px;
         width: 100%;
         div.info__item {
             display: flex;
@@ -345,6 +345,7 @@ footer {
                 margin-bottom: 0px;
                 color: #ffffff;
                 max-width: 178px;
+                width: 65%;
             }
         }
         ul.social-links {
@@ -481,7 +482,7 @@ footer {
     footer {
         div.footer-top {
             display: inline-block;
-            padding: 50px 0px;
+            padding: 50px 0px 120px 0px !important;
             position: relative;
             height: 423px;
 

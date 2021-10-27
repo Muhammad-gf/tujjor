@@ -158,11 +158,16 @@
                         <input
                             type="text"
                             :placeholder="$t('search')"
+                            name="search"
                             v-model="searchTxt"
                             id="search-id"
-                            autocomplete="off"
-                            autocapitalize="off"
-                            aria-autocomplete="list"
+                        />
+                        <input
+                            type="text"
+                            :placeholder="$t('search')"
+                            name="search"
+                            id="search-id"
+                            style="position: absolute; left: -100000px"
                         />
                         <button @click="searchByTxt">
                             <svg
@@ -253,6 +258,7 @@
                                 : ''
                         "
                         @click="doVisiblePerson"
+                        v-click-other="falsePerson"
                     >
                         <button
                             style="border:none; outline:none; background-color:inherit"
@@ -445,7 +451,6 @@
                         <div
                             class="dropdown__list__box"
                             v-show="isVisibleDropdownList"
-                            @click="changeLanguage"
                         >
                             <button
                                 type="button"
@@ -491,6 +496,7 @@
                             </button>
 
                             <button
+                                type="button"
                                 class="language__uzbek"
                                 v-else
                                 @click.prevent="$i18n.setLocale('uz')"
@@ -751,6 +757,10 @@ export default {
 
         doVisiblePerson() {
             this.isVisiblePerson = !this.isVisiblePerson;
+        },
+
+        falsePerson() {
+            this.isVisiblePerson = false;
         },
 
         async logOut() {
