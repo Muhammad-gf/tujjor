@@ -6,12 +6,7 @@
             <div class="product-show">
                 <div class="container">
                     <div class="title-box">
-                        <ul>
-                            <li>
-                                <nuxt-link to="/">Поиск...</nuxt-link>
-                                /
-                            </li>
-
+                        <!-- <ul>
                             <li v-if="linksForTitle.length > 0">
                                 <nuxt-link :to="linksForTitle">
                                     {{ linksForTitle }}
@@ -29,14 +24,14 @@
                                 </nuxt-link>
                                 /
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
             </div>
 
             <section class="container popular__container search__noData">
                 <div class="popular__heading">
-                    Не найдено не одного продукта по этому запросу!
+                    {{ $t("notfound") }}
                 </div>
             </section>
         </div>
@@ -45,12 +40,7 @@
             <div class="product-show">
                 <div class="container">
                     <div class="title-box">
-                        <ul>
-                            <li>
-                                <nuxt-link to="/">Поиск...</nuxt-link>
-                                /
-                            </li>
-
+                        <!-- <ul>
                             <li v-if="linksForTitle.length > 0">
                                 <nuxt-link :to="linksForTitle">
                                     {{ linksForTitle }}
@@ -68,7 +58,7 @@
                                 </nuxt-link>
                                 /
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
             </div>
@@ -85,15 +75,19 @@
                             v-model="filter.sort"
                             @change="filterBySort()"
                         >
-                            <option value="" disabled selected
-                                >Сортировка по</option
-                            >
-                            <option value="new"> По новинкам</option>
-                            <option value="popular">
-                                По популярности
+                            <option value="" disabled selected>
+                                {{ $t("sortBy") }}
                             </option>
-                            <option value="priceDown"> По убыванию</option>
-                            <option value="priceUp"> По возрастанию</option>
+                            <option value="new"> {{ $t("sortNew") }} </option>
+                            <option value="popular">
+                                {{ $t("sortPop") }}
+                            </option>
+                            <option value="priceDown">
+                                {{ $t("sortUb") }}
+                            </option>
+                            <option value="priceUp">
+                                {{ $t("sortVoz") }}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -106,7 +100,7 @@
                             class="filtraiton__header"
                             v-if="!isSliderPricesEqual"
                         >
-                            Диапазон цена
+                            {{ $t("sortPrice") }}
                         </h5>
 
                         <div class="input__range" v-if="!isSliderPricesEqual">
@@ -129,7 +123,7 @@
                             class="filtraiton__header"
                             v-if="brandsOnPage.length > 1"
                         >
-                            Филтр по брендам
+                            {{ $t("sortBrand") }}
                         </h5>
 
                         <div
@@ -244,7 +238,7 @@ export default {
 
         async fetchAllBrands() {
             return await this.$axios
-                .$get("brand/client/all")
+                .$get("brand/all")
                 .then(response => {
                     if (response.success) {
                         return response.data;
@@ -362,6 +356,12 @@ export default {
     },
 
     async mounted() {
+        if (this.$route.query.lang == "uz") {
+            this.$i18n.setLocale("uz");
+        }
+        if (this.$route.query.lang == "ru") {
+            this.$i18n.setLocale("ru");
+        }
         const page = this.page;
         const limit = 12;
         let [brands, Allbrands, search] = await Promise.all([
@@ -371,10 +371,6 @@ export default {
         ]);
         this.products = search.data;
         this.filter.isGetData = this.isGet = true;
-
-        if (this.$route.query.sort) {
-            this.filter.sort = "popular";
-        }
 
         // add to router link on the top of page
         this.addLinksOnTheTopPage();

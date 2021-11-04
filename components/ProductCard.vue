@@ -12,9 +12,9 @@
                 </div>
 
                 <div class="product-info">
-                    <div class="brand">
+                    <!-- <div class="brand">
                         <h6>{{ product.category[$i18n.locale] }}</h6>
-                    </div>
+                    </div> -->
                     <h4>{{ product.name[$i18n.locale] }}</h4>
 
                     <div v-if="product.discount != null">
@@ -27,6 +27,7 @@
                     </div>
 
                     <div v-else>
+                        <h5 class="old-price"></h5>
                         <h5 class="price">
                             {{ beautySum(product.price) }} {{ $t("sum") }}
                         </h5>
@@ -95,13 +96,13 @@ div.product-card {
         }
 
         h4 {
-            height: 38px;
+            height: 19px;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-bottom: 15px;
+            margin-bottom: 15px !important;
             font-weight: 500;
             font-size: 16px;
             line-height: 19px;
@@ -112,8 +113,9 @@ div.product-card {
             text-decoration: line-through;
             font-weight: bold;
             font-size: 14px;
-            line-height: 100%;
-            margin-bottom: 10px;
+            line-height: 16px;
+            height: 16px;
+            margin-bottom: 5px;
             text-decoration-color: #2e2e2e;
             text-decoration-thickness: 1px;
             color: #f7931e;
@@ -145,9 +147,9 @@ div.product-card {
             }
 
             h4 {
-                height: 28px;
+                height: 14px;
                 display: -webkit-box;
-                -webkit-line-clamp: 2;
+                -webkit-line-clamp: 1;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -160,12 +162,16 @@ div.product-card {
             h5.old-price {
                 text-decoration: line-through;
                 font-weight: bold;
-                font-size: 14px;
+                margin-bottom: 5px !important;
+                font-size: 12px;
                 line-height: 100%;
-                margin-bottom: 10px;
+                margin-bottom: 0px !important;
                 text-decoration-color: #2e2e2e;
                 text-decoration-thickness: 1px;
                 color: #f7931e;
+            }
+            h5.price {
+                font-size: 14px;
             }
         }
     }

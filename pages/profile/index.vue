@@ -1,7 +1,17 @@
 <template>
     <section>
         <base-loading v-if="!isGet"></base-loading>
-
+        <div class="success-info">
+            <b-alert
+                :show="dismissCountDown"
+                dismissible
+                variant="success"
+                @dismissed="dismissCountDown = 0"
+                @dismiss-count-down="countDownChanged"
+            >
+                Jo'natildi
+            </b-alert>
+        </div>
         <section class="main-section" v-if="isGet">
             <section class="profile-section">
                 <div class="profile-box">
@@ -673,7 +683,9 @@
                                         <div
                                             class="checkout__order__item--delivered"
                                         >
-                                            <button @click="1">
+                                            <button
+                                                @click="openModal(products._id)"
+                                            >
                                                 {{ $t("sendComment") }}
                                             </button>
                                         </div>
@@ -682,6 +694,35 @@
                             </div>
                         </b-tab>
                     </b-tabs>
+
+                    <b-modal ref="my-modal" id="modal-1" title="Izoh qoldirish">
+                        <b-form-group label="Izoh:">
+                            <b-form-textarea
+                                id="textarea"
+                                v-model="comment.comment"
+                                placeholder="Enter something..."
+                                rows="3"
+                                max-rows="6"
+                                class="mb-3"
+                            ></b-form-textarea>
+                        </b-form-group>
+                        <b-form-group label="Baholash:"
+                            ><b-form-rating
+                                v-model="comment.rating"
+                                variant="warning"
+                                class="mb-2"
+                            ></b-form-rating
+                        ></b-form-group>
+
+                        <template #modal-footer="{ ok, cancel }">
+                            <b-button @click="cancel()">
+                                Bekor qilish
+                            </b-button>
+                            <b-button variant="success" @click="sendComment()">
+                                Jo'natish
+                            </b-button>
+                        </template>
+                    </b-modal>
                 </div>
             </section>
         </section>
@@ -696,9 +737,16 @@ export default {
     data() {
         return {
             isGet: false,
-
+            dismissSecs: 5,
+            dismissCountDown: 0,
             user: {
                 token: this.$auth.strategy.token.get()
+            },
+
+            comment: {
+                comment: "",
+                rating: null,
+                productId: ""
             },
 
             productsPayed: [],
@@ -817,11 +865,41 @@ export default {
             ]).then(res => {
                 this.isGet = true;
             });
+        },
+        countDownChanged(dismissCountDown) {
+            this.dismissCountDown = dismissCountDown;
+        },
+        openModal(id) {
+            this.comment.productId = id;
+            this.$refs["my-modal"].show();
+
+            this.comment.comment = "";
+            this.comment.rating = null;
+        },
+        sendComment() {
+            let sendData;
+
+            if (this.comment.rating != null) {
+                sendData = {
+                    comment: this.comment.comment,
+                    rating: this.comment.rating,
+                    productId: this.comment.productId
+                };
+            } else {
+                sendData = {
+                    comment: this.comment.comment,
+                    productId: this.comment._id
+                };
+            }
+
+            this.$axios.$post("product/comment/create", sendData).then(res => {
+                this.$refs["my-modal"].hide();
+                this.dismissCountDown = this.dismissSecs;
+            });
         }
     },
 
     async mounted() {
-        console.log(1);
         await Promise.all([
             this.fetchPayedProducts(),
             this.fetchOnTheWayProducts(),

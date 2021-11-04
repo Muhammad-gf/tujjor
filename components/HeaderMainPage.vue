@@ -296,7 +296,7 @@
                                         />
                                     </svg>
 
-                                    <span> {{ personName }} </span>
+                                    <span> {{ $auth.user.name }} </span>
                                 </div>
                                 <nuxt-link to="/profile" class="links">
                                     <span>> Профиль</span>
@@ -898,10 +898,10 @@ export default {
 
     async mounted() {
         const res = await this.$axios.$get("category/all");
-        const token = this.$auth.strategy.token.get();
+
         await this.updateLoggedIn();
-        if (!!token) {
-            const count = await this.fetchCountBasket(token);
+        if (this.$auth.loggedIn) {
+            const count = await this.fetchCountBasket();
             this.basketCount = count.count;
         }
 
@@ -955,7 +955,7 @@ export default {
     position: fixed;
     top: -81px;
     left: 0;
-    z-index: 9999;
+    z-index: 1000;
 
     & {
         transition: all 0.2s;

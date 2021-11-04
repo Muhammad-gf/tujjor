@@ -58,55 +58,15 @@
                     </div>
                 </div>
             </div>
-            <div class="popular__item-box">
-                <nuxt-link
-                    class="popular__items"
+
+            <div class="card-row">
+                <div
+                    class="card-5"
                     v-for="product in allProducts.data"
                     :key="product._id"
-                    :to="{
-                        name: `product-id___${$i18n.locale}`,
-                        params: { id: product.slug }
-                    }"
                 >
-                    <img
-                        class="popular__items__img"
-                        :src="$cdn + product.image"
-                        alt="Popular item photo"
-                        type="photo/png"
-                    />
-                    <div class="popular__items__desription">
-                        <span class="popular__items__desription--name">
-                            {{ product.category[$i18n.locale] }}
-                        </span>
-                        <h4 class="popular__items__desription--categorie">
-                            {{ product.name[$i18n.locale] }}
-                        </h4>
-
-                        <span
-                            class="popular__items__desription--price"
-                            v-if="!!product.discount"
-                        >
-                            {{ updatePriceFormat(product.discount) }}
-                            сум
-                        </span>
-
-                        <span
-                            v-if="!!product.discount"
-                            class="popular__items__desription--price popular__items__desription--old--price hidden"
-                        >
-                            {{ updatePriceFormat(product.price) }}
-                            сум
-                        </span>
-
-                        <span
-                            class="popular__items__desription--price"
-                            v-if="!product.discount"
-                        >
-                            {{ updatePriceFormat(product.price) }}
-                            сум
-                        </span>
-                    </div>
-                </nuxt-link>
+                    <ProductCard :product="product" />
+                </div>
             </div>
 
             <a

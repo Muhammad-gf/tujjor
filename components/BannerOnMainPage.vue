@@ -16,12 +16,30 @@
                         @sliding-end="onSlideEnd"
                     >
                         <!-- Text slides with image -->
-                        <b-carousel-slide
+
+                        <a
+                            v-if="$i18n.locale == 'uz'"
+                            :href="item.url.uz"
                             v-for="(item, index) in slider"
                             :key="index"
                             class="b-carousel-slide"
-                            :img-src="$cdn + item.image"
-                        ></b-carousel-slide>
+                        >
+                            <b-carousel-slide
+                                :img-src="$cdn + item.image.uz"
+                            ></b-carousel-slide>
+                        </a>
+
+                        <a
+                            v-if="$i18n.locale == 'ru'"
+                            :href="item.url.ru"
+                            v-for="(item, index) in slider"
+                            :key="index"
+                            class="b-carousel-slide"
+                        >
+                            <b-carousel-slide
+                                :img-src="$cdn + item.image.ru"
+                            ></b-carousel-slide>
+                        </a>
 
                         <!-- Slide with blank fluid image to maintain slide aspect ratio -->
                     </b-carousel>
@@ -89,7 +107,9 @@ export default {
         display: flex;
         justify-content: center;
         align-items: stretch;
-
+        .carousel-item {
+            height: 100%;
+        }
         &--large--img {
             height: 403px;
             width: 895px;
@@ -186,7 +206,7 @@ export default {
     }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
     .banner__container {
         padding: 0;
         margin: 0;

@@ -136,5 +136,6 @@ export default {
     newparol: "Yangi parol",
     enternew: "Yangi parolni kiriting",
     sendComment: "Kommentariya yozish",
-    nomtov: "Mahsulot nomeri"
+    nomtov: "Mahsulot nomeri",
+    notfound: "Bu so'rov bo'yicha natija topilmadi"
 };

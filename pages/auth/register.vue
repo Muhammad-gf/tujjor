@@ -4,84 +4,87 @@
             class="login-page d-flex flex-column justify-content-center align-items-center"
         >
             <div class="login-page-box d-flex flex-column" v-if="!codeBox">
-                <div
-                    class="d-flex flex-column justify-content-center input__box form-floating"
-                >
-                    <label for="floatingInput">{{ $t("name") }}</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        v-model="user.name"
-                        name="number"
-                        id="number"
-                        :placeholder="$t('name')"
-                    />
-                </div>
+                <form @submit.prevent="registerUserMainFunc">
+                    <div
+                        class="d-flex flex-column justify-content-center input__box form-floating"
+                    >
+                        <label for="floatingInput">{{ $t("name") }}</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="user.name"
+                            name="number"
+                            id="number"
+                            :placeholder="$t('name')"
+                        />
+                    </div>
 
-                <div
-                    class="d-flex flex-column justify-content-center input__box form-floating"
-                >
-                    <label for="floatingInput">{{ $t("tel") }}</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        v-model="user.phone"
-                        name="phone"
-                        id="phone"
-                        :placeholder="$t('tel')"
-                        v-mask="'+998 (##) ###-##-##'"
-                    />
-                </div>
+                    <div
+                        class="d-flex flex-column justify-content-center input__box form-floating"
+                    >
+                        <label for="floatingInput">{{ $t("tel") }}</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="user.phone"
+                            name="phone"
+                            id="phone"
+                            :placeholder="$t('tel')"
+                            v-mask="'+998 (##) ###-##-##'"
+                        />
+                    </div>
 
-                <div
-                    class="d-flex flex-column justify-content-center input__box form-floating"
-                >
-                    <label for="floatingInput">Email</label>
-                    <input
-                        type="email"
-                        class="form-control"
-                        v-model="user.email"
-                        name="email"
-                        id="email"
-                        placeholder="Email"
-                        autocomplete="off"
-                        autocapitalize="off"
-                        aria-autocomplete="button"
-                    />
-                </div>
+                    <div
+                        class="d-flex flex-column justify-content-center input__box form-floating"
+                    >
+                        <label for="floatingInput">Email</label>
+                        <input
+                            type="email"
+                            class="form-control"
+                            v-model="user.email"
+                            name="email"
+                            id="email"
+                            placeholder="Email"
+                            autocomplete="off"
+                            autocapitalize="off"
+                            aria-autocomplete="button"
+                        />
+                    </div>
 
-                <div
-                    class="d-flex flex-column justify-content-center input__box form-floating"
-                >
-                    <label for="floatingInput">{{ $t("pass") }}</label>
-                    <input
-                        type="password"
-                        class="form-control"
-                        v-model="user.password"
-                        name="password"
-                        id="password"
-                        :placeholder="$t('pass')"
-                    />
-                </div>
+                    <div
+                        class="d-flex flex-column justify-content-center input__box form-floating"
+                    >
+                        <label for="floatingInput">{{ $t("pass") }}</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            v-model="user.password"
+                            name="password"
+                            id="password"
+                            :placeholder="$t('pass')"
+                        />
+                    </div>
 
-                <div
-                    class="d-flex flex-column justify-content-center input__box form-floating"
-                >
-                    <input
-                        type="password"
-                        class="form-control"
-                        v-model="passwordRepeat"
-                        name="password2"
-                        id="password2"
-                        :placeholder="$t('rePassword')"
-                    />
-                </div>
+                    <div
+                        class="d-flex flex-column justify-content-center input__box form-floating"
+                    >
+                        <input
+                            type="password"
+                            class="form-control"
+                            v-model="passwordRepeat"
+                            name="password2"
+                            id="password2"
+                            :placeholder="$t('rePassword')"
+                        />
+                    </div>
 
-                <!-- <recaptcha id="recaptcha" /> -->
+                    <!-- <recaptcha id="recaptcha" /> -->
 
-                <a class="button__links" @click="registerUserMainFunc">
-                    {{ $t("reg") }}
-                </a>
+                    <button class="button__links">
+                        {{ $t("reg") }}
+                    </button>
+                </form>
+
                 <div class="hot__link__box d-flex   align-items-baseline">
                     <span class="mr-1">
                         {{ $t("reg1") }}

@@ -68,6 +68,7 @@ export default {
 
 <style lang="scss">
 .brands {
+    margin-bottom: 30px;
     .img__box {
         display: flex !important;
         justify-content: center;
@@ -82,7 +83,9 @@ export default {
             object-fit: contain;
         }
     }
-
+    .popular__heading {
+        margin-bottom: 20px !important;
+    }
     .slick-list {
         margin: 0 -15px;
     }

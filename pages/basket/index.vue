@@ -471,12 +471,16 @@ export default {
         updatePriceAll() {
             let amount = 0;
             this.allInBasket.forEach(item => {
-                if (!!item.size.discount) {
-                    const price = item.count * item.size.discount;
-                    amount += price;
-                } else {
-                    const price = item.count * item.size.price;
-                    amount += price;
+                let f = this.checkBasket.find(i => i == item._id);
+
+                if (f) {
+                    if (!!item.size.discount) {
+                        const price = item.count * item.size.discount;
+                        amount += price;
+                    } else {
+                        const price = item.count * item.size.price;
+                        amount += price;
+                    }
                 }
             });
             return this.updatePriceFormat(amount);
@@ -556,7 +560,6 @@ export default {
                 product: item.product._id
             });
 
-            console.log("alll", basket);
             this.orderProduct(basket);
 
             this.$router.push({
@@ -572,16 +575,20 @@ export default {
                 let basket = [];
 
                 this.allInBasket.forEach(item => {
-                    basket.push({
-                        image: item.product.image,
-                        name: item.product.name,
-                        count: item.count,
-                        param: item.param,
-                        size: item.size,
-                        shop: item.product.shop,
-                        description: item.product.description,
-                        product: item.product._id
-                    });
+                    let f = this.checkBasket.find(i => i == item._id);
+
+                    if (f) {
+                        basket.push({
+                            image: item.product.image,
+                            name: item.product.name,
+                            count: item.count,
+                            param: item.param,
+                            size: item.size,
+                            shop: item.product.shop,
+                            description: item.product.description,
+                            product: item.product._id
+                        });
+                    }
                 });
 
                 console.log("alll", basket);

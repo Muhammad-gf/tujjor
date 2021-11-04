@@ -4,38 +4,40 @@
             class="login-page d-flex flex-column justify-content-center align-items-center"
         >
             <div class="login-page-box d-flex flex-column ">
-                <div
-                    class="d-flex flex-column justify-content-center input__box form-floating"
-                >
-                    <label for="email">{{ $t("tel") }}</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        v-model="user.phone"
-                        name="email"
-                        id="email"
-                        :placeholder="$t('tel')"
-                        v-mask="'+998 (##) ###-##-##'"
-                    />
-                </div>
+                <form @submit.prevent="loginUser">
+                    <div
+                        class="d-flex flex-column justify-content-center input__box form-floating"
+                    >
+                        <label for="email">{{ $t("tel") }}</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="user.phone"
+                            name="email"
+                            id="email"
+                            :placeholder="$t('tel')"
+                            v-mask="'+998 (##) ###-##-##'"
+                        />
+                    </div>
 
-                <div
-                    class="d-flex flex-column justify-content-center input__box form-floating"
-                >
-                    <label for="password">{{ $t("password") }}</label>
-                    <input
-                        type="password"
-                        class="form-control"
-                        v-model="user.password"
-                        name="password"
-                        id="password"
-                        :placeholder="$t('password')"
-                    />
-                </div>
+                    <div
+                        class="d-flex flex-column justify-content-center input__box form-floating"
+                    >
+                        <label for="password">{{ $t("password") }}</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            v-model="user.password"
+                            name="password"
+                            id="password"
+                            :placeholder="$t('password')"
+                        />
+                    </div>
 
-                <a class="button__links" @click="loginUser">
-                    {{ $t("log_in") }}
-                </a>
+                    <button class="button__links">
+                        {{ $t("log_in") }}
+                    </button>
+                </form>
 
                 <div
                     class="hot__link__box d-flex  justify-content-between align-items-baseline"
@@ -205,7 +207,8 @@ export default {
 
         .button__links {
             flex-grow: 1;
-
+            width: 100%;
+            border: none;
             background-color: #f7931e;
             color: white;
             border-radius: 5px;

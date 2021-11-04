@@ -1304,18 +1304,7 @@ export default {
     },
 
     async mounted() {
-        const token = this.user.token;
-        if (!!this.$auth.user) {
-            await Promise.all([
-                this.fetchFavourites(token),
-                this.fetchFavouritesId(token),
-                this.fetchBasket(token)
-            ]);
-        }
-        // await this.fetchCounBasket(token);
-
         const data = await this.fetchProduct();
-        console.log("product", data);
         if (!!data) {
             this.resSuccessFunction(data);
             this.productsInMagazine.id = this.product.shop._id;
